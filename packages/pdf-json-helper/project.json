@@ -1,0 +1,46 @@
+{
+  "name": "pdf-json-helper",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/pdf-json-helper/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/pdf-json-helper",
+        "main": "packages/pdf-json-helper/src/index.ts",
+        "tsConfig": "packages/pdf-json-helper/tsconfig.lib.json",
+        "assets": [],
+        "project": "packages/pdf-json-helper/package.json",
+        "compiler": "swc"
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs pdf-json-helper {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/pdf-json-helper/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/pdf-json-helper/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": ["pdf", "pdfmake", "json-helper"]
+}
