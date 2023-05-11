@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@prt-ts/fluent-formik": ["packages/fluent-formik/src/index.ts"],
+      "@prt-ts/fluent-spfx-core": ["packages/fluent-spfx-core/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
