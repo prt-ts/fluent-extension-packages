@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@prt-ts/export-helpers": ["packages/export-helpers/src/index.ts"],
       "@prt-ts/fluent-formik": ["packages/fluent-formik/src/index.ts"],
       "@prt-ts/fluent-spfx-core": ["packages/fluent-spfx-core/src/index.ts"],
       "@prt-ts/pdf-json-helpers": ["packages/pdf-json-helper/src/index.ts"],
