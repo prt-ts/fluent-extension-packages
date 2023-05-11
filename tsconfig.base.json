@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@prt-ts/fluent-formik": ["packages/fluent-formik/src/index.ts"],
-      "@prt-ts/fluent-spfx-core": ["packages/fluent-spfx-core/src/index.ts"]
+      "@prt-ts/fluent-spfx-core": ["packages/fluent-spfx-core/src/index.ts"],
+      "@prt-ts/utilities": ["packages/utilities/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
