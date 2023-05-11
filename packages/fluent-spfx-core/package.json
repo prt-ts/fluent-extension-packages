@@ -1,9 +1,0 @@
-{
-  "name": "@prt-ts/fluent-spfx-core",
-  "version": "0.0.1-alpha.1",
-  "type": "commonjs",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com/"
-  }
-}
