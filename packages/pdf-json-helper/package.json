@@ -1,5 +1,14 @@
 {
   "name": "@prt-ts/pdf-json-helpers",
-  "version": "0.0.1",
-  "type": "commonjs"
+  "version": "2.0.1",
+  "type": "commonjs",
+  "peerDependencies": {
+    "html-to-pdfmake": ">=2.0.0",
+    "@types/html-to-pdfmake": ">=2.0.0"
+  },
+  "author": "Pradeep Raj Thapaliya",
+  "bugs": {
+    "url": "https://github.com/prt-ts/spfx-workspace.git"
+  },
+  "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme"
 }

@@ -10,7 +10,7 @@
     "noFallthroughCasesInSwitch": true
   },
   "files": [],
-  "include": [],
+  "include": ["Readme.md"],
   "references": [
     {
       "path": "./tsconfig.lib.json"

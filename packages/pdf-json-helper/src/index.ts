@@ -1,1 +1,1 @@
-export * from './lib/pdf-json-helper';
+export * from './lib';

@@ -7,9 +7,10 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
   },
-  "files": [],
+  "files": ["README.md"],
   "include": [],
   "references": [
     {
