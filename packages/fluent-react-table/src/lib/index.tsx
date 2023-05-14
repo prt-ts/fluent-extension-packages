@@ -1,0 +1,1 @@
+export { ExtendedTable as Table } from "./components"

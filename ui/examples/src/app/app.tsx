@@ -1,4 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Table } from '@prt-ts/fluent-react-table';
 import styles from './app.module.scss';
 
 import Web from './Web';
@@ -30,7 +31,7 @@ export function App() {
           path="/page-2"
           element={
             <div>
-              <Link to="/">Click here to go back to root page.</Link>
+               <Table<any>  items={[]}/>
             </div>
           }
         />
