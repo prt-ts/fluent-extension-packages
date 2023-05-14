@@ -1,3 +1,3 @@
 export * from "./Table"
 
-export type { TableProps } from "./TablePropsType"
+export type { TableProps } from "../../props-types"

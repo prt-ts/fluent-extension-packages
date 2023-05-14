@@ -6,113 +6,209 @@ import {
     TableHeader,
     TableHeaderCell,
     TableCellLayout,
-    PresenceBadgeStatus,
-    Avatar,
+    TableSelectionCell,
+    TableColumnDefinition,
+    createTableColumn,
+    useTableFeatures,
+    useTableColumnSizing_unstable,
+    TableColumnSizingOptions,
+    Button,
+    Body1Stronger,
+    Input,
+    Divider,
+    MenuTrigger,
+    Menu,
+    MenuPopover,
+    MenuList,
+    MenuItem,
 } from "@fluentui/react-components";
 import * as React from "react";
-import {
-    FolderRegular,
-    EditRegular,
-    OpenRegular,
-    DocumentRegular,
-    PeopleRegular,
-    DocumentPdfRegular,
-    VideoRegular,
-} from "@fluentui/react-icons";
-import { TableProps } from "./TablePropsType";
+
+import { TableProps } from "../../props-types";
 import { PropsWithChildren } from "react";
+import { TableProps as FluentTableProps } from "@fluentui/react-components"
 
-const items = [
-    {
-        file: { label: "Meeting notes", icon: <DocumentRegular /> },
-        author: { label: "Max Mustermann", status: "available" },
-        lastUpdated: { label: "7h ago", timestamp: 1 },
-        lastUpdate: {
-            label: "You edited this",
-            icon: <EditRegular />,
-        },
-    },
-    {
-        file: { label: "Thursday presentation", icon: <FolderRegular /> },
-        author: { label: "Erika Mustermann", status: "busy" },
-        lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 2 },
-        lastUpdate: {
-            label: "You recently opened this",
-            icon: <OpenRegular />,
-        },
-    },
-    {
-        file: { label: "Training recording", icon: <VideoRegular /> },
-        author: { label: "John Doe", status: "away" },
-        lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 2 },
-        lastUpdate: {
-            label: "You recently opened this",
-            icon: <OpenRegular />,
-        },
-    },
-    {
-        file: { label: "Purchase order", icon: <DocumentPdfRegular /> },
-        author: { label: "Jane Doe", status: "offline" },
-        lastUpdated: { label: "Tue at 9:30 AM", timestamp: 3 },
-        lastUpdate: {
-            label: "You shared this in a Teams chat",
-            icon: <PeopleRegular />,
-        },
-    },
-];
+import { useCustomTableFeature } from "../../hooks";
+import { useTableStyles } from "./useTableStyles"
+import { Pagination } from "../Pagination"
+import { IColumn } from "../../types";
+import {
+    SearchRegular, MoreVerticalFilled, bundleIcon,
+    ClipboardPasteRegular,
+    ClipboardPasteFilled,
+    CutRegular,
+    CutFilled,
+    CopyRegular,
+    CopyFilled,
+} from "@fluentui/react-icons"
 
-const columns = [
-    { columnKey: "file", label: "File" },
-    { columnKey: "author", label: "Author" },
-    { columnKey: "lastUpdated", label: "Last updated" },
-    { columnKey: "lastUpdate", label: "Last update" },
-];
+const PasteIcon = bundleIcon(ClipboardPasteFilled, ClipboardPasteRegular);
+const CopyIcon = bundleIcon(CopyFilled, CopyRegular);
+const CutIcon = bundleIcon(CutFilled, CutRegular);
 
-export const ExtendedTable = <TItem extends {},>(props: PropsWithChildren<TableProps<TItem>>) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export function tryGetObjectValue(fieldName: string | undefined, item: any) {
+    if (!fieldName)
+        return item;
+
+    let prop = "";
+    const props = fieldName.split('.');
+
+    let i = 0;
+    while (i < props.length - 1) {
+        prop = props[i];
+
+        const candidate = item?.[prop];
+        if (candidate !== undefined) {
+            item = candidate;
+        } else {
+            break;
+        }
+        i++;
+    }
+
+    return item[props[i]];
+}
+
+export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>,>(props: PropsWithChildren<TableProps<TItem>>) => {
+
+    const styles = useTableStyles();
+
+    const columns = React.useMemo<TableColumnDefinition<TItem>[]>(() => {
+        return props.columns?.map(col => createTableColumn<TItem>({
+            columnId: col.columnId,
+            renderHeaderCell: col.renderHeaderCell
+        }))
+    }, [props.columns]);
+
+    const extendedColumns = React.useMemo<IColumn<TItem>[]>(() => props.columns, [props.columns]);
+
+    const columnSizingOptions = React.useMemo<TableColumnSizingOptions>(() => {
+        /* eslint-disable @typescript-eslint/no-explicit-any */
+        const sizingOptions: any = {};
+        for (const col of props.columns) {
+            sizingOptions[col.columnId] = col.sizeOptions
+        }
+        return sizingOptions;
+    }, [props.columns]);
+
+    const {
+        selectionMode = "none",
+        items,
+        ...rest
+    } = props;
+
+    const { ...tableProps }: FluentTableProps = rest;
+
+    const { columnSizing_unstable, tableRef } = useTableFeatures<TItem>(
+        {
+            columns,
+            items
+        },
+        [useTableColumnSizing_unstable({ columnSizingOptions })]
+    );
+
+    const {
+        pagedItems,
+
+        filterState: {
+            filterValue,
+            setFilterValue,
+            resetFilterValue
+        },
+
+        selectionState: { isEverySelected, isItemSelected, toggleRow, toggleAllRows },
+
+        paginationState
+
+    } = useCustomTableFeature(props);
 
     return (
-        <Table arial-label="Default table">
-            <TableHeader>
-                <TableRow>
-                    {columns.map((column) => (
-                        <TableHeaderCell key={column.columnKey}>
-                            {column.label}
-                        </TableHeaderCell>
-                    ))}
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {items.map((item) => (
-                    <TableRow key={item.file.label}>
-                        <TableCell>
-                            <TableCellLayout media={item.file.icon}>
-                                {item.file.label}
-                            </TableCellLayout>
-                        </TableCell>
-                        <TableCell>
-                            <TableCellLayout
-                                media={
-                                    <Avatar
-                                        aria-label={item.author.label}
-                                        name={item.author.label}
-                                        badge={{
-                                            status: item.author.status as PresenceBadgeStatus,
-                                        }}
-                                    />
-                                }
+        <>
+            <Input
+                type="search"
+                size={"small"}
+                contentBefore={<SearchRegular />}
+                contentAfter={<Menu>
+                    <MenuTrigger disableButtonEnhancement>
+                        <Button appearance="subtle" icon={<MoreVerticalFilled />} />
+                    </MenuTrigger>
+
+                    <MenuPopover>
+                        <MenuList>
+                            <MenuItem
+                                icon={<CutIcon />}
+                                onClick={resetFilterValue}
                             >
-                                {item.author.label}
-                            </TableCellLayout>
-                        </TableCell>
-                        <TableCell>{item.lastUpdated.label}</TableCell>
-                        <TableCell>
-                            <TableCellLayout media={item.lastUpdate.icon}>
-                                {item.lastUpdate.label}
-                            </TableCellLayout>
-                        </TableCell>
+                                Clear Filter
+                            </MenuItem>
+                            <MenuItem
+                                icon={<CopyIcon />}
+                                onClick={() => alert("Copied to clipboard")}
+                            >
+                                Copy
+                            </MenuItem>
+                            <MenuItem
+                                icon={<PasteIcon />}
+                                onClick={() => alert("Pasted from clipboard")}
+                            >
+                                Paste
+                            </MenuItem>
+                        </MenuList>
+                    </MenuPopover>
+                </Menu>}
+                value={filterValue as string}
+                onChange={(ev, data) => setFilterValue(data.value)} />
+            <Divider />
+            <Table {...tableProps} ref={tableRef}>
+                <TableHeader>
+                    <TableRow className={styles.headerRow}>
+                        <TableSelectionCell
+                            checked={isEverySelected(pagedItems)}
+                            onClick={() => toggleAllRows(pagedItems)}
+                            onKeyDown={() => toggleAllRows(pagedItems)}
+                            checkboxIndicator={{ "aria-label": "Select all rows " }}
+                            type={selectionMode === "single" ? "radio" : "checkbox"}
+                            hidden={selectionMode === "none" || selectionMode === "single"}
+                            className={styles.headerRow}
+                        />
+                        {extendedColumns.map((column) => (
+                            <TableHeaderCell
+                                key={column.columnId}
+                                aside={<Button size="small">Hello</Button>}
+                                {...columnSizing_unstable.getTableHeaderCellProps(column.columnId)}
+                            >
+                                <Body1Stronger>{column.renderHeaderCell()}</Body1Stronger>
+                            </TableHeaderCell>
+                        ))}
                     </TableRow>
-                ))}
-            </TableBody>
-        </Table>
+                </TableHeader>
+                <TableBody>
+                    {pagedItems.map((item, index) => (
+                        <TableRow key={index} className={isItemSelected(item) ? styles.selectedRow : undefined}>
+                            <TableSelectionCell
+                                checked={isItemSelected(item)}
+                                onChange={() => toggleRow(item)}
+                                checkboxIndicator={{ "aria-label": "Select row" }}
+                                type={selectionMode == "single" ? "radio" : "checkbox"}
+                                hidden={selectionMode === "none"}
+                            />
+                            {extendedColumns.map((column, colIndex) => (
+                                <TableCell key={`${column.columnId}_${colIndex}`}>
+                                    <TableCellLayout
+                                        media={column.renderMedia && column.renderMedia(item) as JSX.Element}
+                                    >
+                                        {column.renderCell ? (column.renderCell(item)) : (tryGetObjectValue(column.columnId as string, item) as string)}
+                                    </TableCellLayout>
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+            <Divider />
+            <Pagination {...paginationState} />
+            <Divider />
+        </>
     );
-};
+}; 

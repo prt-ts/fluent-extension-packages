@@ -9,8 +9,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "files": [],
-  "include": ["Readme.md"],
+  "files": [], 
   "references": [
     {
       "path": "./tsconfig.lib.json"
