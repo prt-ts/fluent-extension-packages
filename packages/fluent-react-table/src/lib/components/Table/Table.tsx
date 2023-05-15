@@ -21,6 +21,7 @@ import {
     MenuPopover,
     MenuList,
     MenuItem,
+    TableCellActions,
 } from "@fluentui/react-components";
 import * as React from "react";
 
@@ -124,91 +125,114 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
     } = useCustomTableFeature(props);
 
     return (
-        <>
-            <Input
-                type="search"
-                size={"small"}
-                contentBefore={<SearchRegular />}
-                contentAfter={<Menu>
-                    <MenuTrigger disableButtonEnhancement>
-                        <Button appearance="subtle" icon={<MoreVerticalFilled />} />
-                    </MenuTrigger>
+      <>
+        <Input
+          type="search"
+          size={'small'}
+          contentBefore={<SearchRegular />}
+          contentAfter={
+            <Menu>
+              <MenuTrigger disableButtonEnhancement>
+                <Button appearance="subtle" icon={<MoreVerticalFilled />} />
+              </MenuTrigger>
 
-                    <MenuPopover>
-                        <MenuList>
-                            <MenuItem
-                                icon={<CutIcon />}
-                                onClick={resetFilterValue}
-                            >
-                                Clear Filter
-                            </MenuItem>
-                            <MenuItem
-                                icon={<CopyIcon />}
-                                onClick={() => alert("Copied to clipboard")}
-                            >
-                                Copy
-                            </MenuItem>
-                            <MenuItem
-                                icon={<PasteIcon />}
-                                onClick={() => alert("Pasted from clipboard")}
-                            >
-                                Paste
-                            </MenuItem>
-                        </MenuList>
-                    </MenuPopover>
-                </Menu>}
-                value={filterValue as string}
-                onChange={(ev, data) => setFilterValue(data.value)} />
-            <Divider />
-            <Table {...tableProps} ref={tableRef}>
-                <TableHeader>
-                    <TableRow className={styles.headerRow}>
-                        <TableSelectionCell
-                            checked={isEverySelected(pagedItems)}
-                            onClick={() => toggleAllRows(pagedItems)}
-                            onKeyDown={() => toggleAllRows(pagedItems)}
-                            checkboxIndicator={{ "aria-label": "Select all rows " }}
-                            type={selectionMode === "single" ? "radio" : "checkbox"}
-                            hidden={selectionMode === "none" || selectionMode === "single"}
-                            className={styles.headerRow}
-                        />
-                        {extendedColumns.map((column) => (
-                            <TableHeaderCell
-                                key={column.columnId}
-                                aside={<Button size="small">Hello</Button>}
-                                {...columnSizing_unstable.getTableHeaderCellProps(column.columnId)}
-                            >
-                                <Body1Stronger>{column.renderHeaderCell()}</Body1Stronger>
-                            </TableHeaderCell>
-                        ))}
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {pagedItems.map((item, index) => (
-                        <TableRow key={index} className={isItemSelected(item) ? styles.selectedRow : undefined}>
-                            <TableSelectionCell
-                                checked={isItemSelected(item)}
-                                onChange={() => toggleRow(item)}
-                                checkboxIndicator={{ "aria-label": "Select row" }}
-                                type={selectionMode == "single" ? "radio" : "checkbox"}
-                                hidden={selectionMode === "none"}
-                            />
-                            {extendedColumns.map((column, colIndex) => (
-                                <TableCell key={`${column.columnId}_${colIndex}`}>
-                                    <TableCellLayout
-                                        media={column.renderMedia && column.renderMedia(item) as JSX.Element}
-                                    >
-                                        {column.renderCell ? (column.renderCell(item)) : (tryGetObjectValue(column.columnId as string, item) as string)}
-                                    </TableCellLayout>
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-            <Divider />
-            <Pagination {...paginationState} />
-            <Divider />
-        </>
+              <MenuPopover>
+                <MenuList>
+                  <MenuItem icon={<CutIcon />} onClick={resetFilterValue}>
+                    Clear Filter
+                  </MenuItem>
+                  <MenuItem
+                    icon={<CopyIcon />}
+                    onClick={() => alert('Copied to clipboard')}
+                  >
+                    Copy
+                  </MenuItem>
+                  <MenuItem
+                    icon={<PasteIcon />}
+                    onClick={() => alert('Pasted from clipboard')}
+                  >
+                    Paste
+                  </MenuItem>
+                </MenuList>
+              </MenuPopover>
+            </Menu>
+          }
+          value={filterValue as string}
+          onChange={(ev, data) => setFilterValue(data.value)}
+        />
+        <Divider />
+        <Table {...tableProps} ref={tableRef}>
+          <TableHeader>
+            <TableRow className={styles.headerRow}>
+              <TableSelectionCell
+                checked={isEverySelected(pagedItems)}
+                onClick={() => toggleAllRows(pagedItems)}
+                onKeyDown={() => toggleAllRows(pagedItems)}
+                checkboxIndicator={{ 'aria-label': 'Select all rows ' }}
+                type={selectionMode === 'single' ? 'radio' : 'checkbox'}
+                hidden={selectionMode === 'none' || selectionMode === 'single'}
+                className={styles.headerRow}
+              />
+              {extendedColumns.map((column) => (
+                <TableHeaderCell
+                  key={column.columnId}
+                  aside={<Button size="small">Hello</Button>}
+                  {...columnSizing_unstable.getTableHeaderCellProps(
+                    column.columnId
+                  )}
+                >
+                  <Body1Stronger>{column.renderHeaderCell()}</Body1Stronger>
+                </TableHeaderCell>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {pagedItems.map((item, index) => (
+              <TableRow
+                key={index}
+                className={
+                  isItemSelected(item) ? styles.selectedRow : undefined
+                }
+              >
+                <TableSelectionCell
+                  checked={isItemSelected(item)}
+                  onChange={() => toggleRow(item)}
+                  checkboxIndicator={{ 'aria-label': 'Select row' }}
+                  type={selectionMode == 'single' ? 'radio' : 'checkbox'}
+                  hidden={selectionMode === 'none'}
+                />
+                {extendedColumns.map((column, colIndex) => (
+                  <TableCell key={`${column.columnId}_${colIndex}`}>
+                    <TableCellLayout
+                      media={
+                        column.renderMedia &&
+                        (column.renderMedia(item) as JSX.Element)
+                      }
+                      appearance={column.appearance}
+                    >
+                      {column.renderCell
+                        ? column.renderCell(item)
+                        : (tryGetObjectValue(
+                            column.columnId as string,
+                            item
+                          ) as string)}
+                    </TableCellLayout>
+                    {column.renderActions ? (
+                      <TableCellActions>
+                        {column.renderActions(item)}
+                      </TableCellActions>
+                    ) : (
+                      <></>
+                    )}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <Divider />
+        <Pagination {...paginationState} />
+        <Divider />
+      </>
     );
 }; 
