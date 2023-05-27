@@ -65,7 +65,7 @@ export function useTablePagination(defaultPageSize: number, defaultPageOptions: 
     }, []);
 
     const updateTotalItemCount = React.useCallback((newItemsCount: number) => { 
-        if (newItemsCount === totalItemCount) return; 
+        // if (newItemsCount === totalItemCount) return; 
         setTotalItemCount(newItemsCount);
     }, []);
 

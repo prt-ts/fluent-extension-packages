@@ -59,7 +59,7 @@ export const Pagination: React.FunctionComponent<{
                 </Dropdown>
             </div>
             <div>
-                <Caption1Strong>Showing Page {currentPage + 1} of {totalNumberOfPage}</Caption1Strong>
+                <Caption1Strong>Showing Page {currentPage + 1} of {totalNumberOfPage > 0 ? totalNumberOfPage : 1}</Caption1Strong>
             </div>
             <div className={styles.pageBtnContainer}>
                 <Button shape="circular" size="small" className={styles.pageBtn} icon={<PreviousRegular />} disabled={currentPage === 0} onClick={() => first && first()} />

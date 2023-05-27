@@ -4,7 +4,7 @@ import { useGridHeaderStyles } from './useGridHeaderStyles';
 export const GridHeader: React.FunctionComponent<{
     search?: React.ReactNode,
     title?: React.ReactNode,
-    actionMenu?: React.ReactNode
+    actionMenu?: () => React.ReactNode
 }> = (props) => {
 
     // styles
@@ -16,7 +16,7 @@ export const GridHeader: React.FunctionComponent<{
     return (
         <div className={styles.wrapper}>
             <div>
-                {actionMenu}
+                {actionMenu && actionMenu()}
             </div>
             <div>
                 {title}

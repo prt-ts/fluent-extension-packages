@@ -40,6 +40,8 @@ import {
 } from "@fluentui/react-icons"
 import { GridHeader } from "../GridHeader";
 import { Loading } from "../Loading";
+import { NoFilterMatch } from "../NoFilterMatch";
+import { EmptyGrid } from "../EmptyGrid";
 
 const ClearFilterIcon = bundleIcon(CodeTextOff16Filled, CodeTextOff16Regular);
 
@@ -91,7 +93,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
   const {
     selectionMode = "none",
-    isLoading = false, 
+    isLoading = false,
     items,
     onGetGridActionMenu,
     gridTitle,
@@ -123,11 +125,14 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
   } = useCustomTableFeature(props);
 
-  const showLoader = React.useMemo(() => isLoading && pagedItems?.length === 0, [isLoading, pagedItems]);
+  const showLoader = React.useMemo(() => isLoading && items?.length === 0, [isLoading, items]);
+  const showNoItem = React.useMemo(() => !isLoading && items?.length === 0, [isLoading, items]);
+  const showNoItemMatch = React.useMemo(() => pagedItems?.length === 0 && items?.length > 0, [isLoading, pagedItems, items]);
+
+  const actionCallback = React.useCallback(() => onGetGridActionMenu && onGetGridActionMenu(selectedItems), [selectedItems])
 
   return (
     <>
-
       <div>
         <GridHeader search={
           <Input
@@ -154,7 +159,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
             onChange={(ev, data) => setFilterValue(data.value)}
           />
         }
-          actionMenu={onGetGridActionMenu && onGetGridActionMenu(selectedItems)}
+          actionMenu={actionCallback}
           title={gridTitle}
         />
       </div>
@@ -167,8 +172,8 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                 checked={isEverySelected(pagedItems)}
                 onClick={() => toggleAllRows(pagedItems)}
                 onKeyDown={() => toggleAllRows(pagedItems)}
-                checkboxIndicator={{ 'aria-label': 'Select all rows ' }} 
-                className={styles.headerRow} 
+                checkboxIndicator={{ 'aria-label': 'Select all rows ' }}
+                className={styles.headerRow}
               />}
               {
                 selectionMode === "single" && (<TableHeaderCell className={styles.headerSelectionCell}></TableHeaderCell>)
@@ -229,9 +234,9 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
             ))}
           </TableBody>
         </Table>
-        {
-          showLoader && (<Loading />)
-        }
+        {showLoader && (<Loading />)}
+        {showNoItem && (<EmptyGrid />)}
+        {showNoItemMatch && (<NoFilterMatch />)}
       </div>
       <Divider />
       <div>
