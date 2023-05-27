@@ -1,4 +1,4 @@
-import { Button, Dropdown, Option, Subtitle2Stronger, useId } from '@fluentui/react-components'
+import { Button, Dropdown, Option, Caption1Strong, useId } from '@fluentui/react-components'
 import { ArrowNextFilled, ArrowPreviousFilled, NextRegular, PreviousRegular } from '@fluentui/react-icons'
 import * as React from 'react'
 import { MAX_PAGE_OPTION } from '../../hooks/useTablePagination';
@@ -59,7 +59,7 @@ export const Pagination: React.FunctionComponent<{
                 </Dropdown>
             </div>
             <div>
-                <Subtitle2Stronger>Showing Page {currentPage + 1} of {totalNumberOfPage}</Subtitle2Stronger>
+                <Caption1Strong>Showing Page {currentPage + 1} of {totalNumberOfPage}</Caption1Strong>
             </div>
             <div className={styles.pageBtnContainer}>
                 <Button shape="circular" size="small" className={styles.pageBtn} icon={<PreviousRegular />} disabled={currentPage === 0} onClick={() => first && first()} />

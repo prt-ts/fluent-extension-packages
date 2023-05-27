@@ -14,7 +14,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
     } = props;
 
     const { filter, setFilterValue, resetFilterValue, applyFilter, } = useTableFilter()
-    const { toggleRow, toggleAllRows, isEverySelected, isItemSelected } = useTableSelection(selectionMode, (selectedItems: TItem[]) => {
+    const {selectedItems, toggleRow, toggleAllRows, isEverySelected, isItemSelected } = useTableSelection(selectionMode, (selectedItems: TItem[]) => {
 
         console.log(selectedItems);
         // propagate selection
@@ -76,6 +76,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         pagedItems,
 
         selectionState: {
+            selectedItems,
             isEverySelected,
             isItemSelected,
             toggleRow,

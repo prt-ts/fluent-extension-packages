@@ -44,6 +44,7 @@ export function useTableSelection<TItem extends NonNullable<{ id: string | numbe
         , [selectedItems]);
 
     return {
+        selectedItems,
         toggleRow,
         toggleAllRows,
         isItemSelected,
