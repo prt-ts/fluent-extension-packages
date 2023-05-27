@@ -2,7 +2,7 @@ import * as React from "react";
 import { tryGetObjectValue } from "../components";
 
 export function filterItemsByTerm<TITem>(filedKeys: (string | number)[], items: TITem[], searchTerm: string | number | Date) {
-    if (searchTerm) { 
+    if (searchTerm) {
         const filteredItems = items?.filter(function (item: TITem) {
             return filedKeys?.some(function (k: string | number) {
                 const fieldValue = tryGetObjectValue(k as string, item)
@@ -10,7 +10,7 @@ export function filterItemsByTerm<TITem>(filedKeys: (string | number)[], items: 
                     fieldValue
                         ?.toString()
                         ?.toLowerCase()
-                        ?.indexOf(`${searchTerm}`?.toLocaleLowerCase()) > -1
+                        ?.indexOf(`${searchTerm}`?.trim()?.toLocaleLowerCase()) > -1
                 );
             });
         });
@@ -22,13 +22,13 @@ export function filterItemsByTerm<TITem>(filedKeys: (string | number)[], items: 
     return items;
 }
 
-export function useTableFilter<TItem extends NonNullable<{id : string | number}>>() {
+export function useTableFilter<TItem extends NonNullable<{ id: string | number }>>() {
 
     const [filter, setFilter] = React.useState<string | Date | number>("");
 
-    const applyFilter = React.useCallback((columnIds: (string | number)[],items: TItem[]): TItem[] => {
+    const applyFilter = React.useCallback((columnIds: (string | number)[], items: TItem[]): TItem[] => {
 
-        if (filter) { 
+        if (filter) {
             const globallyFilteredItems = filterItemsByTerm<TItem>(columnIds, items, filter);
             return globallyFilteredItems;
         }
