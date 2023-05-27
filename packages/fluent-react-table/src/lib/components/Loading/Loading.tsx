@@ -5,16 +5,16 @@ import {
 import * as React from "react";
 import { useLoadingStyles } from "./useLoadingStyles";
 
-export const Loading: React.FC<{ }> = () => {
+export const Loading: React.FC = () => {
     const styles = useLoadingStyles();
     return (<div className={styles.invertedWrapper}>
         <Skeleton>
             {
-                [...Array(12)].map(() => (<div className={styles.row}>
+                [...Array(12)].map((_, i) => (<div key={i} className={styles.row}>
                     <SkeletonItem shape="circle" size={24} />
                     <SkeletonItem size={16} />
                     <SkeletonItem size={16} />
-                    <SkeletonItem size={16} /> 
+                    <SkeletonItem size={16} />
                 </div>))
             }
         </Skeleton>

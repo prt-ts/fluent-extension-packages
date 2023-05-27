@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-formik",
-  "version": "1.0.19-fluent-9.20.4",
+  "version": "1.0.21-fluent-9.20.4",
   "description": "Fluent Formik is a component library for React that provides a set of components to build forms using Formik and Fluent UI",
   "type": "commonjs",
   "peerDependencies": {
@@ -11,5 +11,11 @@
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0",
     "react-dropzone": ">=14.0.0"
-  }
+  },
+  "license": "MIT",
+  "author": "Pradeep Raj Thapaliya",
+  "bugs": {
+    "url": "https://github.com/prt-ts/spfx-workspace.git"
+  },
+  "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme"
 }

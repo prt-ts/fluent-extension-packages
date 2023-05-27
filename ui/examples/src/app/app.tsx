@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Table } from '@prt-ts/fluent-react-table';
+
 import {
     FolderRegular,
     EditRegular,
@@ -13,24 +13,9 @@ import {
 import Web from './Web';
 
 import { Route, Routes, Link } from 'react-router-dom';
-import { PresenceBadgeStatus, Subtitle2Stronger } from '@fluentui/react-components';
+import { PresenceBadgeStatus } from '@fluentui/react-components';
+import { TableExample } from "./TableExample";
 
-import {
-    Toolbar,
-    ToolbarButton,
-    ToolbarDivider,
-    Menu,
-    MenuTrigger,
-    MenuPopover,
-    MenuList,
-    MenuItem,
-} from "@fluentui/react-components";
-import {
-    FontIncrease24Regular,
-    FontDecrease24Regular,
-    TextFont24Regular,
-    MoreHorizontal24Filled,
-} from "@fluentui/react-icons";
 
 type FileCell = {
     label: string;
@@ -52,14 +37,14 @@ type AuthorCell = {
     status: PresenceBadgeStatus;
 };
 
-type Item = {
+export type Item = {
     id: number | string
     file: FileCell;
     author: AuthorCell;
     lastUpdated: LastUpdatedCell;
     lastUpdate: LastUpdateCell;
 };
-const items: Item[] = [
+export const items: Item[] = [
     {
         id: 1,
         file: { label: "Meeting notes", icon: <DocumentRegular /> },
@@ -685,77 +670,7 @@ export function App() {
                 <Route path="/" element={<div><Web /></div>} />
                 <Route
                     path="/page-2"
-                    element={
-                        <div>
-                            <Table
-                                items={items} 
-                                isLoading={true}
-                                gridTitle={<Subtitle2Stronger>Example Table</Subtitle2Stronger>}
-                                size='small'
-                                selectionMode='none'
-                                columns={[
-                                    {
-                                        columnId: "file.label",
-                                        renderHeaderCell: () => <>File</>,
-
-                                        renderCell: (item: Item) => <>{item.file.icon} {item.file.label}</>,
-
-                                        sizeOptions: {
-                                            defaultWidth: 500
-                                        }
-                                    },
-                                    {
-                                        columnId: "author.label",
-                                        renderHeaderCell: () => <>Author</>
-                                    },
-                                    {
-                                        columnId: "lastUpdated.label",
-                                        renderHeaderCell: () => <>Last Updated</>
-                                    },
-                                    {
-                                        columnId: "lastUpdate.label",
-                                        renderHeaderCell: () => <>Note</>,
-                                        renderMedia: (item: Item) => item.lastUpdate.icon
-                                    }
-                                ]}
-
-                                onGetGridActionMenu={(selectedItems) => {
-                                    console.log("selectedItems", selectedItems)
-                                    return (
-                                        <Toolbar aria-label="Default">
-                                            <ToolbarButton
-                                                aria-label="Increase Font Size"
-                                                appearance="primary"
-                                                icon={<FontIncrease24Regular />}
-                                            />
-                                            <ToolbarButton
-                                                aria-label="Decrease Font Size"
-                                                icon={<FontDecrease24Regular />}
-                                            />
-                                            <ToolbarButton aria-label="Reset Font Size" icon={<TextFont24Regular />} />
-                                            <ToolbarDivider />
-                                            <Menu>
-                                                <MenuTrigger>
-                                                    <ToolbarButton aria-label="More" icon={<MoreHorizontal24Filled />} />
-                                                </MenuTrigger>
-
-                                                <MenuPopover>
-                                                    <MenuList>
-                                                        <MenuItem>New </MenuItem>
-                                                        <MenuItem>New Window</MenuItem>
-                                                        <MenuItem disabled>Open File</MenuItem>
-                                                        <MenuItem>Open Folder</MenuItem>
-                                                    </MenuList>
-                                                </MenuPopover>
-                                            </Menu>
-                                        </Toolbar>)
-                                }}
-
-                            />
-
-
-                        </div>
-                    }
+                    element={<TableExample />}
                 />
             </Routes>
             {/* END: routes */}

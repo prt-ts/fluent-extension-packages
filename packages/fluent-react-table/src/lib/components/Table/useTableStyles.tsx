@@ -15,7 +15,8 @@ export const useTableStyles = makeStyles({
 
         "::-webkit-scrollbar": { 
             width: "5px",
-            height: "4px"
+            height: "4px",
+            ...shorthands.borderRadius("50%")
         },
 
         /* Track */
