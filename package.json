@@ -11,8 +11,8 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@fluentui/react-components": "9.20.0",
-    "@fluentui/react-datepicker-compat": "^0.0.0",
+    "@fluentui/react-components": "^9.20.4",
+    "@fluentui/react-datepicker-compat": "^0.1.4",
     "@nx/cypress": "16.1.4",
     "@nx/eslint-plugin": "16.1.4",
     "@nx/jest": "16.1.4",
@@ -76,4 +76,3 @@
   },
   "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme"
 }
-
