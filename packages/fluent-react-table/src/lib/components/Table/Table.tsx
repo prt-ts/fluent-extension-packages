@@ -22,7 +22,6 @@ import {
   MenuList,
   MenuItem,
   TableCellActions,
-  Spinner,
   mergeClasses,
 } from "@fluentui/react-components";
 import * as React from "react";
@@ -213,8 +212,9 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                       media={
                         column.renderMedia &&
                         (column.renderMedia(item) as JSX.Element)
-                      }
+                      } 
                       appearance={column.appearance}
+                      description={column.renderSecondary && column.renderSecondary(item) as JSX.Element}
                     >
                       {column.renderCell
                         ? column.renderCell(item)

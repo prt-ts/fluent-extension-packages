@@ -54,8 +54,8 @@ export function TableExample() {
             isLoading={isLoading}
             gridTitle={<Subtitle2Stronger>Example Table</Subtitle2Stronger>}
             size='small'
-            selectionMode='single'
-            getRowClasses={(item, index) => (index ===3) ? styles.evenRow : ""}
+            selectionMode='multiple'
+            // getRowClasses={(item, index) => item.id == 3 ? styles.evenRow : ""}
             columns={[
                 {
                     columnId: "file.label",
@@ -71,7 +71,8 @@ export function TableExample() {
                 },
                 {
                     columnId: "author.label",
-                    renderHeaderCell: () => <>Author</>
+                    renderHeaderCell: () => <>Author</>,
+                    renderSecondary: (item) => item.author.status
                 },
                 {
                     columnId: "lastUpdated.label",
@@ -87,6 +88,7 @@ export function TableExample() {
                     }
                 }
             ]}
+            
             onGetGridActionMenu={(selectedItems) => {
                 console.log("selectedItems", selectedItems)
                 return (

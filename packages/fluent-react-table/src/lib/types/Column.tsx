@@ -1,13 +1,12 @@
 import { TableColumnId } from "@fluentui/react-components"
-import { ReactNode } from "react"
 
 export type IColumn<TItem extends NonNullable<{ id: string | number }>> = {
   columnId: TableColumnId;
   renderHeaderCell: () => React.ReactNode;
 
   renderCell?: (item: TItem) => React.ReactNode;
-  renderMedia?: (item: TItem) => JSX.Element;
-  renderSecondary?: (item: TItem) => JSX.Element;
+  renderMedia?: (item: TItem) => React.ReactNode;
+  renderSecondary?: (item: TItem) => React.ReactNode;
 
   appearance?: 'primary' | undefined;
   renderActions?: (item: TItem) => React.ReactNode;
