@@ -8,6 +8,7 @@ import {
     MenuPopover,
     MenuList,
     MenuItem,
+    Button,
 } from "@fluentui/react-components";
 import {
     FontIncrease24Regular,
@@ -19,10 +20,24 @@ import { Subtitle2Stronger } from '@fluentui/react-components';
 import * as React from "react";
 import { Item, items } from './app';
 
+import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
+
+export const useTableStyles = makeStyles({
+ 
+    evenRow: {
+        backgroundColor: tokens.colorPaletteRedBackground3,
+        ":hover": {
+            backgroundColor: tokens.colorBrandBackground2,
+        }
+    },
+ 
+});
+
 
 export function TableExample() {
     const [gridItems, setGridItems] = React.useState<Item[]>([])
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
+    const styles = useTableStyles();
 
     React.useEffect(() => { 
         const timeout = setTimeout(() => {
@@ -40,6 +55,7 @@ export function TableExample() {
             gridTitle={<Subtitle2Stronger>Example Table</Subtitle2Stronger>}
             size='small'
             selectionMode='single'
+            getRowClasses={(item, index) => (index ===3) ? styles.evenRow : ""}
             columns={[
                 {
                     columnId: "file.label",
@@ -48,8 +64,10 @@ export function TableExample() {
                     renderCell: (item: Item) => <>{item.file.icon} {item.file.label}</>,
 
                     sizeOptions: {
-                        defaultWidth: 500
-                    }
+                        defaultWidth: 300
+                    },
+                     appearance: "primary",
+                    renderActions: (items) => <Button appearance='transparent' size='small'>Test Action</Button> 
                 },
                 {
                     columnId: "author.label",
@@ -62,7 +80,11 @@ export function TableExample() {
                 {
                     columnId: "lastUpdate.label",
                     renderHeaderCell: () => <>Note</>,
-                    renderMedia: (item: Item) => item.lastUpdate.icon
+                    renderMedia: (item: Item) => item.lastUpdate.icon,
+
+                    sizeOptions : {
+                        defaultWidth : 100
+                    }
                 }
             ]}
             onGetGridActionMenu={(selectedItems) => {

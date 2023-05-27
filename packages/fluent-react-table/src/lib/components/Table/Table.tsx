@@ -23,6 +23,7 @@ import {
   MenuItem,
   TableCellActions,
   Spinner,
+  mergeClasses,
 } from "@fluentui/react-components";
 import * as React from "react";
 
@@ -92,11 +93,12 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
   }, [props.columns]);
 
   const {
+    gridTitle,
     selectionMode = "none",
     isLoading = false,
     items,
     onGetGridActionMenu,
-    gridTitle,
+    getRowClasses,
     ...rest
   } = props;
 
@@ -196,7 +198,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
               <TableRow
                 key={index}
                 className={
-                  isItemSelected(item) ? styles.selectedRow : undefined
+                  mergeClasses(isItemSelected(item) ? styles.selectedRow : undefined, getRowClasses ? getRowClasses(item, index) : undefined)
                 }
               >
                 {selectionMode !== 'none' && <TableSelectionCell

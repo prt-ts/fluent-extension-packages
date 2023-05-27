@@ -64,4 +64,11 @@ export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = F
      * @default defaultNoItemComponent
      */
     noItem?: React.ReactNode;
+
+
+    /**
+     * class to customize table row
+     * @default undefined
+     */
+    getRowClasses?: (item: TItem, index: number) => string;
 }
