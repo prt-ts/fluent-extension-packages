@@ -69,7 +69,7 @@ export const items: Item[] = [
         id: 3,
         file: { label: "Training recording", icon: <VideoRegular /> },
         author: { label: "John Doe", status: "away" },
-        lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 2 },
+        lastUpdated: { label: "Yesterday at 1:46 PM", timestamp: 2 },
         lastUpdate: {
             label: "You recently opened this",
             icon: <OpenRegular />,
@@ -128,7 +128,7 @@ export const items: Item[] = [
     {
         id: 1,
         file: { label: "Meeting notes", icon: <DocumentRegular /> },
-        author: { label: "Max Mustermann", status: "available" },
+        author: { label: "Pradeep Thapaliya", status: "available" },
         lastUpdated: { label: "7h ago", timestamp: 1 },
         lastUpdate: {
             label: "You edited this",
@@ -168,8 +168,18 @@ export const items: Item[] = [
     {
         id: 1,
         file: { label: "Meeting notes", icon: <DocumentRegular /> },
-        author: { label: "Max Mustermann", status: "available" },
-        lastUpdated: { label: "7h ago", timestamp: 1 },
+        author: { label: "Durga Lamichhane", status: "available" },
+        lastUpdated: { label: "9h ago", timestamp: 1 },
+        lastUpdate: {
+            label: "You edited this",
+            icon: <EditRegular />,
+        },
+    },
+    {
+        id: 1,
+        file: { label: "Meeting notes", icon: <DocumentRegular /> },
+        author: { label: "Durga Lamichhane", status: "available" },
+        lastUpdated: { label: "10h ago", timestamp: 1 },
         lastUpdate: {
             label: "You edited this",
             icon: <EditRegular />,
@@ -208,8 +218,8 @@ export const items: Item[] = [
     {
         id: 1,
         file: { label: "Meeting notes", icon: <DocumentRegular /> },
-        author: { label: "Max Mustermann", status: "available" },
-        lastUpdated: { label: "7h ago", timestamp: 1 },
+        author: { label: "Pradeep Thapaliya", status: "available" },
+        lastUpdated: { label: "8h ago", timestamp: 1 },
         lastUpdate: {
             label: "You edited this",
             icon: <EditRegular />,

@@ -23,6 +23,7 @@ import {
   MenuItem,
   TableCellActions,
   mergeClasses,
+  Caption1Stronger,
 } from "@fluentui/react-components";
 import * as React from "react";
 
@@ -43,6 +44,7 @@ import { Loading } from "../Loading";
 import { NoFilterMatch } from "../NoFilterMatch";
 import { EmptyGrid } from "../EmptyGrid";
 import { SortIndicator } from "./SortedIndicator";
+import { GroupRenderer } from "./GroupRenderer";
 
 const ClearFilterIcon = bundleIcon(CodeTextOff16Filled, CodeTextOff16Regular);
 
@@ -114,6 +116,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
   const {
     pagedItems,
+    groups,
 
     filterState: {
       filterValue,
@@ -121,14 +124,14 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
       resetFilterValue
     },
 
-    sortState : {  
-            
+    sortState: {
+
       toggleSortColumn,
       // resetSortColumns,
 
       isColumnSorted,
       isSortedAscending
-  },
+    },
 
     selectionState: { isEverySelected, isItemSelected, toggleRow, toggleAllRows, selectedItems },
 
@@ -194,11 +197,11 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                   key={column.columnId}
                   {...columnSizing_unstable.getTableHeaderCellProps(
                     column.columnId
-                    )} 
+                  )}
                   onClick={() => toggleSortColumn(column.columnId as string, false)}
                   sortDirection={
-                    isColumnSorted(column.columnId as string) 
-                      ? (isSortedAscending(column.columnId as string) ? "ascending" : "descending") 
+                    isColumnSorted(column.columnId as string)
+                      ? (isSortedAscending(column.columnId as string) ? "ascending" : "descending")
                       : undefined}
                   className={styles.headerCell}
                 >
@@ -214,7 +217,8 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
               ))}
             </TableRow>
           </TableHeader>
-          <TableBody>
+          {/* Table Def Without Group */}
+          {groups.length === 0 && <TableBody>
             {pagedItems.map((item, index) => (
               <TableRow
                 key={index}
@@ -234,7 +238,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                       media={
                         column.renderMedia &&
                         (column.renderMedia(item) as JSX.Element)
-                      } 
+                      }
                       appearance={column.appearance}
                       description={column.renderSecondary && column.renderSecondary(item) as JSX.Element}
                     >
@@ -256,7 +260,67 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                 ))}
               </TableRow>
             ))}
-          </TableBody>
+          </TableBody>}
+
+          {/* Table Def with Group */}
+          {
+            groups.length > 0 &&
+            <TableBody>
+              {groups.map((group) => (
+                <React.Fragment key={group.key}> 
+                  <GroupRenderer
+                    items={[...pagedItems]}
+                    group={group}
+                    colSpan={extendedColumns.length + 1}
+                    onItemRender={(items: TItem[]) => {
+                      return <>{[...items].map((item, index) => (
+                        <TableRow
+                          key={group.key + index}
+                          className={
+                            mergeClasses(isItemSelected(item) ? styles.selectedRow : undefined, getRowClasses ? getRowClasses(item, index) : undefined)
+                          }
+                        >
+                          {selectionMode !== 'none' && <TableSelectionCell
+                            checked={isItemSelected(item)}
+                            onChange={() => toggleRow(item)}
+                            checkboxIndicator={{ 'aria-label': 'Select row' }}
+                            type={selectionMode == 'single' ? 'radio' : 'checkbox'}
+                          />}
+                          {extendedColumns.map((column, colIndex) => (
+                            <TableCell key={`${column.columnId}_${colIndex}`}>
+                              <TableCellLayout
+                                media={
+                                  column.renderMedia &&
+                                  (column.renderMedia(item) as JSX.Element)
+                                }
+                                appearance={column.appearance}
+                                description={column.renderSecondary && column.renderSecondary(item) as JSX.Element}
+                              >
+                                {column.renderCell
+                                  ? column.renderCell(item)
+                                  : (tryGetObjectValue(
+                                    column.columnId as string,
+                                    item
+                                  ) as string)}
+                              </TableCellLayout>
+                              {column.renderActions ? (
+                                <TableCellActions>
+                                  {column.renderActions(item)}
+                                </TableCellActions>
+                              ) : (
+                                <></>
+                              )}
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      ))}</>
+                    }}
+                  /> 
+                </React.Fragment>
+              ))}
+            </TableBody>
+
+          }
         </Table>
         {showLoader && (<Loading />)}
         {showNoItem && (<EmptyGrid />)}

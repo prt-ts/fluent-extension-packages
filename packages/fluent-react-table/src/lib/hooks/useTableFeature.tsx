@@ -4,6 +4,8 @@ import { useTableFilter } from "./useTableFilter";
 import { useTableSelection } from "./useTableSelection";
 import { useTablePagination } from "./useTablePagination";
 import { useTableSorting } from "./useTableSorting";
+import { useTableGrouping } from "./useTableGrouping";
+import { IGroup } from "../types";
 
 export function useCustomTableFeature<TItem extends NonNullable<{ id: string | number }>>(props: TableProps<TItem>) {
 
@@ -12,7 +14,9 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         selectionMode = "none",
         defaultPageSize = 10,
         pageSizeOption = [10, 20, 50, 100,],
-        defaultSortedColumnIds = []
+        isPageOnGroup = true,
+        defaultSortedColumnIds = [],
+        defaultGroupColumnIds = []
     } = props;
 
     const { filter, setFilterValue, resetFilterValue, applyFilter, } = useTableFilter()
@@ -49,6 +53,11 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         isSortedAscending
     } = useTableSorting<TItem>(defaultSortedColumnIds);
 
+    const {
+        groupedColumns,
+        calculateGroups
+    } = useTableGrouping<TItem>(defaultGroupColumnIds)
+
     /**
      * Filter grid
      */
@@ -61,10 +70,10 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
 
         // update total number of items to calculate page
         updateTotalItemCount(fItems?.length ?? 0);
- 
+
         return fItems;
     }, [items, filter, columns]);
- 
+
     /**
      * Calculate Sort for Grid
      */
@@ -77,21 +86,27 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
             setPage(0);
         }
 
-        const sItems = applySort(sortedColumns, filteredItems);
+        const sItems = applySort([...groupedColumns, ...sortedColumns], filteredItems);
         return sItems;
 
         // return filteredItems;
-    }, [filteredItems, sortedColumns]);
+    }, [filteredItems, sortedColumns, groupedColumns]);
 
     /**
      * Calculate Group
      */
     const groups = React.useMemo(() => {
 
-        console.log("Calculating Grouping", sortedItems.length);
-        // TODO Group columns
-    }, [sortedItems])
+        console.log("Calculating Grouping", groupedColumns);
+        const g = calculateGroups(groupedColumns, sortedItems, columns)
+        console.log(g)
 
+        if (g.length > 0 && isPageOnGroup) {
+            updateTotalItemCount(g.length ?? 0);
+        }
+
+        return g;
+    }, [sortedItems, groupedColumns, isPageOnGroup])
 
     /**
      * Calculate pagedItems
@@ -99,10 +114,22 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
     const pagedItems = React.useMemo(() => {
 
         console.log("Calculating Pagination", sortedItems.length);
+        let startIndex = currentPage * pageSize;
+        let count = pageSize;
 
-        // Pagination Calculation 
-        return [...sortedItems]?.splice(currentPage * pageSize, pageSize);
-    }, [sortedItems, currentPage, pageSize]);
+        // calculate page start and end based on group information
+        if (groups.length > 0 && isPageOnGroup) {
+            const pagedGroups = [...groups]?.splice(currentPage * pageSize, pageSize);
+            startIndex = pagedGroups?.length > 0 ? pagedGroups?.[0]?.startIndex : 0;
+            count = pagedGroups?.reduce(function (total, item: IGroup) {
+                return total + item.count;
+            }, 0) 
+        }
+
+        // Pagination Calculation
+        console.log(startIndex, count) 
+        return [...sortedItems]?.splice(startIndex, count);
+    }, [sortedItems, currentPage, pageSize, isPageOnGroup, groups]);
 
     return {
         items,
@@ -125,11 +152,11 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
             setFilterValue
         },
 
-        sortState : {  
+        sortState: {
 
             toggleSortColumn,
             resetSortColumns,
-    
+
             isColumnSorted,
             isSortedAscending
         },

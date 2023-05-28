@@ -15,7 +15,13 @@ export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = F
      * @requires true
      * @default []
      */
-    columns: IColumn<TItem>[]
+    columns: IColumn<TItem>[];
+
+    /**
+     * calculates pagination based on group
+     * @default true
+     */
+    isPageOnGroup : boolean;
 
     /**
      * show loading 
@@ -77,4 +83,10 @@ export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = F
      * @default []
      */
     defaultSortedColumnIds? : string[]
+
+    /**
+     * apply group on these column by default
+     * @default []
+     */
+    defaultGroupColumnIds? : string[]
 }

@@ -56,6 +56,8 @@ export function TableExample() {
             size='small'
             selectionMode='multiple'
             defaultSortedColumnIds={['lastUpdated.label']}
+            defaultGroupColumnIds={["file.label", "author.label", "author.status"]}
+            isPageOnGroup={true}
             // getRowClasses={(item, index) => item.id == 3 ? styles.evenRow : ""}
             columns={[
                 {
