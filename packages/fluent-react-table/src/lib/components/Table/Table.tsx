@@ -115,7 +115,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
   );
 
   const {
-    pagedItems, 
+    pagedItems,
 
     filterState: {
       filterValue,
@@ -136,7 +136,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
     paginationState,
 
-    groupedState : {groups, groupedColumns}
+    groupedState: { groups, groupedColumns, toggleGroupExpand }
 
   } = useCustomTableFeature(props);
 
@@ -268,11 +268,11 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
             groups.length > 0 &&
             <TableBody>
               {groups.map((group) => (
-                <React.Fragment key={group.key}> 
+                <React.Fragment key={group.key}>
                   <GroupRenderer
                     items={[...pagedItems]}
                     group={group}
-                    colSpan={extendedColumns.length + 1}
+                    colSpan={extendedColumns.length}
                     headerRowClassName={styles.groupHeaderRow}
                     onItemRender={(items: TItem[]) => {
                       return <>{[...items].map((item, index) => (
@@ -317,7 +317,24 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                         </TableRow>
                       ))}</>
                     }}
-                  /> 
+
+                    onSelectionRender={(groupedItems: TItem[]) => {
+                      return (<>
+                        {selectionMode === "multiple" && <TableSelectionCell
+                          checked={isEverySelected(groupedItems)}
+                          onClick={() => toggleAllRows(groupedItems)}
+                          onKeyDown={() => toggleAllRows(groupedItems)}
+                          checkboxIndicator={{ 'aria-label': 'Select all rows ' }}
+
+                        />}
+                        {
+                          selectionMode === "single" && (<TableHeaderCell></TableHeaderCell>)
+                        }
+                      </>)
+                    }}
+
+                    toggleGroupExpand={toggleGroupExpand}
+                  />
                 </React.Fragment>
               ))}
             </TableBody>

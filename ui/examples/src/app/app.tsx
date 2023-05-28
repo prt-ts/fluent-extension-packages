@@ -126,7 +126,7 @@ export const items: Item[] = [
         },
     },
     {
-        id: 1,
+        id: 1000,
         file: { label: "Meeting notes", icon: <DocumentRegular /> },
         author: { label: "Pradeep Thapaliya", status: "available" },
         lastUpdated: { label: "7h ago", timestamp: 1 },
@@ -216,7 +216,7 @@ export const items: Item[] = [
         },
     },
     {
-        id: 1,
+        id: 1001,
         file: { label: "Meeting notes", icon: <DocumentRegular /> },
         author: { label: "Pradeep Thapaliya", status: "available" },
         lastUpdated: { label: "8h ago", timestamp: 1 },

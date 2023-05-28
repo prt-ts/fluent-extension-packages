@@ -1,26 +1,46 @@
 import * as React from "react";
 import { IGroup } from "../../types";
-import { Subtitle2Stronger, TableCell, TableRow } from "@fluentui/react-components";
+import { Button, Subtitle2Stronger, TableCell, TableRow } from "@fluentui/react-components";
+import { ChevronCircleDownRegular, ChevronCircleUpRegular } from "@fluentui/react-icons";
 
-export const GroupRenderer = <TItem extends NonNullable<{ id: string | number }>,>({ items, group, colSpan, onItemRender, headerRowClassName }: React.PropsWithChildren<{
-    items: TItem[],
-    group: IGroup,
-    colSpan: number,
-    onItemRender: (items: TItem[]) => JSX.Element,
-    headerRowClassName?: string
-}>) => {
+export const GroupRenderer = <TItem extends NonNullable<{ id: string | number }>,>(
+    { items, group, colSpan, onItemRender, onSelectionRender, toggleGroupExpand, headerRowClassName }: React.PropsWithChildren<{
+        items: TItem[],
+        group: IGroup,
+        colSpan: number,
+        onItemRender: (items: TItem[]) => JSX.Element,
+        onSelectionRender: (items: TItem[]) => JSX.Element,
+        toggleGroupExpand: (currentGroup: IGroup) => void,
+        headerRowClassName?: string
+    }>) => {
     const padding = React.useMemo(() => group.level ? group.level * 20 : 0, [group]);
 
     return <>
         <TableRow className={headerRowClassName}>
+            {onSelectionRender && onSelectionRender([...items].splice(group.startIndex, group.count))}
             <TableCell colSpan={colSpan} style={{ paddingLeft: padding + "px" }} className={headerRowClassName}>
-                <Subtitle2Stronger>{group.renderHeaderCell} : {group.name}</Subtitle2Stronger>
+                <Button
+                    aria-label='Open Column Settings'
+                    size='small'
+                    appearance="transparent"
+                    iconPosition={"before"}
+                    icon={group.isCollapsed ? <ChevronCircleUpRegular /> : <ChevronCircleDownRegular />}
+                    onClick={() => toggleGroupExpand(group)}
+                >
+                    <Subtitle2Stronger>{group.renderHeaderCell} : {group.name}</Subtitle2Stronger>
+                </Button>
             </TableCell>
         </TableRow>
-        {group?.children && group?.children?.length > 0 ?
+        {!group.isCollapsed && group?.children && group?.children?.length > 0 ?
             group?.children?.map((gChildren, i) => (
                 <React.Fragment key={i}>
-                    {gChildren.isCollapsed ? <></> : <GroupRenderer key={i} items={items} group={gChildren} colSpan={colSpan} onItemRender={onItemRender} />}
+                    <GroupRenderer key={i}
+                        items={items}
+                        group={gChildren}
+                        colSpan={colSpan}
+                        onItemRender={onItemRender}
+                        onSelectionRender={onSelectionRender}
+                        toggleGroupExpand={toggleGroupExpand} />
                 </React.Fragment>))
             :
             <>

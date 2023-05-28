@@ -54,8 +54,11 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
     } = useTableSorting<TItem>(defaultSortedColumnIds);
 
     const {
+        groups,
         groupedColumns,
-        calculateGroups
+        calculateGroups,
+
+        toggleGroupExpand
     } = useTableGrouping<TItem>(defaultGroupColumnIds)
 
     /**
@@ -95,7 +98,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
     /**
      * Calculate Group
      */
-    const groups = React.useMemo(() => {
+    React.useEffect(() => {
 
         console.log("Calculating Grouping", groupedColumns);
         const g = calculateGroups(groupedColumns, sortedItems, columns)
@@ -103,9 +106,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
 
         if (g.length > 0 && isPageOnGroup) {
             updateTotalItemCount(g.length ?? 0);
-        }
-
-        return g;
+        }  
     }, [sortedItems, groupedColumns, isPageOnGroup])
 
     /**
@@ -177,7 +178,9 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         groupedState: {
             groups,
 
-            groupedColumns
+            groupedColumns,
+            
+            toggleGroupExpand
         }
 
     } as const;
