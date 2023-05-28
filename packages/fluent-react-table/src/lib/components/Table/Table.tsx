@@ -23,7 +23,6 @@ import {
   MenuItem,
   TableCellActions,
   mergeClasses,
-  Caption1Stronger,
 } from "@fluentui/react-components";
 import * as React from "react";
 
@@ -87,9 +86,9 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
   const columnSizingOptions = React.useMemo<TableColumnSizingOptions>(() => {
     /* eslint-disable @typescript-eslint/no-explicit-any */
     const sizingOptions: any = {
-      "group" : { 
-        defaultWidth : 15
-      } as ColumnSizeOption 
+      "group": {
+        defaultWidth: 15
+      } as ColumnSizeOption
     };
     for (const col of props.columns) {
       sizingOptions[col.columnId] = col.sizeOptions
@@ -139,11 +138,11 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
     paginationState,
 
-    groupedState: { 
-      groups, 
-      groupedColumns, 
-      isAllCollapsed, 
-      toggleGroupExpand ,
+    groupedState: {
+      groups,
+      groupedColumns,
+      isAllCollapsed,
+      toggleGroupExpand,
       toggleAllGroupExpand
     }
 
@@ -155,7 +154,10 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
   const actionMenu = React.useMemo(() => onGetGridActionMenu && onGetGridActionMenu(selectedItems), [selectedItems])
 
-  const extendedColumns = React.useMemo<IColumn<TItem>[]>(() => props.columns?.filter(x => !x.hideInDefaultView && !groupedColumns.includes(x.columnId as string)), [props.columns, groupedColumns]);
+  //&& !groupedColumns.includes(x.columnId as string)
+  const extendedColumns = React.useMemo<IColumn<TItem>[]>(
+    () => props.columns?.filter(x => !x.hideInDefaultView)
+    , [props.columns, groupedColumns]);
 
   return (
     <>
@@ -203,19 +205,18 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                 className={styles.headerRow}
               />}
               {
-                selectionMode === "single" && 
+                selectionMode === "single" &&
                 (<TableHeaderCell className={styles.headerSelectionCell}></TableHeaderCell>)
-              }
-
+              } 
               {
-                groups?.length > 0 && 
-                (<TableHeaderCell 
-                  className={styles.headerToggleCell}  
+                groups?.length > 0 &&
+                (<TableHeaderCell
+                  className={styles.headerToggleCell}
                   onClick={() => toggleAllGroupExpand(isAllCollapsed)}
-                  > 
-                  {isAllCollapsed 
-                    ? <ChevronCircleUp24Regular className={styles.headerToggleIcon}  /> 
-                    : <ChevronCircleDown24Regular className={styles.headerToggleIcon}  />}
+                >
+                  {isAllCollapsed
+                    ? <ChevronCircleUp24Regular className={styles.headerToggleIcon} />
+                    : <ChevronCircleDown24Regular className={styles.headerToggleIcon} />}
                 </TableHeaderCell>)
               }
 
@@ -244,50 +245,52 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
               ))}
             </TableRow>
           </TableHeader>
+
           {/* Table Def Without Group */}
-          {groups.length === 0 && <TableBody>
-            {pagedItems.map((item, index) => (
-              <TableRow
-                key={index}
-                className={
-                  mergeClasses(isItemSelected(item) ? styles.selectedRow : undefined, getRowClasses ? getRowClasses(item, index) : undefined)
-                }
-              >
-                {selectionMode !== 'none' && <TableSelectionCell
-                  checked={isItemSelected(item)}
-                  onChange={() => toggleRow(item)}
-                  checkboxIndicator={{ 'aria-label': 'Select row' }}
-                  type={selectionMode == 'single' ? 'radio' : 'checkbox'}
-                />}
-                {extendedColumns.map((column, colIndex) => (
-                  <TableCell key={`${column.columnId}_${colIndex}`}>
-                    <TableCellLayout
-                      media={
-                        column.renderMedia &&
-                        (column.renderMedia(item) as JSX.Element)
-                      }
-                      appearance={column.appearance}
-                      description={column.renderSecondary && column.renderSecondary(item) as JSX.Element}
-                    >
-                      {column.renderCell
-                        ? column.renderCell(item)
-                        : (tryGetObjectValue(
-                          column.columnId as string,
-                          item
-                        ) as string)}
-                    </TableCellLayout>
-                    {column.renderActions ? (
-                      <TableCellActions>
-                        {column.renderActions(item)}
-                      </TableCellActions>
-                    ) : (
-                      <></>
-                    )}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableBody>}
+          {
+            groups.length === 0 && <TableBody>
+              {pagedItems.map((item, index) => (
+                <TableRow
+                  key={index}
+                  className={
+                    mergeClasses(isItemSelected(item) ? styles.selectedRow : undefined, getRowClasses ? getRowClasses(item, index) : undefined)
+                  }
+                >
+                  {selectionMode !== 'none' && <TableSelectionCell
+                    checked={isItemSelected(item)}
+                    onChange={() => toggleRow(item)}
+                    checkboxIndicator={{ 'aria-label': 'Select row' }}
+                    type={selectionMode == 'single' ? 'radio' : 'checkbox'}
+                  />}
+                  {extendedColumns.map((column, colIndex) => (
+                    <TableCell key={`${column.columnId}_${colIndex}`}>
+                      <TableCellLayout
+                        media={
+                          column.renderMedia &&
+                          (column.renderMedia(item) as JSX.Element)
+                        }
+                        appearance={column.appearance}
+                        description={column.renderSecondary && column.renderSecondary(item) as JSX.Element}
+                      >
+                        {column.renderCell
+                          ? column.renderCell(item)
+                          : (tryGetObjectValue(
+                            column.columnId as string,
+                            item
+                          ) as string)}
+                      </TableCellLayout>
+                      {column.renderActions ? (
+                        <TableCellActions>
+                          {column.renderActions(item)}
+                        </TableCellActions>
+                      ) : (
+                        <></>
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>}
 
           {/* Table Def with Group */}
           {
@@ -363,7 +366,6 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                 </React.Fragment>
               ))}
             </TableBody>
-
           }
         </Table>
         {showLoader && (<Loading />)}

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { tryGetObjectValue } from "../components";
 import { IColumn, IGroup } from "../types";
-import { setgroups } from "process";
 
 function getLeafGroupKey(key: string, separator: string): string {
   let leafKey = key;
@@ -37,7 +36,7 @@ function getGroups<TItem extends { id: string | number }>(
           renderHeaderCell: col?.renderHeaderCell(),
           startIndex: parentGroup ? parentGroup.startIndex + index : index,
           count: 1,
-          level: parentGroup ? parentGroup.level! + 1 : 0,
+          level: parentGroup ? (parentGroup.level ? parentGroup.level + 1 : 1) : 0,
           isCollapsed: !isExpanded,
         });
       } else {
