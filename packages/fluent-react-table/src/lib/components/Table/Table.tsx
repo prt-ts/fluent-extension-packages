@@ -42,6 +42,7 @@ import { GridHeader } from "../GridHeader";
 import { Loading } from "../Loading";
 import { NoFilterMatch } from "../NoFilterMatch";
 import { EmptyGrid } from "../EmptyGrid";
+import { SortIndicator } from "./SortedIndicator";
 
 const ClearFilterIcon = bundleIcon(CodeTextOff16Filled, CodeTextOff16Regular);
 
@@ -120,6 +121,15 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
       resetFilterValue
     },
 
+    sortState : {  
+            
+      toggleSortColumn,
+      // resetSortColumns,
+
+      isColumnSorted,
+      isSortedAscending
+  },
+
     selectionState: { isEverySelected, isItemSelected, toggleRow, toggleAllRows, selectedItems },
 
     paginationState
@@ -130,7 +140,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
   const showNoItem = React.useMemo(() => !isLoading && items?.length === 0, [isLoading, items]);
   const showNoItemMatch = React.useMemo(() => pagedItems?.length === 0 && items?.length > 0, [isLoading, pagedItems, items]);
 
-  const actionCallback = React.useCallback(() => onGetGridActionMenu && onGetGridActionMenu(selectedItems), [selectedItems])
+  const actionMenu = React.useMemo(() => onGetGridActionMenu && onGetGridActionMenu(selectedItems), [selectedItems])
 
   return (
     <>
@@ -160,7 +170,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
             onChange={(ev, data) => setFilterValue(data.value)}
           />
         }
-          actionMenu={actionCallback}
+          actionMenu={actionMenu}
           title={gridTitle}
         />
       </div>
@@ -182,12 +192,24 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
               {extendedColumns.map((column) => (
                 <TableHeaderCell
                   key={column.columnId}
-                  aside={<Button size="small">Hello</Button>}
                   {...columnSizing_unstable.getTableHeaderCellProps(
                     column.columnId
-                  )}
+                    )} 
+                  onClick={() => toggleSortColumn(column.columnId as string, false)}
+                  sortDirection={
+                    isColumnSorted(column.columnId as string) 
+                      ? (isSortedAscending(column.columnId as string) ? "ascending" : "descending") 
+                      : undefined}
+                  className={styles.headerCell}
                 >
-                  <Body1Stronger>{column.renderHeaderCell()}</Body1Stronger>
+                  <Body1Stronger>
+                    <SortIndicator
+                      isSorted={isColumnSorted(column.columnId as string)}
+                      sortDir={isSortedAscending(column.columnId as string) ? "asc" : "desc"}
+                    />
+
+                    {column.renderHeaderCell()}
+                  </Body1Stronger>
                 </TableHeaderCell>
               ))}
             </TableRow>

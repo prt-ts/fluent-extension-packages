@@ -71,4 +71,10 @@ export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = F
      * @default undefined
      */
     getRowClasses?: (item: TItem, index: number) => string;
+
+    /**
+     * apply sort on these column by default
+     * @default []
+     */
+    defaultSortedColumnIds? : string[]
 }

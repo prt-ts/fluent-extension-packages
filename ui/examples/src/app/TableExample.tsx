@@ -55,6 +55,7 @@ export function TableExample() {
             gridTitle={<Subtitle2Stronger>Example Table</Subtitle2Stronger>}
             size='small'
             selectionMode='multiple'
+            defaultSortedColumnIds={['lastUpdated.label']}
             // getRowClasses={(item, index) => item.id == 3 ? styles.evenRow : ""}
             columns={[
                 {

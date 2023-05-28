@@ -50,6 +50,21 @@ export const useTableStyles = makeStyles({
         }
     },
 
+    headerCell : { 
+
+        cursor: "pointer",
+
+        ">button" : {
+            display: "flex",
+            flexDirection: "row-reverse",
+            alignContent : "center",
+            flexWrap: "wrap",
+            justifyContent: "start",
+            cursor: "pointer",
+            ...shorthands.margin("0px", "3px")
+        }
+    },
+
     headerSelectionCell: {
         width: "44px"
     },
