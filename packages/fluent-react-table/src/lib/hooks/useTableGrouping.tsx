@@ -105,11 +105,11 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
   const calculateGroups = React.useCallback((allGroupedColumns: string[], items: TItem[], columns: IColumn<TItem>[]): IGroup[] => {
 
     if (allGroupedColumns?.length == 0) {
-      setGroups([])
+      //setGroups([])
     }
 
     const g = groupItems(items, allGroupedColumns, true, undefined, groups, columns);
-    setGroups([...g])
+    //setGroups([...g])
     return [...g];
 
   }, [groups]);
@@ -165,11 +165,10 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
   }, [groups])
 
   const toggleAllGroupExpandHandler = React.useCallback((groups: IGroup[] | undefined, isCollapse: boolean): IGroup[] => {
-    console.log("abc", isAllCollapsed)
-
+    
     if (!groups) return [];
 
-    const newGroup = groups?.map(g => {
+    const newGroup = [...groups]?.map(g => {
       const newChildren = (g && g.children && g.children?.length > 0)
         ? toggleAllGroupExpandHandler(g.children, isCollapse)
         : []
@@ -194,6 +193,7 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
   return {
     groupedColumns,
     groups,
+    setGroups,
 
     isAllCollapsed,
 

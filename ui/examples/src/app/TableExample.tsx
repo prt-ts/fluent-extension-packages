@@ -53,7 +53,7 @@ export function TableExample() {
             items={gridItems}
             isLoading={isLoading}
             gridTitle={<Subtitle2Stronger>Example Table</Subtitle2Stronger>}
-            size='small'
+            size='extra-small'
             selectionMode='single'
             defaultSortedColumnIds={['lastUpdated.label']}
             defaultGroupColumnIds={["file.label", "author.label", "author.status"]}

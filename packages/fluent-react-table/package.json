@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-react-table",
-  "version": "0.0.1-alpha.4-fluent-9.20.4",
+  "version": "0.0.1-alpha.5-fluent-9.20.4",
   "type": "commonjs",
   "peerDependencies": {
     "@fluentui/react-components": ">=9.20.4",

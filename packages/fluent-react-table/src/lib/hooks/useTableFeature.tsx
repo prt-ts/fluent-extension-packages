@@ -55,6 +55,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
 
     const {
         groups,
+        setGroups,
         groupedColumns,
         isAllCollapsed,
         calculateGroups,
@@ -98,41 +99,60 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
     }, [filteredItems, sortedColumns, groupedColumns]);
 
     /**
-     * Calculate Group
-     */
-    React.useEffect(() => {
-
-        console.log("Calculating Grouping", groupedColumns);
-        const g = calculateGroups(groupedColumns, sortedItems, columns)
-        console.log(g)
-
-        if (g.length > 0 && isPageOnGroup) {
-            updateTotalItemCount(g.length ?? 0);
-        }  
-    }, [sortedItems, groupedColumns, isPageOnGroup])
-
-    /**
      * Calculate pagedItems
      */
-    const pagedItems = React.useMemo(() => {
+    const pagedItems = React.useMemo(() => { 
 
         console.log("Calculating Pagination", sortedItems.length);
         let startIndex = currentPage * pageSize;
         let count = pageSize;
 
         // calculate page start and end based on group information
-        if (groups.length > 0 && isPageOnGroup) {
-            const pagedGroups = [...groups]?.splice(currentPage * pageSize, pageSize);
-            startIndex = pagedGroups?.length > 0 ? pagedGroups?.[0]?.startIndex : 0;
-            count = pagedGroups?.reduce(function (total, item: IGroup) {
-                return total + item.count;
-            }, 0)
-        }
+        let pGroups: IGroup[] = [];
+        let pItems: TItem[] = [];
+        
 
-        // Pagination Calculation
-        console.log(startIndex, count)
-        return [...sortedItems]?.splice(startIndex, count);
-    }, [sortedItems, currentPage, pageSize, isPageOnGroup, groups]);
+        // new implementation
+        if(isPageOnGroup){
+
+            // calculate group on sorted items
+            const groups = calculateGroups(groupedColumns, sortedItems, columns);
+
+            // update total number of count as te group count -- because page is on the group now
+            updateTotalItemCount(groups.length ?? 0);
+
+            // calculate paged group
+            pGroups = [...groups]?.splice(startIndex, count);
+
+            // get start and item count based on group information
+            startIndex = pGroups?.length > 0 ? pGroups?.[0]?.startIndex : 0;
+            count = pGroups?.reduce(function (total : number, item: IGroup) {
+                return total + item.count;
+            }, 0);
+
+            // calculate paged items based on group item counts
+            pItems = [...sortedItems]?.splice(startIndex, count);
+
+        }
+        else 
+        { 
+            // first calculate paged items
+            pItems = [...sortedItems]?.splice(startIndex, count);
+
+            // calculate group information on the paged items
+            // NOTE: here group is calculated based on paged items not a sorted items only
+            pGroups = calculateGroups(groupedColumns, pItems, columns);    
+            
+            // update total number of count as te group count -- because page is on the group now
+            updateTotalItemCount(sortedItems.length ?? 0);
+        }       
+
+        // set groups
+        setGroups(pGroups)
+
+        // Pagination Calculation 
+        return pItems;
+    }, [sortedItems, currentPage, pageSize, isPageOnGroup, groupedColumns]);
 
     return {
         items,
@@ -181,7 +201,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
             groups, 
             groupedColumns,
             isAllCollapsed,
-            
+
             toggleGroupExpand,
             toggleAllGroupExpand
         }
