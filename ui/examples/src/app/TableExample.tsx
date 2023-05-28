@@ -54,9 +54,9 @@ export function TableExample() {
             isLoading={isLoading}
             gridTitle={<Subtitle2Stronger>Example Table</Subtitle2Stronger>}
             size='small'
-            selectionMode='multiple'
+            selectionMode='single'
             defaultSortedColumnIds={['lastUpdated.label']}
-            defaultGroupColumnIds={["file.label", "author.label"]}
+            defaultGroupColumnIds={["file.label", "author.label", "author.status"]}
             isPageOnGroup={true}
             // getRowClasses={(item, index) => item.id == 3 ? styles.evenRow : ""}
             columns={[
@@ -76,6 +76,12 @@ export function TableExample() {
                     columnId: "author.label",
                     renderHeaderCell: () => <>Author</>,
                     renderSecondary: (item) => item.author.status
+                },
+                {
+                    columnId: "author.status",
+                    renderHeaderCell: () => <>Author Status</>,
+                    renderSecondary: (item) => item.author.status,
+                    hideInDefaultView: true
                 },
                 {
                     columnId: "lastUpdated.label",

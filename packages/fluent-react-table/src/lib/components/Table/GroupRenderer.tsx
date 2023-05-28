@@ -1,6 +1,6 @@
 import * as React from "react";
 import { IGroup } from "../../types";
-import { Button, Subtitle2Stronger, TableCell, TableRow } from "@fluentui/react-components";
+import { Body1Stronger, Button, TableCell, TableRow } from "@fluentui/react-components";
 import { ChevronCircleDownRegular, ChevronCircleUpRegular } from "@fluentui/react-icons";
 
 export const GroupRenderer = <TItem extends NonNullable<{ id: string | number }>,>(
@@ -17,8 +17,8 @@ export const GroupRenderer = <TItem extends NonNullable<{ id: string | number }>
 
     return <>
         <TableRow className={headerRowClassName}>
-            {onSelectionRender && onSelectionRender([...items].splice(group.startIndex, group.count))}
-            <TableCell colSpan={colSpan} style={{ paddingLeft: padding + "px" }} className={headerRowClassName}>
+            {onSelectionRender && onSelectionRender([...items].splice(group.startIndex, group.count))} 
+            <TableCell colSpan={colSpan + 1} style={{ paddingLeft: padding + "px" }}>
                 <Button
                     aria-label='Open Column Settings'
                     size='small'
@@ -27,7 +27,7 @@ export const GroupRenderer = <TItem extends NonNullable<{ id: string | number }>
                     icon={group.isCollapsed ? <ChevronCircleUpRegular /> : <ChevronCircleDownRegular />}
                     onClick={() => toggleGroupExpand(group)}
                 >
-                    <Subtitle2Stronger>{group.renderHeaderCell} : {group.name}</Subtitle2Stronger>
+                    <Body1Stronger>{group.renderHeaderCell} :{` ${group.name}`}</Body1Stronger>
                 </Button>
             </TableCell>
         </TableRow>

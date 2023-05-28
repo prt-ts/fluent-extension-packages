@@ -1,6 +1,6 @@
 import * as React from "react";
 import { tryGetObjectValue } from "../components";
-import { IColumn, IGroup } from "../types"; 
+import { IColumn, IGroup } from "../types";
 import { setgroups } from "process";
 
 function getLeafGroupKey(key: string, separator: string): string {
@@ -12,7 +12,7 @@ function getLeafGroupKey(key: string, separator: string): string {
   return leafKey;
 }
 
-function getGroups<TItem extends { id : string | number}>(
+function getGroups<TItem extends { id: string | number }>(
   groupedItems: TItem[],
   field: string,
   isExpanded: boolean,
@@ -33,8 +33,8 @@ function getGroups<TItem extends { id : string | number}>(
         current.push({
           key:
             (parentGroup ? parentGroup.key + separator : "") + itemColumnValue,
-          name:  `${itemColumnValue}`,
-          renderHeaderCell : col?.renderHeaderCell(),
+          name: `${itemColumnValue}`,
+          renderHeaderCell: col?.renderHeaderCell(),
           startIndex: parentGroup ? parentGroup.startIndex + index : index,
           count: 1,
           level: parentGroup ? parentGroup.level! + 1 : 0,
@@ -51,7 +51,7 @@ function getGroups<TItem extends { id : string | number}>(
   return groups;
 }
 
-export function groupItems<TItem extends { id : string | number}>(
+export function groupItems<TItem extends { id: string | number }>(
   sortedItems: TItem[],
   fields: string[],
   isExpanded: boolean,
@@ -72,14 +72,14 @@ export function groupItems<TItem extends { id : string | number}>(
       const existingGroup = existingGroups?.filter(x => x.key == newGroup.key)?.[0];
       return {
         ...newGroup,
-        isCollapsed : existingGroup ? existingGroup.isCollapsed : newGroup.isCollapsed
+        isCollapsed: existingGroup ? existingGroup.isCollapsed : newGroup.isCollapsed
       }
-    });  
-    
+    });
+
     if (fields.length > 1) {
       for (const group of groups) {
         const existingGroup = existingGroups?.filter(x => x.key == group.key)?.[0];
- 
+
         group.children = groupItems(
           [...sortedItems],
           [...fields]?.splice(1),
@@ -95,77 +95,115 @@ export function groupItems<TItem extends { id : string | number}>(
     return groups;
   }
 
-  return []; 
+  return [];
 }
 
 export function useTableGrouping<TItem extends NonNullable<{ id: string | number }>>(defaultGroupedColumns: string[]) {
 
-    const [groupedColumns, setGroupedColumns] = React.useState<string[]>(defaultGroupedColumns);
-    const [groups, setGroups] = React.useState<IGroup[]>([]);
+  const [groupedColumns, setGroupedColumns] = React.useState<string[]>(defaultGroupedColumns);
+  const [groups, setGroups] = React.useState<IGroup[]>([]);
 
-    const calculateGroups = React.useCallback((allGroupedColumns: string[], items: TItem[],  columns: IColumn<TItem>[]): IGroup[] => {
+  const calculateGroups = React.useCallback((allGroupedColumns: string[], items: TItem[], columns: IColumn<TItem>[]): IGroup[] => {
 
-        if (allGroupedColumns?.length == 0) {
-            setGroups([])
-        }
- 
-        const g = groupItems(items, allGroupedColumns, true, undefined, groups, columns);
-        setGroups([...g])
-        return [...g];
-        
-    }, [groups]);
+    if (allGroupedColumns?.length == 0) {
+      setGroups([])
+    }
 
-    const resetGroupColumns = React.useCallback((): void => setGroupedColumns([]), []);
-    const toggleColumnGroup = React.useCallback((newColumnId: string, retainExisting = false): void => {
-        setGroupedColumns((existing) => {
-            const otherColumns = existing?.filter(e => !e?.includes(newColumnId))
+    const g = groupItems(items, allGroupedColumns, true, undefined, groups, columns);
+    setGroups([...g])
+    return [...g];
 
-            return retainExisting ? [newColumnId, ...otherColumns] : [newColumnId]
-        });
-    }, [groupedColumns]);
+  }, [groups]);
 
-    const isColumnGrouped = React.useCallback((columnId: string) => groupedColumns?.some(sc => sc?.includes(columnId)), [groupedColumns]);
+  const resetGroupColumns = React.useCallback((): void => setGroupedColumns([]), []);
+  const toggleColumnGroup = React.useCallback((newColumnId: string, retainExisting = false): void => {
+    setGroupedColumns((existing) => {
+      const otherColumns = existing?.filter(e => !e?.includes(newColumnId))
 
-    /**
-     * toggle group expand and collapse
-     */
-    const toggleExpand = React.useCallback((checkGroups: IGroup[], current: IGroup) => {
-       
-      const newGroup = checkGroups?.map((group) => {
-        if (current?.key == group?.key) {
-            return {
-                ...group,
-                isCollapsed: !group.isCollapsed,
-            };
-        }
+      return retainExisting ? [newColumnId, ...otherColumns] : [newColumnId]
+    });
+  }, [groupedColumns]);
 
-        if (!group?.isCollapsed && group?.children?.length) {
-            group.children = toggleExpand(group.children, current); 
-        }
+  const isColumnGrouped = React.useCallback((columnId: string) => groupedColumns?.some(sc => sc?.includes(columnId)), [groupedColumns]);
 
-        return group;
+  /**
+   * toggle group expand and collapse
+   */
+  const toggleExpand = React.useCallback((checkGroups: IGroup[], current: IGroup) => {
+
+    const newGroup = checkGroups?.map((group) => {
+      if (current?.key == group?.key) {
+        return {
+          ...group,
+          isCollapsed: !group.isCollapsed,
+        };
+      }
+
+      if (!group?.isCollapsed && group?.children?.length) {
+        group.children = toggleExpand(group.children, current);
+      }
+
+      return group;
     });
 
     return newGroup;
-      
-    }, []) 
-    const toggleGroupExpand = React.useCallback((currentGroup: IGroup) => {
 
-      const newGroup = toggleExpand(groups, currentGroup);
-      console.log(newGroup);
-      setGroups([...newGroup])
+  }, [])
+  const toggleGroupExpand = React.useCallback((currentGroup: IGroup) => {
 
-    }, [groups])
+    const newGroup = toggleExpand(groups, currentGroup);
+    console.log(newGroup);
+    setGroups([...newGroup])
 
-    return {
-        groupedColumns,
-        groups,
+  }, [groups])
 
-        calculateGroups,
-        resetGroupColumns,
-        toggleColumnGroup,
-        isColumnGrouped,
+  const isAllCollapsedHandler = React.useCallback((allGroups: IGroup[]): boolean => {
+    return allGroups?.every(g => g.isCollapsed);
+  }, [])
 
-        toggleGroupExpand
-    } as const;
+  const isAllCollapsed = React.useMemo((): boolean => {
+    return isAllCollapsedHandler(groups);
+  }, [groups])
+
+  const toggleAllGroupExpandHandler = React.useCallback((groups: IGroup[] | undefined, isCollapse: boolean): IGroup[] => {
+    console.log("abc", isAllCollapsed)
+
+    if (!groups) return [];
+
+    const newGroup = groups?.map(g => {
+      const newChildren = (g && g.children && g.children?.length > 0)
+        ? toggleAllGroupExpandHandler(g.children, isCollapse)
+        : []
+      return {
+        ...g,
+        isCollapsed: isCollapse,
+        children: newChildren
+      }
+    })
+
+    return newGroup;
+  }, [])
+
+  const toggleAllGroupExpand = React.useCallback((isAllCollapsed: boolean) => {
+    console.log("abc", isAllCollapsed)
+    const newGroup = toggleAllGroupExpandHandler(groups, !isAllCollapsed);
+    setGroups([...newGroup])
+
+  }, [groups])
+
+
+  return {
+    groupedColumns,
+    groups,
+
+    isAllCollapsed,
+
+    calculateGroups,
+    resetGroupColumns,
+    toggleColumnGroup,
+    isColumnGrouped,
+
+    toggleGroupExpand,
+    toggleAllGroupExpand
+  } as const;
 }

@@ -34,10 +34,10 @@ import { TableProps as FluentTableProps } from "@fluentui/react-components"
 import { useCustomTableFeature } from "../../hooks";
 import { useTableStyles } from "./useTableStyles"
 import { Pagination } from "../Pagination"
-import { IColumn } from "../../types";
+import { ColumnSizeOption, IColumn } from "../../types";
 import {
   SearchRegular, MoreVerticalFilled, bundleIcon,
-  CodeTextOff16Filled, CodeTextOff16Regular
+  CodeTextOff16Filled, CodeTextOff16Regular, ChevronCircleUp24Regular, ChevronCircleDown24Regular
 } from "@fluentui/react-icons"
 import { GridHeader } from "../GridHeader";
 import { Loading } from "../Loading";
@@ -83,11 +83,14 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
     }))
   }, [props.columns]);
 
-  const extendedColumns = React.useMemo<IColumn<TItem>[]>(() => props.columns, [props.columns]);
 
   const columnSizingOptions = React.useMemo<TableColumnSizingOptions>(() => {
     /* eslint-disable @typescript-eslint/no-explicit-any */
-    const sizingOptions: any = {};
+    const sizingOptions: any = {
+      "group" : { 
+        defaultWidth : 15
+      } as ColumnSizeOption 
+    };
     for (const col of props.columns) {
       sizingOptions[col.columnId] = col.sizeOptions
     }
@@ -136,7 +139,13 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
     paginationState,
 
-    groupedState: { groups, groupedColumns, toggleGroupExpand }
+    groupedState: { 
+      groups, 
+      groupedColumns, 
+      isAllCollapsed, 
+      toggleGroupExpand ,
+      toggleAllGroupExpand
+    }
 
   } = useCustomTableFeature(props);
 
@@ -145,6 +154,8 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
   const showNoItemMatch = React.useMemo(() => pagedItems?.length === 0 && items?.length > 0, [isLoading, pagedItems, items]);
 
   const actionMenu = React.useMemo(() => onGetGridActionMenu && onGetGridActionMenu(selectedItems), [selectedItems])
+
+  const extendedColumns = React.useMemo<IColumn<TItem>[]>(() => props.columns?.filter(x => !x.hideInDefaultView && !groupedColumns.includes(x.columnId as string)), [props.columns, groupedColumns]);
 
   return (
     <>
@@ -183,6 +194,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
         <Table {...tableProps} ref={tableRef} className={styles.gridTable}>
           <TableHeader>
             <TableRow className={styles.headerRow}>
+
               {selectionMode === "multiple" && <TableSelectionCell
                 checked={isEverySelected(pagedItems)}
                 onClick={() => toggleAllRows(pagedItems)}
@@ -191,8 +203,22 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                 className={styles.headerRow}
               />}
               {
-                selectionMode === "single" && (<TableHeaderCell className={styles.headerSelectionCell}></TableHeaderCell>)
+                selectionMode === "single" && 
+                (<TableHeaderCell className={styles.headerSelectionCell}></TableHeaderCell>)
               }
+
+              {
+                groups?.length > 0 && 
+                (<TableHeaderCell 
+                  className={styles.headerToggleCell}  
+                  onClick={() => toggleAllGroupExpand(isAllCollapsed)}
+                  > 
+                  {isAllCollapsed 
+                    ? <ChevronCircleUp24Regular className={styles.headerToggleIcon}  /> 
+                    : <ChevronCircleDown24Regular className={styles.headerToggleIcon}  />}
+                </TableHeaderCell>)
+              }
+
               {extendedColumns.map((column) => (
                 <TableHeaderCell
                   key={column.columnId}
@@ -288,6 +314,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                             checkboxIndicator={{ 'aria-label': 'Select row' }}
                             type={selectionMode == 'single' ? 'radio' : 'checkbox'}
                           />}
+                          <TableCell className={styles.headerToggleCell}></TableCell>
                           {extendedColumns.map((column, colIndex) => (
                             <TableCell key={`${column.columnId}_${colIndex}`}>
                               <TableCellLayout
@@ -317,7 +344,6 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                         </TableRow>
                       ))}</>
                     }}
-
                     onSelectionRender={(groupedItems: TItem[]) => {
                       return (<>
                         {selectionMode === "multiple" && <TableSelectionCell
@@ -332,7 +358,6 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                         }
                       </>)
                     }}
-
                     toggleGroupExpand={toggleGroupExpand}
                   />
                 </React.Fragment>

@@ -13,7 +13,7 @@ export const useTableStyles = makeStyles({
             ...shorthands.overflow("auto"),
         },
 
-        "::-webkit-scrollbar": { 
+        "::-webkit-scrollbar": {
             width: "5px",
             height: "4px",
             ...shorthands.borderRadius("50%")
@@ -52,13 +52,13 @@ export const useTableStyles = makeStyles({
         }
     },
 
-    headerCell : {  
+    headerCell: {
         cursor: "pointer",
 
-        ">button" : {
+        ">button": {
             display: "flex",
             flexDirection: "row-reverse",
-            alignContent : "center",
+            alignContent: "center",
             flexWrap: "wrap",
             justifyContent: "start",
             cursor: "pointer",
@@ -67,7 +67,19 @@ export const useTableStyles = makeStyles({
     },
 
     headerSelectionCell: {
-        width: "44px"
+        width: "15px"
+    },
+
+    headerToggleCell: { 
+        cursor: "pointer",
+        maxWidth: "10px",
+        width: "10px"
+    },
+
+    headerToggleIcon: {
+        width: "20px",
+        cursor: "pointer",
+        maxWidth: "20px"
     },
 
     selectedRow: {
@@ -77,8 +89,10 @@ export const useTableStyles = makeStyles({
         }
     },
 
-    groupHeaderRow: {  
-        ":hover": {  
+    groupHeaderRow: {
+        backgroundColor: tokens.colorBrandBackgroundInvertedHover,
+        ":hover": {
+            backgroundColor: tokens.colorBrandBackgroundInvertedPressed,
         }
     },
 

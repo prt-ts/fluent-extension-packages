@@ -56,9 +56,11 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
     const {
         groups,
         groupedColumns,
+        isAllCollapsed,
         calculateGroups,
 
-        toggleGroupExpand
+        toggleGroupExpand,
+        toggleAllGroupExpand
     } = useTableGrouping<TItem>(defaultGroupColumnIds)
 
     /**
@@ -176,11 +178,12 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         },
 
         groupedState: {
-            groups,
-
+            groups, 
             groupedColumns,
+            isAllCollapsed,
             
-            toggleGroupExpand
+            toggleGroupExpand,
+            toggleAllGroupExpand
         }
 
     } as const;
