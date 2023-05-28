@@ -115,8 +115,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
   );
 
   const {
-    pagedItems,
-    groups,
+    pagedItems, 
 
     filterState: {
       filterValue,
@@ -135,7 +134,9 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
     selectionState: { isEverySelected, isItemSelected, toggleRow, toggleAllRows, selectedItems },
 
-    paginationState
+    paginationState,
+
+    groupedState : {groups, groupedColumns}
 
   } = useCustomTableFeature(props);
 
@@ -272,6 +273,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                     items={[...pagedItems]}
                     group={group}
                     colSpan={extendedColumns.length + 1}
+                    headerRowClassName={styles.groupHeaderRow}
                     onItemRender={(items: TItem[]) => {
                       return <>{[...items].map((item, index) => (
                         <TableRow

@@ -123,11 +123,11 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
             startIndex = pagedGroups?.length > 0 ? pagedGroups?.[0]?.startIndex : 0;
             count = pagedGroups?.reduce(function (total, item: IGroup) {
                 return total + item.count;
-            }, 0) 
+            }, 0)
         }
 
         // Pagination Calculation
-        console.log(startIndex, count) 
+        console.log(startIndex, count)
         return [...sortedItems]?.splice(startIndex, count);
     }, [sortedItems, currentPage, pageSize, isPageOnGroup, groups]);
 
@@ -136,7 +136,6 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         filteredItems,
         sortedItems,
         pagedItems,
-        groups,
 
         selectionState: {
             selectedItems,
@@ -173,6 +172,12 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
             first,
             last,
             updatePageSize
+        },
+
+        groupedState: {
+            groups,
+
+            groupedColumns
         }
 
     } as const;

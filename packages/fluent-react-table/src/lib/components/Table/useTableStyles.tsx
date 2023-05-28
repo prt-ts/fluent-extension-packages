@@ -44,14 +44,15 @@ export const useTableStyles = makeStyles({
         opacity: "1",
         position: "sticky",
         top: 0,
+        zIndex: 9999,
 
         ":hover": {
             backgroundColor: tokens.colorPaletteAnchorBackground2,
+            zIndex: 9999
         }
     },
 
-    headerCell : { 
-
+    headerCell : {  
         cursor: "pointer",
 
         ">button" : {
@@ -73,6 +74,11 @@ export const useTableStyles = makeStyles({
         backgroundColor: tokens.colorBrandBackground2,
         ":hover": {
             backgroundColor: tokens.colorBrandBackground2,
+        }
+    },
+
+    groupHeaderRow: {  
+        ":hover": {  
         }
     },
 

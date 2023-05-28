@@ -188,7 +188,7 @@ export const items: Item[] = [
     {
         id: 2,
         file: { label: "Thursday presentation", icon: <FolderRegular /> },
-        author: { label: "Erika Mustermann", status: "busy" },
+        author: { label: "Erika Mustermann", status: "available" },
         lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 2 },
         lastUpdate: {
             label: "You recently opened this",
@@ -228,7 +228,7 @@ export const items: Item[] = [
     {
         id: 2,
         file: { label: "Thursday presentation", icon: <FolderRegular /> },
-        author: { label: "Erika Mustermann", status: "busy" },
+        author: { label: "Erika Mustermann", status: "available" },
         lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 2 },
         lastUpdate: {
             label: "You recently opened this",
@@ -268,7 +268,7 @@ export const items: Item[] = [
     {
         id: 2,
         file: { label: "Thursday presentation", icon: <FolderRegular /> },
-        author: { label: "Erika Mustermann", status: "busy" },
+        author: { label: "Erika Mustermann", status: "away" },
         lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 2 },
         lastUpdate: {
             label: "You recently opened this",
@@ -308,7 +308,7 @@ export const items: Item[] = [
     {
         id: 2,
         file: { label: "Thursday presentation", icon: <FolderRegular /> },
-        author: { label: "Erika Mustermann", status: "busy" },
+        author: { label: "Erika Mustermann", status: "away" },
         lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 2 },
         lastUpdate: {
             label: "You recently opened this",
@@ -348,7 +348,7 @@ export const items: Item[] = [
     {
         id: 2,
         file: { label: "Thursday presentation", icon: <FolderRegular /> },
-        author: { label: "Erika Mustermann", status: "busy" },
+        author: { label: "Erika Mustermann", status: "away" },
         lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 2 },
         lastUpdate: {
             label: "You recently opened this",

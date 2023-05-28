@@ -108,7 +108,7 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
             setGroupMemo([])
         }
  
-        const groups = groupItems(items, allGroupedColumns, false, undefined, groupMemo, columns);
+        const groups = groupItems(items, allGroupedColumns, true, undefined, groupMemo, columns);
         setGroupMemo([...groups])
         return [...groups];
         

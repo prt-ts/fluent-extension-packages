@@ -10,7 +10,7 @@ export type IColumn<TItem extends NonNullable<{ id: string | number }>> = {
 
   appearance?: 'primary' | undefined;
   renderActions?: (item: TItem) => React.ReactNode;
-  sizeOptions?: ColumnSizeOption;
+  sizeOptions?: ColumnSizeOption; 
 }; 
 
 
