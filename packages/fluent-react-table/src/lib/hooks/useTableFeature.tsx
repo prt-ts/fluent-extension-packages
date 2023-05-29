@@ -5,12 +5,16 @@ import { useTableSelection } from "./useTableSelection";
 import { useTablePagination } from "./useTablePagination";
 import { useTableSorting } from "./useTableSorting";
 import { useTableGrouping } from "./useTableGrouping";
+import {useTableColumns} from "./useTableColumns";
 import { IGroup } from "../types";
+import {   useTableColumnSizing_unstable, useTableFeatures, } from "@fluentui/react-components";
+import { TableFeaturesState } from "@fluentui/react-table"
+
+type TCSizeState<TItem> =  TableFeaturesState<TItem>["columnSizing_unstable"];
 
 export function useCustomTableFeature<TItem extends NonNullable<{ id: string | number }>>(props: TableProps<TItem>) {
 
-    const { items,
-        columns,
+    const { items,  
         selectionMode = "none",
         defaultPageSize = 10,
         pageSizeOption = [10, 20, 50, 100,],
@@ -62,8 +66,27 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
 
         toggleGroupExpand,
         toggleAllGroupExpand
-    } = useTableGrouping<TItem>(defaultGroupColumnIds)
+    } = useTableGrouping<TItem>(defaultGroupColumnIds);
 
+    const  {
+        columns,
+        columnSizingOptions,
+        extendedColumns
+    } = useTableColumns<TItem>(props.columns)
+
+
+    /**
+     * This is Default fluent ui table feature hooks
+     * 
+     */
+    const { columnSizing_unstable, tableRef } : {columnSizing_unstable: any, tableRef: React.Ref<HTMLDivElement>}  = useTableFeatures<TItem>(
+        {
+            columns,
+            items
+        },
+        [useTableColumnSizing_unstable({ columnSizingOptions })]
+    );
+    
     /**
      * Filter grid
      */
@@ -78,7 +101,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         updateTotalItemCount(fItems?.length ?? 0);
 
         return fItems;
-    }, [items, filter, columns]);
+    }, [items, filter, props.columns]);
 
     /**
      * Calculate Sort for Grid
@@ -178,6 +201,14 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         filteredItems,
         sortedItems,
         pagedItems,
+
+        defaultFeatures : { columnSizing_unstable, tableRef },
+
+        columnsState : {
+            columns,
+            columnSizingOptions,
+            extendedColumns
+        },
 
         selectionState: {
             selectedItems,

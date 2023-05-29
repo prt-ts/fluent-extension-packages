@@ -7,11 +7,6 @@ import {
   TableHeaderCell,
   TableCellLayout,
   TableSelectionCell,
-  TableColumnDefinition,
-  createTableColumn,
-  useTableFeatures,
-  useTableColumnSizing_unstable,
-  TableColumnSizingOptions,
   Button,
   Body1Stronger,
   Input,
@@ -33,7 +28,6 @@ import { TableProps as FluentTableProps } from "@fluentui/react-components"
 import { useCustomTableFeature } from "../../hooks";
 import { useTableStyles } from "./useTableStyles"
 import { Pagination } from "../Pagination"
-import { ColumnSizeOption, IColumn } from "../../types";
 import {
   SearchRegular, MoreVerticalFilled, bundleIcon,
   CodeTextOff16Filled, CodeTextOff16Regular, ChevronCircleUp24Regular, ChevronCircleDown24Regular
@@ -75,27 +69,6 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
   const styles = useTableStyles();
 
-  const columns = React.useMemo<TableColumnDefinition<TItem>[]>(() => {
-    return props.columns?.map(col => createTableColumn<TItem>({
-      columnId: col.columnId,
-      renderHeaderCell: col.renderHeaderCell
-    }))
-  }, [props.columns]);
-
-
-  const columnSizingOptions = React.useMemo<TableColumnSizingOptions>(() => {
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    const sizingOptions: any = {
-      "group": {
-        defaultWidth: 15
-      } as ColumnSizeOption
-    };
-    for (const col of props.columns) {
-      sizingOptions[col.columnId] = col.sizeOptions
-    }
-    return sizingOptions;
-  }, [props.columns]);
-
   const {
     gridTitle,
     selectionMode = "none",
@@ -108,16 +81,17 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
   const { ...tableProps }: FluentTableProps = rest;
 
-  const { columnSizing_unstable, tableRef } = useTableFeatures<TItem>(
-    {
-      columns,
-      items
-    },
-    [useTableColumnSizing_unstable({ columnSizingOptions })]
-  );
-
   const {
     pagedItems,
+
+    defaultFeatures: {
+      tableRef,
+      columnSizing_unstable
+    },
+
+    columnsState: {
+      extendedColumns
+    },
 
     filterState: {
       filterValue,
@@ -140,7 +114,6 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
     groupedState: {
       groups,
-      groupedColumns,
       isAllCollapsed,
       toggleGroupExpand,
       toggleAllGroupExpand
@@ -148,16 +121,13 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
   } = useCustomTableFeature(props);
 
+
   const showLoader = React.useMemo(() => isLoading && items?.length === 0, [isLoading, items]);
   const showNoItem = React.useMemo(() => !isLoading && items?.length === 0, [isLoading, items]);
   const showNoItemMatch = React.useMemo(() => pagedItems?.length === 0 && items?.length > 0, [isLoading, pagedItems, items]);
 
   const actionMenu = React.useMemo(() => onGetGridActionMenu && onGetGridActionMenu(selectedItems), [selectedItems])
 
-  //&& !groupedColumns.includes(x.columnId as string)
-  const extendedColumns = React.useMemo<IColumn<TItem>[]>(
-    () => props.columns?.filter(x => !x.hideInDefaultView)
-    , [props.columns, groupedColumns]);
 
   return (
     <>
@@ -207,7 +177,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
               {
                 selectionMode === "single" &&
                 (<TableHeaderCell className={styles.headerSelectionCell}></TableHeaderCell>)
-              } 
+              }
               {
                 groups?.length > 0 &&
                 (<TableHeaderCell
