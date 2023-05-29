@@ -73,7 +73,10 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
     const {
         columns,
         columnSizingOptions,
-        extendedColumns
+        extendedColumns,
+
+        visibleColumns,
+        setVisibleColumns
     } = useTableColumns<TItem>(props.columns)
 
     /**
@@ -204,11 +207,12 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
             filter: filter,
             groupedColumns: groupedColumns,
             sortedColumns: sortedColumns,
+            visibleColumns: visibleColumns
         }
 
         localStorage.setItem("table1", JSON.stringify(tableState));
 
-    }, [groupedColumns, sortedColumns, filter])
+    }, [groupedColumns, sortedColumns, filter, visibleColumns])
 
     const applyTableState = React.useCallback((key: string) => {
 
@@ -218,7 +222,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
 
         toggleSortColumn(tableState?.sortedColumns?.[0]);
         setFilterValue(tableState.filter);
-
+        setVisibleColumns(tableState.visibleColumns)
 
 
     }, [])
@@ -237,7 +241,10 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         columnsState: {
             columns,
             columnSizingOptions,
-            extendedColumns
+            extendedColumns,
+
+            visibleColumns,
+            setVisibleColumns
         },
 
         selectionState: {

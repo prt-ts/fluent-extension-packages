@@ -18,6 +18,12 @@ import {
   MenuItem,
   TableCellActions,
   mergeClasses,
+  MenuItemCheckbox,
+  MenuGroup,
+  MenuGroupHeader,
+  MenuDivider,
+  MenuCheckedValueChangeData,
+  Tooltip,
 } from "@fluentui/react-components";
 import * as React from "react";
 
@@ -30,7 +36,8 @@ import { useTableStyles } from "./useTableStyles"
 import { Pagination } from "../Pagination"
 import {
   SearchRegular, MoreVerticalFilled, bundleIcon,
-  CodeTextOff16Filled, CodeTextOff16Regular, ChevronCircleUp24Regular, ChevronCircleDown24Regular
+  CodeTextOff16Filled, CodeTextOff16Regular,
+  ChevronCircleUp24Regular, ChevronCircleDown24Regular, ColumnEditRegular, ColumnEditFilled
 } from "@fluentui/react-icons"
 import { GridHeader } from "../GridHeader";
 import { Loading } from "../Loading";
@@ -40,6 +47,7 @@ import { SortIndicator } from "./SortedIndicator";
 import { GroupRenderer } from "./GroupRenderer";
 
 const ClearFilterIcon = bundleIcon(CodeTextOff16Filled, CodeTextOff16Regular);
+const ToggleColumnIcon = bundleIcon(ColumnEditFilled, ColumnEditRegular);
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function tryGetObjectValue(fieldName: string | undefined, item: any) {
@@ -92,7 +100,11 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
     },
 
     columnsState: {
-      extendedColumns
+      columns,
+      extendedColumns,
+
+      visibleColumns,
+      setVisibleColumns
     },
 
     filterState: {
@@ -130,40 +142,71 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
   const actionMenu = React.useMemo(() => onGetGridActionMenu && onGetGridActionMenu(selectedItems), [selectedItems])
 
+  const checkedValues = React.useMemo<Record<string, string[]>>(() => ({ hiddenCols: visibleColumns }), [visibleColumns]);
 
   return (
     <>
       <div>
         <GridHeader search={
-          <Input
-            type="search"
-            size={'small'}
-            contentBefore={<SearchRegular />}
-            className={styles.searchInput}
-            contentAfter={
-              <Menu>
-                <MenuTrigger disableButtonEnhancement>
-                  <Button appearance="subtle" icon={<MoreVerticalFilled />} />
-                </MenuTrigger>
+          <>
+            <Menu
+              checkedValues={checkedValues}
+              onCheckedValueChange={((_, data: MenuCheckedValueChangeData) => setVisibleColumns(data.checkedItems))}>
 
-                <MenuPopover>
-                  <MenuList>
-                    <MenuItem icon={<ClearFilterIcon />} onClick={resetFilterValue}>
-                      Clear All Filters
-                    </MenuItem>
-                    <MenuItem icon={<ClearFilterIcon />} onClick={saveTableState}>
-                     Save Current Grid State
-                    </MenuItem>
-                    <MenuItem icon={<ClearFilterIcon />} onClick={() => applyTableState("table1")}>
-                     Get Saved State
-                    </MenuItem>
-                  </MenuList>
-                </MenuPopover>
-              </Menu>
-            }
-            value={filterValue as string}
-            onChange={(ev, data) => setFilterValue(data.value)}
-          />
+              <Tooltip content="Show/Hide Grid Columns" relationship="description">
+                <MenuTrigger disableButtonEnhancement>
+                  <Button appearance="outline" icon={<ToggleColumnIcon />} />
+                </MenuTrigger>
+              </Tooltip>
+              <MenuPopover>
+                <MenuList>
+                  <MenuGroup key={"table-hide-show"}>
+                    <MenuGroupHeader key={"table-hide-show-label"}>Show/Hide Columns</MenuGroupHeader>
+                    <MenuDivider key={"table-hide-show-divider"} />
+                    {
+                      columns && columns.map((col, index) => (
+                        <MenuItemCheckbox
+                          key={index}
+                          name={"hiddenCols"}
+                          value={col.columnId as string}
+                        >
+                          {col.renderHeaderCell()}
+                        </MenuItemCheckbox>))
+                    }
+                  </MenuGroup>
+                </MenuList>
+              </MenuPopover>
+            </Menu>
+            <Input
+              type="search"
+              size={'small'}
+              contentBefore={<SearchRegular />}
+              className={styles.searchInput}
+              contentAfter={
+                <Menu>
+                  <MenuTrigger disableButtonEnhancement>
+                    <Button appearance="subtle" icon={<MoreVerticalFilled />} />
+                  </MenuTrigger>
+
+                  <MenuPopover>
+                    <MenuList>
+                      <MenuItem icon={<ClearFilterIcon />} onClick={resetFilterValue}>
+                        Clear All Filters
+                      </MenuItem>
+                      <MenuItem icon={<ClearFilterIcon />} onClick={saveTableState}>
+                        Save Current Grid State
+                      </MenuItem>
+                      <MenuItem icon={<ClearFilterIcon />} onClick={() => applyTableState("table1")}>
+                        Get Saved State
+                      </MenuItem>
+                    </MenuList>
+                  </MenuPopover>
+                </Menu>
+              }
+              value={filterValue as string}
+              onChange={(ev, data) => setFilterValue(data.value)}
+            />
+          </>
         }
           actionMenu={actionMenu}
           title={gridTitle}

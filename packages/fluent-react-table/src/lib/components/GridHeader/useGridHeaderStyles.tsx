@@ -11,4 +11,10 @@ export const useGridHeaderStyles = makeStyles({
         paddingBottom: "3px",
         backgroundColor : tokens.colorNeutralBackground2Hover
     }, 
+
+    searchContainer: {
+        display: "flex",
+        alignItems: "center",
+        alignContent: "center",
+    }
 });

@@ -4,13 +4,22 @@ import { TableColumnDefinition, TableColumnSizingOptions, createTableColumn } fr
 
 export function useTableColumns<TItem extends NonNullable<{ id: string | number }>>(gridColumns: IColumn<TItem>[]) {
 
+    const [visibleColumns , setVisibleColumns] = React.useState<string[]>([]);
+    React.useEffect(() => {
+        if (gridColumns?.length > 0) {
+            const hiddenCols = gridColumns?.filter(col => !col.hideInDefaultView)?.map(col => col.columnId as string);
+            setVisibleColumns(hiddenCols);
+        } else {
+            setVisibleColumns([]);
+        }
+    }, [gridColumns]);
+
     const columns = React.useMemo<TableColumnDefinition<TItem>[]>(() => {
         return gridColumns?.map(col => createTableColumn<TItem>({
             columnId: col.columnId,
             renderHeaderCell: col.renderHeaderCell
         }))
-    }, [gridColumns]);
-
+    }, [gridColumns]); 
 
     const columnSizingOptions = React.useMemo<TableColumnSizingOptions>(() => {
         /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -25,15 +34,16 @@ export function useTableColumns<TItem extends NonNullable<{ id: string | number 
         return sizingOptions;
     }, [gridColumns]);
 
-    //&& !groupedColumns.includes(x.columnId as string)
-    const extendedColumns = React.useMemo<IColumn<TItem>[]>(
-        () => gridColumns?.filter(x => !x.hideInDefaultView)
-        , [gridColumns]);
-
-
+    const extendedColumns = React.useMemo<IColumn<TItem>[]>(() => {
+        return gridColumns?.filter(x => visibleColumns?.includes(x.columnId as string))
+    }, [gridColumns, visibleColumns]);
+   
     return {
         columns,
         columnSizingOptions,
-        extendedColumns
+        extendedColumns,
+
+        visibleColumns,
+        setVisibleColumns
     } as const;
 }

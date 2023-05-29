@@ -21,7 +21,7 @@ export const GridHeader: React.FunctionComponent<{
             <div>
                 {title}
             </div>
-            <div>
+            <div className={styles.searchContainer}>
                 {search}
             </div>
         </div>
