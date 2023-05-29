@@ -1,4 +1,4 @@
-import { makeStyles, tokens } from "@fluentui/react-components";
+import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 
 export const useGridHeaderStyles = makeStyles({
     wrapper: {
@@ -9,12 +9,14 @@ export const useGridHeaderStyles = makeStyles({
         justifyContent: "space-between",
         paddingTop: "3px",
         paddingBottom: "3px",
-        backgroundColor : tokens.colorNeutralBackground2Hover
+        backgroundColor : tokens.colorNeutralBackground2Hover,
+        ...shorthands.borderRadius("3px", "3px", 0, 0)
     }, 
 
     searchContainer: {
         display: "flex",
         alignItems: "center",
         alignContent: "center",
+        ...shorthands.padding("0px", "10px")
     }
 });

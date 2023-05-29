@@ -89,8 +89,7 @@ export function groupItems<TItem extends { id: string | number }>(
         );
       }
     }
-
-    //console.log("Grouping")
+ 
     return groups;
   }
 
@@ -150,8 +149,7 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
   }, [])
   const toggleGroupExpand = React.useCallback((currentGroup: IGroup) => {
 
-    const newGroup = toggleExpand(groups, currentGroup);
-    console.log(newGroup);
+    const newGroup = toggleExpand(groups, currentGroup); 
     setGroups([...newGroup])
 
   }, [groups])
@@ -182,8 +180,7 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
     return newGroup;
   }, [])
 
-  const toggleAllGroupExpand = React.useCallback((isAllCollapsed: boolean) => {
-    console.log("abc", isAllCollapsed)
+  const toggleAllGroupExpand = React.useCallback((isAllCollapsed: boolean) => { 
     const newGroup = toggleAllGroupExpandHandler(groups, !isAllCollapsed);
     setGroups([...newGroup])
 

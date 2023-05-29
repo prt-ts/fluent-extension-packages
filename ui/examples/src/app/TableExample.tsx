@@ -112,7 +112,7 @@ export function TableExample() {
                 console.log("selectedItems", selectedItems)
                 return (
                     <Toolbar aria-label="Default">
-                        <ToolbarButton
+                        {/* <ToolbarButton
                             aria-label="Increase Font Size"
                             appearance="primary"
                             icon={<FontIncrease24Regular />}
@@ -120,7 +120,7 @@ export function TableExample() {
                         <ToolbarButton
                             aria-label="Decrease Font Size"
                             icon={<FontDecrease24Regular />}
-                        />
+                        /> */}
                         <ToolbarButton aria-label="Reset Font Size" icon={<TextFont24Regular />} />
                         <ToolbarDivider />
                         <Menu>

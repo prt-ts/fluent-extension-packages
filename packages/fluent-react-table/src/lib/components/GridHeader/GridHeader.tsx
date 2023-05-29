@@ -15,13 +15,11 @@ export const GridHeader: React.FunctionComponent<{
 
     return (
         <div className={styles.wrapper}>
-            <div>
-                {actionMenu}
-            </div>
-            <div>
+            <div className={styles.searchContainer}>
                 {title}
             </div>
             <div className={styles.searchContainer}>
+                {actionMenu}
                 {search}
             </div>
         </div>

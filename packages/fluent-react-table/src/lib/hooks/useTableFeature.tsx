@@ -7,11 +7,7 @@ import { useTableSorting } from "./useTableSorting";
 import { useTableGrouping } from "./useTableGrouping";
 import { useTableColumns } from "./useTableColumns";
 import { IGroup } from "../types";
-import { useTableColumnSizing_unstable, useTableFeatures, } from "@fluentui/react-components";
-import { setgroups } from "process";
-// import { TableFeaturesState } from "@fluentui/react-table"
-
-// type TCSizeState<TItem> =  TableFeaturesState<TItem>["columnSizing_unstable"];
+import { useTableColumnSizing_unstable, useTableFeatures, } from "@fluentui/react-components"; 
 
 export function useCustomTableFeature<TItem extends NonNullable<{ id: string | number }>>(props: TableProps<TItem>) {
 
@@ -26,10 +22,14 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
     } = props;
 
     const { filter, setFilterValue, resetFilterValue, applyFilter, } = useTableFilter()
-    const { selectedItems, toggleRow, toggleAllRows, isEverySelected, isItemSelected } = useTableSelection(selectionMode, (selectedItems: TItem[]) => {
-
-        console.log(selectedItems);
-        // propagate selection
+    
+    const {
+         selectedItems, 
+         toggleRow, 
+         toggleAllRows, 
+         isEverySelected, 
+         isItemSelected 
+    } = useTableSelection(selectionMode, (selectedItems: TItem[]) => {
         props.onSelectionChange && props.onSelectionChange(selectedItems);
     });
 
@@ -94,8 +94,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
     /**
      * Filter grid
      */
-    const filteredItems = React.useMemo(() => {
-        console.log("Calculating Filter", items.length)
+    const filteredItems = React.useMemo(() => { 
 
         // filter items
         const columnIds = columns.map(x => x.columnId);
@@ -124,9 +123,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
             //todo
 
             // check if sorted column exist on the grouped columns
-            if (groupedColumns.some(gc => sortedColumns?.some(sc => sc.includes(gc)))) {
-                console.log("sorted column is in grouped column", groupedColumns, sortedColumns);
-
+            if (groupedColumns.some(gc => sortedColumns?.some(sc => sc.includes(gc)))) { 
                 combinedSortColumns = groupedColumns.map((gc => {
                     return sortedColumns.some(sc => sc.includes(gc)) ? sortedColumns?.[0] : gc;
                 }))
@@ -137,8 +134,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         } else {
             combinedSortColumns = sortedColumns;
         }
-
-        console.log("Calculating Sorting", combinedSortColumns)
+ 
         const sItems = applySort(combinedSortColumns, filteredItems);
         return sItems;
 
@@ -193,8 +189,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         }
 
         // set groups
-        setGroups(pGroups)
-        console.log("Calculating Pagination", sortedItems.length);
+        setGroups(pGroups) 
 
         // Pagination Calculation 
         return pItems;
@@ -216,14 +211,10 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
 
     const applyTableState = React.useCallback((key: string) => {
 
-        const tableState = JSON.parse(localStorage.getItem(key) as string);
-        //todo
-        console.log(tableState);
-
+        const tableState = JSON.parse(localStorage.getItem(key) as string); 
         toggleSortColumn(tableState?.sortedColumns?.[0]);
         setFilterValue(tableState.filter);
-        setVisibleColumns(tableState.visibleColumns)
-
+        setVisibleColumns(tableState.visibleColumns);
 
     }, [])
 
