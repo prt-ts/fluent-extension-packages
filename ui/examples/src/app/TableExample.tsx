@@ -53,11 +53,11 @@ export function TableExample() {
             items={gridItems}
             isLoading={isLoading}
             gridTitle={<Subtitle2Stronger>Example Table</Subtitle2Stronger>}
-            size='extra-small'
-            selectionMode='single'
+            size='small'
+            selectionMode='multiple'
             defaultSortedColumnIds={['lastUpdated.label']}
             defaultGroupColumnIds={["file.label", "author.label", "author.status"]}
-            isPageOnGroup={true}
+            isPageOnGroup={false}
             // getRowClasses={(item, index) => item.id == 3 ? styles.evenRow : ""}
             columns={[
                 {
@@ -87,6 +87,15 @@ export function TableExample() {
                     columnId: "lastUpdated.label",
                     renderHeaderCell: () => <>Last Updated</>
                 },
+                {
+                    columnId: "lastUpdate.icon",
+                    renderHeaderCell: () => <>Last Updated</>,
+                    renderCell: (item)=> item.lastUpdate.icon
+                },
+                {
+                    columnId: "lastUpdated.timestamp",
+                    renderHeaderCell: () => <>Last Timestamp</>
+                },                
                 {
                     columnId: "lastUpdate.label",
                     renderHeaderCell: () => <>Note</>,

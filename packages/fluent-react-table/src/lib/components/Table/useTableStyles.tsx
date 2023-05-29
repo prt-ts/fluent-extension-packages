@@ -72,8 +72,8 @@ export const useTableStyles = makeStyles({
 
     headerToggleCell: { 
         cursor: "pointer",
-        maxWidth: "10px",
-        width: "10px"
+        maxWidth: "20px",
+        width: "20px"
     },
 
     headerToggleIcon: {

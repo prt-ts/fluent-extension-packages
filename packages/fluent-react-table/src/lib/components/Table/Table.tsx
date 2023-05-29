@@ -296,8 +296,8 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
           {
             groups.length > 0 &&
             <TableBody>
-              {groups.map((group) => (
-                <React.Fragment key={group.key}>
+              {groups.map((group, index) => (
+                <React.Fragment key={index + group.key}>
                   <GroupRenderer
                     items={[...pagedItems]}
                     group={group}
