@@ -82,11 +82,17 @@ export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = F
      * apply sort on these column by default
      * @default []
      */
-    defaultSortedColumnIds? : string[]
+    defaultSortedColumnIds? : string[];
 
     /**
      * apply group on these column by default
      * @default []
      */
-    defaultGroupColumnIds? : string[]
+    defaultGroupColumnIds? : string[];
+
+    /**
+     * This allow to set group expand or collapse on default case
+     * @default true
+     */
+    isGroupDefaultExpanded? : boolean;
 }

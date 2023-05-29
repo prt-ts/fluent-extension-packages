@@ -97,7 +97,7 @@ export function groupItems<TItem extends { id: string | number }>(
   return [];
 }
 
-export function useTableGrouping<TItem extends NonNullable<{ id: string | number }>>(defaultGroupedColumns: string[]) {
+export function useTableGrouping<TItem extends NonNullable<{ id: string | number }>>(defaultGroupedColumns: string[], isGroupDefaultExpanded: boolean) {
 
   const [groupedColumns, setGroupedColumns] = React.useState<string[]>(defaultGroupedColumns);
   const [groups, setGroups] = React.useState<IGroup[]>([]);
@@ -108,11 +108,11 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
       //setGroups([])
     }
 
-    const g = groupItems(items, allGroupedColumns, true, undefined, groups, columns);
+    const g = groupItems(items, allGroupedColumns, isGroupDefaultExpanded, undefined, groups, columns);
     //setGroups([...g])
     return [...g];
 
-  }, [groups]);
+  }, [groups, isGroupDefaultExpanded]);
 
   const resetGroupColumns = React.useCallback((): void => setGroupedColumns([]), []);
   const toggleColumnGroup = React.useCallback((newColumnId: string, retainExisting = false): void => {

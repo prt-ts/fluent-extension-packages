@@ -83,6 +83,8 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
   const {
     pagedItems,
+    saveTableState,
+    applyTableState,
 
     defaultFeatures: {
       tableRef,
@@ -148,6 +150,12 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                   <MenuList>
                     <MenuItem icon={<ClearFilterIcon />} onClick={resetFilterValue}>
                       Clear All Filters
+                    </MenuItem>
+                    <MenuItem icon={<ClearFilterIcon />} onClick={saveTableState}>
+                     Save Current Grid State
+                    </MenuItem>
+                    <MenuItem icon={<ClearFilterIcon />} onClick={() => applyTableState("table1")}>
+                     Get Saved State
                     </MenuItem>
                   </MenuList>
                 </MenuPopover>
