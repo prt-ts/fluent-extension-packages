@@ -232,9 +232,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
     const gridActionMenu = React.useMemo(() => {
         return onGetGridActionMenu && onGetGridActionMenu(selectedItems)
     }, [selectedItems])
-
-    const showHideOptionSelected = React.useMemo<Record<string, string[]>>(() => ({ hiddenCols: visibleColumns }), [visibleColumns]);
-  
+ 
 
     return {
         items,
@@ -246,8 +244,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         showNoItem,
         showNoItemMatch,
 
-        gridActionMenu,
-        showHideOptionSelected,
+        gridActionMenu, 
 
         saveTableState,
         applyTableState,

@@ -1,6 +1,6 @@
 import { Menu, MenuCheckedValueChangeData, Tooltip, MenuTrigger, Button, MenuPopover, MenuList, MenuGroup, MenuGroupHeader, MenuDivider, MenuItemCheckbox, makeStyles } from "@fluentui/react-components";
 import * as React from "react";
-import { DragIcon, ToggleColumnIcon } from "../Icons";
+import { DragIcon, ToggleGroupColumnIcon } from "../Icons";
 import { IColumn } from "../../types";
 import { useDragDropFeature } from "../../hooks";
 
@@ -8,7 +8,7 @@ import { useDragDropFeature } from "../../hooks";
 export function GroupColumns<TITem extends { id: number | string }>({
     groupedColumns = [],
     columns = [],
-    resetGroupColumns,    
+    resetGroupColumns,
 }: {
     groupedColumns: string[],
     columns: IColumn<TITem>[],
@@ -16,19 +16,24 @@ export function GroupColumns<TITem extends { id: number | string }>({
 }) {
 
     const groupedSelectedColumns = React.useMemo<Record<string, string[]>>(() => ({ groupedColumns: groupedColumns }), [groupedColumns]);
+    const sortedColumns = React.useMemo<IColumn<TITem>[]>(() => {
+        return [...columns]?.sort(function (a, b) {
+            return (groupedColumns?.indexOf(a.columnId as string) === -1 && groupedColumns?.indexOf(b.columnId as string) === -1)
+                ? 0
+                : (groupedColumns?.indexOf(a.columnId as string) - groupedColumns?.indexOf(b.columnId as string));
+        })
+    }, [groupedColumns, columns]);
 
     const handleDragGroupItem = React.useCallback((newColOrders: string[]) => {
-
         const orderedGroupedCols = groupedColumns?.sort((first, second) => (newColOrders?.indexOf(first) - newColOrders.indexOf(second)))
         resetGroupColumns([...orderedGroupedCols]);
-
     }, [groupedColumns])
 
     const {
         dragStart,
         dragEnter,
         drop
-    } = useDragDropFeature<string>(columns?.map(x => x.columnId as string), (sortedItems: string[]) => {
+    } = useDragDropFeature<string>(sortedColumns?.map(sc => sc.columnId as string), (sortedItems: string[]) => {
         console.log(sortedItems)
         handleDragGroupItem(sortedItems);
     })
@@ -39,9 +44,9 @@ export function GroupColumns<TITem extends { id: number | string }>({
         checkedValues={groupedSelectedColumns}
         onCheckedValueChange={(_, data: MenuCheckedValueChangeData) => resetGroupColumns(data.checkedItems)}>
 
-        <Tooltip content="Show/Hide Grid Columns" relationship="description">
+        <Tooltip content="Group Items" relationship="description">
             <MenuTrigger disableButtonEnhancement>
-                <Button appearance="outline" icon={<ToggleColumnIcon />} />
+                <Button appearance="outline" icon={<ToggleGroupColumnIcon />} />
             </MenuTrigger>
         </Tooltip>
         <MenuPopover>
@@ -50,9 +55,9 @@ export function GroupColumns<TITem extends { id: number | string }>({
                     <MenuGroupHeader key={"table-group-by-cols-label"}>Group Items</MenuGroupHeader>
                     <MenuDivider key={"table-group-by-cols-divider"} />
                     {
-                        columns && columns?.sort(function (a, b) {
-                            return (groupedColumns?.indexOf(a.columnId as string) === -1 && groupedColumns?.indexOf(b.columnId as string) === -1) 
-                                ? 0 
+                        columns && [...columns]?.sort(function (a, b) {
+                            return (groupedColumns?.indexOf(a.columnId as string) === -1 && groupedColumns?.indexOf(b.columnId as string) === -1)
+                                ? 0
                                 : (groupedColumns?.indexOf(a.columnId as string) - groupedColumns?.indexOf(b.columnId as string));
                         })?.map((col, index) => (
                             <MenuItemCheckbox

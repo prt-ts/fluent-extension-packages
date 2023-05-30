@@ -41,7 +41,8 @@ import { EmptyGrid } from "../EmptyGrid";
 import { Loading } from "../Loading";
 import { GroupRenderer } from "./GroupRenderer";
 import { GroupColumns } from "./GroupColumns";
-import { ClearFilterIcon, GroupCollapsedIcon, GroupExpandedIcon, SearchIcon, ToggleColumnIcon, VerticalMoreIcon } from "../Icons"
+import { SelectColumns } from "./SelectColumns";
+import { ClearFilterIcon, GroupCollapsedIcon, GroupExpandedIcon, SearchIcon, VerticalMoreIcon } from "../Icons"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function tryGetObjectValue(fieldName: string | undefined, item: any) {
@@ -87,8 +88,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
     showNoItem,
     showNoItemMatch,
 
-    gridActionMenu,
-    showHideOptionSelected,
+    gridActionMenu, 
 
     saveTableState,
     applyTableState,
@@ -101,6 +101,8 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
     columnsState: {
       columns,
       extendedColumns,
+
+      visibleColumns,
       setVisibleColumns
     },
 
@@ -145,7 +147,12 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
               groupedColumns={groupedColumns}
               columns={columns}
               resetGroupColumns={resetGroupColumns} />
-            <Menu
+            <SelectColumns
+              visibleColumns={visibleColumns}
+              columns={columns}
+              resetVisibleColumns={(newVisibleColumns : string[]) => setVisibleColumns([...newVisibleColumns])} />
+
+            {/* <Menu
               checkedValues={showHideOptionSelected}
               onCheckedValueChange={((_, data: MenuCheckedValueChangeData) => setVisibleColumns(data.checkedItems))}>
 
@@ -172,7 +179,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                   </MenuGroup>
                 </MenuList>
               </MenuPopover>
-            </Menu>
+            </Menu> */}
             <Input
               type="search"
               size={'small'}

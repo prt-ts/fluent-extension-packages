@@ -35,7 +35,13 @@ export function useTableColumns<TItem extends NonNullable<{ id: string | number 
     }, [gridColumns]);
 
     const extendedColumns = React.useMemo<IColumn<TItem>[]>(() => {
-        return gridColumns?.filter(x => visibleColumns?.includes(x.columnId as string))
+        return gridColumns?.filter(x => visibleColumns
+            ?.includes(x.columnId as string))
+            ?.sort(function (a, b) {
+                return (visibleColumns?.indexOf(a.columnId as string) === -1 && visibleColumns?.indexOf(b.columnId as string) === -1)
+                    ? 0
+                    : (visibleColumns?.indexOf(a.columnId as string) - visibleColumns?.indexOf(b.columnId as string));
+            })
     }, [gridColumns, visibleColumns]);
    
     return {

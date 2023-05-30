@@ -19,7 +19,9 @@ import {
     DragFilled, 
     DragRegular,
 
-    bundleIcon
+    bundleIcon,
+    GroupFilled,
+    GroupRegular
 } from "@fluentui/react-icons"
 
 
@@ -27,7 +29,8 @@ export const SearchIcon = bundleIcon(SearchFilled, SearchRegular);
 export const VerticalMoreIcon = bundleIcon(MoreVerticalFilled, MoreVerticalRegular);
 
 export const ClearFilterIcon = bundleIcon(CodeTextOff16Filled, CodeTextOff16Regular);
-export const ToggleColumnIcon = bundleIcon(ColumnEditFilled, ColumnEditRegular);
+export const ToggleSelectColumnIcon = bundleIcon(ColumnEditFilled, ColumnEditRegular);
+export const ToggleGroupColumnIcon = bundleIcon(GroupFilled, GroupRegular);
 
 export const  GroupCollapsedIcon = bundleIcon(ChevronRightFilled, ChevronRightRegular);
 export const  GroupExpandedIcon = bundleIcon(ChevronDownRegular, ChevronDownFilled);
