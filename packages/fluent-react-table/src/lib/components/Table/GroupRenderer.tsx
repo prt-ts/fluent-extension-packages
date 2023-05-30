@@ -1,7 +1,7 @@
 import * as React from "react";
 import { IGroup } from "../../types";
-import { Body1Stronger, Button, TableCell, TableRow } from "@fluentui/react-components";
-import { ChevronCircleDownRegular, ChevronCircleUpRegular } from "@fluentui/react-icons";
+import { Body1Stronger, Button, TableCell, TableRow } from "@fluentui/react-components"; 
+import { GroupCollapsedIcon, GroupExpandedIcon } from "../Icons";
 
 export const GroupRenderer = <TItem extends NonNullable<{ id: string | number }>,>(
     { items, group, colSpan, onItemRender, onSelectionRender, toggleGroupExpand, headerRowClassName }: React.PropsWithChildren<{
@@ -24,7 +24,7 @@ export const GroupRenderer = <TItem extends NonNullable<{ id: string | number }>
                     size='small'
                     appearance="transparent"
                     iconPosition={"before"}
-                    icon={group.isCollapsed ? <ChevronCircleUpRegular /> : <ChevronCircleDownRegular />}
+                    icon={group.isCollapsed ? <GroupCollapsedIcon /> : <GroupExpandedIcon />}
                     onClick={() => toggleGroupExpand(group)}
                 >
                     <Body1Stronger>{group.renderHeaderCell} :{` ${group.name}`}</Body1Stronger>

@@ -69,7 +69,7 @@ export const items: Item[] = [
         id: 3,
         file: { label: "Training recording", icon: <VideoRegular /> },
         author: { label: "John Doe", status: "away" },
-        lastUpdated: { label: "Yesterday at 1:46 PM", timestamp: 2 },
+        lastUpdated: { label: "Yesterday at 1:46 PM", timestamp: 4 },
         lastUpdate: {
             label: "You recently opened this",
             icon: <OpenRegular />,
@@ -89,7 +89,7 @@ export const items: Item[] = [
         id: 1,
         file: { label: "Meeting notes", icon: <DocumentRegular /> },
         author: { label: "Max Mustermann", status: "available" },
-        lastUpdated: { label: "7h ago", timestamp: 1 },
+        lastUpdated: { label: "7h ago", timestamp: 4 },
         lastUpdate: {
             label: "You edited this",
             icon: <EditRegular />,
@@ -109,7 +109,7 @@ export const items: Item[] = [
         id: 3,
         file: { label: "Training recording", icon: <VideoRegular /> },
         author: { label: "John Doe", status: "away" },
-        lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 2 },
+        lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 7 },
         lastUpdate: {
             label: "You recently opened this",
             icon: <OpenRegular />,
@@ -129,7 +129,7 @@ export const items: Item[] = [
         id: 1000,
         file: { label: "Meeting notes", icon: <DocumentRegular /> },
         author: { label: "Pradeep Thapaliya", status: "available" },
-        lastUpdated: { label: "7h ago", timestamp: 1 },
+        lastUpdated: { label: "7h ago", timestamp: 9 },
         lastUpdate: {
             label: "You edited this",
             icon: <EditRegular />,
@@ -159,7 +159,7 @@ export const items: Item[] = [
         id: 4,
         file: { label: "Purchase order", icon: <DocumentPdfRegular /> },
         author: { label: "Jane Doe", status: "offline" },
-        lastUpdated: { label: "Tue at 9:30 AM", timestamp: 3 },
+        lastUpdated: { label: "Tue at 9:30 AM", timestamp: 10 },
         lastUpdate: {
             label: "You shared this in a Teams chat",
             icon: <PeopleRegular />,
@@ -169,7 +169,7 @@ export const items: Item[] = [
         id: 1,
         file: { label: "Meeting notes", icon: <DocumentRegular /> },
         author: { label: "Durga Lamichhane", status: "available" },
-        lastUpdated: { label: "9h ago", timestamp: 1 },
+        lastUpdated: { label: "9h ago", timestamp: 11 },
         lastUpdate: {
             label: "You edited this",
             icon: <EditRegular />,
@@ -179,7 +179,7 @@ export const items: Item[] = [
         id: 1,
         file: { label: "Meeting notes", icon: <DocumentRegular /> },
         author: { label: "Durga Lamichhane", status: "available" },
-        lastUpdated: { label: "10h ago", timestamp: 1 },
+        lastUpdated: { label: "10h ago", timestamp: 15 },
         lastUpdate: {
             label: "You edited this",
             icon: <EditRegular />,
@@ -209,7 +209,7 @@ export const items: Item[] = [
         id: 4,
         file: { label: "Purchase order", icon: <DocumentPdfRegular /> },
         author: { label: "Jane Doe", status: "offline" },
-        lastUpdated: { label: "Tue at 9:30 AM", timestamp: 3 },
+        lastUpdated: { label: "Tue at 9:30 AM", timestamp:2 },
         lastUpdate: {
             label: "You shared this in a Teams chat",
             icon: <PeopleRegular />,
@@ -229,7 +229,7 @@ export const items: Item[] = [
         id: 2,
         file: { label: "Thursday presentation", icon: <FolderRegular /> },
         author: { label: "Erika Mustermann", status: "available" },
-        lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 2 },
+        lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 6 },
         lastUpdate: {
             label: "You recently opened this",
             icon: <OpenRegular />,
@@ -249,7 +249,7 @@ export const items: Item[] = [
         id: 4,
         file: { label: "Purchase order", icon: <DocumentPdfRegular /> },
         author: { label: "Jane Doe", status: "offline" },
-        lastUpdated: { label: "Tue at 9:30 AM", timestamp: 3 },
+        lastUpdated: { label: "Tue at 9:30 AM", timestamp: 7 },
         lastUpdate: {
             label: "You shared this in a Teams chat",
             icon: <PeopleRegular />,
@@ -269,7 +269,7 @@ export const items: Item[] = [
         id: 2,
         file: { label: "Thursday presentation", icon: <FolderRegular /> },
         author: { label: "Erika Mustermann", status: "away" },
-        lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 2 },
+        lastUpdated: { label: "Yesterday at 1:45 PM", timestamp: 16 },
         lastUpdate: {
             label: "You recently opened this",
             icon: <OpenRegular />,

@@ -11,14 +11,17 @@ import { useTableColumnSizing_unstable, useTableFeatures, } from "@fluentui/reac
 
 export function useCustomTableFeature<TItem extends NonNullable<{ id: string | number }>>(props: TableProps<TItem>) {
 
-    const { items,
+    const { 
+        items,
+        isLoading,
         selectionMode = "none",
         defaultPageSize = 10,
         pageSizeOption = [10, 20, 50, 100,],
         isPageOnGroup = true,
         isGroupDefaultExpanded = true,
         defaultSortedColumnIds = [],
-        defaultGroupColumnIds = []
+        defaultGroupColumnIds = [],
+        onGetGridActionMenu
     } = props;
 
     const { filter, setFilterValue, resetFilterValue, applyFilter, } = useTableFilter()
@@ -63,6 +66,9 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         groups,
         setGroups,
         groupedColumns,
+        toggleColumnGroup,
+        resetGroupColumns,
+
         isAllCollapsed,
         calculateGroups,
 
@@ -155,7 +161,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
 
 
         // new implementation
-        if (isPageOnGroup) {
+        if (isPageOnGroup && groupedColumns.length > 0) {
 
             // calculate group on sorted items
             const groups = calculateGroups(groupedColumns, sortedItems, columns);
@@ -167,13 +173,13 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
             pGroups = [...groups]?.splice(startIndex, count);
 
             // get start and item count based on group information
-            startIndex = pGroups?.length > 0 ? pGroups?.[0]?.startIndex : 0;
+            startIndex = pGroups?.length > 0 ? pGroups?.[currentPage*pageSize]?.startIndex : 0;
             count = pGroups?.reduce(function (total: number, item: IGroup) {
                 return total + item.count;
             }, 0);
 
-            // calculate paged items based on group item counts
-            pItems = [...sortedItems]?.splice(startIndex, count);
+            // now paged items will be all the items because page will be based on the group
+            pItems = [...sortedItems];
 
         }
         else {
@@ -218,11 +224,30 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
 
     }, [])
 
+    const showLoader = React.useMemo(() => isLoading && items?.length === 0, [isLoading, items]);
+    const showNoItem = React.useMemo(() => !isLoading && items?.length === 0, [isLoading, items]);
+    const showNoItemMatch = React.useMemo(() => pagedItems?.length === 0 && items?.length > 0, [isLoading, pagedItems, items]);
+  
+
+    const gridActionMenu = React.useMemo(() => {
+        return onGetGridActionMenu && onGetGridActionMenu(selectedItems)
+    }, [selectedItems])
+
+    const showHideOptionSelected = React.useMemo<Record<string, string[]>>(() => ({ hiddenCols: visibleColumns }), [visibleColumns]);
+  
+
     return {
         items,
         filteredItems,
         sortedItems,
         pagedItems,
+
+        showLoader,
+        showNoItem,
+        showNoItemMatch,
+
+        gridActionMenu,
+        showHideOptionSelected,
 
         saveTableState,
         applyTableState,
@@ -278,6 +303,8 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         groupedState: {
             groups,
             groupedColumns,
+            toggleColumnGroup,
+            resetGroupColumns,
             isAllCollapsed,
 
             toggleGroupExpand,

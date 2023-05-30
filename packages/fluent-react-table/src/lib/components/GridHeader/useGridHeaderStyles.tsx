@@ -18,5 +18,10 @@ export const useGridHeaderStyles = makeStyles({
         alignItems: "center",
         alignContent: "center",
         ...shorthands.padding("0px", "10px")
+    },
+
+    searchContainerDivider: {
+        ...shorthands.margin("0px", "10px"),
+        height: "100%"
     }
 });

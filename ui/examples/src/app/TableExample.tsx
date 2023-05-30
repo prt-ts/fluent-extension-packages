@@ -11,8 +11,6 @@ import {
     Button,
 } from "@fluentui/react-components";
 import {
-    FontIncrease24Regular,
-    FontDecrease24Regular,
     TextFont24Regular,
     MoreHorizontal24Filled,
 } from "@fluentui/react-icons";
@@ -20,17 +18,17 @@ import { Subtitle2Stronger } from '@fluentui/react-components';
 import * as React from "react";
 import { Item, items } from './app';
 
-import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
+import { makeStyles, tokens } from "@fluentui/react-components"; 
 
 export const useTableStyles = makeStyles({
- 
+
     evenRow: {
         backgroundColor: tokens.colorPaletteRedBackground3,
         ":hover": {
             backgroundColor: tokens.colorBrandBackground2,
         }
     },
- 
+
 });
 
 
@@ -39,11 +37,11 @@ export function TableExample() {
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
     const styles = useTableStyles();
 
-    React.useEffect(() => { 
+    React.useEffect(() => {
         const timeout = setTimeout(() => {
             setGridItems(items);
             setIsLoading(false);
-        }, 3000); 
+        }, 3000);
 
         return () => clearTimeout(timeout)
     }, [])
@@ -70,8 +68,8 @@ export function TableExample() {
                     sizeOptions: {
                         defaultWidth: 300
                     },
-                     appearance: "primary",
-                    renderActions: (items) => <Button appearance='transparent' size='small'>Test Action</Button> 
+                    appearance: "primary",
+                    renderActions: (items) => <Button appearance='transparent' size='small'>Test Action</Button>
                 },
                 {
                     columnId: "author.label",
@@ -91,23 +89,23 @@ export function TableExample() {
                 {
                     columnId: "lastUpdate.icon",
                     renderHeaderCell: () => <>Last Updated</>,
-                    renderCell: (item)=> item.lastUpdate.icon
+                    renderCell: (item) => item.lastUpdate.icon
                 },
                 {
                     columnId: "lastUpdated.timestamp",
                     renderHeaderCell: () => <>Last Timestamp</>
-                },                
+                },
                 {
                     columnId: "lastUpdate.label",
                     renderHeaderCell: () => <>Note</>,
                     renderMedia: (item: Item) => item.lastUpdate.icon,
 
-                    sizeOptions : {
-                        defaultWidth : 100
+                    sizeOptions: {
+                        defaultWidth: 100
                     }
                 }
             ]}
-            
+
             onGetGridActionMenu={(selectedItems) => {
                 console.log("selectedItems", selectedItems)
                 return (
@@ -139,8 +137,10 @@ export function TableExample() {
                         </Menu>
                     </Toolbar>)
             }}
-        />
-
+        /> 
 
     </div>)
 }
+
+
+

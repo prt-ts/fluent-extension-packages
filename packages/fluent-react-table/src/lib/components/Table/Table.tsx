@@ -34,20 +34,14 @@ import { TableProps as FluentTableProps } from "@fluentui/react-components"
 import { useCustomTableFeature } from "../../hooks";
 import { useTableStyles } from "./useTableStyles"
 import { Pagination } from "../Pagination"
-import {
-  SearchRegular, MoreVerticalFilled, bundleIcon,
-  CodeTextOff16Filled, CodeTextOff16Regular,
-  ChevronCircleUp24Regular, ChevronCircleDown24Regular, ColumnEditRegular, ColumnEditFilled
-} from "@fluentui/react-icons"
+
 import { GridHeader } from "../GridHeader";
-import { Loading } from "../Loading";
 import { NoFilterMatch } from "../NoFilterMatch";
 import { EmptyGrid } from "../EmptyGrid";
-import { SortIndicator } from "./SortedIndicator";
+import { Loading } from "../Loading";
 import { GroupRenderer } from "./GroupRenderer";
-
-const ClearFilterIcon = bundleIcon(CodeTextOff16Filled, CodeTextOff16Regular);
-const ToggleColumnIcon = bundleIcon(ColumnEditFilled, ColumnEditRegular);
+import { GroupColumns } from "./GroupColumns";
+import { ClearFilterIcon, GroupCollapsedIcon, GroupExpandedIcon, SearchIcon, ToggleColumnIcon, VerticalMoreIcon } from "../Icons"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function tryGetObjectValue(fieldName: string | undefined, item: any) {
@@ -80,9 +74,6 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
   const {
     gridTitle,
     selectionMode = "none",
-    isLoading = false,
-    items,
-    onGetGridActionMenu,
     getRowClasses,
     ...rest
   } = props;
@@ -91,6 +82,14 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
   const {
     pagedItems,
+
+    showLoader,
+    showNoItem,
+    showNoItemMatch,
+
+    gridActionMenu,
+    showHideOptionSelected,
+
     saveTableState,
     applyTableState,
 
@@ -102,8 +101,6 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
     columnsState: {
       columns,
       extendedColumns,
-
-      visibleColumns,
       setVisibleColumns
     },
 
@@ -122,12 +119,15 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
       isSortedAscending
     },
 
-    selectionState: { isEverySelected, isItemSelected, toggleRow, toggleAllRows, selectedItems },
+    selectionState: { isEverySelected, isItemSelected, toggleRow, toggleAllRows },
 
     paginationState,
 
     groupedState: {
       groups,
+      groupedColumns,
+      toggleColumnGroup,
+      resetGroupColumns,
       isAllCollapsed,
       toggleGroupExpand,
       toggleAllGroupExpand
@@ -136,21 +136,17 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
   } = useCustomTableFeature(props);
 
 
-  const showLoader = React.useMemo(() => isLoading && items?.length === 0, [isLoading, items]);
-  const showNoItem = React.useMemo(() => !isLoading && items?.length === 0, [isLoading, items]);
-  const showNoItemMatch = React.useMemo(() => pagedItems?.length === 0 && items?.length > 0, [isLoading, pagedItems, items]);
-
-  const actionMenu = React.useMemo(() => onGetGridActionMenu && onGetGridActionMenu(selectedItems), [selectedItems])
-
-  const checkedValues = React.useMemo<Record<string, string[]>>(() => ({ hiddenCols: visibleColumns }), [visibleColumns]);
-
   return (
     <>
       <div>
         <GridHeader search={
           <>
+            <GroupColumns
+              groupedColumns={groupedColumns}
+              columns={columns}
+              resetGroupColumns={resetGroupColumns} />
             <Menu
-              checkedValues={checkedValues}
+              checkedValues={showHideOptionSelected}
               onCheckedValueChange={((_, data: MenuCheckedValueChangeData) => setVisibleColumns(data.checkedItems))}>
 
               <Tooltip content="Show/Hide Grid Columns" relationship="description">
@@ -180,12 +176,12 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
             <Input
               type="search"
               size={'small'}
-              contentBefore={<SearchRegular />}
+              contentBefore={<SearchIcon />}
               className={styles.searchInput}
               contentAfter={
                 <Menu>
                   <MenuTrigger disableButtonEnhancement>
-                    <Button appearance="subtle" icon={<MoreVerticalFilled />} />
+                    <Button appearance="subtle" icon={<VerticalMoreIcon />} />
                   </MenuTrigger>
 
                   <MenuPopover>
@@ -208,7 +204,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
             />
           </>
         }
-          actionMenu={actionMenu}
+          actionMenu={gridActionMenu}
           title={gridTitle}
         />
       </div>
@@ -235,9 +231,11 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                   className={styles.headerToggleCell}
                   onClick={() => toggleAllGroupExpand(isAllCollapsed)}
                 >
-                  {isAllCollapsed
-                    ? <ChevronCircleUp24Regular className={styles.headerToggleIcon} />
-                    : <ChevronCircleDown24Regular className={styles.headerToggleIcon} />}
+                  <Body1Stronger>
+                    {isAllCollapsed
+                      ? <GroupCollapsedIcon />
+                      : <GroupExpandedIcon />}
+                  </Body1Stronger>
                 </TableHeaderCell>)
               }
 
@@ -247,7 +245,8 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                   {...columnSizing_unstable.getTableHeaderCellProps(
                     column.columnId
                   )}
-                  onClick={() => toggleSortColumn(column.columnId as string, false)}
+                  onClick={(e) => e.detail == 1 ? toggleSortColumn(column.columnId as string, false) : null}
+                  onDoubleClick={(e) => { e.preventDefault(); toggleColumnGroup(column.columnId as string, true) }}
                   sortDirection={
                     isColumnSorted(column.columnId as string)
                       ? (isSortedAscending(column.columnId as string) ? "ascending" : "descending")
@@ -255,11 +254,6 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                   className={styles.headerCell}
                 >
                   <Body1Stronger>
-                    <SortIndicator
-                      isSorted={isColumnSorted(column.columnId as string)}
-                      sortDir={isSortedAscending(column.columnId as string) ? "asc" : "desc"}
-                    />
-
                     {column.renderHeaderCell()}
                   </Body1Stronger>
                 </TableHeaderCell>

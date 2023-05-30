@@ -2,6 +2,7 @@ export { ExtendedTable as Table } from "./components";
 
 export type {
     IColumn,
+    IGroup,
     ColumnSizeOption,
     SelectionMode,
 } from "./types"
@@ -9,3 +10,6 @@ export type {
 export type {
     TableProps
 } from "./props-types"
+
+// export hooks if want to design custom table with features
+export * from "./hooks"

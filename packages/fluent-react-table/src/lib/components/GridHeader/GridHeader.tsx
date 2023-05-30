@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useGridHeaderStyles } from './useGridHeaderStyles';
+import { Divider } from '@fluentui/react-components';
 
 export const GridHeader: React.FunctionComponent<{
     search?: React.ReactNode,
@@ -20,6 +21,7 @@ export const GridHeader: React.FunctionComponent<{
             </div>
             <div className={styles.searchContainer}>
                 {actionMenu}
+                <Divider inset vertical className={styles.searchContainerDivider} />
                 {search}
             </div>
         </div>

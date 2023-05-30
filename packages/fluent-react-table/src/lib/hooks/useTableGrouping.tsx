@@ -19,14 +19,14 @@ function getGroups<TItem extends { id: string | number }>(
   columns?: IColumn<TItem>[]
 ): IGroup[] {
   const separator = "-";
-  const groups = groupedItems.reduce(
-    (current: IGroup[], item: TItem, index: number) => {
+  const groups = groupedItems.reduce((current: IGroup[], item: TItem, index: number) => {
+
       const currentGroup = current[current.length - 1];
       const itemColumnValue = tryGetObjectValue(field, item) ?? "";
 
       if (
         !currentGroup ||
-        getLeafGroupKey(currentGroup.key, separator) !== itemColumnValue
+        getLeafGroupKey(currentGroup.key, separator) != itemColumnValue
       ) {
         const col = columns?.find(c => c.columnId == field);
         current.push({
@@ -113,12 +113,17 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
 
   }, [groups, isGroupDefaultExpanded]);
 
-  const resetGroupColumns = React.useCallback((): void => setGroupedColumns([]), []);
+  const resetGroupColumns = React.useCallback((groupColumns : string[] = []): void => setGroupedColumns(groupColumns), []);
+  
   const toggleColumnGroup = React.useCallback((newColumnId: string, retainExisting = false): void => {
-    setGroupedColumns((existing) => {
-      const otherColumns = existing?.filter(e => !e?.includes(newColumnId))
 
-      return retainExisting ? [newColumnId, ...otherColumns] : [newColumnId]
+    setGroupedColumns((existing) => {
+      if (existing?.includes(newColumnId)) {
+        const otherColumns = existing?.filter(e => !e?.includes(newColumnId));
+        return otherColumns;
+      } else {
+        return retainExisting ? [...groupedColumns, newColumnId] : [newColumnId]
+      }
     });
   }, [groupedColumns]);
 
@@ -147,6 +152,7 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
     return newGroup;
 
   }, [])
+
   const toggleGroupExpand = React.useCallback((currentGroup: IGroup) => {
 
     const newGroup = toggleExpand(groups, currentGroup); 

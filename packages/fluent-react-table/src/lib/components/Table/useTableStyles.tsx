@@ -90,9 +90,9 @@ export const useTableStyles = makeStyles({
     },
 
     groupHeaderRow: {
-        backgroundColor: tokens.colorBrandBackgroundInvertedHover,
+        backgroundColor: tokens.colorNeutralBackground3,
         ":hover": {
-            backgroundColor: tokens.colorBrandBackgroundInvertedPressed,
+            backgroundColor: tokens.colorNeutralBackground3Hover,
         }
     },
 
