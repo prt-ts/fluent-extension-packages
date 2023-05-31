@@ -1,5 +1,6 @@
 import {
   CheckboxInput,
+  DatePicker,
   FocusConnectedError,
   Input,
   RadioInput,
@@ -210,6 +211,12 @@ export default function Web() {
                     { value: '4', label: 'Option 4', disabled: true },
                   ]}
                 /> */}
+
+                <DatePicker 
+                  name="date"
+                  label={"Date"}
+
+                  />
 
             <button type="submit">Submit</button>
 
