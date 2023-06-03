@@ -4,6 +4,14 @@ import { IColumn, SelectionMode } from "../types";
 export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = FluentTableProps & {
 
     /**
+     * This is the unique name of the table - this name is used for the views and other stuff.... 
+     * It must be uniques across your application
+     * @required true
+     * @default null
+     */
+    tableName: string
+
+    /**
      * Items to be displayed in the grid
      * @required true
      * @default []
@@ -21,13 +29,13 @@ export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = F
      * calculates pagination based on group
      * @default true
      */
-    isPageOnGroup : boolean;
+    isPageOnGroup: boolean;
 
     /**
      * show loading 
      * @default false
      */
-    isLoading?: boolean, 
+    isLoading?: boolean,
 
     /**
      * Table Selection Mode
@@ -82,17 +90,17 @@ export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = F
      * apply sort on these column by default
      * @default []
      */
-    defaultSortedColumnIds? : string[];
+    defaultSortedColumnIds?: string[];
 
     /**
      * apply group on these column by default
      * @default []
      */
-    defaultGroupColumnIds? : string[];
+    defaultGroupColumnIds?: string[];
 
     /**
      * This allow to set group expand or collapse on default case
      * @default true
      */
-    isGroupDefaultExpanded? : boolean;
+    isGroupDefaultExpanded?: boolean;
 }

@@ -13,6 +13,8 @@ export type IColumn<TItem extends NonNullable<{ id: string | number }>> = {
   sizeOptions?: ColumnSizeOption; 
 
   hideInDefaultView? : boolean;
+  disableHideShow? : boolean;
+  disableGrouping? : boolean;
 }; 
 
 

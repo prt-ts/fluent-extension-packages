@@ -60,7 +60,7 @@ export function SelectColumns<TITem extends { id: number | string }>({
                                     key={index}
                                     name={"hiddenCols"}
                                     value={col.columnId as string}
-
+                                    disabled={col.disableHideShow ? true : false}
                                     secondaryContent={visibleColumns?.includes(col.columnId as string) ? <DragIcon className={styles.draggableIcon} /> : <></>}
 
                                     className={styles.draggableItem}

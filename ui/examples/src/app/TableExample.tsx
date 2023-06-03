@@ -18,7 +18,7 @@ import { Subtitle2Stronger } from '@fluentui/react-components';
 import * as React from "react";
 import { Item, items } from './app';
 
-import { makeStyles, tokens } from "@fluentui/react-components"; 
+import { makeStyles, tokens } from "@fluentui/react-components";
 
 export const useTableStyles = makeStyles({
 
@@ -48,6 +48,7 @@ export function TableExample() {
 
     return (<div>
         <Table
+            tableName="table1"
             items={gridItems}
             isLoading={isLoading}
             gridTitle={<Subtitle2Stronger>Example Table</Subtitle2Stronger>}
@@ -69,7 +70,9 @@ export function TableExample() {
                         defaultWidth: 300
                     },
                     appearance: "primary",
-                    renderActions: (items) => <Button appearance='transparent' size='small'>Test Action</Button>
+                    renderActions: (items) => <Button appearance='transparent' size='small'>Test Action</Button>,
+                    disableGrouping : true,
+                    disableHideShow : true                    
                 },
                 {
                     columnId: "author.label",
@@ -137,7 +140,68 @@ export function TableExample() {
                         </Menu>
                     </Toolbar>)
             }}
-        /> 
+        />
+
+        {/* <Table
+            tableName='table2'
+            items={gridItems}
+            isLoading={isLoading}
+            gridTitle={<Subtitle2Stronger>Example Table</Subtitle2Stronger>}
+            size='small'
+            selectionMode='multiple'
+            defaultSortedColumnIds={['lastUpdated.label']}
+            defaultGroupColumnIds={["file.label", "author.label"]}
+            isPageOnGroup={true}
+            isGroupDefaultExpanded={true}
+            // getRowClasses={(item, index) => item.id == 3 ? styles.evenRow : ""}
+            columns={[
+                {
+                    columnId: "file.label",
+                    renderHeaderCell: () => <>File</>,
+
+                    renderCell: (item: Item) => <>{item.file.icon} {item.file.label}</>,
+
+                    sizeOptions: {
+                        defaultWidth: 300
+                    },
+                    appearance: "primary",
+                    renderActions: (items) => <Button appearance='transparent' size='small'>Test Action</Button>
+                },
+                {
+                    columnId: "author.label",
+                    renderHeaderCell: () => <>Author</>,
+                    renderSecondary: (item) => item.author.status
+                },
+                {
+                    columnId: "author.status",
+                    renderHeaderCell: () => <>Author Status</>,
+                    renderSecondary: (item) => item.author.status,
+                    hideInDefaultView: true
+                },
+                {
+                    columnId: "lastUpdated.label",
+                    renderHeaderCell: () => <>Last Updated</>
+                },
+                {
+                    columnId: "lastUpdate.icon",
+                    renderHeaderCell: () => <>Last Updated</>,
+                    renderCell: (item) => item.lastUpdate.icon
+                },
+                {
+                    columnId: "lastUpdated.timestamp",
+                    renderHeaderCell: () => <>Last Timestamp</>
+                },
+                {
+                    columnId: "lastUpdate.label",
+                    renderHeaderCell: () => <>Note</>,
+                    renderMedia: (item: Item) => item.lastUpdate.icon,
+
+                    sizeOptions: {
+                        defaultWidth: 100
+                    }
+                }
+            ]}
+        /> */}
 
     </div>)
 }

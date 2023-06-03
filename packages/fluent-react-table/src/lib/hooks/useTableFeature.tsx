@@ -12,6 +12,7 @@ import { useTableColumnSizing_unstable, useTableFeatures, } from "@fluentui/reac
 export function useCustomTableFeature<TItem extends NonNullable<{ id: string | number }>>(props: TableProps<TItem>) {
 
     const {
+        tableName,
         items,
         isLoading,
         selectionMode = "none",
@@ -206,9 +207,11 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
     // ----------- Table View Management Section ---------------//
     const [views, setViews] = React.useState<TableView[]>([]);
     React.useEffect(() => {
-        const allViews = JSON.parse(localStorage.getItem("table1") as string) as SavedTableView;
-        setViews(allViews?.views ?? [])
-    }, [])
+        if (tableName) {
+            const allViews = JSON.parse(localStorage.getItem(tableName) as string) as SavedTableView;
+            setViews(allViews?.views ?? [])
+        }
+    }, [tableName])
 
     const saveTableView = React.useCallback((viewName: string) => {
 
@@ -224,9 +227,9 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         const newSetOfViews: SavedTableView = { views: [...(views?.filter(v => v.viewName !== viewName) ?? []), newTableView] }
 
         setViews(newSetOfViews.views);
-        localStorage.setItem("table1", JSON.stringify(newSetOfViews));
+        localStorage.setItem(tableName, JSON.stringify(newSetOfViews));
 
-    }, [groupedColumns, sortedColumns, filter, visibleColumns, views])
+    }, [groupedColumns, sortedColumns, filter, visibleColumns, views, tableName])
 
     const applyTableView = React.useCallback((viewName: string) => {
         const viewDetail = views?.find(vn => vn.viewName === viewName);

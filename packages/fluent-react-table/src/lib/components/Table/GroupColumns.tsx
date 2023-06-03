@@ -55,26 +55,29 @@ export function GroupColumns<TITem extends { id: number | string }>({
                     <MenuGroupHeader key={"table-group-by-cols-label"}>Group Items</MenuGroupHeader>
                     <MenuDivider key={"table-group-by-cols-divider"} />
                     {
-                        columns && [...columns]?.sort(function (a, b) {
-                            return (groupedColumns?.indexOf(a.columnId as string) === -1 && groupedColumns?.indexOf(b.columnId as string) === -1)
-                                ? 0
-                                : (groupedColumns?.indexOf(a.columnId as string) - groupedColumns?.indexOf(b.columnId as string));
-                        })?.map((col, index) => (
-                            <MenuItemCheckbox
-                                key={index}
-                                name={"groupedColumns"}
-                                value={col.columnId as string}
+                        columns && [...columns]
+                            ?.filter(col => !col.disableGrouping)
+                            ?.sort(function (a, b) {
+                                return (groupedColumns?.indexOf(a.columnId as string) === -1 && groupedColumns?.indexOf(b.columnId as string) === -1)
+                                    ? 0
+                                    : (groupedColumns?.indexOf(a.columnId as string) - groupedColumns?.indexOf(b.columnId as string));
+                            })
+                            ?.map((col, index) => (
+                                <MenuItemCheckbox
+                                    key={index}
+                                    name={"groupedColumns"}
+                                    value={col.columnId as string}
+                                    disabled={col.disableGrouping ? true : false}
+                                    secondaryContent={groupedColumns?.includes(col.columnId as string) ? <DragIcon className={styles.draggableIcon} /> : <></>}
 
-                                secondaryContent={groupedColumns?.includes(col.columnId as string) ? <DragIcon className={styles.draggableIcon} /> : <></>}
-
-                                className={styles.draggableItem}
-                                onDragStart={(e) => dragStart(e, index)}
-                                onDragEnter={(e) => dragEnter(e, index)}
-                                onDragEnd={drop}
-                                draggable
-                            >
-                                {col.renderHeaderCell()}
-                            </MenuItemCheckbox>))
+                                    className={styles.draggableItem}
+                                    onDragStart={(e) => dragStart(e, index)}
+                                    onDragEnter={(e) => dragEnter(e, index)}
+                                    onDragEnd={drop}
+                                    draggable
+                                >
+                                    {col.renderHeaderCell()}
+                                </MenuItemCheckbox>))
                     }
                 </MenuGroup>
             </MenuList>
