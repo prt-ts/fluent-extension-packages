@@ -6,12 +6,12 @@ import { useTablePagination } from "./useTablePagination";
 import { useTableSorting } from "./useTableSorting";
 import { useTableGrouping } from "./useTableGrouping";
 import { useTableColumns } from "./useTableColumns";
-import { IGroup } from "../types";
-import { useTableColumnSizing_unstable, useTableFeatures, } from "@fluentui/react-components"; 
+import { IGroup, SavedTableView, TableView } from "../types";
+import { useTableColumnSizing_unstable, useTableFeatures, } from "@fluentui/react-components";
 
 export function useCustomTableFeature<TItem extends NonNullable<{ id: string | number }>>(props: TableProps<TItem>) {
 
-    const { 
+    const {
         items,
         isLoading,
         selectionMode = "none",
@@ -25,13 +25,13 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
     } = props;
 
     const { filter, setFilterValue, resetFilterValue, applyFilter, } = useTableFilter()
-    
+
     const {
-         selectedItems, 
-         toggleRow, 
-         toggleAllRows, 
-         isEverySelected, 
-         isItemSelected 
+        selectedItems,
+        toggleRow,
+        toggleAllRows,
+        isEverySelected,
+        isItemSelected
     } = useTableSelection(selectionMode, (selectedItems: TItem[]) => {
         props.onSelectionChange && props.onSelectionChange(selectedItems);
     });
@@ -66,6 +66,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         groups,
         setGroups,
         groupedColumns,
+        setGroupedColumns,
         toggleColumnGroup,
         resetGroupColumns,
 
@@ -100,7 +101,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
     /**
      * Filter grid
      */
-    const filteredItems = React.useMemo(() => { 
+    const filteredItems = React.useMemo(() => {
 
         // filter items
         const columnIds = columns.map(x => x.columnId);
@@ -129,7 +130,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
             //todo
 
             // check if sorted column exist on the grouped columns
-            if (groupedColumns.some(gc => sortedColumns?.some(sc => sc.includes(gc)))) { 
+            if (groupedColumns.some(gc => sortedColumns?.some(sc => sc.includes(gc)))) {
                 combinedSortColumns = groupedColumns.map((gc => {
                     return sortedColumns.some(sc => sc.includes(gc)) ? sortedColumns?.[0] : gc;
                 }))
@@ -140,7 +141,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         } else {
             combinedSortColumns = sortedColumns;
         }
- 
+
         const sItems = applySort(combinedSortColumns, filteredItems);
         return sItems;
 
@@ -173,7 +174,7 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
             pGroups = [...groups]?.splice(startIndex, count);
 
             // get start and item count based on group information
-            startIndex = pGroups?.length > 0 ? pGroups?.[currentPage*pageSize]?.startIndex : 0;
+            startIndex = pGroups?.length > 0 ? pGroups?.[currentPage * pageSize]?.startIndex : 0;
             count = pGroups?.reduce(function (total: number, item: IGroup) {
                 return total + item.count;
             }, 0);
@@ -195,44 +196,59 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         }
 
         // set groups
-        setGroups(pGroups) 
+        setGroups(pGroups)
 
         // Pagination Calculation 
         return pItems;
     }, [sortedItems, currentPage, pageSize, isPageOnGroup, groupedColumns]);
 
-    const saveTableState = React.useCallback(() => {
+
+    // ----------- Table View Management Section ---------------//
+    const [views, setViews] = React.useState<TableView[]>([]);
+    React.useEffect(() => {
+        const allViews = JSON.parse(localStorage.getItem("table1") as string) as SavedTableView;
+        setViews(allViews?.views ?? [])
+    }, [])
+
+    const saveTableView = React.useCallback((viewName: string) => {
 
         //todo
-        const tableState = {
-            filter: filter,
-            groupedColumns: groupedColumns,
-            sortedColumns: sortedColumns,
-            visibleColumns: visibleColumns
+        const newTableView: TableView = {
+            viewName: viewName,
+            filter: filter ?? "",
+            groupedColumns: groupedColumns ?? [],
+            sortedColumns: sortedColumns ?? [],
+            visibleColumns: visibleColumns ?? []
         }
 
-        localStorage.setItem("table1", JSON.stringify(tableState));
+        const newSetOfViews: SavedTableView = { views: [...(views?.filter(v => v.viewName !== viewName) ?? []), newTableView] }
 
-    }, [groupedColumns, sortedColumns, filter, visibleColumns])
+        setViews(newSetOfViews.views);
+        localStorage.setItem("table1", JSON.stringify(newSetOfViews));
 
-    const applyTableState = React.useCallback((key: string) => {
+    }, [groupedColumns, sortedColumns, filter, visibleColumns, views])
 
-        const tableState = JSON.parse(localStorage.getItem(key) as string); 
-        toggleSortColumn(tableState?.sortedColumns?.[0]);
-        setFilterValue(tableState.filter);
-        setVisibleColumns(tableState.visibleColumns);
+    const applyTableView = React.useCallback((viewName: string) => {
+        const viewDetail = views?.find(vn => vn.viewName === viewName);
+        if (viewDetail) {
+            toggleSortColumn(viewDetail?.sortedColumns?.[0]);
+            setFilterValue(viewDetail.filter);
+            setVisibleColumns(viewDetail.visibleColumns);
+            setGroupedColumns(viewDetail.groupedColumns);
+        }
+    }, [views])
 
-    }, [])
+    //--------------Table View Management End-------------------- //
 
     const showLoader = React.useMemo(() => isLoading && items?.length === 0, [isLoading, items]);
     const showNoItem = React.useMemo(() => !isLoading && items?.length === 0, [isLoading, items]);
     const showNoItemMatch = React.useMemo(() => pagedItems?.length === 0 && items?.length > 0, [isLoading, pagedItems, items]);
-  
+
 
     const gridActionMenu = React.useMemo(() => {
         return onGetGridActionMenu && onGetGridActionMenu(selectedItems)
     }, [selectedItems])
- 
+
 
     return {
         items,
@@ -244,12 +260,15 @@ export function useCustomTableFeature<TItem extends NonNullable<{ id: string | n
         showNoItem,
         showNoItemMatch,
 
-        gridActionMenu, 
-
-        saveTableState,
-        applyTableState,
+        gridActionMenu,
 
         defaultFeatures: { columnSizing_unstable, tableRef },
+
+        viewsState: {
+            views,
+            saveTableView,
+            applyTableView,
+        },
 
         columnsState: {
             columns,

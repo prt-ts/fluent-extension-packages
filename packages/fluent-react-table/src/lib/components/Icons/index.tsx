@@ -21,9 +21,16 @@ import {
 
     bundleIcon,
     GroupFilled,
-    GroupRegular
+    GroupRegular,
+    SaveFilled,
+    SaveRegular,
+    TableSimpleCheckmarkRegular,
+    TableSimpleCheckmarkFilled
 } from "@fluentui/react-icons"
 
+export const SaveIcon = bundleIcon(SaveFilled, SaveRegular);
+
+export const ChangeViewIcon = bundleIcon(TableSimpleCheckmarkFilled, TableSimpleCheckmarkRegular)
 
 export const SearchIcon = bundleIcon(SearchFilled, SearchRegular);
 export const VerticalMoreIcon = bundleIcon(MoreVerticalFilled, MoreVerticalRegular);

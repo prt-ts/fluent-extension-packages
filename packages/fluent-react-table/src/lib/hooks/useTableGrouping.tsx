@@ -195,6 +195,8 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
 
   return {
     groupedColumns,
+    setGroupedColumns,
+    
     groups,
     setGroups,
 

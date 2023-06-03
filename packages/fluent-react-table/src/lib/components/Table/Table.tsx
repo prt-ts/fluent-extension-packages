@@ -18,12 +18,22 @@ import {
   MenuItem,
   TableCellActions,
   mergeClasses,
-  MenuItemCheckbox,
-  MenuGroup,
-  MenuGroupHeader,
   MenuDivider,
-  MenuCheckedValueChangeData,
-  Tooltip,
+  Dialog,
+  DialogTrigger,
+  DialogSurface,
+  DialogTitle,
+  DialogContent,
+  DialogBody,
+  DialogActions,
+  Field,
+  MenuItemRadio,
+  // MenuItemRadio,
+  // MenuGroup,
+  // MenuGroupHeader,
+  // MenuDivider,
+  // MenuCheckedValueChangeData,
+  // Tooltip,
 } from "@fluentui/react-components";
 import * as React from "react";
 
@@ -42,7 +52,7 @@ import { Loading } from "../Loading";
 import { GroupRenderer } from "./GroupRenderer";
 import { GroupColumns } from "./GroupColumns";
 import { SelectColumns } from "./SelectColumns";
-import { ClearFilterIcon, GroupCollapsedIcon, GroupExpandedIcon, SearchIcon, VerticalMoreIcon } from "../Icons"
+import { ChangeViewIcon, ClearFilterIcon, GroupCollapsedIcon, GroupExpandedIcon, SaveIcon, SearchIcon, VerticalMoreIcon } from "../Icons"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function tryGetObjectValue(fieldName: string | undefined, item: any) {
@@ -88,10 +98,13 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
     showNoItem,
     showNoItemMatch,
 
-    gridActionMenu, 
+    gridActionMenu,
 
-    saveTableState,
-    applyTableState,
+    viewsState: {
+      views,
+      saveTableView,
+      applyTableView,
+    },
 
     defaultFeatures: {
       tableRef,
@@ -138,6 +151,9 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
   } = useCustomTableFeature(props);
 
 
+  const viewNameRef = React.useRef<HTMLInputElement>(null)
+  const [open, setOpen] = React.useState(false);
+
   return (
     <>
       <div>
@@ -150,7 +166,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
             <SelectColumns
               visibleColumns={visibleColumns}
               columns={columns}
-              resetVisibleColumns={(newVisibleColumns : string[]) => setVisibleColumns([...newVisibleColumns])} />
+              resetVisibleColumns={(newVisibleColumns: string[]) => setVisibleColumns([...newVisibleColumns])} />
 
             {/* <Menu
               checkedValues={showHideOptionSelected}
@@ -168,18 +184,59 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                     <MenuDivider key={"table-hide-show-divider"} />
                     {
                       columns && columns.map((col, index) => (
-                        <MenuItemCheckbox
+                        <MenuItemRadio
                           key={index}
                           name={"hiddenCols"}
                           value={col.columnId as string}
                         >
                           {col.renderHeaderCell()}
-                        </MenuItemCheckbox>))
+                        </MenuItemRadio>))
                     }
                   </MenuGroup>
                 </MenuList>
               </MenuPopover>
             </Menu> */}
+            <Dialog 
+              open={open} 
+              onOpenChange={(event, data) => setOpen(data.open)} 
+              modalType="non-modal"> 
+              <DialogSurface aria-describedby={undefined}>
+                <form onSubmit={(e: React.FormEvent) => {
+                  e.preventDefault();
+                  const viewName = viewNameRef?.current?.value as string;
+                  if (viewName.length > 0) {
+                    saveTableView(viewName);
+                    setOpen(false);
+                  } 
+                }}>
+                  <DialogBody>
+                    <DialogTitle>Save New View</DialogTitle>
+                    <DialogContent>
+                      <Field
+                        label={"Enter View Name"}
+                        hint="If you enter the name that already exists, It will replace existing View."
+                        required>
+                        <Input
+                          ref={viewNameRef}
+                          required
+                          type="text"
+                          placeholder="Enter View Name"
+                          id={"view-name-input"}
+                          style={{ width: "100%" }} />
+                      </Field>
+                    </DialogContent>
+                    <DialogActions>
+                      <DialogTrigger disableButtonEnhancement>
+                        <Button appearance="secondary">Close</Button>
+                      </DialogTrigger>
+                      <Button type="submit" appearance="primary" icon={<SaveIcon />}>
+                        Save View
+                      </Button>
+                    </DialogActions>
+                  </DialogBody>
+                </form>
+              </DialogSurface>
+            </Dialog>
             <Input
               type="search"
               size={'small'}
@@ -196,12 +253,16 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                       <MenuItem icon={<ClearFilterIcon />} onClick={resetFilterValue}>
                         Clear All Filters
                       </MenuItem>
-                      <MenuItem icon={<ClearFilterIcon />} onClick={saveTableState}>
-                        Save Current Grid State
+                      <MenuItem icon={<SaveIcon />} onClick={()=> setOpen(true)}>
+                        Save Current View
                       </MenuItem>
-                      <MenuItem icon={<ClearFilterIcon />} onClick={() => applyTableState("table1")}>
-                        Get Saved State
-                      </MenuItem>
+                      <MenuDivider />
+                      {
+                        views && views.map((view, index) =>
+                        (<MenuItemRadio name={"view-selector"} value={view.viewName}  key={view.viewName + index} icon={<ChangeViewIcon />} onClick={() => applyTableView(view.viewName)}>
+                          {view.viewName}
+                        </MenuItemRadio>))
+                      }
                     </MenuList>
                   </MenuPopover>
                 </Menu>
