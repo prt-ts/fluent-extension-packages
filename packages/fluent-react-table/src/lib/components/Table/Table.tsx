@@ -111,8 +111,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
       columnSizing_unstable
     },
 
-    columnsState: {
-      columns,
+    columnsState: { 
       extendedColumns,
 
       visibleColumns,
@@ -161,11 +160,11 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
           <>
             <GroupColumns
               groupedColumns={groupedColumns}
-              columns={columns}
+              columns={props.columns}
               resetGroupColumns={resetGroupColumns} />
             <SelectColumns
               visibleColumns={visibleColumns}
-              columns={columns}
+              columns={props.columns}
               resetVisibleColumns={(newVisibleColumns: string[]) => setVisibleColumns([...newVisibleColumns])} />
 
             {/* <Menu

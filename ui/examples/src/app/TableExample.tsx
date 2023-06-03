@@ -56,7 +56,7 @@ export function TableExample() {
             selectionMode='multiple'
             defaultSortedColumnIds={['lastUpdated.label']}
             defaultGroupColumnIds={["file.label", "author.label"]}
-            isPageOnGroup={true}
+            isPageOnGroup={false}
             isGroupDefaultExpanded={true}
             // getRowClasses={(item, index) => item.id == 3 ? styles.evenRow : ""}
             columns={[

@@ -1,4 +1,4 @@
-import { Menu, MenuCheckedValueChangeData, Tooltip, MenuTrigger, Button, MenuPopover, MenuList, MenuGroup, MenuGroupHeader, MenuDivider, MenuItemCheckbox, makeStyles } from "@fluentui/react-components";
+import { Menu, MenuCheckedValueChangeData, Tooltip, MenuTrigger, Button, MenuPopover, MenuList, MenuGroup, MenuGroupHeader, MenuDivider, MenuItemCheckbox, makeStyles, shorthands, tokens, mergeClasses } from "@fluentui/react-components";
 import * as React from "react";
 import { DragIcon, ToggleSelectColumnIcon } from "../Icons";
 import { IColumn } from "../../types";
@@ -32,11 +32,11 @@ export function SelectColumns<TITem extends { id: number | string }>({
         dragStart,
         dragEnter,
         drop
-    } = useDragDropFeature<string>(sortedColumns?.map(sc => sc.columnId as string), (sortedItems: string[]) => {
-        console.log(sortedItems)
+    } = useDragDropFeature<string>(sortedColumns?.map(sc => sc.columnId as string), (sortedItems: string[]) => { 
         handleDragColumnItem(sortedItems);
     })
 
+    const [dragOverElement, setDragOverElement] = React.useState<string>("");
     const styles = useGroupStyles()
 
     return (
@@ -62,11 +62,18 @@ export function SelectColumns<TITem extends { id: number | string }>({
                                     value={col.columnId as string}
                                     disabled={col.disableHideShow ? true : false}
                                     secondaryContent={visibleColumns?.includes(col.columnId as string) ? <DragIcon className={styles.draggableIcon} /> : <></>}
-
-                                    className={styles.draggableItem}
+ 
                                     onDragStart={(e) => dragStart(e, index)}
                                     onDragEnter={(e) => dragEnter(e, index)}
-                                    onDragEnd={drop}
+                                    className={mergeClasses(styles.draggableItem, dragOverElement == col.columnId ? styles.draggingItemOver : undefined)}
+                                    onDragOver={() => { 
+                                        setDragOverElement(col.columnId as string)
+                                    }}
+                                    
+                                    onDragEnd={(e) => {
+                                        setDragOverElement("")
+                                        drop(e)
+                                    }}
                                     draggable
                                 >
                                     {col.renderHeaderCell()}
@@ -85,5 +92,9 @@ export const useGroupStyles = makeStyles({
 
     draggableItem: {
 
+    },
+    draggingItemOver: {
+        ...shorthands.border("1px", "dashed", tokens.colorPaletteNavyBorderActive)
     }
+
 })
