@@ -39,7 +39,7 @@ export const TextareaField = (props: TextareaFieldProps) => {
 
    const styles = useStyles();
 
-   const [field, meta, helpers] = useField(name);
+   const [_, meta, helpers] = useField(name);
    const hasError = React.useMemo(
       () => meta.touched && meta.error,
       [meta.touched, meta.error],
@@ -59,7 +59,7 @@ export const TextareaField = (props: TextareaFieldProps) => {
             label={
                {
                   children: (_: unknown, props: LabelProps) => (
-                     <InfoLabel {...props} info={info} id={inputId} required={required}>
+                     <InfoLabel {...props} info={info} htmlFor={inputId} required={required}>
                         <strong>{label}</strong>
                      </InfoLabel>
                   ),
@@ -74,7 +74,7 @@ export const TextareaField = (props: TextareaFieldProps) => {
                {...(rest as any)}
                id={inputId}
                name={name}
-               value={!!meta.value ? meta.value : ''}
+               value={meta.value ? meta.value : ''}
                onChange={handleOnChange}
                onBlur={handleOnBlur}
             />

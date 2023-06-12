@@ -42,7 +42,7 @@ export const DropdownField = (props: DropdownFieldProps) => {
          label={
            {
              children: (_: unknown, props: LabelProps) => (
-               <InfoLabel {...rest} info={info} required={required}>
+               <InfoLabel {...rest} htmlFor={dropdownId} info={info} required={required}>
                  <strong>{label}</strong>
                </InfoLabel>
              ),

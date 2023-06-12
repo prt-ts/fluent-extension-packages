@@ -1,9 +1,7 @@
 import * as React from "react";
 import {
     makeStyles,
-    shorthands,
     useId,
-    Input,
     InputProps,
     LabelProps,
     RadioGroup,
@@ -45,10 +43,10 @@ export const RadioInputField = ({ label, name, options, info, required, onBlur, 
     const labelId = useId("radio-input");
     const styles = useStyles();
 
-    const [field, meta, helpers] = useField(name);
+    const [_, meta, helpers] = useField(name);
     const hasError = React.useMemo(() => meta.touched && meta.error, [meta.touched, meta.error]);
 
-    const handleOnChange = (e : any, data : any) => {
+    const handleOnChange = (_: unknown, data : any) => {
         const value = options?.find((option) => option.value === data.value);
         helpers.setValue(value);
     };
@@ -66,7 +64,7 @@ export const RadioInputField = ({ label, name, options, info, required, onBlur, 
                       <InfoLabel
                          {...props}
                          info={info}
-                         id={labelId}
+                         htmlFor={labelId}
                          required={required}
                       >
                          <strong>{label}</strong>

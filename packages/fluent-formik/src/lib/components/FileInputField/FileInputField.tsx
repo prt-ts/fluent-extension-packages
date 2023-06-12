@@ -157,7 +157,7 @@ export const FileInputField: React.FunctionComponent<FileInputProps> = props => 
                         <InfoLabel
                            {...props}
                            info={info}
-                           id={inputId}
+                           htmlFor={inputId}
                            required={required}
                         >
                            <strong>{label}</strong>

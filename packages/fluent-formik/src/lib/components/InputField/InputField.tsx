@@ -43,7 +43,7 @@ export const InputField = (props: InputFieldProps) => {
 
    const styles = useStyles();
 
-   const [field, meta, helpers] = useField(name);
+   const [_, meta, helpers] = useField(name);
    const hasError = React.useMemo(
       () => meta.touched && meta.error,
       [meta.touched, meta.error],
@@ -66,6 +66,7 @@ export const InputField = (props: InputFieldProps) => {
                   children: (_: unknown, props: LabelProps) => (
                      <InfoLabel
                         {...infoLabelProps}
+                        htmlFor={inputId}
                         info={info}
                         required={required}
                      >
