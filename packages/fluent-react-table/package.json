@@ -1,9 +1,9 @@
 {
   "name": "@prt-ts/fluent-react-table",
-  "version": "0.0.1-alpha.8-fluent-9.21.0",
+  "version": "0.0.1-alpha.8-fluent-9.22.0",
   "type": "commonjs",
   "peerDependencies": {
-    "@fluentui/react-components": ">=9.21.0",
+    "@fluentui/react-components": ">=9.22.0",
     "@fluentui/react-icons": ">=2.0.201",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
