@@ -23,6 +23,7 @@ const SignupSchema = Yup.object().shape({
     .max(70, 'Too Long!')
     .required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
+  date : Yup.date().required('Required'),
 });
 
 const initialValues = {
@@ -40,6 +41,7 @@ const initialValues = {
       label: 'Option 2',
     },
   ],
+  date: null,
 };
 
 export default function Web() {

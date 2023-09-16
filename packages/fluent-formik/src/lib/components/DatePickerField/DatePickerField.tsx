@@ -9,14 +9,14 @@ import { DatePicker, DatePickerProps } from '@fluentui/react-datepicker-compat';
 import type { InfoLabelProps } from '@fluentui/react-components/unstable';
 import { InfoLabel } from '@fluentui/react-components/unstable';
 import { useField, ErrorMessage } from 'formik';
-import { useDatePickerStyles } from './useDatePickerField.style'; 
+import { useDatePickerStyles } from './useDatePickerField.style';
 
 type DatePickerFieldProps = DatePickerProps &
    FieldProps &
    InfoLabelProps & {
       name: string;
       label?: string;
-   }; 
+   };
 
 export const DatePickerField = (props: DatePickerFieldProps) => {
    const inputId = useId('date');
@@ -27,26 +27,26 @@ export const DatePickerField = (props: DatePickerFieldProps) => {
    const { ...datePickerProps }: DatePickerProps = rest;
 
    const styles = useDatePickerStyles();
-   const [_, meta, helpers] = useField(name);
+   const [_, {value, touched, error }, { setValue, setTouched }] = useField(name);
 
    const hasError = React.useMemo(
-      () => meta.touched && meta.error,
-      [meta.touched, meta.error],
+      () => touched && error,
+      [touched, error],
    );
 
    const handleOnChange = React.useCallback(
       (date: Date | null | undefined) => {
          console.log('date', date);
-         helpers.setValue(date, true);
+         setValue(date, true);
 
          props.onSelectDate && props.onSelectDate(date);
       },
-      [helpers],
+      [setValue],
    );
 
    const handleOnBlur = React.useCallback(() => {
-      helpers.setTouched(true, true);
-   }, [helpers]);
+      setTouched(true, true);
+   }, [setTouched]);
 
    return (
       <div className={styles.root}>
@@ -75,7 +75,7 @@ export const DatePickerField = (props: DatePickerFieldProps) => {
                {...datePickerProps}
                id={inputId}
                name={name}
-               value={meta?.value ?? undefined}
+               value={(value || null)}
                onSelectDate={(date: Date | null | undefined) => handleOnChange(date)}
                onBlur={handleOnBlur}
             />

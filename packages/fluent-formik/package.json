@@ -1,12 +1,12 @@
 {
   "name": "@prt-ts/fluent-formik",
-  "version": "1.2.2-fluent-9.22.0",
+  "version": "9.31.1",
   "description": "Fluent Formik is a component library for React that provides a set of components to build forms using Formik and Fluent UI",
   "type": "commonjs",
   "peerDependencies": {
-    "@fluentui/react-components": ">=9.22.0", 
-    "@fluentui/react-icons": ">=2.0.201",
-    "@fluentui/react-datepicker-compat": ">=0.1.6",
+    "@fluentui/react-components": ">=9.31.1", 
+    "@fluentui/react-icons": ">=2.0.216",
+    "@fluentui/react-datepicker-compat": ">=0.3.11",
     "formik": ">=2.2.0",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0",
