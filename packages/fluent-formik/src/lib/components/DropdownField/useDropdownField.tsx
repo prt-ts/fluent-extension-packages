@@ -24,9 +24,7 @@ export const useDropdownField = (props: DropdownFieldProps) => {
    }, [meta.value]);
 
    const handleOnChange: (typeof props)['onOptionSelect'] = React.useCallback(
-      (ev: any, data: any) => {
-         console.log(data.selectedOptions);
-
+      (ev: any, data: any) => { 
          const selectedOptions = options.filter(option =>
             data.selectedOptions.includes(option.value),
          );

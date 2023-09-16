@@ -53,7 +53,7 @@ export function TableExample() {
             isLoading={isLoading}
             gridTitle={<Subtitle2Stronger>Example Table</Subtitle2Stronger>}
             size='small'
-            selectionMode='multiple'
+            selectionMode='single'
             defaultSortedColumnIds={['lastUpdated.label']}
             defaultGroupColumnIds={["file.label", "author.label"]}
             isPageOnGroup={false}
@@ -109,8 +109,8 @@ export function TableExample() {
                 }
             ]}
 
-            onGetGridActionMenu={(selectedItems) => {
-                console.log("selectedItems", selectedItems)
+            onGetGridActionMenu={(selectedItems) => { 
+                console.log(selectedItems);
                 return (
                     <Toolbar aria-label="Default">
                         {/* <ToolbarButton

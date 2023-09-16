@@ -33,10 +33,8 @@ export const DatePickerField: React.FC<DatePickerFieldProps> = (props) => {
    );
 
    const handleOnChange = React.useCallback(
-      (date: Date | null | undefined) => {
-         console.log('date', date);
-         setValue(date, true);
-
+      (date: Date | null | undefined) => { 
+         setValue(date, true); 
          props.onSelectDate && props.onSelectDate(date);
       },
       [setValue],
