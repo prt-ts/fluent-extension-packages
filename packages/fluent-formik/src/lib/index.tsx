@@ -3,6 +3,8 @@ export { InputField as Input } from './components/InputField';
 
 export { RadioInputField as RadioInput } from './components/RadioInputField';
 
+export { RadioField as Radio } from './components/RadioField';
+
 export { CheckboxInputField as CheckboxInput } from './components/CheckboxInputField';
 
 export { CheckboxField as Checkbox } from './components/CheckboxField';

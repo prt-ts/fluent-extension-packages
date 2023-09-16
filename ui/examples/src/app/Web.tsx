@@ -4,6 +4,7 @@ import {
   DatePicker,
   FocusConnectedError,
   Input,
+  Radio,
   Switch,
 } from '@prt-ts/fluent-formik';
 import {
@@ -219,6 +220,22 @@ export default function Web() {
             <Checkbox
               name="checkbox1"
               label="Standalone Checkbox"
+            />
+
+            <Radio
+              name="radioOption1"
+              value={'1'}
+              label="Value 1"
+            />
+            <Radio
+              name="radioOption1"
+              value={'2'}
+              label="Value 2"
+            />
+            <Radio
+              name="radioOption1"
+              value={'3'}
+              label="Value 3"
             />
 
             <Switch
