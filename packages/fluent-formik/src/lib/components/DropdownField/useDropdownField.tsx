@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { useField } from 'formik';
 import * as React from 'react'; 
-import { DropdownProps } from '@fluentui/react-components';
-import { DropdownFieldProps, DropdownOption } from './DropdownField';
+import { DropdownProps } from '@fluentui/react-components'; 
+import { DropdownFieldProps, DropdownOption } from './Types';
 
 export const useDropdownField = (props: DropdownFieldProps) => {
    const { name, options } = props;
@@ -24,9 +24,7 @@ export const useDropdownField = (props: DropdownFieldProps) => {
    }, [meta.value]);
 
    const handleOnChange: (typeof props)['onOptionSelect'] = React.useCallback(
-      (ev: any, data: any) => {
-         console.log(data.selectedOptions);
-
+      (ev: any, data: any) => { 
          const selectedOptions = options.filter(option =>
             data.selectedOptions.includes(option.value),
          );

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { ErrorMessage, useField } from 'formik';
 import * as React from 'react';
-import { useDropzone } from 'react-dropzone';
+import { Accept, useDropzone } from 'react-dropzone';
 
 import {
    Attach20Filled,
@@ -66,7 +66,7 @@ const useStyles = makeStyles({
    } as any,
 });
 
-const arrayUniqueByKey =  (items: any[], key: string) => [
+const arrayUniqueByKey = (items: any[], key: string) => [
    ...new Map(items.map(item => [item[key], item])).values(),
 ];
 
@@ -81,6 +81,8 @@ type FileInputProps = FieldProps &
    InfoLabelProps & {
       name: string;
       label?: string;
+      accept?: Accept;
+      multiple?: boolean;
       savedFiles?: FileInfo[];
       onRemoveSavedFile?: (file: FileInfo) => void;
    };
@@ -96,17 +98,17 @@ export const FileInputField: React.FunctionComponent<FileInputProps> = props => 
       savedFiles,
       placeholder,
       onRemoveSavedFile,
+      accept,
+      multiple = true,
       ...rest
    } = props;
    const styles = useStyles();
 
-   const [_, meta, helpers] = useField(name);
-    const hasError = React.useMemo(
-       () => meta.touched && meta.error,
-       [meta.touched, meta.error],
-    );
-
-   const { setValue } = helpers;
+   const [, { value, touched, error }, { setValue }] = useField(name);
+   const hasError = React.useMemo(
+      () => touched && error,
+      [touched, error],
+   );
 
    const {
       acceptedFiles,
@@ -117,24 +119,24 @@ export const FileInputField: React.FunctionComponent<FileInputProps> = props => 
       isDragReject,
    } = useDropzone({
       disabled,
+      accept
    });
 
    React.useEffect(() => {
       if (acceptedFiles?.length) {
          const files =
-            meta && meta.value
-               ? [...acceptedFiles, ...(meta.value as File[])]
+            value ? [...acceptedFiles, ...(value as File[])]
                : acceptedFiles;
          setValue(arrayUniqueByKey(files, 'name'));
       }
    }, [acceptedFiles]);
 
    const unSavedFilesLength = React.useMemo(
-      () => (meta?.value as File[])?.length ?? 0,
-      [meta.value],
+      () => (value as File[])?.length ?? 0,
+      [value],
    );
 
-   const filePickerStyle: any = React.useMemo(
+   const filepickerstyle = React.useMemo(
       () =>
          mergeClasses(
             styles.baseStyle,
@@ -171,10 +173,10 @@ export const FileInputField: React.FunctionComponent<FileInputProps> = props => 
                }
                required={required}
             >
-               <div {...getRootProps({ filePickerStyle })}>
+               <div {...getRootProps({ filepickerstyle })}>
                   <input {...getInputProps()} />
                   <p
-                     className={filePickerStyle}
+                     className={filepickerstyle}
                      style={{
                         margin: 0,
                         display: 'flex',
@@ -203,7 +205,7 @@ export const FileInputField: React.FunctionComponent<FileInputProps> = props => 
             {(unSavedFilesLength > 0 || (savedFiles && savedFiles?.length > 0)) ? (
                <Table aria-label="All Documents" size="small">
                   <TableBody>
-                     {(meta?.value as File[])?.map(
+                     {(value as File[])?.map(
                         (file: File, index: number) => (
                            <TableRow key={index}>
                               <TableCell>
@@ -220,11 +222,10 @@ export const FileInputField: React.FunctionComponent<FileInputProps> = props => 
                                        appearance="subtle"
                                        onClick={() => {
                                           const files =
-                                             meta && meta.value
-                                                ? (meta.value as File[]).filter(
-                                                     (f: File) =>
-                                                        f.name !== file.name,
-                                                  )
+                                             value ? (value as File[]).filter(
+                                                (f: File) =>
+                                                   f.name !== file.name,
+                                             )
                                                 : [];
                                           setValue(files);
                                        }}

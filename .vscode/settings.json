@@ -1,0 +1,8 @@
+{
+    "cSpell.words": [
+        "filepickerstyle",
+        "fluentui",
+        "formik"
+    ],
+    "typescript.tsdk": "node_modules\\typescript\\lib"
+}
