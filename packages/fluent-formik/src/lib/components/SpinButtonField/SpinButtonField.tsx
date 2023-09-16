@@ -1,24 +1,24 @@
 import * as React from 'react';
 import {
-   useId,
-   Input,
-   InputProps,
+   useId, 
    LabelProps,
    FieldProps,
    Field,
+   SpinButtonProps,
+   SpinButton,
 } from '@fluentui/react-components';
 import type { InfoLabelProps } from '@fluentui/react-components/unstable';
 import { InfoLabel } from '@fluentui/react-components/unstable';
-import { InputFieldProps } from "./Types"
+import { SpinButtonFieldProps } from "./Types"
 import { useField, ErrorMessage } from 'formik';
 
-export const InputField: React.FC<InputFieldProps> = (props) => {
+export const SpinButtonField: React.FC<SpinButtonFieldProps> = (props) : JSX.Element => {
    const inputId = useId('input');
    const { label, name, ...rest } = props;
 
    const { ...fieldPros }: FieldProps = rest;
    const { ...infoLabelProps }: InfoLabelProps = rest;
-   const { ...inputProps }: InputProps = rest;
+   const { ...spinButtonProps }: SpinButtonProps = rest;
 
    const [, { value, error, touched }, { setValue, setTouched }] = useField(name);
    const hasError = React.useMemo(() => touched && error, [touched, error]);
@@ -34,7 +34,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
                      {...infoLabelProps}
                      htmlFor={inputId}
                   >
-                     <strong>{label as JSX.Element}</strong>
+                     <strong>{label}</strong>
                   </InfoLabel>
                ),
             } as unknown as LabelProps
@@ -44,8 +44,8 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
             hasError ? <ErrorMessage name={name} /> : undefined
          }
       >
-         <Input
-            {...inputProps}
+         <SpinButton
+            {...spinButtonProps}
             id={inputId}
             name={name}
             value={value ?? ''}

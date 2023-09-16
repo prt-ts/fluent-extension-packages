@@ -56,6 +56,7 @@ export const DatePickerField = (props: DatePickerFieldProps) => {
                {
                   children: (_: unknown, props: LabelProps) => (
                      <InfoLabel
+                        {...props}
                         {...infoLabelProps}
                         htmlFor={inputId}
                         info={info}

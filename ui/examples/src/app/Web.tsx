@@ -5,6 +5,7 @@ import {
   FocusConnectedError,
   Input,
   Radio,
+  Slider,
   Switch,
 } from '@prt-ts/fluent-formik';
 import {
@@ -128,44 +129,7 @@ export default function Web() {
               required
               info={
                 <>
-                  <Button /> Some test example Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Sit labore harum saepe
-                  nesciunt, cumque soluta esse nulla, minima quam iure
-                  beatae suscipit provident accusantium officia dolore? Eius
-                  nostrum suscipit totam? Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Possimus, explicabo quasi,
-                  officia dignissimos reiciendis cupiditate optio sapiente
-                  asperiores accusamus veritatis tenetur natus, voluptatum
-                  dolor quisquam. Necessitatibus delectus temporibus
-                  voluptatem tempora? Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Laudantium, facere ut. Magnam, totam
-                  fugiat animi dolores eligendi eos illo ipsa quaerat quas
-                  pariatur laudantium ex rem reprehenderit inventore officia
-                  minima. Lorem ipsum dolor sit amet consectetur,
-                  adipisicing elit. Porro, aspernatur eos excepturi corrupti
-                  quidem sint error in sit perspiciatis ab rerum assumenda
-                  eum, eveniet, unde labore? Maxime ratione aspernatur
-                  a!Loremlore Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Placeat nostrum fuga architecto, nihil
-                  sed id illum eos sequi tempora earum vero maxime
-                  consequuntur enim accusantium laboriosam accusamus alias
-                  adipisci inventore? Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Autem laboriosam consequuntur officia
-                  dolorem? Dolorem, consequatur illum reiciendis odit est
-                  laboriosam sit? Sequi facere odio nisi at dolorem totam
-                  vero quod? Lorem ipsum dolor, sit amet consectetur
-                  adipisicing elit. Illo voluptatem ipsum dolorem, esse quo
-                  laudantium aperiam odit vel, ab placeat iure molestiae
-                  perspiciatis fuga sequi dolorum harum optio ipsa. Aperiam.
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptate voluptates alias eligendi laborum ab cum ducimus
-                  repellendus porro? Atque quaerat unde reprehenderit
-                  aspernatur recusandae, dolor dicta praesentium iure
-                  aliquam aliquid? Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Adipisci impedit tenetur qui quo, id
-                  odit, animi cupiditate aliquid exercitationem voluptas
-                  saepe, sed quae velit quisquam nulla dolores fugit
-                  perspiciatis veniam?
+                  some info
                 </>
               }
             />
@@ -236,6 +200,8 @@ export default function Web() {
               name="radioOption1"
               value={'3'}
               label="Value 3"
+
+              info={'Some info'}
             />
 
             <Switch
@@ -244,10 +210,12 @@ export default function Web() {
               labelPosition='before'
             />
 
+            <Slider size='small' name={"slider1"} label={"Slider Example"} min={0} max={1000} step={10}/>
+
             <DatePicker
               name="date"
               label={"Date"}
-
+              size='small'
             />
 
             <button type="submit">Submit</button>

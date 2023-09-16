@@ -1,19 +1,19 @@
 import * as React from "react";
-import {  Radio, RadioProps, useId } from "@fluentui/react-components";
-import { RadioFieldProps } from './Types'; 
+import { LabelProps, Radio, RadioProps, useId } from "@fluentui/react-components";
+import { RadioFieldProps } from './Types';
 import { ErrorMessage, useField } from "formik";
 import { InfoLabel, InfoLabelProps } from "@fluentui/react-components/unstable";
 
-export const RadioField: React.FC<RadioFieldProps> = (props) : JSX.Element => {
-    
+export const RadioField: React.FC<RadioFieldProps> = (props): JSX.Element => {
+
     const labelId = useId("radio-input-standalone");
     const { name, ...rest } = props;
 
-    const [, {value, error, touched }, { setValue }] = useField(name);
+    const [, { value, error, touched }, { setValue }] = useField(name);
     const hasError = React.useMemo(() => touched && error, [touched, error]);
 
-    const { ...radioProps }: RadioProps  = rest;
-    const { ...infoLabelProps }: InfoLabelProps = rest; 
+    const { ...radioProps }: RadioProps = rest;
+    const { ...infoLabelProps }: InfoLabelProps = rest;
 
 
     return (
@@ -22,10 +22,10 @@ export const RadioField: React.FC<RadioFieldProps> = (props) : JSX.Element => {
                 {...radioProps}
                 id={labelId}
                 label={{
-                    children: () => <InfoLabel htmlFor={labelId} {...infoLabelProps}></InfoLabel>,
+                    children: (_: unknown, props: LabelProps) => (<InfoLabel htmlFor={labelId} {...infoLabelProps} {...props}></InfoLabel>),
                 } as any}
                 checked={(value == radioProps.value) || false}
-                onChange={(ev, data) => setValue(data.value, true)} 
+                onChange={(ev, data) => setValue(data.value, true)}
             />
             {hasError ? <ErrorMessage name={name} /> : undefined}
         </>

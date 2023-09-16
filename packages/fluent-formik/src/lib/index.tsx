@@ -19,5 +19,7 @@ export { FileInputField as FileInput } from './components/FileInputField';
 
 export { SwitchField as Switch } from './components/SwitchField';
 
+export { SliderField as Slider } from './components/SliderInputField';
+
 export type { DropdownOption } from './components/DropdownField';
 export type { FileInfo } from './components/FileInputField';
