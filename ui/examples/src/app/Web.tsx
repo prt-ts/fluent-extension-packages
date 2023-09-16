@@ -1,13 +1,13 @@
 import {
+  Checkbox,
   CheckboxInput,
   DatePicker,
   FocusConnectedError,
   Input,
-  RadioInput,
+  Switch,
 } from '@prt-ts/fluent-formik';
 import {
-  Button, FluentProvider,
-  teamsLightTheme,
+  Button
 } from '@fluentui/react-components';
 import { DismissSquareRegular } from '@fluentui/react-icons';
 import { Form, Formik, FormikProps } from 'formik';
@@ -23,7 +23,7 @@ const SignupSchema = Yup.object().shape({
     .max(70, 'Too Long!')
     .required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
-  date : Yup.date().required('Required'),
+  date: Yup.date().required('Required'),
 });
 
 const initialValues = {
@@ -200,25 +200,38 @@ export default function Web() {
                   ]}
                 /> */}
 
-            {/* <CheckboxInput
-                  name="checkbox"
-                  label="Checkbox"
-                  info={'Some info'}
-                  layout="horizontal"
-                  enableSelectAll={true}
-                  options={[
-                    { value: '1', label: 'Option 1' },
-                    { value: '2', label: 'Option 2', meta: 'Some meta' },
-                    { value: '3', label: 'Option 3' },
-                    { value: '4', label: 'Option 4', disabled: true },
-                  ]}
-                /> */}
+            <CheckboxInput
+              name="checkbox"
+              label="Checkbox"
+              info={'Some info'}
+              layout="vertical"
+              enableSelectAll={true}
+              options={[
+                { value: '1', label: 'Option 1' },
+                { value: '2', label: 'Option 2', meta: 'Some meta' },
+                { value: '3', label: 'Option 3' },
+                { value: '4', label: 'Option 4', disabled: true },
+              ]}
 
-                <DatePicker 
-                  name="date"
-                  label={"Date"}
+              required
+            />
 
-                  />
+            <Checkbox
+              name="checkbox1"
+              label="Standalone Checkbox"
+            />
+
+            <Switch
+              name="checkbox1"
+              label="Standalone Checkbox"
+              labelPosition='before'
+            />
+
+            <DatePicker
+              name="date"
+              label={"Date"}
+
+            />
 
             <button type="submit">Submit</button>
 

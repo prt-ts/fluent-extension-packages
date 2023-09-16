@@ -9,7 +9,7 @@ export const useCheckboxInputField = ({ label, name, options, info, required, on
     const hasError = React.useMemo(() => meta.touched && meta.error, [meta.touched, meta.error]);
 
     const handleOnChange = (ev: any, data: CheckboxOnChangeData, option: CheckboxOption) => {
-        const values = !!data.checked ? [...(field.value ?? []), option]
+        const values = data.checked ? [...(field.value ?? []), option]
             : field.value.filter((value: CheckboxOption) => value.value !== option.value);
         helpers.setValue(values);
     };
