@@ -19,9 +19,10 @@ export const DropdownField: React.FC<DropdownFieldProps> = (props) : JSX.Element
 
   const { label, name, options, ...rest } = props;
 
-  const { ...fieldProps  }: any = rest;
-  const { ...infoLabelProps }: any = rest;
-  const { ...dropdownProps }: any = rest; 
+  // @ts-ignore: Type too Complex error code
+  const { ...fieldProps  }: FieldProps = rest;
+  const { ...infoLabelProps }: InfoLabelProps = rest;
+  const { ...dropdownProps }: DropdownProps = rest; 
 
   const { hasError, value, selectedOptions, handleOnChange, handleOnBlur } =
     useDropdownField(props); 

@@ -3,6 +3,7 @@ import {
   CheckboxGroup,
   DatePicker,
   Dropdown,
+  FileInput,
   FocusConnectedError,
   Input,
   Radio,
@@ -15,7 +16,7 @@ import {
   Button
 } from '@fluentui/react-components';
 import { DismissSquareRegular } from '@fluentui/react-icons';
-import { Form, Formik, FormikProps } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
 const SignupSchema = Yup.object().shape({
@@ -29,6 +30,7 @@ const SignupSchema = Yup.object().shape({
     .required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
   date: Yup.date().required('Required'),
+  fileInput1: Yup.array().min(1, 'Required'),
 });
 
 const initialValues = {
@@ -47,6 +49,7 @@ const initialValues = {
     },
   ],
   date: null,
+  fileInput1: [],
 };
 
 export default function Web() {
@@ -64,7 +67,7 @@ export default function Web() {
           }, 1000);
         }}
       >
-        {(props: FormikProps<any>) => (
+        {(props) => (
           <Form>
             <FocusConnectedError />
             <Input
@@ -148,29 +151,14 @@ export default function Web() {
               type="search"
               name="searchVal"
               label="Date"
+              size='small'
               contentAfter={<DismissSquareRegular />}
             />
 
-            {/* <RadioInput
-                  name="radio"
-                  label="Radio"
-                  info={'Some info'}
-                  layout="horizontal"
-                  options={[
-                    { value: '1', label: 'Option 1' },
-                    { value: '2', label: 'Option 2', meta: 'Some meta' },
-                    {
-                      value: '3',
-                      label: 'Option 3',
-                      onChange: () => alert('changed'),
-                    },
-                    { value: '4', label: 'Option 4', disabled: true },
-                  ]}
-                /> */}
-
             <CheckboxGroup
+              size='small'
               name="checkboxGroup"
-              label="Checkbox"
+              label="Checkbox Group Component"
               info={'Some info'}
               layout="vertical"
               enableSelectAll={true}
@@ -185,10 +173,11 @@ export default function Web() {
             />
 
             <RadioGroup
+              size='small'
               name="radioGroup"
               label="Radio Group Component"
               info={'Some info'}
-              layout="vertical" 
+              layout="vertical"
               options={[
                 { value: '1', label: 'Option 1' },
                 { value: '2', label: 'Option 2' },
@@ -199,10 +188,11 @@ export default function Web() {
               required
             />
 
-            {/* <Dropdown
-              name="checkbox"
-              label="Checkbox"
+            <Dropdown
+              name="dropdownMultiple"
+              label="Dropdown Component"
               info={'Some info'}
+              size='small'
               options={[
                 { value: '1', label: 'Option 1', text: 'Some text' },
                 { value: '2', label: 'Option 2', text: 'Some text' },
@@ -212,14 +202,25 @@ export default function Web() {
 
               required={true}
               multiselect={true}
-            /> */}
+            />
 
             <Checkbox
+              size='medium'
               name="checkbox1"
               label="Standalone Checkbox"
             />
 
+            <FileInput
+              name='fileInput1'
+              label='File Input'
+              info={'Some info'}
+              size='small'
+              required={true}
+              hint={'Some hint for file input'}
+            />
+
             <SpinButton
+              size='small'
               name="spinButton1"
               label="Standalone Checkbox"
             />
@@ -242,7 +243,7 @@ export default function Web() {
               info={'Some info'}
             />
 
-            <Switch
+            <Switch 
               name="checkbox1"
               label="Standalone Checkbox"
               labelPosition='before'

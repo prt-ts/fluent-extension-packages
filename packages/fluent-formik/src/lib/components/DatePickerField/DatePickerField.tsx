@@ -9,7 +9,6 @@ import { DatePicker, DatePickerProps } from '@fluentui/react-datepicker-compat';
 import type { InfoLabelProps } from '@fluentui/react-components/unstable';
 import { InfoLabel } from '@fluentui/react-components/unstable';
 import { useField, ErrorMessage } from 'formik';
-import { useDatePickerStyles } from './useDatePickerField.style';
 
 type DatePickerFieldProps = DatePickerProps &
    FieldProps &
@@ -18,7 +17,7 @@ type DatePickerFieldProps = DatePickerProps &
       label?: string;
    };
 
-export const DatePickerField : React.FC<DatePickerFieldProps> = (props) => {
+export const DatePickerField: React.FC<DatePickerFieldProps> = (props) => {
    const inputId = useId('date');
    const { label, name, info, required, ...rest } = props;
 
@@ -26,8 +25,7 @@ export const DatePickerField : React.FC<DatePickerFieldProps> = (props) => {
    const { ...infoLabelProps }: InfoLabelProps = rest;
    const { ...datePickerProps }: DatePickerProps = rest;
 
-   const styles = useDatePickerStyles();
-   const [_, {value, touched, error }, { setValue, setTouched }] = useField(name);
+   const [, { value, touched, error }, { setValue, setTouched }] = useField(name);
 
    const hasError = React.useMemo(
       () => touched && error,
@@ -49,39 +47,37 @@ export const DatePickerField : React.FC<DatePickerFieldProps> = (props) => {
    }, [setTouched]);
 
    return (
-      <div className={styles.root}>
-         <Field
-            {...fieldPros}
-            label={
-               {
-                  children: (_: unknown, props: LabelProps) => (
-                     <InfoLabel
-                        {...props}
-                        {...infoLabelProps}
-                        htmlFor={inputId}
-                        info={info}
-                        required={required}
-                     >
-                        <strong>{label}</strong>
-                     </InfoLabel>
-                  ),
-               } as any
-            }
-            validationState={hasError ? 'error' : undefined}
-            validationMessage={
-               hasError ? <ErrorMessage name={name} /> : undefined
-            }
-         >
-            <DatePicker
-               {...datePickerProps}
-               id={inputId}
-               name={name}
-               value={(value || null)}
-               onSelectDate={(date: Date | null | undefined) => handleOnChange(date)}
-               onBlur={handleOnBlur}
-            />
-         </Field>
-      </div>
+      <Field
+         {...fieldPros}
+         label={
+            {
+               children: (_: unknown, props: LabelProps) => (
+                  <InfoLabel
+                     {...props}
+                     {...infoLabelProps}
+                     htmlFor={inputId}
+                     info={info}
+                     required={required}
+                  >
+                     <strong>{label}</strong>
+                  </InfoLabel>
+               ),
+            } as unknown as LabelProps
+         }
+         validationState={hasError ? 'error' : undefined}
+         validationMessage={
+            hasError ? <ErrorMessage name={name} /> : undefined
+         }
+      >
+         <DatePicker
+            {...datePickerProps}
+            id={inputId}
+            name={name}
+            value={(value || null)}
+            onSelectDate={(date: Date | null | undefined) => handleOnChange(date)}
+            onBlur={handleOnBlur}
+         />
+      </Field>
    );
 };
 

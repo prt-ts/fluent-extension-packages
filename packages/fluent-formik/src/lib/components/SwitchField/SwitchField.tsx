@@ -10,7 +10,6 @@ export const SwitchField: React.FC<SwitchFieldProps> = (props) : JSX.Element => 
     const [, {value, error, touched }, { setValue }] = useField(name);
     const hasError = React.useMemo(() => touched && error, [touched, error]);
 
-
     return (
         <>
             <Switch 

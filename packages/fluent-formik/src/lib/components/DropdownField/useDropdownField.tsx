@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { useField } from 'formik';
 import * as React from 'react'; 
-import { DropdownProps } from '@fluentui/react-components';
-import { DropdownFieldProps, DropdownOption } from './DropdownField';
+import { DropdownProps } from '@fluentui/react-components'; 
+import { DropdownFieldProps, DropdownOption } from './Types';
 
 export const useDropdownField = (props: DropdownFieldProps) => {
    const { name, options } = props;

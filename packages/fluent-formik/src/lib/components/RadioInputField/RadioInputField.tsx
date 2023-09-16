@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as React from "react";
 import {
    useId,
@@ -28,9 +29,10 @@ export const RadioInputField: React.FC<InputFieldProps> = (props) => {
 
    const { label, name, options, ...rest } = props;
 
-   const { ...fieldPros }: any = rest;
-   const { ...infoLabelProps }: any = rest;
-   const { ...radioGroupProps }: any = rest;
+   // @ts-ignore: Type too Complex error code
+   const { ...fieldPros }: FieldProps = rest;
+   const { ...infoLabelProps }: InfoLabelProps = rest;
+   const { ...radioGroupProps }: RadioGroupProps = rest;
 
    const [, { value, touched, error }, { setValue, setTouched }] = useField(name);
    const hasError = React.useMemo(() => touched && error, [touched, error]);
