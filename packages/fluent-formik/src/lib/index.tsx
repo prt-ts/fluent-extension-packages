@@ -1,11 +1,11 @@
 export * from './components/FocusErrorElement';
 export { InputField as Input } from './components/InputField';
 
-export { RadioInputField as RadioInput } from './components/RadioInputField';
+export { RadioInputField as RadioGroup } from './components/RadioInputField';
 
 export { RadioField as Radio } from './components/RadioField';
 
-export { CheckboxInputField as CheckboxInput } from './components/CheckboxInputField';
+export { CheckboxInputField as CheckboxGroup } from './components/CheckboxInputField';
 
 export { CheckboxField as Checkbox } from './components/CheckboxField';
 
@@ -21,5 +21,7 @@ export { SwitchField as Switch } from './components/SwitchField';
 
 export { SliderField as Slider } from './components/SliderInputField';
 
-export type { DropdownOption } from './components/DropdownField';
+export { SpinButtonField as SpinButton } from './components/SpinButtonField';
+
+export type { DropdownOption } from './components/DropdownField/Types';
 export type { FileInfo } from './components/FileInputField';

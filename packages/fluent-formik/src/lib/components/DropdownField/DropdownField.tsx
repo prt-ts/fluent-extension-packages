@@ -5,57 +5,41 @@ import {
   Field,
   Dropdown,
   Option,
+  OptionProps,
 } from '@fluentui/react-components';
 import { InfoLabel } from '@fluentui/react-components/unstable';
 import { ErrorMessage } from 'formik';
-import { useDropdownStyles } from './useDropdownField.style';
 import { useDropdownField } from './useDropdownField';
 import { DropdownProps, FieldProps } from '@fluentui/react-components';
 import { InfoLabelProps } from '@fluentui/react-components/dist/unstable';
+import { DropdownFieldProps, DropdownOption } from './Types';
 
-export type DropdownFieldProps = DropdownProps &
-  FieldProps &
-  InfoLabelProps & {
-    name: string; 
-    options: DropdownOption[];
-  };
-
-export type DropdownOption = {
-  label: string;
-  value: string;
-  disabled?: boolean;
-};
-
-export const DropdownField = (props: DropdownFieldProps) => {
+export const DropdownField: React.FC<DropdownFieldProps> = (props) : JSX.Element => {
   const dropdownId = useId('dropdown');
 
-  const { label, name, required, options, ...rest } = props;
+  const { label, name, options, ...rest } = props;
 
-  const { ...fieldProps }: FieldProps = rest;
-  const { ...infoLabelProps }: InfoLabelProps = rest;
-  const { ...dropdownProps }: DropdownProps = rest;
-  const styles = useDropdownStyles();
+  const { ...fieldProps  }: any = rest;
+  const { ...infoLabelProps }: any = rest;
+  const { ...dropdownProps }: any = rest; 
+
   const { hasError, value, selectedOptions, handleOnChange, handleOnBlur } =
-    useDropdownField(props);
+    useDropdownField(props); 
 
-
-
-  return (
-    <div className={styles.root}>
+  return ( 
       <Field
         {...fieldProps}
         label={
           {
             children: (_: unknown, props: LabelProps) => (
-              <InfoLabel {...props} {...infoLabelProps} htmlFor={dropdownId} required={required}>
-                <strong>{label}</strong>
+              <InfoLabel {...props} {...infoLabelProps} htmlFor={dropdownId}>
+                <strong>{label as JSX.Element}</strong>
               </InfoLabel>
             ),
-          } as any
+          } as unknown as LabelProps
         }
         validationState={hasError ? 'error' : undefined}
-        validationMessage={hasError ? <ErrorMessage name={name} /> : undefined}
-        required={required}
+        validationMessage={hasError ? <ErrorMessage name={name} /> : undefined} 
       >
         <Dropdown
           {...dropdownProps}
@@ -64,19 +48,17 @@ export const DropdownField = (props: DropdownFieldProps) => {
           value={value}
           selectedOptions={selectedOptions}
           onOptionSelect={handleOnChange}
-          onBlur={handleOnBlur}
+          onBlur={handleOnBlur} 
         >
-          {options.map((option: DropdownOption) => (
-            <Option
-              key={option.value}
-              value={option.value}
-              disabled={option.disabled}
-            >
-              {option.label}
-            </Option>
+        {(options || []).map((option: DropdownOption, index: number) => (
+          <Option
+            key={`${dropdownId}-${option.value || ""}-${index}`}
+            {...option}
+          >
+            {option?.label}
+          </Option>
           ))}
         </Dropdown>
-      </Field>
-    </div>
+      </Field> 
   );
 };

@@ -1,11 +1,14 @@
 import {
   Checkbox,
-  CheckboxInput,
+  CheckboxGroup,
   DatePicker,
+  Dropdown,
   FocusConnectedError,
   Input,
   Radio,
+  RadioGroup,
   Slider,
+  SpinButton,
   Switch,
 } from '@prt-ts/fluent-formik';
 import {
@@ -37,7 +40,7 @@ const initialValues = {
     value: '2',
     label: 'Option 2',
   },
-  checkbox: [
+  checkboxGroup: [
     {
       value: '2',
       label: 'Option 2',
@@ -165,8 +168,8 @@ export default function Web() {
                   ]}
                 /> */}
 
-            <CheckboxInput
-              name="checkbox"
+            <CheckboxGroup
+              name="checkboxGroup"
               label="Checkbox"
               info={'Some info'}
               layout="vertical"
@@ -181,8 +184,43 @@ export default function Web() {
               required
             />
 
+            <RadioGroup
+              name="radioGroup"
+              label="Radio Group Component"
+              info={'Some info'}
+              layout="vertical" 
+              options={[
+                { value: '1', label: 'Option 1' },
+                { value: '2', label: 'Option 2' },
+                { value: '3', label: 'Option 3' },
+                { value: '4', label: 'Option 4', disabled: true },
+              ]}
+
+              required
+            />
+
+            {/* <Dropdown
+              name="checkbox"
+              label="Checkbox"
+              info={'Some info'}
+              options={[
+                { value: '1', label: 'Option 1', text: 'Some text' },
+                { value: '2', label: 'Option 2', text: 'Some text' },
+                { value: '3', label: 'Option 3', text: 'Some text' },
+                { value: '4', label: 'Option 4', text: 'Some text', disabled: true },
+              ]}
+
+              required={true}
+              multiselect={true}
+            /> */}
+
             <Checkbox
               name="checkbox1"
+              label="Standalone Checkbox"
+            />
+
+            <SpinButton
+              name="spinButton1"
               label="Standalone Checkbox"
             />
 
@@ -210,7 +248,7 @@ export default function Web() {
               labelPosition='before'
             />
 
-            <Slider size='small' name={"slider1"} label={"Slider Example"} min={0} max={1000} step={10}/>
+            <Slider size='small' name={"slider1"} label={"Slider Example"} min={0} max={1000} step={10} />
 
             <DatePicker
               name="date"

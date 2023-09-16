@@ -46,6 +46,7 @@ export const SpinButtonField: React.FC<SpinButtonFieldProps> = (props) : JSX.Ele
       >
          <SpinButton
             {...spinButtonProps}
+            type='number'
             id={inputId}
             name={name}
             value={value ?? ''}

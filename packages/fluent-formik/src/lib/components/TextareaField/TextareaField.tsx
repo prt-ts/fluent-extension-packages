@@ -32,7 +32,7 @@ type TextareaFieldProps = TextareaProps &
       label?: string;
    };
 
-export const TextareaField = (props: TextareaFieldProps) => {
+export const TextareaField : React.FC<TextareaFieldProps> = (props) => {
    const inputId = useId('textarea');
 
    const { label, name, info, required, ...rest } = props;

@@ -12,7 +12,7 @@ import { InfoLabel } from '@fluentui/react-components/unstable';
 import { useField, ErrorMessage } from 'formik';
 import { SliderInputFieldProps } from './Types';
 
-export const SliderField = (props: SliderInputFieldProps) => {
+export const SliderField : React.FC<SliderInputFieldProps> = (props) => {
     const inputId = useId('input');
 
     const { name, label, ...rest } = props;

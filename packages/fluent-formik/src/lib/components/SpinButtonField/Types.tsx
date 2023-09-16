@@ -5,5 +5,5 @@ export type SpinButtonFieldProps = SpinButtonProps &
     FieldProps &
     InfoLabelProps & {
         name: string;
-        label: JSX.Element
+        label: string;
     };

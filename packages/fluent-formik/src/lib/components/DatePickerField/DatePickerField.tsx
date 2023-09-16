@@ -18,7 +18,7 @@ type DatePickerFieldProps = DatePickerProps &
       label?: string;
    };
 
-export const DatePickerField = (props: DatePickerFieldProps) => {
+export const DatePickerField : React.FC<DatePickerFieldProps> = (props) => {
    const inputId = useId('date');
    const { label, name, info, required, ...rest } = props;
 
