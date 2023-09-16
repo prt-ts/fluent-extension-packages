@@ -16,7 +16,10 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = (props) : JSX.Element
             <Checkbox
                 {...checkboxProps}
                 checked={(value || false)}
-                onChange={(ev, data) => setValue(data.checked, true)} 
+                onChange={(ev, data) => {
+                    setValue(data.checked, true)
+                    props.onChange?.(ev, data)
+                }}
             />
             {hasError ? <ErrorMessage name={name} /> : undefined}
         </>

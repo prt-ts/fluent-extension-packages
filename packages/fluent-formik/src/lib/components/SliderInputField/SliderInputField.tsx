@@ -29,10 +29,13 @@ export const SliderField : React.FC<SliderInputFieldProps> = (props) => {
 
     const handleOnChange: SliderProps["onChange"] = (ev, data) => {
         setValue(data.value);
+        props.onChange?.(ev, data);
     };
 
-    const handleOnBlur: SliderProps['onBlur'] = () => {
+    const handleOnBlur: SliderProps['onBlur'] = (ev) => {
         setTouched(true, true);
+
+        props.onBlur?.(ev);
     };
 
     return (

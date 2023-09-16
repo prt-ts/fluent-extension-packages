@@ -49,6 +49,7 @@ export const CheckboxInputField : React.FC<CheckboxInputFieldProps> = (props) =>
                             } else {
                                 helpers.setValue([]);
                             }
+                            props.onChange?.(_ev)
                         }}
                         label="Select All"
                         labelPosition={labelPosition}

@@ -25,7 +25,7 @@ export const RadioField: React.FC<RadioFieldProps> = (props): JSX.Element => {
                     children: (_: unknown, props: LabelProps) => (<InfoLabel htmlFor={labelId} {...infoLabelProps} {...props}></InfoLabel>),
                 } as unknown as LabelProps}
                 checked={(value == radioProps.value) || false}
-                onChange={(ev, data) => setValue(data.value, true)}
+                onChange={(ev, data) => {setValue(data.value, true); props.onChange?.(ev, data)}}
             />
             {hasError ? <ErrorMessage name={name} /> : undefined}
         </>

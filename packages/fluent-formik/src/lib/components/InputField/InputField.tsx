@@ -49,7 +49,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
             id={inputId}
             name={name}
             value={value ?? ''}
-            onChange={(ev, data) => setValue(data.value)}
+            onChange={(ev, data) => { setValue(data.value); props.onChange?.(ev, data) }}
             onBlur={() => setTouched(true, true)}
 
             // this is important because we are using the 

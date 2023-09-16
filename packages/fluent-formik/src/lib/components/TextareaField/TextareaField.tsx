@@ -29,9 +29,12 @@ export const TextareaField: React.FC<TextareaFieldProps> = (props) => {
 
    const handleOnChange: TextareaProps['onChange'] = (ev, data) => {
       setValue(data.value);
+      props.onChange?.(ev, data);
    };
-   const handleOnBlur: TextareaProps['onBlur'] = () => {
+   const handleOnBlur: TextareaProps['onBlur'] = (ev) => {
       setTouched(true, true);
+
+      props.onBlur?.(ev);
    };
 
    return (

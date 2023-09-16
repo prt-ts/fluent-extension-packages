@@ -15,7 +15,7 @@ export const SwitchField: React.FC<SwitchFieldProps> = (props) : JSX.Element => 
             <Switch 
                 {...switchProps}
                 checked={value || false}
-                onChange={(ev, data) => setValue(data.checked, true)} 
+                onChange={(ev, data) => {setValue(data.checked, true); props.onChange?.(ev, data)}} 
             />
             {hasError ? <ErrorMessage name={name} /> : undefined}
         </>
