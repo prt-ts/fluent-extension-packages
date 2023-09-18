@@ -1,19 +1,35 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import * as React from 'react';
 
 import App from './app/app';
 import { FluentProvider, teamsLightTheme } from '@fluentui/react-components';
+import { ThemeService } from '@prt-ts/fluent-theme';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+const { getTheme } = ThemeService();
+
+export const AppRoot: React.FC = () => {
+  const [theme, setTheme] = React.useState(teamsLightTheme);
+
+  React.useEffect(() => {
+    getTheme('#f31a1a').then(setTheme);
+  }, []);
+
+  return (
+    <FluentProvider theme={theme}>
+      <App />
+    </FluentProvider>
+  );
+};
+
 root.render(
   <StrictMode>
     <BrowserRouter>
-      <FluentProvider theme={teamsLightTheme}>
-        <App />
-      </FluentProvider>
+      <AppRoot />
     </BrowserRouter>
   </StrictMode>
 );

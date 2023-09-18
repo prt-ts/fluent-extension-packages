@@ -1,0 +1,11 @@
+{
+  "name": "@prt-ts/fluent-theme",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "license": "MIT",
+  "author": "Pradeep Raj Thapaliya",
+  "bugs": {
+    "url": "https://github.com/prt-ts/spfx-workspace.git"
+  },
+  "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme"
+}

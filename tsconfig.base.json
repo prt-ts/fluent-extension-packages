@@ -22,6 +22,7 @@
         "packages/fluent-react-table/src/index.ts"
       ],
       "@prt-ts/fluent-spfx-core": ["packages/fluent-spfx-core/src/index.ts"],
+      "@prt-ts/fluent-theme": ["packages/fluent-theme/src/index.ts"],
       "@prt-ts/pdf-json-helpers": ["packages/pdf-json-helper/src/index.ts"],
       "@prt-ts/utilities": ["packages/utilities/src/index.ts"]
     }
