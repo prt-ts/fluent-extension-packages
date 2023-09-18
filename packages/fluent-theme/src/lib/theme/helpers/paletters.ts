@@ -111,7 +111,7 @@ function paletteShadesFromCurvePoints(
   }
 
   const snappingPoints = snappingPointsForKeyColor(keyColor);
-  const paletteShades = [];
+  const paletteShades: any[] = [];
   const range = [snappingPoints[0], snappingPoints[2]];
   const logLightness = getLogSpace(Math.log10(0), Math.log10(100), nShades);
   const linearLightness = pointsForKeyColor(keyColor, range, snappingPoints[1]);
