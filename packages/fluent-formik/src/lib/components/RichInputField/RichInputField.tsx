@@ -95,9 +95,7 @@ export const RichInputField: React.FunctionComponent<RichInputFieldProps> = (pro
             }}
             onBlur={() => setTouched(true, true)}
             modules={modules}
-            className={
-              props?.['aria-invalid'] ? classes.error : classes.regular
-            }
+            className={hasError ? classes.error : classes.regular}
             {...fieldProps}
           />
         )}

@@ -8,6 +8,7 @@ import {
   Input,
   Radio,
   RadioGroup,
+  RichInput,
   Slider,
   SpinButton,
   Switch,
@@ -31,6 +32,7 @@ const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
   date: Yup.date().required('Required'),
   fileInput1: Yup.array().min(1, 'Required'),
+  richInput: Yup.string().required('Required'),
 });
 
 const initialValues = {
@@ -155,6 +157,12 @@ export default function Web() {
               contentAfter={<DismissSquareRegular />}
             />
 
+            <RichInput
+              name="richInput"
+              label="Date"
+              size='small'
+            />
+
             <CheckboxGroup
               size='small'
               name="checkboxGroup"
@@ -243,7 +251,7 @@ export default function Web() {
               info={'Some info'}
             />
 
-            <Switch 
+            <Switch
               name="checkbox1"
               label="Standalone Checkbox"
               labelPosition='before'
