@@ -23,5 +23,7 @@ export { SliderField as Slider } from './components/SliderInputField';
 
 export { SpinButtonField as SpinButton } from './components/SpinButtonField';
 
+export { RichInputField as RichInput } from './components/RichInputField';
+
 export type { DropdownOption } from './components/DropdownField/Types';
 export type { FileInfo } from './components/FileInputField';

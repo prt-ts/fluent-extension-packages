@@ -7,10 +7,9 @@
   "dependencies": {
     "@swc/helpers": "~0.5.0",
     "g": "^2.0.1",
-    "react-router-dom": "6.8.1"   
+    "react-router-dom": "6.8.1"
   },
   "devDependencies": {
-    "tslib": "^2.3.0",
     "@fluentui/react-components": "9.31.1",
     "@fluentui/react-datepicker-compat": "0.3.11",
     "@fluentui/react-icons": "2.0.216",
@@ -56,10 +55,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
+    "react-quill": "^2.0.0",
     "react-test-renderer": "18.2.0",
     "sass": "^1.55.0",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
+    "tslib": "^2.3.0",
     "typescript": "~5.0.2",
     "vite": "^4.3.4",
     "vite-plugin-eslint": "^1.8.1",
@@ -77,4 +78,3 @@
   },
   "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme"
 }
-
