@@ -11,7 +11,7 @@ export const useRichTextEditorStyles = makeStyles({
     ...shorthands.borderRadius(tokens.borderRadiusMedium),
 
     '& .ql-toolbar': {
-      ...shorthands.border('none'),
+      ...shorthands.border('none') ,
       ...shorthands.padding(tokens.spacingVerticalXXS),
       display: 'flex',
       flexWrap: 'wrap',
