@@ -41,15 +41,13 @@ const modules = {
   keyboard: { bindings: { tab: false } },
 };
 
-
-export const RichInputField: React.FunctionComponent<RichInputFieldProps> = (props) => {
+export const RichInputField = React.forwardRef<ReactQuill, RichInputFieldProps>((props, ref) => {
   const inputId = useId('rich-input');
 
   const { label, name, ...rest } = props;
 
   //formik specific config
-  const [_, { value, touched, error }, { setValue, setTouched }] =
-    useField(name);
+  const [_, { value, touched, error }, { setValue, setTouched }] = useField(name);
   const hasError = React.useMemo(
     () => touched && error && error?.length > 0,
     [touched, error]
@@ -79,6 +77,7 @@ export const RichInputField: React.FunctionComponent<RichInputFieldProps> = (pro
       >
         {(fieldProps) => (
           <ReactQuill
+            ref={ref}
             id={inputId}
             {...reactQuillProps}
             value={value}
@@ -102,6 +101,6 @@ export const RichInputField: React.FunctionComponent<RichInputFieldProps> = (pro
       </Field>
     </>
   );
-};
+});
 
 

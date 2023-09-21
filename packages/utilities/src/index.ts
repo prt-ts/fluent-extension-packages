@@ -1,5 +1,9 @@
-export * from "./lib/FilterUtils";
+export * from "./lib/Array";
 
-export * from "./lib/ObjectUtils";
+export * from "./lib/Filter";
 
-export * from "./lib/RangeUtils";
+export * from "./lib/Object";
+
+export * from "./lib/Range";
+
+export * from "./lib/Date";

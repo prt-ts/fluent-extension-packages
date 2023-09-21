@@ -1,4 +1,4 @@
 import { formikConnect } from "./formikConnect";
-import { FocusErrorProps, FocusError } from "./FocusError";
+import { FocusError } from "./FocusError";
 
 export const FocusConnectedError = formikConnect(FocusError);
