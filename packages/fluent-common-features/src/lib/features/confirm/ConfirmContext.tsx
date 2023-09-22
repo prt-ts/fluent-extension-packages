@@ -11,6 +11,7 @@ import {
   Button,
   makeStyles,
 } from "@fluentui/react-components";
+import { CheckmarkStarburstFilled, CheckmarkStarburstRegular, DismissFilled, DismissRegular, bundleIcon } from "@fluentui/react-icons";
 
 type ConfirmCallbackType = () => void;
 type CancelCallbackType = () => void;
@@ -20,6 +21,8 @@ export type ConfirmOptionsType = {
   message: JSX.Element;
   onConfirm: ConfirmCallbackType;
   onCancel: CancelCallbackType;
+  confirmButtonLabel?: string;
+  cancelButtonLabel?: string;
 };
 
 export type ConfirmContextType = {
@@ -40,6 +43,13 @@ const useStyle = makeStyles({
   }
 })
 
+const ConfirmIcon = bundleIcon(
+  CheckmarkStarburstFilled,
+  CheckmarkStarburstRegular
+);
+
+const CancelIcon = bundleIcon(DismissFilled, DismissRegular);
+
 export const ConfirmProvider: React.FC<{children}> = ({ children }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -56,6 +66,8 @@ export const ConfirmProvider: React.FC<{children}> = ({ children }) => {
     message,
     onConfirm,
     onCancel,
+    confirmButtonLabel = "Yes",
+    cancelButtonLabel = "Cancel",
   }: ConfirmOptionsType) => {
     setOpen(true);
     setOnConfirm(() => onConfirm);
@@ -64,8 +76,6 @@ export const ConfirmProvider: React.FC<{children}> = ({ children }) => {
     setMessage(message);
   };
 
-
-
   const classes = useStyle();
 
   return (
@@ -73,7 +83,7 @@ export const ConfirmProvider: React.FC<{children}> = ({ children }) => {
       <Dialog open={open} modalType="alert">
         <DialogSurface className={classes.dialog}>
           <DialogBody>
-            <DialogTitle>{title}</DialogTitle>
+            <DialogTitle>⚠️ {title}</DialogTitle>
             <DialogContent>{message}</DialogContent>
             <DialogActions>
               <Button
@@ -83,6 +93,7 @@ export const ConfirmProvider: React.FC<{children}> = ({ children }) => {
                   onConfirm();
                 }}
                 size="small"
+                icon={<ConfirmIcon />}
               >
                 Yes
               </Button>
@@ -94,6 +105,7 @@ export const ConfirmProvider: React.FC<{children}> = ({ children }) => {
                     onCancel();
                   }}
                   size="small"
+                  icon={<CancelIcon />}
                 >
                   Cancel
                 </Button>
