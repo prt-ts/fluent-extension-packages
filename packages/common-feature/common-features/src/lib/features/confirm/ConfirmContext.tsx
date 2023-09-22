@@ -1,0 +1,108 @@
+/* eslint-disable */
+import * as React from "react";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogSurface,
+  DialogTitle,
+  DialogContent,
+  DialogBody,
+  DialogActions,
+  Button,
+  makeStyles,
+} from "@fluentui/react-components";
+
+type ConfirmCallbackType = () => void;
+type CancelCallbackType = () => void;
+
+export type ConfirmOptionsType = {
+  title: string;
+  message: JSX.Element;
+  onConfirm: ConfirmCallbackType;
+  onCancel: CancelCallbackType;
+};
+
+export type ConfirmContextType = {
+  confirm: (props: ConfirmOptionsType) => void;
+};
+
+export const ConfirmContext = React.createContext<ConfirmContextType>({
+    confirm: () => { }
+});
+
+export const useConfirmContext = () => {
+  return React.useContext(ConfirmContext);
+};
+
+const useStyle = makeStyles({
+  dialog: {
+    maxWidth: "300px"
+  }
+})
+
+export const ConfirmProvider: React.FC<{children}> = ({ children }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const [title, setTitle] = React.useState<string>("");
+  const [message, setMessage] = React.useState<JSX.Element>(<></>);
+
+  const [onConfirm, setOnConfirm] = React.useState<ConfirmCallbackType>(
+    () => {}
+  );
+  const [onCancel, setOnCancel] = React.useState<CancelCallbackType>(() => {});
+
+  const confirm = ({
+    title,
+    message,
+    onConfirm,
+    onCancel,
+  }: ConfirmOptionsType) => {
+    setOpen(true);
+    setOnConfirm(() => onConfirm);
+    setOnCancel(() => onCancel);
+    setTitle(title);
+    setMessage(message);
+  };
+
+
+
+  const classes = useStyle();
+
+  return (
+    <ConfirmContext.Provider value={{ confirm }}>
+      <Dialog open={open} modalType="alert">
+        <DialogSurface className={classes.dialog}>
+          <DialogBody>
+            <DialogTitle>{title}</DialogTitle>
+            <DialogContent>{message}</DialogContent>
+            <DialogActions>
+              <Button
+                appearance="primary"
+                onClick={() => {
+                  setOpen(false);
+                  onConfirm();
+                }}
+                size="small"
+              >
+                Yes
+              </Button>
+              <DialogTrigger disableButtonEnhancement>
+                <Button
+                  appearance="secondary"
+                  onClick={() => {
+                    setOpen(false);
+                    onCancel();
+                  }}
+                  size="small"
+                >
+                  Cancel
+                </Button>
+              </DialogTrigger>
+            </DialogActions>
+          </DialogBody>
+        </DialogSurface>
+      </Dialog>
+      {children}
+    </ConfirmContext.Provider>
+  );
+};

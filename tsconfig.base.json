@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@prt-ts/common-feature": [
+        "packages/common-feature/common-features/src/index.ts"
+      ],
       "@prt-ts/debounce": ["packages/debounce/src/index.ts"],
       "@prt-ts/export-helpers": ["packages/export-helpers/src/index.ts"],
       "@prt-ts/fluent-formik": ["packages/fluent-formik/src/index.ts"],
