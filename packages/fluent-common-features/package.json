@@ -1,6 +1,6 @@
 {
-  "name": "@prt-ts/common-feature",
-  "version": "1.0.1",
+  "name": "@prt-ts/fluent-common-features",
+  "version": "0.0.1",
   "main": "./index.js",
   "types": "./index.d.ts",
   "exports": {
