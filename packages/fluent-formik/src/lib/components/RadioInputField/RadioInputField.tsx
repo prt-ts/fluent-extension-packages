@@ -13,18 +13,7 @@ import {
 import type { InfoLabelProps } from '@fluentui/react-components/unstable';
 import { InfoLabel } from '@fluentui/react-components/unstable';
 import { useField, ErrorMessage } from 'formik';
-
-type RadioOptions = RadioProps & {
-  meta?: Record<string, unknown>;
-};
-
-type InputFieldProps = RadioGroupProps &
-  FieldProps &
-  InfoLabelProps & {
-    name: string;
-    label?: string;
-    options?: RadioOptions[];
-  };
+import { InputFieldProps } from './Types';
 
 export const RadioInputField = React.forwardRef<
   HTMLDivElement,
