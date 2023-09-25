@@ -77,7 +77,7 @@ export const DatePickerField = React.forwardRef<
         value={value || null}
         onSelectDate={(date: Date | null | undefined) => handleOnChange(date)}
         onBlur={handleOnBlur}
-        contentAfter={ value ? <ClearIcon onClick={() => handleOnChange(null)} /> : (props.contentAfter || <CalendarRegular />)}
+        contentAfter={ value ? <ClearIcon onClick={() => handleOnChange(null)} /> : (props?.contentAfter || <CalendarRegular />)}
       />
     </Field>
   );
