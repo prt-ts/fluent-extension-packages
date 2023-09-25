@@ -26,4 +26,5 @@ export { SpinButtonField as SpinButton } from './components/SpinButtonField';
 export { RichInputField as RichInput } from './components/RichInputField';
 
 export type { DropdownOption } from './components/DropdownField/Types';
+export type { CheckboxOption } from './components/CheckboxInputField/Types';
 export type { FileInfo } from './components/FileInputField';
