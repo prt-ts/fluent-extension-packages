@@ -57,7 +57,7 @@ const initialValues = {
 export default function Web() {
   return (
     <div>
-      <h1>My Form</h1>
+      <h1>My Form 1</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={SignupSchema}
@@ -137,7 +137,7 @@ export default function Web() {
               required
               info={
                 <>
-                  some info
+                  some info added
                 </>
               }
             />

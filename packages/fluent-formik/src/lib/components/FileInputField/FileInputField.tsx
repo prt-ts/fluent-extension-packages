@@ -119,7 +119,7 @@ export const FileInputField: React.FunctionComponent<FileInputProps> = props => 
       isDragReject,
    } = useDropzone({
       disabled,
-      accept
+     accept
    });
 
    React.useEffect(() => {

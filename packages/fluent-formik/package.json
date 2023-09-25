@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-formik",
-  "version": "9.31.1-build-7.0",
+  "version": "9.31.1-build-8.0",
   "description": "Fluent Formik is a component library for React that provides a set of components to build forms using Formik and Fluent UI",
   "type": "commonjs",
   "peerDependencies": {

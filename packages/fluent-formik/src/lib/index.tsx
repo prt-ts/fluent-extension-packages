@@ -1,4 +1,4 @@
-export * from './components/FocusErrorElement';
+export { FocusConnectedError } from './components/FocusErrorElement';
 export { InputField as Input } from './components/InputField';
 
 export { RadioInputField as RadioGroup } from './components/RadioInputField';
