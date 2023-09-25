@@ -9,7 +9,7 @@ import { DatePicker, DatePickerProps } from '@fluentui/react-datepicker-compat';
 import type { InfoLabelProps } from '@fluentui/react-components/unstable';
 import { InfoLabel } from '@fluentui/react-components/unstable';
 import { useField, ErrorMessage } from 'formik';
-import { CalendarRegular, DismissFilled, DismissRegular, bundleIcon } from '@fluentui/react-icons';
+import { DismissFilled, DismissRegular, bundleIcon } from '@fluentui/react-icons';
 
 type DatePickerFieldProps = DatePickerProps &
   FieldProps &
@@ -77,7 +77,7 @@ export const DatePickerField = React.forwardRef<
         value={value || null}
         onSelectDate={(date: Date | null | undefined) => handleOnChange(date)}
         onBlur={handleOnBlur}
-        contentAfter={ value ? <ClearIcon onClick={() => handleOnChange(null)} /> : (props?.contentAfter || <CalendarRegular />)}
+        contentAfter={ value ? <ClearIcon onClick={() => handleOnChange(null)} /> : props?.contentAfter}
       />
     </Field>
   );
