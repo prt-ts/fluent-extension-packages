@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as React from "react";
-import { ErrorFallback } from "./ErrorFallback";
+import { ErrorFallback } from "../../components/error-fallback/ErrorFallback";
 
 export class ErrorBoundary extends React.Component<{ fallback?: JSX.Element, children }> {
   constructor(props) {

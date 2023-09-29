@@ -14,6 +14,17 @@ export {
 } from "./features/loading"
 
 export {
-  ErrorBoundary,
-  ErrorFallback
+  ErrorBoundary
 } from "./features/handle-error"
+
+export {
+  ErrorFallback
+} from "./components/error-fallback/ErrorFallback"
+
+export {
+  AccessDenied
+} from "./components/access-denied/AccessDenied"
+
+export {
+  PageNotFound
+} from "./components/page-not-found/PageNotFound"
