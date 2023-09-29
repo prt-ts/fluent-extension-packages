@@ -340,7 +340,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                   className={styles.headerCell}
                 >
                   <Body1Stronger>
-                    {column.renderHeaderCell ? column.renderHeaderCell?.() : column.header}
+                    {column.header}
                   </Body1Stronger>
                 </TableHeaderCell>
               ))}
@@ -372,6 +372,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                         }
                         appearance={column.appearance}
                         description={column.renderSecondary && column.renderSecondary(item) as JSX.Element}
+                        className={styles.tableDataCell}
                       >
                         {column.renderCell
                           ? column.renderCell(item)

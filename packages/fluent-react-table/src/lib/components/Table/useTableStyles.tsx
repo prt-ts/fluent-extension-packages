@@ -70,7 +70,7 @@ export const useTableStyles = makeStyles({
         width: "15px"
     },
 
-    headerToggleCell: { 
+    headerToggleCell: {
         cursor: "pointer",
         maxWidth: "20px",
         width: "20px"
@@ -98,6 +98,13 @@ export const useTableStyles = makeStyles({
 
     searchInput: {
         minWidth: "300px"
-    }
+    },
+
+    tableDataCell: {
+      ...shorthands.overflow("hidden"),
+      textOverflow: "ellipsis",
+      wordWrap: "break-word",
+      whiteSpace: "nowrap",
+    },
 
 });

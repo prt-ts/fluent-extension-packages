@@ -67,7 +67,7 @@ export function TableExample() {
         selectionMode="multiple"
         defaultSortedColumnIds={['lastUpdated.label']}
         // defaultGroupColumnIds={['file.label', 'author.label']}
-        isPageOnGroup={true}
+        isPageOnGroup={false}
         isGroupDefaultExpanded={true}
         // getRowClasses={(item, index) => (item.id == 3 ? styles.evenRow : '')}
         onGetGridActionMenu={(selectedItems) => (
@@ -85,8 +85,9 @@ export function TableExample() {
             </Button>
           )}
           sizeOptions={{
-            defaultWidth: 400,
-            minWidth: 400,
+            // defaultWidth: 400,
+            minWidth: 200,
+            idealWidth: 400,
           }}
         />
         <Column
