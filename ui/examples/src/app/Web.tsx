@@ -88,43 +88,40 @@ export default function Web() {
               info={
                 <>
                   <Button /> Some test example Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Sit labore harum saepe
-                  nesciunt, cumque soluta esse nulla, minima quam iure
-                  beatae suscipit provident accusantium officia dolore? Eius
-                  nostrum suscipit totam? Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Possimus, explicabo quasi,
-                  officia dignissimos reiciendis cupiditate optio sapiente
-                  asperiores accusamus veritatis tenetur natus, voluptatum
-                  dolor quisquam. Necessitatibus delectus temporibus
-                  voluptatem tempora? Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Laudantium, facere ut. Magnam, totam
-                  fugiat animi dolores eligendi eos illo ipsa quaerat quas
-                  pariatur laudantium ex rem reprehenderit inventore officia
-                  minima. Lorem ipsum dolor sit amet consectetur,
-                  adipisicing elit. Porro, aspernatur eos excepturi corrupti
-                  quidem sint error in sit perspiciatis ab rerum assumenda
-                  eum, eveniet, unde labore? Maxime ratione aspernatur
-                  a!Loremlore Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Placeat nostrum fuga architecto, nihil
-                  sed id illum eos sequi tempora earum vero maxime
-                  consequuntur enim accusantium laboriosam accusamus alias
-                  adipisci inventore? Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Autem laboriosam consequuntur officia
-                  dolorem? Dolorem, consequatur illum reiciendis odit est
-                  laboriosam sit? Sequi facere odio nisi at dolorem totam
-                  vero quod? Lorem ipsum dolor, sit amet consectetur
-                  adipisicing elit. Illo voluptatem ipsum dolorem, esse quo
-                  laudantium aperiam odit vel, ab placeat iure molestiae
-                  perspiciatis fuga sequi dolorum harum optio ipsa. Aperiam.
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptate voluptates alias eligendi laborum ab cum ducimus
-                  repellendus porro? Atque quaerat unde reprehenderit
-                  aspernatur recusandae, dolor dicta praesentium iure
-                  aliquam aliquid? Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Adipisci impedit tenetur qui quo, id
-                  odit, animi cupiditate aliquid exercitationem voluptas
-                  saepe, sed quae velit quisquam nulla dolores fugit
-                  perspiciatis veniam?
+                  consectetur adipisicing elit. Sit labore harum saepe nesciunt,
+                  cumque soluta esse nulla, minima quam iure beatae suscipit
+                  provident accusantium officia dolore? Eius nostrum suscipit
+                  totam? Lorem ipsum dolor sit amet consectetur adipisicing
+                  elit. Possimus, explicabo quasi, officia dignissimos
+                  reiciendis cupiditate optio sapiente asperiores accusamus
+                  veritatis tenetur natus, voluptatum dolor quisquam.
+                  Necessitatibus delectus temporibus voluptatem tempora? Lorem
+                  ipsum dolor sit amet consectetur adipisicing elit. Laudantium,
+                  facere ut. Magnam, totam fugiat animi dolores eligendi eos
+                  illo ipsa quaerat quas pariatur laudantium ex rem
+                  reprehenderit inventore officia minima. Lorem ipsum dolor sit
+                  amet consectetur, adipisicing elit. Porro, aspernatur eos
+                  excepturi corrupti quidem sint error in sit perspiciatis ab
+                  rerum assumenda eum, eveniet, unde labore? Maxime ratione
+                  aspernatur a!Loremlore Lorem ipsum dolor sit amet consectetur
+                  adipisicing elit. Placeat nostrum fuga architecto, nihil sed
+                  id illum eos sequi tempora earum vero maxime consequuntur enim
+                  accusantium laboriosam accusamus alias adipisci inventore?
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
+                  laboriosam consequuntur officia dolorem? Dolorem, consequatur
+                  illum reiciendis odit est laboriosam sit? Sequi facere odio
+                  nisi at dolorem totam vero quod? Lorem ipsum dolor, sit amet
+                  consectetur adipisicing elit. Illo voluptatem ipsum dolorem,
+                  esse quo laudantium aperiam odit vel, ab placeat iure
+                  molestiae perspiciatis fuga sequi dolorum harum optio ipsa.
+                  Aperiam. Lorem, ipsum dolor sit amet consectetur adipisicing
+                  elit. Voluptate voluptates alias eligendi laborum ab cum
+                  ducimus repellendus porro? Atque quaerat unde reprehenderit
+                  aspernatur recusandae, dolor dicta praesentium iure aliquam
+                  aliquid? Lorem ipsum dolor sit amet consectetur adipisicing
+                  elit. Adipisci impedit tenetur qui quo, id odit, animi
+                  cupiditate aliquid exercitationem voluptas saepe, sed quae
+                  velit quisquam nulla dolores fugit perspiciatis veniam?
                 </>
               }
             />
@@ -135,11 +132,7 @@ export default function Web() {
               type="text"
               weight="semibold"
               required
-              info={
-                <>
-                  some info added
-                </>
-              }
+              info={<>some info added</>}
             />
 
             <Input
@@ -153,18 +146,14 @@ export default function Web() {
               type="search"
               name="searchVal"
               label="Date"
-              size='small'
+              size="small"
               contentAfter={<DismissSquareRegular />}
             />
 
-            <RichInput
-              name="richInput"
-              label="Date"
-              size='small'
-            />
+            <RichInput name="richInput" label="Date" size="small" />
 
             <CheckboxGroup
-              size='small'
+              size="small"
               name="checkboxGroup"
               label="Checkbox Group Component"
               info={'Some info'}
@@ -176,12 +165,11 @@ export default function Web() {
                 { value: '3', label: 'Option 3' },
                 { value: '4', label: 'Option 4', disabled: true },
               ]}
-
               required
             />
 
             <RadioGroup
-              size='small'
+              size="small"
               name="radioGroup"
               label="Radio Group Component"
               info={'Some info'}
@@ -190,9 +178,8 @@ export default function Web() {
                 { value: '1', label: 'Option 1' },
                 { value: '2', label: 'Option 2' },
                 { value: '3', label: 'Option 3' },
-                { value: '4', label: 'Option 4', disabled: true },
+                { value: '4', label: 'Option 4', disabled: true,  },
               ]}
-
               required
             />
 
@@ -200,69 +187,72 @@ export default function Web() {
               name="dropdownMultiple"
               label="Dropdown Component"
               info={'Some info'}
-              size='small'
+              size="small"
               options={[
                 { value: '1', label: 'Option 1', text: 'Some text' },
                 { value: '2', label: 'Option 2', text: 'Some text' },
                 { value: '3', label: 'Option 3', text: 'Some text' },
-                { value: '4', label: 'Option 4', text: 'Some text', disabled: true },
+                {
+                  value: '4',
+                  label: 'Option 4',
+                  text: 'Some text',
+                  disabled: true,
+                },
               ]}
-
               required={true}
               multiselect={true}
             />
 
             <Checkbox
-              size='medium'
+              size="medium"
               name="checkbox1"
               label="Standalone Checkbox"
             />
 
             <FileInput
-              name='fileInput1'
-              label='File Input'
+              name="fileInput1"
+              label="File Input"
               info={'Some info'}
-              size='small'
+              size="small"
               required={true}
               hint={'Some hint for file input'}
             />
 
             <SpinButton
-              size='small'
+              size="small"
               name="spinButton1"
               label="Standalone Checkbox"
             />
 
-            <Radio
-              name="radioOption1"
-              value={'1'}
-              label="Value 1"
-            />
-            <Radio
-              name="radioOption1"
-              value={'2'}
-              label="Value 2"
-            />
+            <Radio name="radioOption1" value={'1'} label="Value 1" />
+            <Radio name="radioOption1" value={'2'} label="Value 2" />
             <Radio
               name="radioOption1"
               value={'3'}
               label="Value 3"
-
               info={'Some info'}
             />
 
             <Switch
               name="checkbox1"
               label="Standalone Checkbox"
-              labelPosition='before'
+              labelPosition="before"
             />
 
-            <Slider size='small' name={"slider1"} label={"Slider Example"} min={0} max={1000} step={10} />
+            <Slider
+              size="small"
+              name={'slider1'}
+              label={'Slider Example'}
+              min={0}
+              max={1000}
+              step={10}
+            />
 
             <DatePicker
               name="date"
-              label={"Date"}
-              size='small'
+              label={'Date'}
+              size="small"
+              allowTextInput
             />
 
             <button type="submit">Submit</button>

@@ -1,4 +1,5 @@
-export { ExtendedTable as Table } from "./components";
+export { ExtendedTable as Table } from './components';
+export { Column } from './components';
 
 export type {
     IColumn,

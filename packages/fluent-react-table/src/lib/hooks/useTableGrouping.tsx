@@ -33,7 +33,7 @@ function getGroups<TItem extends { id: string | number }>(
           key:
             (parentGroup ? parentGroup.key + separator : "") + itemColumnValue,
           name: `${itemColumnValue}`,
-          renderHeaderCell: col?.renderHeaderCell(),
+          renderHeaderCell: col?.header,
           startIndex: parentGroup ? parentGroup.startIndex + index : index,
           count: 1,
           level: parentGroup ? (parentGroup.level ? parentGroup.level + 1 : 1) : 0,
@@ -89,7 +89,7 @@ export function groupItems<TItem extends { id: string | number }>(
         );
       }
     }
- 
+
     return groups;
   }
 
@@ -114,7 +114,7 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
   }, [groups, isGroupDefaultExpanded]);
 
   const resetGroupColumns = React.useCallback((groupColumns : string[] = []): void => setGroupedColumns(groupColumns), []);
-  
+
   const toggleColumnGroup = React.useCallback((newColumnId: string, retainExisting = false): void => {
 
     setGroupedColumns((existing) => {
@@ -155,7 +155,7 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
 
   const toggleGroupExpand = React.useCallback((currentGroup: IGroup) => {
 
-    const newGroup = toggleExpand(groups, currentGroup); 
+    const newGroup = toggleExpand(groups, currentGroup);
     setGroups([...newGroup])
 
   }, [groups])
@@ -169,7 +169,7 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
   }, [groups])
 
   const toggleAllGroupExpandHandler = React.useCallback((groups: IGroup[] | undefined, isCollapse: boolean): IGroup[] => {
-    
+
     if (!groups) return [];
 
     const newGroup = [...groups]?.map(g => {
@@ -186,7 +186,7 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
     return newGroup;
   }, [])
 
-  const toggleAllGroupExpand = React.useCallback((isAllCollapsed: boolean) => { 
+  const toggleAllGroupExpand = React.useCallback((isAllCollapsed: boolean) => {
     const newGroup = toggleAllGroupExpandHandler(groups, !isAllCollapsed);
     setGroups([...newGroup])
 
@@ -196,7 +196,7 @@ export function useTableGrouping<TItem extends NonNullable<{ id: string | number
   return {
     groupedColumns,
     setGroupedColumns,
-    
+
     groups,
     setGroups,
 

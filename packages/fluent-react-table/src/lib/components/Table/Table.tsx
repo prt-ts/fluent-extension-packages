@@ -53,6 +53,7 @@ import { GroupRenderer } from "./GroupRenderer";
 import { GroupColumns } from "./GroupColumns";
 import { SelectColumns } from "./SelectColumns";
 import { ChangeViewIcon, ClearFilterIcon, GroupCollapsedIcon, GroupExpandedIcon, SaveIcon, SearchIcon, VerticalMoreIcon } from "../Icons"
+import { IColumn } from "../../types";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function tryGetObjectValue(fieldName: string | undefined, item: any) {
@@ -83,11 +84,28 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
   const styles = useTableStyles();
 
   const {
+    children,
     gridTitle,
     selectionMode = "none",
     getRowClasses,
     ...rest
   } = props;
+
+    const columns = React.useMemo(() => {
+      const childColumns = (
+        children
+          //?.filter((col) => col?.props?.fieldName)
+          ?.map(
+            (child, index) =>
+              ({
+                ...child?.props,
+                key: `${child?.props?.columnId}-column-${index}`,
+              } as IColumn<TItem>)
+          ) ?? []
+      );
+
+      return childColumns?.length > 0 ? childColumns : props.columns ?? [];
+    }, [children]);
 
   const { ...tableProps }: FluentTableProps = rest;
 
@@ -111,7 +129,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
       columnSizing_unstable
     },
 
-    columnsState: { 
+    columnsState: {
       extendedColumns,
 
       visibleColumns,
@@ -147,11 +165,12 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
       toggleAllGroupExpand
     }
 
-  } = useCustomTableFeature(props);
+  } = useCustomTableFeature(props, columns);
 
 
   const viewNameRef = React.useRef<HTMLInputElement>(null)
   const [open, setOpen] = React.useState(false);
+
 
   return (
     <>
@@ -160,11 +179,11 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
           <>
             <GroupColumns
               groupedColumns={groupedColumns}
-              columns={props.columns}
+              columns={columns}
               resetGroupColumns={resetGroupColumns} />
             <SelectColumns
               visibleColumns={visibleColumns}
-              columns={props.columns}
+              columns={columns}
               resetVisibleColumns={(newVisibleColumns: string[]) => setVisibleColumns([...newVisibleColumns])} />
 
             {/* <Menu
@@ -195,10 +214,10 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                 </MenuList>
               </MenuPopover>
             </Menu> */}
-            <Dialog 
-              open={open} 
-              onOpenChange={(event, data) => setOpen(data.open)} 
-              modalType="non-modal"> 
+            <Dialog
+              open={open}
+              onOpenChange={(event, data) => setOpen(data.open)}
+              modalType="non-modal">
               <DialogSurface aria-describedby={undefined}>
                 <form onSubmit={(e: React.FormEvent) => {
                   e.preventDefault();
@@ -206,7 +225,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                   if (viewName.length > 0) {
                     saveTableView(viewName);
                     setOpen(false);
-                  } 
+                  }
                 }}>
                   <DialogBody>
                     <DialogTitle>Save New View</DialogTitle>
@@ -306,9 +325,9 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                 </TableHeaderCell>)
               }
 
-              {extendedColumns.map((column) => (
+              {extendedColumns.map((column, colIndex) => (
                 <TableHeaderCell
-                  key={column.columnId}
+                  key={`${column.columnId}_${colIndex}`}
                   {...columnSizing_unstable.getTableHeaderCellProps(
                     column.columnId
                   )}
@@ -321,7 +340,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                   className={styles.headerCell}
                 >
                   <Body1Stronger>
-                    {column.renderHeaderCell()}
+                    {column.renderHeaderCell ? column.renderHeaderCell?.() : column.header}
                   </Body1Stronger>
                 </TableHeaderCell>
               ))}
@@ -461,4 +480,6 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
       <Divider />
     </>
   );
-}; 
+};
+
+export const Column = (props: IColumn<any>) => <>{ props.columnId}</>;

@@ -1,15 +1,15 @@
 import { TableProps as FluentTableProps } from "@fluentui/react-components";
 import { IColumn, SelectionMode } from "../types";
 
-export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = FluentTableProps & {
-
+export type TableProps<TItem extends NonNullable<{ id: string | number }>> =
+  FluentTableProps & {
     /**
-     * This is the unique name of the table - this name is used for the views and other stuff.... 
+     * This is the unique name of the table - this name is used for the views and other stuff....
      * It must be uniques across your application
      * @required true
      * @default null
      */
-    tableName: string
+    tableName: string;
 
     /**
      * Items to be displayed in the grid
@@ -22,8 +22,11 @@ export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = F
      * Column Definition for the grid
      * @requires true
      * @default []
+     * @deprecated use <Column {...withProps}> component instead
      */
-    columns: IColumn<TItem>[];
+    columns?: IColumn<TItem>[];
+
+    children?: Array<React.ReactElement<IColumn<TItem>>>;
 
     /**
      * calculates pagination based on group
@@ -32,10 +35,10 @@ export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = F
     isPageOnGroup: boolean;
 
     /**
-     * show loading 
+     * show loading
      * @default false
      */
-    isLoading?: boolean,
+    isLoading?: boolean;
 
     /**
      * Table Selection Mode
@@ -45,7 +48,6 @@ export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = F
      */
     selectionMode?: SelectionMode;
     onSelectionChange?: (selectedItems: TItem[]) => void;
-
 
     /**
      * Default Page Size
@@ -61,8 +63,7 @@ export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = F
      * @type number[]
      * @default "[10, 20, 50, 100, MAX]"
      */
-    pageSizeOption?: number[],
-
+    pageSizeOption?: number[];
 
     onGetGridActionMenu?: (selectedItems?: TItem[]) => React.ReactNode;
     gridTitle?: React.ReactNode;
@@ -78,7 +79,6 @@ export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = F
      * @default defaultNoItemComponent
      */
     noItem?: React.ReactNode;
-
 
     /**
      * class to customize table row
@@ -103,4 +103,4 @@ export type TableProps<TItem extends NonNullable<{ id: string | number; }>,> = F
      * @default true
      */
     isGroupDefaultExpanded?: boolean;
-}
+  };

@@ -33,7 +33,7 @@ export function GroupColumns<TITem extends { id: number | string }>({
         dragStart,
         dragEnter,
         drop
-    } = useDragDropFeature<string>(sortedColumns?.map(sc => sc.columnId as string), (sortedItems: string[]) => { 
+    } = useDragDropFeature<string>(sortedColumns?.map(sc => sc.columnId as string), (sortedItems: string[]) => {
         handleDragGroupItem(sortedItems);
     })
 
@@ -74,7 +74,7 @@ export function GroupColumns<TITem extends { id: number | string }>({
                                     onDragEnter={(e) => dragEnter(e, index)}
 
                                     className={mergeClasses(styles.draggableItem, dragOverElement == col.columnId ? styles.draggingItemOver : undefined)}
-                                    onDragOver={() => { 
+                                    onDragOver={() => {
                                         setDragOverElement(col.columnId as string)
                                     }}
 
@@ -84,7 +84,7 @@ export function GroupColumns<TITem extends { id: number | string }>({
                                     }}
                                     draggable
                                 >
-                                    {col.renderHeaderCell()}
+                                     {col.header}
                                 </MenuItemCheckbox>))
                     }
                 </MenuGroup>

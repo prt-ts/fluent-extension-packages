@@ -23,16 +23,16 @@ export function SelectColumns<TITem extends { id: number | string }>({
         })
     }, [visibleColumns, columns]);
 
-    const handleDragColumnItem = React.useCallback((newColOrders: string[]) => { 
+    const handleDragColumnItem = React.useCallback((newColOrders: string[]) => {
         const newColumnOrder = visibleColumns?.sort((first, second) => (newColOrders?.indexOf(first) - newColOrders.indexOf(second)))
-        resetVisibleColumns([...newColumnOrder]); 
+        resetVisibleColumns([...newColumnOrder]);
     }, [visibleColumns])
 
     const {
         dragStart,
         dragEnter,
         drop
-    } = useDragDropFeature<string>(sortedColumns?.map(sc => sc.columnId as string), (sortedItems: string[]) => { 
+    } = useDragDropFeature<string>(sortedColumns?.map(sc => sc.columnId as string), (sortedItems: string[]) => {
         handleDragColumnItem(sortedItems);
     })
 
@@ -40,49 +40,65 @@ export function SelectColumns<TITem extends { id: number | string }>({
     const styles = useGroupStyles()
 
     return (
-        <Menu
-            checkedValues={showHideOptionSelected}
-            onCheckedValueChange={(_, data: MenuCheckedValueChangeData) => resetVisibleColumns(data.checkedItems)}>
-
-            <Tooltip content="Show/Hide Grid Columns" relationship="description">
-                <MenuTrigger disableButtonEnhancement>
-                    <Button appearance="outline" icon={<ToggleSelectColumnIcon />} />
-                </MenuTrigger>
-            </Tooltip>
-            <MenuPopover>
-                <MenuList>
-                    <MenuGroup key={"table-hide-show"}>
-                        <MenuGroupHeader key={"table-hide-show-label"}>Show/Hide Columns</MenuGroupHeader>
-                        <MenuDivider key={"table-hide-show-divider"} />
-                        {
-                            columns && sortedColumns?.map((col, index) => (
-                                <MenuItemCheckbox
-                                    key={index}
-                                    name={"hiddenCols"}
-                                    value={col.columnId as string}
-                                    disabled={col.disableHideShow ? true : false}
-                                    secondaryContent={visibleColumns?.includes(col.columnId as string) ? <DragIcon className={styles.draggableIcon} /> : <></>}
- 
-                                    onDragStart={(e) => dragStart(e, index)}
-                                    onDragEnter={(e) => dragEnter(e, index)}
-                                    className={mergeClasses(styles.draggableItem, dragOverElement == col.columnId ? styles.draggingItemOver : undefined)}
-                                    onDragOver={() => { 
-                                        setDragOverElement(col.columnId as string)
-                                    }}
-                                    
-                                    onDragEnd={(e) => {
-                                        setDragOverElement("")
-                                        drop(e)
-                                    }}
-                                    draggable
-                                >
-                                    {col.renderHeaderCell()}
-                                </MenuItemCheckbox>))
-                        }
-                    </MenuGroup>
-                </MenuList>
-            </MenuPopover>
-        </Menu>)
+      <Menu
+        checkedValues={showHideOptionSelected}
+        onCheckedValueChange={(_, data: MenuCheckedValueChangeData) =>
+          resetVisibleColumns(data.checkedItems)
+        }
+      >
+        <Tooltip content="Show/Hide Grid Columns" relationship="description">
+          <MenuTrigger disableButtonEnhancement>
+            <Button appearance="outline" icon={<ToggleSelectColumnIcon />} />
+          </MenuTrigger>
+        </Tooltip>
+        <MenuPopover>
+          <MenuList>
+            <MenuGroup key={'table-hide-show'}>
+              <MenuGroupHeader key={'table-hide-show-label'}>
+                Show/Hide Columns
+              </MenuGroupHeader>
+              <MenuDivider key={'table-hide-show-divider'} />
+              {columns &&
+                sortedColumns?.map((col, index) => (
+                  <MenuItemCheckbox
+                    key={index}
+                    name={'hiddenCols'}
+                    value={col.columnId as string}
+                    disabled={col.disableHideShow ? true : false}
+                    secondaryContent={
+                      visibleColumns?.includes(col.columnId as string) ? (
+                        <DragIcon className={styles.draggableIcon} />
+                      ) : (
+                        <></>
+                      )
+                    }
+                    onDragStart={(e) => dragStart(e, index)}
+                    onDragEnter={(e) => dragEnter(e, index)}
+                    className={mergeClasses(
+                      styles.draggableItem,
+                      dragOverElement == col.columnId
+                        ? styles.draggingItemOver
+                        : undefined
+                    )}
+                    onDragOver={() => {
+                      setDragOverElement(col.columnId as string);
+                    }}
+                    onDragEnd={(e) => {
+                      setDragOverElement('');
+                      drop(e);
+                    }}
+                    draggable
+                  >
+                    {col.renderHeaderCell
+                      ? col.renderHeaderCell?.()
+                      : col.header}
+                  </MenuItemCheckbox>
+                ))}
+            </MenuGroup>
+          </MenuList>
+        </MenuPopover>
+      </Menu>
+    );
 }
 
 export const useGroupStyles = makeStyles({
