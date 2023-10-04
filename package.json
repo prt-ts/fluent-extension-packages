@@ -12,9 +12,9 @@
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
     "@faker-js/faker": "^8.1.0",
-    "@fluentui/react-components": "9.31.1",
-    "@fluentui/react-datepicker-compat": "0.3.11",
-    "@fluentui/react-icons": "2.0.216",
+    "@fluentui/react-components": "9.34.0",
+    "@fluentui/react-datepicker-compat": "0.3.17",
+    "@fluentui/react-icons": "2.0.218",
     "@nx/cypress": "16.1.4",
     "@nx/eslint-plugin": "16.1.4",
     "@nx/jest": "16.1.4",
@@ -84,3 +84,4 @@
   },
   "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme"
 }
+
