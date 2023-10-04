@@ -15,11 +15,11 @@ export function useTableColumns<TItem extends NonNullable<{ id: string | number 
     }, [gridColumns]);
 
     const columns = React.useMemo<TableColumnDefinition<TItem>[]>(() => {
-        return gridColumns?.map(col => createTableColumn<TItem>({ 
+        return gridColumns?.map(col => createTableColumn<TItem>({
             columnId: col.columnId,
-            renderHeaderCell: col.renderHeaderCell
+            renderHeaderCell: () => col.header
         }))
-    }, [gridColumns]); 
+    }, [gridColumns]);
 
     const columnSizingOptions = React.useMemo<TableColumnSizingOptions>(() => {
         /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -43,7 +43,7 @@ export function useTableColumns<TItem extends NonNullable<{ id: string | number 
                     : (visibleColumns?.indexOf(a.columnId as string) - visibleColumns?.indexOf(b.columnId as string));
             })
     }, [gridColumns, visibleColumns]);
-   
+
     return {
         columns,
         columnSizingOptions,

@@ -89,9 +89,7 @@ export function SelectColumns<TITem extends { id: number | string }>({
                     }}
                     draggable
                   >
-                    {col.renderHeaderCell
-                      ? col.renderHeaderCell?.()
-                      : col.header}
+                    {col.header}
                   </MenuItemCheckbox>
                 ))}
             </MenuGroup>
