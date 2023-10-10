@@ -132,25 +132,21 @@ export function useCustomTableFeature<
     let combinedSortColumns: string[] = [];
 
     if (groupedColumns?.length > 0) {
-      //todo
 
       // check if sorted column exist on the grouped columns
-      if (
-        groupedColumns.some((gc) =>
-          sortedColumns?.some((sc) => sc.includes(gc))
-        )
-      ) {
+      if (groupedColumns.some((gc) => sortedColumns?.some((sc) => sc.includes(gc)))) {
         combinedSortColumns = groupedColumns.map((gc) => {
-          return sortedColumns.some((sc) => sc.includes(gc))
-            ? sortedColumns?.[0]
-            : gc;
+          return sortedColumns.some((sc) => sc.includes(gc)) ? sortedColumns?.[0] : gc;
         });
-      } else {
+      }
+      else {
         combinedSortColumns = [...groupedColumns, ...sortedColumns];
       }
     } else {
       combinedSortColumns = sortedColumns;
     }
+
+    //console.log('combinedSortColumns', combinedSortColumns);
 
     const sItems = applySort(combinedSortColumns, filteredItems);
     return sItems;

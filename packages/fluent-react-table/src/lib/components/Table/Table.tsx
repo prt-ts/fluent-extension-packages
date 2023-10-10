@@ -483,4 +483,4 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
   );
 };
 
-export const Column = (props: IColumn<any>) => <>{ props.columnId}</>;
+export const Column = (props: IColumn<any>) => <>{props.children}</>;

@@ -16,6 +16,8 @@ export type IColumn<TItem extends NonNullable<{ id: string | number }>> = {
   hideInDefaultView? : boolean;
   disableHideShow? : boolean;
   disableGrouping? : boolean;
+
+  children? : (item: TItem) => React.ReactNode;
 };
 
 
