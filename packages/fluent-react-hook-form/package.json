@@ -1,12 +1,22 @@
 {
   "name": "@prt-ts/fluent-react-hook-form",
-  "version": "0.0.1",
-  "main": "./index.js",
-  "types": "./index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./index.js"
-    }
-  }
+  "version": "9.34.2-build.1.0",
+  "description": "Fluent Formik is a component library for React that provides a set of components to build forms using Formik and Fluent UI",
+  "type": "commonjs",
+  "peerDependencies": {
+    "@fluentui/react-components": ">=9.34.2",
+    "@fluentui/react-icons": ">=2.0.218",
+    "@fluentui/react-datepicker-compat": ">=0.3.17",
+    "formik": ">=2.2.0",
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0",
+    "react-dropzone": ">=14.0.0",
+    "react-quill": ">=2.0.0"
+  },
+  "license": "MIT",
+  "author": "Pradeep Raj Thapaliya",
+  "bugs": {
+    "url": "https://github.com/prt-ts/spfx-workspace.git"
+  },
+  "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme"
 }

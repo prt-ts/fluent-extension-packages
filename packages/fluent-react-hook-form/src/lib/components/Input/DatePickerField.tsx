@@ -1,0 +1,60 @@
+import { Field, FieldProps, LabelProps } from "@fluentui/react-components";
+import { InfoLabel, InfoLabelProps,  } from "@fluentui/react-components/unstable";
+import { forwardRef } from "react";
+import { useFormContext } from "../Form";
+import { Controller, ControllerProps } from "react-hook-form";
+import { DatePicker, DatePickerProps } from "@fluentui/react-datepicker-compat";
+
+export type DatePickerFieldProps = FieldProps & InfoLabelProps & DatePickerProps & { name: string, rules?: ControllerProps['rules']}
+
+export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps>(({ name, rules, required, ...rest }, inputRef) => {
+    const { form: { control } } = useFormContext();
+
+    const { ...fieldProps }: FieldProps = rest;
+    const { ...datePickerProps }: DatePickerProps = rest;
+    const { ...infoLabelProps }: InfoLabelProps = rest; 
+
+    return (
+        <Controller 
+            name={name}
+            control={control}
+            rules={rules}
+            render={({ field, fieldState }) => { 
+                const { onChange, onBlur, value, ref } = field; 
+ 
+                const handleOnChange = (date: Date | null | undefined) => {
+                    onChange(date || "");
+                    datePickerProps.onSelectDate?.(date);
+                }
+
+                const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
+                    onBlur();
+                    datePickerProps.onBlur?.(ev);
+                }  
+
+                return (
+                    <Field
+                        {...fieldProps}
+                        label={{
+                            children: (_: unknown, props: LabelProps) => (
+                                <InfoLabel {...props} {...infoLabelProps} />
+                            )
+                        } as unknown as InfoLabelProps}
+                        validationState={fieldState.invalid ? "error" : undefined}
+                        validationMessage={fieldState.error?.message}
+                        required={required}
+                    >
+                        <DatePicker  
+                            {...datePickerProps}
+                            ref={inputRef || ref}
+                            name={name}
+                            onSelectDate={handleOnChange}
+                            onBlur={handleOnBlur}
+                            value={value || ""}
+                            required={false}
+                        />
+                    </Field>
+                )
+            }}
+        />)
+})

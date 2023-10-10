@@ -1,1 +1,1 @@
-export * from './lib/fluent-react-hook-form';
+export * from './lib/components';
