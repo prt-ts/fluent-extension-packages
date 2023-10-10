@@ -21,6 +21,9 @@
         "packages/fluent-common-features/src/index.tsx"
       ],
       "@prt-ts/fluent-formik": ["packages/fluent-formik/src/index.ts"],
+      "@prt-ts/fluent-react-hook-form": [
+        "packages/fluent-react-hook-form/src/index.ts"
+      ],
       "@prt-ts/fluent-react-table": [
         "packages/fluent-react-table/src/index.ts"
       ],
