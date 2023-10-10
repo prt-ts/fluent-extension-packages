@@ -15,6 +15,7 @@
     "@fluentui/react-components": "9.34.2",
     "@fluentui/react-datepicker-compat": "0.3.19",
     "@fluentui/react-icons": "2.0.219",
+    "@hookform/resolvers": "^3.3.1",
     "@nx/cypress": "16.1.4",
     "@nx/eslint-plugin": "16.1.4",
     "@nx/jest": "16.1.4",
@@ -59,6 +60,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
+    "react-hook-form": "^7.47.0",
     "react-quill": "^2.0.0",
     "react-test-renderer": "18.2.0",
     "sass": "^1.55.0",
@@ -72,8 +74,7 @@
     "vite-plugin-eslint": "^1.8.1",
     "vite-tsconfig-paths": "^4.0.2",
     "vitest": "^0.31.0",
-    "yup": "^1.1.1",
-    "react-hook-form": "^7.47.0"
+    "yup": "^1.1.1"
   },
   "keywords": [
     "components",
@@ -85,4 +86,3 @@
   },
   "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme"
 }
-
