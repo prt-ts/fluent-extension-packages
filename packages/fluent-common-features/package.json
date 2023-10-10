@@ -11,7 +11,7 @@
   },
   "peerDependencies": {
     "@fluentui/react-components": ">=9.34.2",
-    "@fluentui/react-icons": ">=2.0.218",
+    "@fluentui/react-icons": ">=2.0.219",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
   },
