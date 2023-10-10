@@ -1,7 +1,19 @@
+import { Button } from '@fluentui/react-components';
+import { useLoading } from '@prt-ts/fluent-common-features';
 import * as React from 'react';
 export const ErrorPage: React.FC = () => {
 
   const [error, setError] = React.useState<Error | null>(null);
+
+  const { showLoader, hideLoader } = useLoading();
+
+  const triggerLoaderFor3Seconds = () => {
+    showLoader();
+
+    setTimeout(() => {
+      hideLoader();
+    }, 3000);
+  }
 
   if (error) {
     throw error;
@@ -19,6 +31,9 @@ export const ErrorPage: React.FC = () => {
         {' '}
         Click me to generate Error
       </button>
+
+      <Button onClick={triggerLoaderFor3Seconds}>Trigger Loader for 3 seconds</Button>
+
     </div>
   );
 };
