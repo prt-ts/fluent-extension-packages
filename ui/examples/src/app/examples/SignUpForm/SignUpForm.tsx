@@ -14,14 +14,14 @@ const schema = yup.object({
     subscribePhone: yup.boolean(),
     dateOfBirth: yup.date().required('Date of Birth is required'),
     email: yup.string()
-        .when("subscribeEmail", (subscribeEmail) => {
+        .when("subscribeEmail", ([subscribeEmail]) => {
             console.log("subscribeEmail", subscribeEmail)
-            if (subscribeEmail?.[0]) return yup.string().email("Must be a valid email address").required("Must enter email address")           
+            if (subscribeEmail) return yup.string().email("Must be a valid email address").required("Must enter email address")           
         }),
     phoneNumber: yup.string()
-        .when("subscribePhone", (subscribePhone) => {
+        .when("subscribePhone", ([subscribePhone]) => {
             console.log("subscribePhone", subscribePhone)
-            if (subscribePhone?.[0]) return yup.string().matches(/^\d{10}$/, "Must be a valid phone number").required("Must enter phone number")           
+            if (subscribePhone) return yup.string().matches(/^\d{10}$/, "Must be a valid phone number").required("Must enter phone number")           
         }),
 
     password: yup.string()
@@ -32,7 +32,7 @@ const schema = yup.object({
         .matches(/(?=.*[A-Z])/, 'Password must contain an uppercase letter')
         .matches(/(?=.*[a-z])/, 'Password must contain a lowercase letter')
         .matches(/(?=.*[!@#$%^&*])/, 'Password must contain a special character'),
-        
+
     confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
 });
 
