@@ -1,0 +1,69 @@
+import { Field, FieldProps, SpinButton, SpinButtonOnChangeData, SpinButtonProps, LabelProps, SpinButtonChangeEvent } from "@fluentui/react-components";
+import { InfoLabel, InfoLabelProps } from "@fluentui/react-components/unstable";
+import { forwardRef } from "react";
+import { useFormContext } from "../Form";
+import { Controller, ControllerProps } from "react-hook-form";
+
+export type SpinButtonFieldProps = FieldProps & SpinButtonProps & InfoLabelProps & { name: string, rules?: ControllerProps['rules']}
+
+export const SpinButtonField = forwardRef<HTMLInputElement, SpinButtonFieldProps>(({ name, rules, required, ...rest }, spinButtonRef) => {
+    const { form: { control } } = useFormContext();
+
+    const { ...fieldProps }: FieldProps = rest;
+    const { ...spinButtonProps }: SpinButtonProps = rest;
+    const { ...infoLabelProps }: InfoLabelProps = rest; 
+
+    return (
+        <Controller 
+            name={name}
+            control={control}
+            rules={rules}
+            render={({ field, fieldState }) => { 
+                const { onChange, onBlur, value, ref } = field; 
+ 
+                const handleOnChange : SpinButtonProps["onChange"] = (ev: SpinButtonChangeEvent, data: SpinButtonOnChangeData) => {
+                     
+                    if (data.value !== undefined) {
+                        onChange(data.value);
+                      } else if (data.displayValue !== undefined) {
+                        const newValue = parseFloat(data.displayValue);
+                        if (!Number.isNaN(newValue)) {
+                            onChange(newValue);
+                        } else {
+                          console.error(`Cannot parse "${data.displayValue}" as a number.`);
+                        }
+                      }
+                    spinButtonProps.onChange?.(ev, data);
+                }
+
+                const handleOnBlur : SpinButtonProps["onBlur"]  = (ev: React.FocusEvent<HTMLInputElement>) => {
+                    onBlur();
+                    spinButtonProps.onBlur?.(ev);
+                }  
+
+                return (
+                    <Field
+                        {...fieldProps}
+                        label={{
+                            children: (_: unknown, props: LabelProps) => (
+                                <InfoLabel {...props} {...infoLabelProps} />
+                            )
+                        } as unknown as InfoLabelProps}
+                        validationState={fieldState.invalid ? "error" : undefined}
+                        validationMessage={fieldState.error?.message}
+                        required={required}
+                    >
+                        <SpinButton 
+                            {...spinButtonProps}
+                            ref={spinButtonRef || ref}
+                            name={name}
+                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
+                            value={value || 0}
+                            required={false}
+                        />
+                    </Field>
+                )
+            }}
+        />)
+})
