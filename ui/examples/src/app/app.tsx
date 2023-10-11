@@ -8,6 +8,7 @@ import { ErrorPage } from "./ErrorComponent";
 import { AccessDenied, ErrorBoundary, PageNotFound } from "@prt-ts/fluent-common-features";
 import { Divider } from '@fluentui/react-components';
 import { ReactHookForm } from './RHFTest';
+import { SignUpForm } from './examples/SignUpForm/SignUpForm';
 
 
 export function App() {
@@ -68,6 +69,7 @@ export function App() {
           }
         />
         <Route path="/page-4" element={<ReactHookForm />} />
+        <Route path="/sign-up" element={<SignUpForm />} />
       </Routes>
 
 
