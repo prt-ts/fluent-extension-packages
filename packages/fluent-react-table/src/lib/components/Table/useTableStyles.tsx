@@ -4,7 +4,8 @@ export const useTableStyles = makeStyles({
 
     gridTableSection: {
         maxWidth: "100%",
-        maxHeight: "600px",
+        height: "100%",
+        // maxHeight: "60rem",
         minHeight: "300px",
         ...shorthands.overflow("hidden"),
         /* width */

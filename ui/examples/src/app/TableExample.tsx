@@ -74,6 +74,7 @@ export function TableExample() {
           <GridActions selectedItems={selectedItems} />
         )}
         defaultPageSize={100}
+        maxTableHeight={4000}
       >
         <Column
           columnId="file.label"

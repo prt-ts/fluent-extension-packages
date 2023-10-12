@@ -35,6 +35,7 @@ import {
   // MenuCheckedValueChangeData,
   // Tooltip,
 } from "@fluentui/react-components";
+import { AdvanceConfigSetting } from "./AdvanceOptionDrawer";
 import * as React from "react";
 
 import { TableProps } from "../../props-types";
@@ -54,6 +55,7 @@ import { GroupColumns } from "./GroupColumns";
 import { SelectColumns } from "./SelectColumns";
 import { ChangeViewIcon, ClearFilterIcon, GroupCollapsedIcon, GroupExpandedIcon, SaveIcon, SearchIcon, VerticalMoreIcon } from "../Icons"
 import { IColumn } from "../../types";
+import { LayerRegular } from "@fluentui/react-icons";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function tryGetObjectValue(fieldName: string | undefined, item: any) {
@@ -91,21 +93,21 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
     ...rest
   } = props;
 
-    const columns = React.useMemo(() => {
-      const childColumns = (
-        children
-          //?.filter((col) => col?.props?.fieldName)
-          ?.map(
-            (child, index) =>
-              ({
-                ...child?.props,
-                key: `${child?.props?.columnId}-column-${index}`,
-              } as IColumn<TItem>)
-          ) ?? []
-      );
+  const columns = React.useMemo(() => {
+    const childColumns = (
+      children
+        //?.filter((col) => col?.props?.fieldName)
+        ?.map(
+          (child, index) =>
+          ({
+            ...child?.props,
+            key: `${child?.props?.columnId}-column-${index}`,
+          } as IColumn<TItem>)
+        ) ?? []
+    );
 
-      return childColumns?.length > 0 ? childColumns : props.columns ?? [];
-    }, [children]);
+    return childColumns?.length > 0 ? childColumns : props.columns ?? [];
+  }, [children]);
 
   const { ...tableProps }: FluentTableProps = rest;
 
@@ -170,7 +172,8 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
   const viewNameRef = React.useRef<HTMLInputElement>(null)
   const [open, setOpen] = React.useState(false);
-
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  
 
   return (
     <>
@@ -185,7 +188,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
               visibleColumns={visibleColumns}
               columns={columns}
               resetVisibleColumns={(newVisibleColumns: string[]) => setVisibleColumns([...newVisibleColumns])} />
-
+            <Button appearance="outline" icon={<LayerRegular />} onClick={() => setIsDrawerOpen(current => !current)} />
             {/* <Menu
               checkedValues={showHideOptionSelected}
               onCheckedValueChange={((_, data: MenuCheckedValueChangeData) => setVisibleColumns(data.checkedItems))}>
@@ -271,13 +274,13 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
                       <MenuItem icon={<ClearFilterIcon />} onClick={resetFilterValue}>
                         Clear All Filters
                       </MenuItem>
-                      <MenuItem icon={<SaveIcon />} onClick={()=> setOpen(true)}>
+                      <MenuItem icon={<SaveIcon />} onClick={() => setOpen(true)}>
                         Save Current View
                       </MenuItem>
                       <MenuDivider />
                       {
                         views && views.map((view, index) =>
-                        (<MenuItemRadio name={"view-selector"} value={view.viewName}  key={view.viewName + index} icon={<ChangeViewIcon />} onClick={() => applyTableView(view.viewName)}>
+                        (<MenuItemRadio name={"view-selector"} value={view.viewName} key={view.viewName + index} icon={<ChangeViewIcon />} onClick={() => applyTableView(view.viewName)}>
                           {view.viewName}
                         </MenuItemRadio>))
                       }
@@ -295,7 +298,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
         />
       </div>
       <Divider />
-      <div className={styles.gridTableSection}>
+      <div className={styles.gridTableSection}  style={{ maxHeight: `${(props.maxTableHeight || 650)}px`}}>
         <Table {...tableProps} ref={tableRef} className={styles.gridTable}>
           <TableHeader>
             <TableRow className={styles.headerRow}>
@@ -479,6 +482,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
         <Pagination {...paginationState} />
       </div>
       <Divider />
+      <AdvanceConfigSetting  open={isDrawerOpen} setOpen={setIsDrawerOpen} />
     </>
   );
 };

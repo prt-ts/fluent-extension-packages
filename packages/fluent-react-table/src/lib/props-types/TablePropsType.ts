@@ -103,4 +103,10 @@ export type TableProps<TItem extends NonNullable<{ id: string | number }>> =
      * @default true
      */
     isGroupDefaultExpanded?: boolean;
+
+    /**
+     * Max height of the table
+     * @default 650px
+     */
+    maxTableHeight?: number;
   };
