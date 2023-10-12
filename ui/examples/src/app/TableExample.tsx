@@ -75,6 +75,7 @@ export function TableExample() {
         )}
         defaultPageSize={100}
         maxTableHeight={4000}
+        noItemPage={<>Hello there is no item in the grid</>}
       >
         <Column
           columnId="file.label"

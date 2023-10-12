@@ -474,7 +474,7 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
           }
         </Table>
         {showLoader && (<Loading />)}
-        {showNoItem && (<EmptyGrid />)}
+        {showNoItem && (<EmptyGrid message={props.noItemPage}/>)}
         {showNoItemMatch && (<NoFilterMatch />)}
       </div>
       <Divider />

@@ -109,4 +109,10 @@ export type TableProps<TItem extends NonNullable<{ id: string | number }>> =
      * @default 650px
      */
     maxTableHeight?: number;
+
+    /**
+     * no item page 
+     * @default undefined
+     */
+    noItemPage?: React.ReactNode;
   };
