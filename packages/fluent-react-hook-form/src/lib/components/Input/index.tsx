@@ -8,3 +8,4 @@ export { TextareaField as Textarea } from "./TextareaField";
 export { SpinButtonField as SpinButton } from "./SpinButtonField";
 export { RichInputField as RichInput } from "./RichInputField";
 export { DropdownField as Dropdown } from "./DropdownField";
+export { RadioGroupField as RadioGroup } from "./RadioGroupField";

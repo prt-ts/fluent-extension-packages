@@ -4,16 +4,22 @@ import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
 
-export type ChoiceGroupOption = {
+export type DropdownChoiceOption = {
     label: string;
     value: string;
 
     optionProps?: Partial<OptionProps> | undefined;
 }
 
-type OptionOnly = Omit<ChoiceGroupOption, 'optionProps'>;
+type OptionOnly = Omit<DropdownChoiceOption, 'optionProps'>;
 
-export type DropdownFieldProps = FieldProps & DropdownProps & InfoLabelProps & { name: string, options: ChoiceGroupOption[], rules?: ControllerProps['rules'] }
+export type DropdownFieldProps = FieldProps &
+  DropdownProps &
+  InfoLabelProps & {
+    name: string;
+    options: DropdownChoiceOption[];
+    rules?: ControllerProps['rules'];
+  };
 
 export const DropdownField = forwardRef<HTMLButtonElement, DropdownFieldProps>(({ name, options, rules, required, ...rest }, dropdownRef) => {
 
@@ -31,7 +37,7 @@ export const DropdownField = forwardRef<HTMLButtonElement, DropdownFieldProps>((
             rules={rules}
             render={({ field, fieldState }) => {
 
-                const { onChange, onBlur, value, ref } = field; 
+                const { onChange, onBlur, value, ref } = field;
 
                 const displayValue = (value as OptionOnly[])?.map(v => v.label)?.join(', ') || '';
                 const selectedOptions = (value as OptionOnly[])?.map(v => v.value) || [];
@@ -49,39 +55,49 @@ export const DropdownField = forwardRef<HTMLButtonElement, DropdownFieldProps>((
                 };
 
                 return (
-                    <Field
-                        {...fieldProps}
-                        label={{
-                            children: (_: unknown, props: LabelProps) => (
-                                <InfoLabel {...props} {...infoLabelProps} htmlFor={dropdownId} />
-                            )
-                        } as unknown as InfoLabelProps}
-                        validationState={fieldState.invalid ? "error" : undefined}
-                        validationMessage={fieldState.error?.message}
-                        required={required}
+                  <Field
+                    {...fieldProps}
+                    label={
+                      {
+                        children: (_: unknown, props: LabelProps) => (
+                          <InfoLabel
+                            {...props}
+                            {...infoLabelProps}
+                            htmlFor={dropdownId}
+                          />
+                        ),
+                      } as unknown as InfoLabelProps
+                    }
+                    validationState={fieldState.invalid ? 'error' : undefined}
+                    validationMessage={fieldState.error?.message}
+                    required={required}
+                  >
+                    <Dropdown
+                      {...dropdownProps}
+                      id={dropdownId}
+                      ref={dropdownRef || ref}
+                      name={name}
+                      value={displayValue}
+                      selectedOptions={selectedOptions}
+                      onOptionSelect={handleOnChange}
+                      onBlur={handleOnBlur}
                     >
-                        <Dropdown
-                            {...dropdownProps}
-                            id={dropdownId}
-                            ref={dropdownRef || ref}
-                            name={name}
-                            value={displayValue}
-                            selectedOptions={selectedOptions}
-                            onOptionSelect={handleOnChange}
-                            onBlur={handleOnBlur}
-                        >
-                            {(options || []).map((option: ChoiceGroupOption, index: number) => (
-                                <Option
-                                    key={`${dropdownId}-${option.value || '__'}-${index}`}
-                                    {...(option?.optionProps || {})}
-                                    value={option?.value}
-                                >
-                                    {option?.label}
-                                </Option>
-                            ))}
-                        </Dropdown>
-                    </Field>
-                )
+                      {(options || []).map(
+                        (option: DropdownChoiceOption, index: number) => (
+                          <Option
+                            key={`${dropdownId}-${
+                              option.value || '__'
+                            }-${index}`}
+                            {...(option?.optionProps || {})}
+                            value={option?.value}
+                          >
+                            {option?.label}
+                          </Option>
+                        )
+                      )}
+                    </Dropdown>
+                  </Field>
+                );
             }}
         />)
 })

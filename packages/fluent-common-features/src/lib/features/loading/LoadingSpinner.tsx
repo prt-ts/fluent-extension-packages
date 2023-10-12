@@ -20,8 +20,8 @@ const useLoadingStyles = makeStyles({
     position: 'absolute',
     top: 0,
     left: 0,
-    width: '100vw',
-    height: '100vh',
+    width: '100%',
+    height: '100%',
     zIndex: 1000,
   },
   spinner: {
@@ -37,20 +37,24 @@ export const LoadingSpinner = () => {
   );
   const styles = useLoadingStyles();
   return (
-    <>
+    <div style={{ overflow: 'hidden' }}>
       {loadingState?.loading && (
         <Portal mountNode={rootElement}>
-          <div className={styles.portal}>
+          <div role="alert" aria-busy="true" className={styles.portal}>
             <Spinner
               className={styles.spinner}
               size="extra-large"
-              label={<strong>{loadingState?.loadingText || "Loading, Please Wait..."}</strong>}
+              label={
+                <strong>
+                  {loadingState?.loadingText || 'Loading, Please Wait...'}
+                </strong>
+              }
               labelPosition="below"
             />
           </div>
         </Portal>
       )}
       <div ref={setRootElement} />
-    </>
+    </div>
   );
 };
