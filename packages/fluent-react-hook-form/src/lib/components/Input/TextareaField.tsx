@@ -9,9 +9,9 @@ export type TextareaFieldProps = FieldProps & TextareaProps & InfoLabelProps & {
 export const TextareaField = forwardRef<HTMLTextAreaElement, TextareaFieldProps>(({ name, rules, required, ...rest }, textareaRef) => {
     const { form: { control } } = useFormContext();
 
-    const { ...fieldProps }: FieldProps = rest;
-    const { ...textareaProps }: TextareaProps = rest;
-    const { ...infoLabelProps }: InfoLabelProps = rest; 
+    const { ...fieldProps }: FieldProps = rest as unknown as FieldProps;
+    const { ...textareaProps }: TextareaProps = rest as unknown as TextareaProps;
+    const { ...infoLabelProps }: InfoLabelProps = rest as unknown as InfoLabelProps; 
 
     return (
         <Controller 
