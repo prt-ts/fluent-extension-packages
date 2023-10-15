@@ -1,5 +1,16 @@
 {
   "name": "@prt-ts/spfx-common",
   "version": "0.0.1",
-  "type": "commonjs"
+  "type": "commonjs",
+  "description": "Common library for SPFx projects",
+  "bin": {
+    "prt-ts-spfx-common": "./src/index.js"
+  },
+  "files": ["templates", "bin", "lib", "src", "package.json", "README.md"],
+  "license": "MIT",
+  "author": "Pradeep Raj Thapaliya",
+  "bugs": {
+    "url": "https://github.com/prt-ts/spfx-workspace.git"
+  },
+  "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme"
 }

@@ -7,11 +7,12 @@
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
+
       "options": {
-        "outputPath": "dist/packages/spfx-common",
+        "outputPath": "dist/packages/spfx-common", 
         "main": "packages/spfx-common/src/index.js",
         "tsConfig": "packages/spfx-common/tsconfig.lib.json",
-        "assets": []
+        "assets": ["packages/spfx-common/templates/**"]
       }
     },
     "lint": {
