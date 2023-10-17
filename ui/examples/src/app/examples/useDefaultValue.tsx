@@ -4,15 +4,16 @@ import { IFormInput } from "../RHFTest"
 
 // ts-ignore-next-line
 export const defaultValues: IFormInput = {
-    firstName: '',
-    lastName: '',
-    iceCreamType: { label: '', value: '' },
-    arrayItem: [], 
-    datePickerValue: new Date(),
-    isIceCreamLiked: false,
-    yesNoQuestionCheckbox: false,
-    slider: 0
-}
+  firstName: '',
+  lastName: '',
+  iceCreamType: { label: '', value: '' },
+  arrayItem: [],
+  datePickerValue: new Date(),
+  isIceCreamLiked: false,
+  yesNoQuestionCheckbox: false,
+  slider: 0,
+  currencyValue: "1234,2132,4.44",
+};
 
 export const useDefaultValues = () => {
     const [item, setItem] = useState<IFormInput | undefined>(defaultValues)

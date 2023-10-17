@@ -28,6 +28,7 @@
     "@swc/helpers": "~0.5.0",
     "@swc/jest": "0.2.20",
     "@testing-library/react": "14.0.0",
+    "@types/file-saver": "^2.0.5",
     "@types/html-to-pdfmake": "^2.4.1",
     "@types/jest": "^29.4.0",
     "@types/node": "18.14.2",
@@ -47,6 +48,7 @@
     "eslint-plugin-jsx-a11y": "6.7.1",
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
+    "file-saver": "^2.0.5",
     "formik": "^2.2.9",
     "g": "^2.0.1",
     "html-to-pdfmake": "^2.4.20",
@@ -73,6 +75,7 @@
     "vite-plugin-eslint": "^1.8.1",
     "vite-tsconfig-paths": "^4.0.2",
     "vitest": "^0.31.0",
+    "xlsx": "^0.18.5",
     "yup": "^1.1.1"
   },
   "keywords": [

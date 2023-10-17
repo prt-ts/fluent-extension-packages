@@ -1,5 +1,15 @@
 {
   "name": "@prt-ts/export-helpers",
-  "version": "0.0.1",
-  "type": "commonjs"
+  "version": "1.0.0",
+  "type": "commonjs",
+  "peerDependencies": {
+    "file-saver": ">=2.0.0",
+    "xlsx": ">=0.18.0"
+  },
+  "license": "MIT",
+  "author": "Pradeep Raj Thapaliya",
+  "bugs": {
+    "url": "https://github.com/prt-ts/spfx-workspace.git"
+  },
+  "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme"
 }

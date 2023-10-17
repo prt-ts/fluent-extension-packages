@@ -1,6 +1,6 @@
 
 import { Button, Table, TableBody, TableCell, TableHeader, TableHeaderCell, TableRow } from "@fluentui/react-components";
-import { Form, Checkbox, DatePicker, Input, Slider, Switch, Textarea, SpinButton, RichInput, Dropdown } from "@prt-ts/fluent-react-hook-form";
+import { Form, Checkbox, DatePicker, Input, Slider, Switch, Textarea, SpinButton, RichInput, Dropdown, CurrencyInput } from "@prt-ts/fluent-react-hook-form";
 import { Fragment, useCallback } from "react";
 import { defaultValues, useDefaultValues } from "./examples/useDefaultValue";
 import * as yup from 'yup'
@@ -76,6 +76,7 @@ export const ReactHookForm = () => {
       <Button onClick={addMore}>Add Dynamic Values</Button>
       <Form form={testForm} onSubmit={onSubmit}>
         <Input name={'firstName'} label={'First Name'} required={true} />
+        <CurrencyInput name={'currencyValue'} label={'Currency'} required={true} />
         <Input
           name={'lastName'}
           label={<>LastName with Info</>}
@@ -202,7 +203,7 @@ export const ReactHookForm = () => {
         <Textarea name="textarea" size="large" label={<strong>Textarea</strong>} />
 
         <SpinButton name="spinButton" size="small" label={<strong>Spin Button</strong>} />
-        <SpinButton name="spinButton" size="medium" label={<strong>Spin Button</strong>} /> 
+        <SpinButton name="spinButton" size="medium" label={<strong>Spin Button</strong>} />
 
 
         <Dropdown name={'dropdownValue'} label={'Ice Cream Type'} options={[

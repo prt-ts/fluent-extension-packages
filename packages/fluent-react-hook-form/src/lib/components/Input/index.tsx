@@ -1,5 +1,9 @@
 
 export { InputField as Input } from "./InputField";
+export {
+  CurrencyInputField as CurrencyInput,
+  formatCurrency,
+} from './CurrencyInputField';
 export { DatePickerField as DatePicker } from "./DatePickerField";
 export { SwitchField as Switch } from "./SwitchField";
 export { CheckboxField as Checkbox } from "./CheckboxField";
