@@ -54,7 +54,7 @@ import { GroupRenderer } from "./GroupRenderer";
 import { GroupColumns } from "./GroupColumns";
 import { SelectColumns } from "./SelectColumns";
 import { ChangeViewIcon, ClearFilterIcon, GroupCollapsedIcon, GroupExpandedIcon, SaveIcon, SearchIcon, VerticalMoreIcon } from "../Icons"
-import { IColumn } from "../../types";
+import { IColumn, TableRefType, TableState } from "../../types";
 import { LayerRegular } from "@fluentui/react-icons";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -81,7 +81,7 @@ export function tryGetObjectValue(fieldName: string | undefined, item: any) {
   return item[props[i]];
 }
 
-export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>,>(props: PropsWithChildren<TableProps<TItem>>) => {
+export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: string | number }>,>(props: PropsWithChildren<TableProps<TItem>>, ref: React.ForwardedRef<TableRefType>) => {
 
   const styles = useTableStyles();
 
@@ -169,6 +169,30 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
 
   } = useCustomTableFeature(props, columns);
 
+  React.useImperativeHandle(ref, () => ({
+    setCurrentPage: (pageNumber: number) => {
+      const maxAllowedPageNumber = Math.min(pageNumber-1, paginationState.totalNumberOfPage-1);
+      paginationState.setPage(maxAllowedPageNumber);
+    },
+    setPageSize: (pageSize: number) => {
+      paginationState.updatePageSize(pageSize);
+    },
+    setGlobalFilter: (filter: string) => {
+      setFilterValue(filter);
+    },
+    getTableState: (): TableState => {
+      return {
+        currentPage: paginationState.currentPage,
+        pageSize: paginationState.pageSize,
+        globalFilter: filterValue,
+        groupedColumnsIds: groupedColumns, 
+        visibleColumnsIds: visibleColumns,
+      }
+    }
+
+
+
+  }));
 
   const viewNameRef = React.useRef<HTMLInputElement>(null)
   const [open, setOpen] = React.useState(false);
@@ -485,6 +509,6 @@ export const ExtendedTable = <TItem extends NonNullable<{ id: string | number }>
       <AdvanceConfigSetting  open={isDrawerOpen} setOpen={setIsDrawerOpen} />
     </>
   );
-};
+});
 
 export const Column = (props: IColumn<any>) => <>{props.children}</>;

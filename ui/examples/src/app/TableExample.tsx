@@ -22,6 +22,7 @@ import * as React from 'react';
 
 import { makeStyles, tokens } from '@fluentui/react-components';
 import { Item, items } from './data';
+import { TableRefType } from 'packages/fluent-react-table/src/lib/types';
 
 export const useTableStyles = makeStyles({
   evenRow: {
@@ -55,10 +56,24 @@ export function TableExample() {
 
     return () => clearTimeout(timeout);
   }, []);
+  const tableRef = React.useRef<TableRefType>(null);
+
+  const changePageNumber = (pageNumber: number) => {
+    tableRef.current?.setCurrentPage(pageNumber - 1);
+  }
+
+  const setFilterValue = (filter: string) => {
+    tableRef.current?.setGlobalFilter(filter);
+  }
 
   return (
-    <div>
+    <div> 
+      <Button onClick={() => alert(JSON.stringify(tableRef.current.getTableState()))}>getTableState</Button>
+      <Button onClick={() => changePageNumber(101)}>Change Page Number</Button>
+      <Button onClick={() => setFilterValue("filter value")}>SetFilterValue</Button>
+      <Button onClick={() => tableRef.current.setPageSize(50)}>setPageSize(50)</Button>
       <Table
+        ref={tableRef}
         tableName="table1"
         items={gridItems}
         isLoading={isLoading}
@@ -71,7 +86,7 @@ export function TableExample() {
         isGroupDefaultExpanded={true}
         // getRowClasses={(item, index) => (item.id == 3 ? styles.evenRow : '')}
         onGetGridActionMenu={(selectedItems) => (
-          <GridActions selectedItems={selectedItems} />
+          <GridActions selectedItems={selectedItems as Item[]} />
         )}
         defaultPageSize={100}
         maxTableHeight={4000}
