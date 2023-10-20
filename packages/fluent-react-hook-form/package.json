@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-react-hook-form",
-  "version": "9.34.2-build.5.0",
+  "version": "9.34.2-build.6.0",
   "description": "Fluent Formik is a component library for React that provides a set of components to build forms using Formik and Fluent UI",
   "type": "commonjs",
   "peerDependencies": {

@@ -1,6 +1,10 @@
 import { Button } from '@fluentui/react-components';
 import { useLoading } from '@prt-ts/fluent-common-features';
+
 import * as React from 'react';
+import { items } from './data';
+import { ExportFileInfo, exportToFile } from '@prt-ts/export-helpers';
+
 export const ErrorPage: React.FC = () => {
 
   const [error, setError] = React.useState<Error | null>(null);
@@ -13,6 +17,36 @@ export const ErrorPage: React.FC = () => {
     setTimeout(() => {
       hideLoader();
     }, 3000);
+  }
+
+  const triggerDownloadExcel = async () => {
+    const data = [
+      {
+        name: 'test',
+        age: 10,
+        email: "test@test.com"
+      },
+      {
+        name: 'test',
+        age: 10,
+        email: "test@test.com"
+      }
+    ];
+
+    const fileInfo: ExportFileInfo = {
+      sheets: [
+        {
+          sheetName: 'Test 1',
+          data: data,
+        },
+        {
+          sheetName: 'Test 2',
+          data: data,
+        },
+      ],
+    };
+
+    exportToFile(fileInfo, 'download file name');
   }
 
   if (error) {
@@ -33,6 +67,7 @@ export const ErrorPage: React.FC = () => {
       </button>
 
       <Button onClick={triggerLoaderFor3Seconds}>Trigger Loader for 3 seconds</Button>
+      <Button onClick={triggerDownloadExcel}>Download Excel</Button>
 
     </div>
   );

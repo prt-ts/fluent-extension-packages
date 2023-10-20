@@ -55,7 +55,7 @@ export const AdvanceConfigSetting : React.FC<{open : boolean,  setOpen: React.Di
                                 appearance="subtle"
                                 aria-label="Close"
                                 icon={<Dismiss24Regular />}
-                                onClick={() => setOpen(false)}
+                                onClick={() => setOpen(false)} 
                             />
                         }
                     >

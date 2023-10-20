@@ -48,7 +48,11 @@ export function SelectColumns<TITem extends { id: number | string }>({
       >
         <Tooltip content="Show/Hide Grid Columns" relationship="description">
           <MenuTrigger disableButtonEnhancement>
-            <Button appearance="outline" icon={<ToggleSelectColumnIcon />} />
+            <Button
+              appearance="outline"
+              icon={<ToggleSelectColumnIcon />}
+              aria-label={'Show/Hide Grid Columns'}
+            />
           </MenuTrigger>
         </Tooltip>
         <MenuPopover>

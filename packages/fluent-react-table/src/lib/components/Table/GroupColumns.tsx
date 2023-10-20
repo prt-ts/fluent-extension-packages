@@ -41,56 +41,76 @@ export function GroupColumns<TITem extends { id: number | string }>({
 
     const styles = useGroupStyles()
 
-    return (<Menu
+    return (
+      <Menu
         checkedValues={groupedSelectedColumns}
-        onCheckedValueChange={(_, data: MenuCheckedValueChangeData) => resetGroupColumns(data.checkedItems)}>
-
+        onCheckedValueChange={(_, data: MenuCheckedValueChangeData) =>
+          resetGroupColumns(data.checkedItems)
+        }
+      >
         <Tooltip content="Group Items" relationship="description">
-            <MenuTrigger disableButtonEnhancement>
-                <Button appearance="outline" icon={<ToggleGroupColumnIcon />} />
-            </MenuTrigger>
+          <MenuTrigger disableButtonEnhancement>
+            <Button
+              appearance="outline"
+              icon={<ToggleGroupColumnIcon />}
+              aria-label={'Group Items'}
+            />
+          </MenuTrigger>
         </Tooltip>
         <MenuPopover>
-            <MenuList>
-                <MenuGroup key={"table-group-by-cols"}>
-                    <MenuGroupHeader key={"table-group-by-cols-label"}>Group Items</MenuGroupHeader>
-                    <MenuDivider key={"table-group-by-cols-divider"} />
-                    {
-                        columns && [...columns]
-                            ?.sort(function (a, b) {
-                                return (groupedColumns?.indexOf(a.columnId as string) === -1 && groupedColumns?.indexOf(b.columnId as string) === -1)
-                                    ? 0
-                                    : (groupedColumns?.indexOf(a.columnId as string) - groupedColumns?.indexOf(b.columnId as string));
-                            })
-                            ?.map((col, index) => (
-                                <MenuItemCheckbox
-                                    key={index}
-                                    name={"groupedColumns"}
-                                    value={col.columnId as string}
-                                    disabled={col.disableGrouping ? true : false}
-                                    secondaryContent={groupedColumns?.includes(col.columnId as string) ? <DragIcon className={styles.draggableIcon} /> : <></>}
-
-                                    onDragStart={(e) => dragStart(e, index)}
-                                    onDragEnter={(e) => dragEnter(e, index)}
-
-                                    className={mergeClasses(styles.draggableItem, dragOverElement == col.columnId ? styles.draggingItemOver : undefined)}
-                                    onDragOver={() => {
-                                        setDragOverElement(col.columnId as string)
-                                    }}
-
-                                    onDragEnd={(e) => {
-                                        setDragOverElement("")
-                                        drop(e)
-                                    }}
-                                    draggable
-                                >
-                                     {col.header}
-                                </MenuItemCheckbox>))
-                    }
-                </MenuGroup>
-            </MenuList>
+          <MenuList>
+            <MenuGroup key={'table-group-by-cols'}>
+              <MenuGroupHeader key={'table-group-by-cols-label'}>
+                Group Items
+              </MenuGroupHeader>
+              <MenuDivider key={'table-group-by-cols-divider'} />
+              {columns &&
+                [...columns]
+                  ?.sort(function (a, b) {
+                    return groupedColumns?.indexOf(a.columnId as string) ===
+                      -1 && groupedColumns?.indexOf(b.columnId as string) === -1
+                      ? 0
+                      : groupedColumns?.indexOf(a.columnId as string) -
+                          groupedColumns?.indexOf(b.columnId as string);
+                  })
+                  ?.map((col, index) => (
+                    <MenuItemCheckbox
+                      key={index}
+                      name={'groupedColumns'}
+                      value={col.columnId as string}
+                      disabled={col.disableGrouping ? true : false}
+                      secondaryContent={
+                        groupedColumns?.includes(col.columnId as string) ? (
+                          <DragIcon className={styles.draggableIcon} />
+                        ) : (
+                          <></>
+                        )
+                      }
+                      onDragStart={(e) => dragStart(e, index)}
+                      onDragEnter={(e) => dragEnter(e, index)}
+                      className={mergeClasses(
+                        styles.draggableItem,
+                        dragOverElement == col.columnId
+                          ? styles.draggingItemOver
+                          : undefined
+                      )}
+                      onDragOver={() => {
+                        setDragOverElement(col.columnId as string);
+                      }}
+                      onDragEnd={(e) => {
+                        setDragOverElement('');
+                        drop(e);
+                      }}
+                      draggable
+                    >
+                      {col.header}
+                    </MenuItemCheckbox>
+                  ))}
+            </MenuGroup>
+          </MenuList>
         </MenuPopover>
-    </Menu>)
+      </Menu>
+    );
 }
 
 export const useGroupStyles = makeStyles({

@@ -18,7 +18,6 @@ export function App() {
         marginBottom: '1rem',
       }}>
         <ul
-          role="navigation"
           style={{
             display: 'flex',
             justifyContent: 'start',

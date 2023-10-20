@@ -20,7 +20,7 @@ export const formatCurrency = (
   format = 'en-US',
   currency = 'USD',
   minimumFractionDigits = 2
-) => {
+) : string => {
   try {
     console.log('value', value);
     const numberOnlyFromValue = `${value || ''}`
