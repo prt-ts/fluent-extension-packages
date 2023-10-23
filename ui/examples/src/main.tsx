@@ -6,7 +6,7 @@ import * as React from 'react';
 import App from './app/app';
 import { FluentProvider, teamsLightTheme } from '@fluentui/react-components';
 import { ThemeService } from '@prt-ts/fluent-theme';
-import { LoadingProvider } from '@prt-ts/fluent-common-features';
+import { AlertProvider, LoadingProvider } from '@prt-ts/fluent-common-features';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -23,7 +23,9 @@ export const AppRoot: React.FC = () => {
   return (
     <FluentProvider theme={theme}>
       <LoadingProvider>
-        <App />
+        <AlertProvider>
+          <App />
+        </AlertProvider>
       </LoadingProvider>
     </FluentProvider>
   );

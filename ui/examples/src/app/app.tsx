@@ -9,14 +9,17 @@ import { AccessDenied, ErrorBoundary, PageNotFound } from "@prt-ts/fluent-common
 import { Divider } from '@fluentui/react-components';
 import { ReactHookForm } from './RHFTest';
 import { SignUpForm } from './examples/SignUpForm/SignUpForm';
+import Features from './examples/FeatureComp/Features';
 
 
 export function App() {
   return (
     <div>
-      <div style={{
-        marginBottom: '1rem',
-      }}>
+      <div
+        style={{
+          marginBottom: '1rem',
+        }}
+      >
         <ul
           style={{
             display: 'flex',
@@ -40,6 +43,9 @@ export function App() {
           </li>
           <li>
             <Link to="/page-4">React Hook Form</Link>
+          </li>
+          <li>
+            <Link to="/page-5">Common Features</Link>
           </li>
         </ul>
         <Divider />
@@ -68,9 +74,9 @@ export function App() {
           }
         />
         <Route path="/page-4" element={<ReactHookForm />} />
+        <Route path="/page-5" element={<Features />} />
         <Route path="/sign-up" element={<SignUpForm />} />
       </Routes>
-
 
       {/* END: routes */}
     </div>

@@ -212,7 +212,7 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
               visibleColumns={visibleColumns}
               columns={columns}
               resetVisibleColumns={(newVisibleColumns: string[]) => setVisibleColumns([...newVisibleColumns])} />
-            <Button appearance="outline" icon={<LayerRegular />} onClick={() => setIsDrawerOpen(current => !current)} aria-label={"Advance Grid Configuration"} />
+            {/* <Button appearance="outline" icon={<LayerRegular />} onClick={() => setIsDrawerOpen(current => !current)} aria-label={"Advance Grid Configuration"} /> */}
             {/* <Menu
               checkedValues={showHideOptionSelected}
               onCheckedValueChange={((_, data: MenuCheckedValueChangeData) => setVisibleColumns(data.checkedItems))}>
