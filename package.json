@@ -8,7 +8,7 @@
     "@babel/preset-react": "^7.14.5",
     "@faker-js/faker": "^8.1.0",
     "@fluentui/react-components": "9.36.0",
-    "@fluentui/react-datepicker-compat": "0.3.19",
+    "@fluentui/react-datepicker-compat": "0.4.0",
     "@fluentui/react-icons": "2.0.219",
     "@hookform/devtools": "^4.3.1",
     "@hookform/resolvers": "^3.3.1",
