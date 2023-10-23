@@ -7,7 +7,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
     "@faker-js/faker": "^8.1.0",
-    "@fluentui/react-components": "9.34.2",
+    "@fluentui/react-components": "9.36.0",
     "@fluentui/react-datepicker-compat": "0.3.19",
     "@fluentui/react-icons": "2.0.219",
     "@hookform/devtools": "^4.3.1",
@@ -88,3 +88,4 @@
   },
   "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme"
 }
+
