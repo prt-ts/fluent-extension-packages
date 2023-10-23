@@ -5,8 +5,9 @@ import {
   Checkbox,
   Field,
   FieldProps,
+  InfoLabel,
+  InfoLabelProps,
 } from '@fluentui/react-components';
-import { InfoLabel, InfoLabelProps } from '@fluentui/react-components/unstable';
 import { ErrorMessage } from 'formik';
 import { useOptionStyles, useStyles } from './Styles';
 import { CheckboxInputFieldProps } from './Types';

@@ -1,5 +1,8 @@
-import { FieldProps, TextareaProps } from "@fluentui/react-components";
-import { InfoLabelProps } from "@fluentui/react-components/unstable";
+import {
+  FieldProps,
+  TextareaProps,
+  InfoLabelProps,
+} from '@fluentui/react-components';
 
 export type TextareaFieldProps = TextareaProps &
 FieldProps &

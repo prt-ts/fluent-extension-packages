@@ -1,5 +1,4 @@
-import { FieldProps, SpinButtonProps } from "@fluentui/react-components";
-import { InfoLabelProps } from "@fluentui/react-components/unstable";
+import { FieldProps, SpinButtonProps, InfoLabelProps } from "@fluentui/react-components";
 
 export type SpinButtonFieldProps = SpinButtonProps &
     FieldProps &

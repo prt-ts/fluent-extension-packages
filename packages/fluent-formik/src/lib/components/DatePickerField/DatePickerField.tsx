@@ -4,10 +4,9 @@ import {
   LabelProps,
   FieldProps,
   Field,
+  InfoLabel, InfoLabelProps
 } from '@fluentui/react-components';
 import { DatePicker, DatePickerProps } from '@fluentui/react-datepicker-compat';
-import type { InfoLabelProps } from '@fluentui/react-components/unstable';
-import { InfoLabel } from '@fluentui/react-components/unstable';
 import { useField, ErrorMessage } from 'formik';
 import { DismissFilled, DismissRegular, bundleIcon } from '@fluentui/react-icons';
 

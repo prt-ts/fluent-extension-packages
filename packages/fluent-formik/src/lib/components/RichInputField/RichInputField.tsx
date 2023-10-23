@@ -9,8 +9,8 @@ import {
   FieldProps,
   LabelProps,
   useId,
+  InfoLabel, InfoLabelProps
 } from "@fluentui/react-components";
-import { InfoLabel, InfoLabelProps } from "@fluentui/react-components/unstable";
 import { useRichTextEditorStyles } from "./useRichInputFieldStyles";
 
 export type RichInputFieldProps = ReactQuillProps &

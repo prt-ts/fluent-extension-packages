@@ -1,5 +1,4 @@
-import { FieldProps, InputProps } from "@fluentui/react-components";
-import { InfoLabelProps } from "@fluentui/react-components/unstable";
+import { FieldProps, InputProps, InfoLabelProps } from "@fluentui/react-components";
 
 export type InputFieldProps = InputProps &
     FieldProps &

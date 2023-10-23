@@ -1,5 +1,10 @@
-import { Field, FieldProps, LabelProps } from "@fluentui/react-components";
-import { InfoLabel, InfoLabelProps,  } from "@fluentui/react-components/unstable";
+import {
+  Field,
+  FieldProps,
+  LabelProps,
+  InfoLabel,
+  InfoLabelProps,
+} from '@fluentui/react-components';
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
@@ -12,16 +17,16 @@ export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps
 
     const { ...fieldProps }: FieldProps = rest;
     const { ...datePickerProps }: DatePickerProps = rest;
-    const { ...infoLabelProps }: InfoLabelProps = rest; 
+    const { ...infoLabelProps }: InfoLabelProps = rest;
 
     return (
-        <Controller 
+        <Controller
             name={name}
             control={control}
             rules={rules}
-            render={({ field, fieldState }) => { 
-                const { onChange, onBlur, value, ref } = field; 
- 
+            render={({ field, fieldState }) => {
+                const { onChange, onBlur, value, ref } = field;
+
                 const handleOnChange = (date: Date | null | undefined) => {
                     onChange(date || "");
                     datePickerProps.onSelectDate?.(date);
@@ -30,7 +35,7 @@ export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps
                 const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
                     onBlur();
                     datePickerProps.onBlur?.(ev);
-                }  
+                }
 
                 return (
                     <Field
@@ -44,7 +49,7 @@ export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps
                         validationMessage={fieldState.error?.message}
                         required={required}
                     >
-                        <DatePicker  
+                        <DatePicker
                             {...datePickerProps}
                             ref={inputRef || ref}
                             name={name}

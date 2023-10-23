@@ -1,5 +1,4 @@
-import { Field, FieldProps, Checkbox, CheckboxOnChangeData, CheckboxProps, LabelProps } from "@fluentui/react-components";
-import { InfoLabel, InfoLabelProps } from "@fluentui/react-components/unstable";
+import { Field, FieldProps, Checkbox, CheckboxOnChangeData, CheckboxProps, LabelProps, InfoLabel, InfoLabelProps } from "@fluentui/react-components";
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";

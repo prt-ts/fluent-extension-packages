@@ -6,9 +6,9 @@ import {
   Field,
   SpinButtonProps,
   SpinButton,
+  InfoLabel,
+  InfoLabelProps
 } from '@fluentui/react-components';
-import type { InfoLabelProps } from '@fluentui/react-components/unstable';
-import { InfoLabel } from '@fluentui/react-components/unstable';
 import { SpinButtonFieldProps } from './Types';
 import { useField, ErrorMessage } from 'formik';
 

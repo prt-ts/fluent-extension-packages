@@ -1,5 +1,4 @@
-import { FieldProps, RadioGroupProps, RadioProps } from "@fluentui/react-components";
-import { InfoLabelProps } from "@fluentui/react-components/unstable";
+import { FieldProps, RadioGroupProps, RadioProps,  InfoLabelProps } from "@fluentui/react-components";
 
 export type RadioOption = RadioProps & {
   meta?: Record<string, unknown>;

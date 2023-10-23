@@ -1,5 +1,4 @@
-import { Field, FieldProps, Textarea, TextareaOnChangeData, TextareaProps, LabelProps } from "@fluentui/react-components";
-import { InfoLabel, InfoLabelProps } from "@fluentui/react-components/unstable";
+import { Field, FieldProps, Textarea, TextareaOnChangeData, TextareaProps, LabelProps, InfoLabel, InfoLabelProps } from "@fluentui/react-components";
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
@@ -11,16 +10,16 @@ export const TextareaField = forwardRef<HTMLTextAreaElement, TextareaFieldProps>
 
     const { ...fieldProps }: FieldProps = rest as unknown as FieldProps;
     const { ...textareaProps }: TextareaProps = rest as unknown as TextareaProps;
-    const { ...infoLabelProps }: InfoLabelProps = rest as unknown as InfoLabelProps; 
+    const { ...infoLabelProps }: InfoLabelProps = rest as unknown as InfoLabelProps;
 
     return (
-        <Controller 
+        <Controller
             name={name}
             control={control}
             rules={rules}
-            render={({ field, fieldState }) => { 
-                const { onChange, onBlur, value, ref } = field; 
- 
+            render={({ field, fieldState }) => {
+                const { onChange, onBlur, value, ref } = field;
+
                 const handleOnChange = (ev: React.ChangeEvent<HTMLTextAreaElement>, data: TextareaOnChangeData) => {
                     onChange(data.value);
                     textareaProps.onChange?.(ev, data);
@@ -29,7 +28,7 @@ export const TextareaField = forwardRef<HTMLTextAreaElement, TextareaFieldProps>
                 const handleOnBlur = (ev: React.FocusEvent<HTMLTextAreaElement>) => {
                     onBlur();
                     textareaProps.onBlur?.(ev);
-                }  
+                }
 
                 return (
                     <Field
@@ -43,7 +42,7 @@ export const TextareaField = forwardRef<HTMLTextAreaElement, TextareaFieldProps>
                         validationMessage={fieldState.error?.message}
                         required={required}
                     >
-                        <Textarea 
+                        <Textarea
                             {...textareaProps}
                             ref={textareaRef || ref}
                             name={name}

@@ -1,5 +1,13 @@
-import { Field, FieldProps, Switch, SwitchOnChangeData, SwitchProps, LabelProps } from "@fluentui/react-components";
-import { InfoLabel, InfoLabelProps } from "@fluentui/react-components/unstable";
+import {
+  Field,
+  FieldProps,
+  Switch,
+  SwitchOnChangeData,
+  SwitchProps,
+  LabelProps,
+  InfoLabel,
+  InfoLabelProps,
+} from '@fluentui/react-components';
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";

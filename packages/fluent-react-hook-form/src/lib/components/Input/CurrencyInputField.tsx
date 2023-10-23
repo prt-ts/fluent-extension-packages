@@ -5,8 +5,9 @@ import {
   InputOnChangeData,
   InputProps,
   LabelProps,
+  InfoLabel,
+  InfoLabelProps,
 } from '@fluentui/react-components';
-import { InfoLabel, InfoLabelProps } from '@fluentui/react-components/unstable';
 import { forwardRef } from 'react';
 import { useFormContext } from '../Form';
 import { Controller, ControllerProps } from 'react-hook-form';

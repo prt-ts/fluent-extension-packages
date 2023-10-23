@@ -9,9 +9,9 @@ import {
   RadioProps,
   FieldProps,
   Field,
+  InfoLabel,
+  InfoLabelProps,
 } from '@fluentui/react-components';
-import type { InfoLabelProps } from '@fluentui/react-components/unstable';
-import { InfoLabel } from '@fluentui/react-components/unstable';
 import { useField, ErrorMessage } from 'formik';
 import { InputFieldProps } from './Types';
 

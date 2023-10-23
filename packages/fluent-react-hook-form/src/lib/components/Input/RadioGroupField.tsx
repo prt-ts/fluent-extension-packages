@@ -1,5 +1,16 @@
-import { Field, FieldProps, RadioGroup, RadioGroupOnChangeData, RadioGroupProps, LabelProps, Radio, RadioProps, useId } from "@fluentui/react-components";
-import { InfoLabel, InfoLabelProps } from "@fluentui/react-components/unstable";
+import {
+  Field,
+  FieldProps,
+  RadioGroup,
+  RadioGroupOnChangeData,
+  RadioGroupProps,
+  LabelProps,
+  Radio,
+  RadioProps,
+  useId,
+  InfoLabel,
+  InfoLabelProps,
+} from '@fluentui/react-components';
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
