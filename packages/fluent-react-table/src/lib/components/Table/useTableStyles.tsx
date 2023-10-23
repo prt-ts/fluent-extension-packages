@@ -7,11 +7,11 @@ export const useTableStyles = makeStyles({
         height: "100%",
         // maxHeight: "60rem",
         minHeight: "300px",
-        ...shorthands.overflow("hidden"),
+        ...shorthands.overflow("hidden", "auto"),
         /* width */
 
         ":hover": {
-            ...shorthands.overflow("auto"),
+            ...shorthands.overflow("auto", "auto"),
         },
 
         "::-webkit-scrollbar": {
