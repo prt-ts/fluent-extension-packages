@@ -2,7 +2,7 @@
 
 import Web from './Web';
 
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import { TableExample } from "./TableExample";
 import { ErrorPage } from "./ErrorComponent";
 import { AccessDenied, ErrorBoundary, PageNotFound } from "@prt-ts/fluent-common-features";
@@ -10,6 +10,38 @@ import { Divider } from '@fluentui/react-components';
 import { ReactHookForm } from './RHFTest';
 import { SignUpForm } from './examples/SignUpForm/SignUpForm';
 import Features from './examples/FeatureComp/Features';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route
+        path="/"
+        element={
+          <div>
+            <Web />
+          </div>
+        }
+      />
+      <Route path="/page-2" element={<TableExample />} />
+      <Route
+        path="/page-3"
+        element={
+          <>
+            <ErrorBoundary>
+              <ErrorPage />
+            </ErrorBoundary>
+            <AccessDenied />
+            <PageNotFound />
+            <Web />
+          </>
+        }
+      />
+      <Route path="/page-4" element={<ReactHookForm />} />
+      <Route path="/page-5" element={<Features />} />
+      <Route path="/sign-up" element={<SignUpForm />} />
+    </>
+  )
+);
 
 
 export function App() {
@@ -20,7 +52,7 @@ export function App() {
           marginBottom: '1rem',
         }}
       >
-        <ul
+        {/* <ul
           style={{
             display: 'flex',
             justifyContent: 'start',
@@ -47,36 +79,10 @@ export function App() {
           <li>
             <Link to="/page-5">Common Features</Link>
           </li>
-        </ul>
+        </ul> */}
         <Divider />
       </div>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              <Web />
-            </div>
-          }
-        />
-        <Route path="/page-2" element={<TableExample />} />
-        <Route
-          path="/page-3"
-          element={
-            <>
-              <ErrorBoundary>
-                <ErrorPage />
-              </ErrorBoundary>
-              <AccessDenied />
-              <PageNotFound />
-              <Web />
-            </>
-          }
-        />
-        <Route path="/page-4" element={<ReactHookForm />} />
-        <Route path="/page-5" element={<Features />} />
-        <Route path="/sign-up" element={<SignUpForm />} />
-      </Routes>
+      <RouterProvider router={router} />
 
       {/* END: routes */}
     </div>

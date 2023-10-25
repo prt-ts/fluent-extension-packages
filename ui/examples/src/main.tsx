@@ -33,8 +33,8 @@ export const AppRoot: React.FC = () => {
 
 root.render(
   <StrictMode>
-    <BrowserRouter>
+    {/* <BrowserRouter> */}
       <AppRoot />
-    </BrowserRouter>
+    {/* </BrowserRouter> */}
   </StrictMode>
 );
