@@ -3,9 +3,31 @@ import { Toaster, ToasterProps, useId, useToastController } from "@fluentui/reac
 import * as React from "react";
 import { ArgumentsType } from "vitest";
 
-export type AlertContextType = ReturnType<typeof useToastController>;
-export type DispatchToastOptions = ArgumentsType<AlertContextType["dispatchToast"]>[1];
-export type UpdateToastOptions = ArgumentsType<AlertContextType["updateToast"]>[0];
+export type DispatchToastOptions = {
+  toastId?: string | undefined;
+  intent?: 'success' | 'error' | 'info' | 'warning' | undefined;
+  pauseOnHover?: boolean | undefined;
+  pauseOnWindowBlur?: boolean | undefined;
+  priority?: number;
+  politeness?: 'assertive' | 'polite' | undefined;
+  timeout?: number | undefined;
+};
+
+export type UpdateToastOptions = DispatchToastOptions & {
+  content?: React.ReactNode;
+};
+
+export type AlertContextType = {
+  dispatchToast: (
+    content: React.ReactNode,
+    options?: DispatchToastOptions
+  ) => void;
+  dismissToast: (toastId: string) => void;
+  dismissAllToasts: () => void;
+  updateToast: (options: any) => void;
+  pauseToast: (toastId: string) => void;
+  playToast: (toastId: string) => void;
+};
 
 export const AlertContext = React.createContext<Partial<AlertContextType>>({});
 
