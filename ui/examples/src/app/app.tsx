@@ -2,11 +2,11 @@
 
 import Web from './Web';
 
-import { Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
+import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import { TableExample } from "./TableExample";
 import { ErrorPage } from "./ErrorComponent";
 import { AccessDenied, ErrorBoundary, PageNotFound } from "@prt-ts/fluent-common-features";
-import { Divider } from '@fluentui/react-components';
+import { Divider, Link } from '@fluentui/react-components';
 import { ReactHookForm } from './RHFTest';
 import { SignUpForm } from './examples/SignUpForm/SignUpForm';
 import Features from './examples/FeatureComp/Features';
@@ -52,7 +52,7 @@ export function App() {
           marginBottom: '1rem',
         }}
       >
-        {/* <ul
+        <ul
           style={{
             display: 'flex',
             justifyContent: 'start',
@@ -65,21 +65,24 @@ export function App() {
           }}
         >
           <li>
-            <Link to="/">Fluent Formik</Link>
+            <Link href="/">Fluent Formik</Link>
           </li>
           <li>
-            <Link to="/page-2">Table</Link>
+            <Link href="/page-2">Table</Link>
           </li>
           <li>
-            <Link to="/page-3">Error Boundary</Link>
+            <Link href="/page-3">Error Boundary</Link>
           </li>
           <li>
-            <Link to="/page-4">React Hook Form</Link>
+            <Link href="/page-4">React Hook Form</Link>
           </li>
           <li>
-            <Link to="/page-5">Common Features</Link>
+            <Link href="/page-5">Common Features</Link>
           </li>
-        </ul> */}
+          <li>
+            <Link href="/Sign-Up">SignUp Form</Link>
+          </li>
+        </ul>
         <Divider />
       </div>
       <RouterProvider router={router} />

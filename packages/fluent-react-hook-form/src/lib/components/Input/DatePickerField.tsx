@@ -27,9 +27,9 @@ export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps
             render={({ field, fieldState }) => {
                 const { onChange, onBlur, value, ref } = field;
 
-                const handleOnChange = (date: Date | null | undefined) => {
+                const handleOnChange : DatePickerProps["onSelectDate"] = (date: Date | null | undefined) => {
                     onChange(date || "");
-                    datePickerProps.onSelectDate?.(date);
+                  datePickerProps.onSelectDate?.(date);
                 }
 
                 const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
