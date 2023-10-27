@@ -50,8 +50,18 @@ export const ConfirmDialog: React.FC = () => {
             <Button
               appearance="primary"
               onClick={async () => {
+                await setConfirmDetail?.({
+                  title,
+                  message,
+                  confirmButtonLabel,
+                  cancelButtonLabel,
+                  onConfirm,
+                  onCancel,
+                  confirmButtonIcon,
+                  cancelButtonIcon,
+                  isOpen: false,
+                });
                 await onConfirm?.();
-                await setConfirmDetail?.(contextDefaultValue);
               }}
               size="small"
               icon={confirmButtonIcon}
@@ -62,8 +72,18 @@ export const ConfirmDialog: React.FC = () => {
               <Button
                 appearance="secondary"
                 onClick={async () => {
+                  await setConfirmDetail?.({
+                    title,
+                    message,
+                    confirmButtonLabel,
+                    cancelButtonLabel,
+                    onConfirm,
+                    onCancel,
+                    confirmButtonIcon,
+                    cancelButtonIcon,
+                    isOpen: false,
+                  });
                   await onCancel?.();
-                  await setConfirmDetail?.(contextDefaultValue);
                 }}
                 size="small"
                 icon={cancelButtonIcon}
