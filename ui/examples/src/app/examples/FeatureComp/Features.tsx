@@ -1,8 +1,9 @@
-import { useAlert } from '@prt-ts/fluent-common-features';
+import { useAlert, useConfirm } from '@prt-ts/fluent-common-features';
 import React from 'react';
 
 const Features = () => {
   const { success, error, info, warning, progress } = useAlert();
+  const { confirm } = useConfirm();
 
   return (
     <div>
@@ -53,8 +54,7 @@ const Features = () => {
         onClick={() =>
           warning({
             title: 'Warning',
-            body:
-              'This is a warning message with a very long message to test the wrapping of the text and the height of the alert',
+            body: 'This is a warning message with a very long message to test the wrapping of the text and the height of the alert',
           })
         }
       >
@@ -71,6 +71,24 @@ const Features = () => {
         }
       >
         Progress
+      </button>
+
+      {/* confirm */}
+      <button
+        onClick={() =>
+          confirm({
+            title: 'Confirm',
+            message: <>This is a confirm message</>,
+            onConfirm: () => {
+              console.log('confirmed');
+            },
+            onCancel: () => {
+              console.log('canceled');
+            },
+          })
+        }
+      >
+        Confirm
       </button>
     </div>
   );

@@ -1,47 +1,13 @@
 /* eslint-disable */
-import * as React from "react";
+import * as React from 'react';
+import { ConfirmDialog } from './ConfirmDialog';
 import {
-  Dialog,
-  DialogTrigger,
-  DialogSurface,
-  DialogTitle,
-  DialogContent,
-  DialogBody,
-  DialogActions,
-  Button,
-  makeStyles,
-} from "@fluentui/react-components";
-import { CheckmarkStarburstFilled, CheckmarkStarburstRegular, DismissFilled, DismissRegular, bundleIcon } from "@fluentui/react-icons";
-
-type ConfirmCallbackType = () => void;
-type CancelCallbackType = () => void;
-
-export type ConfirmOptionsType = {
-  title: string;
-  message: JSX.Element;
-  onConfirm: ConfirmCallbackType;
-  onCancel: CancelCallbackType;
-  confirmButtonLabel?: string;
-  cancelButtonLabel?: string;
-};
-
-export type ConfirmContextType = {
-  confirm: (props: ConfirmOptionsType) => void;
-};
-
-export const ConfirmContext = React.createContext<ConfirmContextType>({
-    confirm: () => { }
-});
-
-export const useConfirmContext = () => {
-  return React.useContext(ConfirmContext);
-};
-
-const useStyle = makeStyles({
-  dialog: {
-    maxWidth: "300px"
-  }
-})
+  CheckmarkStarburstFilled,
+  CheckmarkStarburstRegular,
+  DismissFilled,
+  DismissRegular,
+  bundleIcon,
+} from '@fluentui/react-icons';
 
 const ConfirmIcon = bundleIcon(
   CheckmarkStarburstFilled,
@@ -50,70 +16,53 @@ const ConfirmIcon = bundleIcon(
 
 const CancelIcon = bundleIcon(DismissFilled, DismissRegular);
 
-export const ConfirmProvider: React.FC<{children}> = ({ children }) => {
-  const [open, setOpen] = React.useState(false);
+type ConfirmCallbackType = () => void;
+type CancelCallbackType = () => void;
 
-  const [title, setTitle] = React.useState<string>("");
-  const [message, setMessage] = React.useState<JSX.Element>(<></>);
+export type ConfirmStateType = {
+  isOpen: boolean;
+  title: string;
+  message: JSX.Element;
+  onConfirm: ConfirmCallbackType;
+  onCancel?: CancelCallbackType;
+  confirmButtonLabel?: string;
+  cancelButtonLabel?: string;
+  confirmButtonIcon?: JSX.Element;
+  cancelButtonIcon?: JSX.Element;
+};
 
-  const [onConfirm, setOnConfirm] = React.useState<ConfirmCallbackType>(
-    () => {}
-  );
-  const [onCancel, setOnCancel] = React.useState<CancelCallbackType>(() => {});
+export type ConfirmContextType = {
+  confirmDetail: ConfirmStateType;
+  setConfirmDetail?: React.Dispatch<React.SetStateAction<ConfirmStateType>>;
+};
 
-  const confirm = ({
-    title,
-    message,
-    onConfirm,
-    onCancel,
-    confirmButtonLabel = "Yes",
-    cancelButtonLabel = "Cancel",
-  }: ConfirmOptionsType) => {
-    setOpen(true);
-    setOnConfirm(() => onConfirm);
-    setOnCancel(() => onCancel);
-    setTitle(title);
-    setMessage(message);
-  };
+export const contextDefaultValue: ConfirmStateType = {
+  isOpen: false,
+  title: '',
+  message: <></>,
+  onConfirm: () => {},
+  onCancel: () => {},
+  confirmButtonLabel: 'Yes',
+  cancelButtonLabel: 'Cancel',
+  confirmButtonIcon: <ConfirmIcon />,
+  cancelButtonIcon: <CancelIcon />,
+};
 
-  const classes = useStyle();
+export const ConfirmContext = React.createContext<ConfirmContextType>({
+  confirmDetail: contextDefaultValue,
+});
+
+export const useConfirmContext = () => {
+  return React.useContext(ConfirmContext);
+};
+
+export const ConfirmProvider: React.FC<{ children }> = ({ children }) => {
+  const [confirmDetail, setConfirmDetail] =
+    React.useState<ConfirmStateType>(contextDefaultValue);
 
   return (
-    <ConfirmContext.Provider value={{ confirm }}>
-      <Dialog open={open} modalType="alert">
-        <DialogSurface className={classes.dialog}>
-          <DialogBody>
-            <DialogTitle>⚠️ {title}</DialogTitle>
-            <DialogContent>{message}</DialogContent>
-            <DialogActions>
-              <Button
-                appearance="primary"
-                onClick={() => {
-                  setOpen(false);
-                  onConfirm();
-                }}
-                size="small"
-                icon={<ConfirmIcon />}
-              >
-                Yes
-              </Button>
-              <DialogTrigger disableButtonEnhancement>
-                <Button
-                  appearance="secondary"
-                  onClick={() => {
-                    setOpen(false);
-                    onCancel();
-                  }}
-                  size="small"
-                  icon={<CancelIcon />}
-                >
-                  Cancel
-                </Button>
-              </DialogTrigger>
-            </DialogActions>
-          </DialogBody>
-        </DialogSurface>
-      </Dialog>
+    <ConfirmContext.Provider value={{ confirmDetail, setConfirmDetail }}>
+      <ConfirmDialog />
       {children}
     </ConfirmContext.Provider>
   );
