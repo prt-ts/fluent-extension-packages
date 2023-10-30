@@ -204,7 +204,7 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
               visibleColumns={visibleColumns}
               columns={columns}
               resetVisibleColumns={(newVisibleColumns: string[]) => setVisibleColumns([...newVisibleColumns])} />
-            <Button appearance="outline" icon={<LayerRegular />} onClick={() => setIsDrawerOpen(current => !current)} />
+            {/* <Button appearance="outline" icon={<LayerRegular />} onClick={() => setIsDrawerOpen(current => !current)} aria-label={"Advance Grid Configuration"} /> */}
             {/* <Menu
               checkedValues={showHideOptionSelected}
               onCheckedValueChange={((_, data: MenuCheckedValueChangeData) => setVisibleColumns(data.checkedItems))}>
@@ -279,10 +279,12 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
               size={'small'}
               contentBefore={<SearchIcon />}
               className={styles.searchInput}
+              placeholder="Search Keyword"
+              aria-label="Enter Your Search Keyword"
               contentAfter={
                 <Menu>
                   <MenuTrigger disableButtonEnhancement>
-                    <Button appearance="subtle" icon={<VerticalMoreIcon />} />
+                    <Button appearance="subtle" icon={<VerticalMoreIcon />} aria-label="View Menu"/>
                   </MenuTrigger>
 
                   <MenuPopover>

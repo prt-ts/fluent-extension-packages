@@ -1,12 +1,11 @@
-import { Field, FieldProps, Slider, SliderOnChangeData, SliderProps, LabelProps } from "@fluentui/react-components";
-import { InfoLabel, InfoLabelProps } from "@fluentui/react-components/unstable";
+import { Field, FieldProps, Slider, SliderOnChangeData, SliderProps, LabelProps, InfoLabel, InfoLabelProps } from "@fluentui/react-components";
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
 
 export type SliderFieldProps = FieldProps & SliderProps & InfoLabelProps & {
     name: string,
-    rules?: ControllerProps['rules'] 
+    rules?: ControllerProps['rules']
 }
 
 export const SliderField = forwardRef<HTMLInputElement, SliderFieldProps>(({ name, rules, required, ...rest }, SliderRef) => {
@@ -52,7 +51,7 @@ export const SliderField = forwardRef<HTMLInputElement, SliderFieldProps>(({ nam
                             name={name}
                             onChange={handleOnChange}
                             onBlur={handleOnBlur}
-                            value={value || 0} 
+                            value={value || 0}
                             required={false}
                         />
                     </Field>

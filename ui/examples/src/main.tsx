@@ -1,12 +1,11 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 import * as React from 'react';
 
 import App from './app/app';
 import { FluentProvider, teamsLightTheme } from '@fluentui/react-components';
 import { ThemeService } from '@prt-ts/fluent-theme';
-import { LoadingProvider } from '@prt-ts/fluent-common-features';
+import { AlertProvider, ConfirmProvider, LoadingProvider } from '@prt-ts/fluent-common-features';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -23,7 +22,11 @@ export const AppRoot: React.FC = () => {
   return (
     <FluentProvider theme={theme}>
       <LoadingProvider>
-        <App />
+        <ConfirmProvider>
+          <AlertProvider>
+            <App />
+          </AlertProvider>
+        </ConfirmProvider>
       </LoadingProvider>
     </FluentProvider>
   );
@@ -31,8 +34,8 @@ export const AppRoot: React.FC = () => {
 
 root.render(
   <StrictMode>
-    <BrowserRouter>
+    {/* <BrowserRouter> */}
       <AppRoot />
-    </BrowserRouter>
+    {/* </BrowserRouter> */}
   </StrictMode>
 );

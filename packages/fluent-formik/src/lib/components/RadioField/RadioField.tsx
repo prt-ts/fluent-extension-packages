@@ -4,10 +4,10 @@ import {
   Radio,
   RadioProps,
   useId,
+  InfoLabel, InfoLabelProps
 } from '@fluentui/react-components';
 import { RadioFieldProps } from './Types';
 import { ErrorMessage, useField } from 'formik';
-import { InfoLabel, InfoLabelProps } from '@fluentui/react-components/unstable';
 
 export const RadioField = React.forwardRef<HTMLInputElement, RadioFieldProps>(
   (props, ref): JSX.Element => {

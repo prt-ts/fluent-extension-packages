@@ -6,9 +6,9 @@ import {
   LabelProps,
   FieldProps,
   Field,
+  InfoLabel,
+  InfoLabelProps,
 } from '@fluentui/react-components';
-import type { InfoLabelProps } from '@fluentui/react-components/unstable';
-import { InfoLabel } from '@fluentui/react-components/unstable';
 import { InputFieldProps } from './Types';
 import { useField, ErrorMessage } from 'formik';
 

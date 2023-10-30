@@ -7,12 +7,11 @@ import {
   Dropdown,
   Option,
   OptionProps,
+  InfoLabel, InfoLabelProps
 } from '@fluentui/react-components';
-import { InfoLabel } from '@fluentui/react-components/unstable';
 import { ErrorMessage } from 'formik';
 import { useDropdownField } from './useDropdownField';
 import { DropdownProps, FieldProps } from '@fluentui/react-components';
-import { InfoLabelProps } from '@fluentui/react-components/dist/unstable';
 import { DropdownFieldProps, DropdownOption } from './Types';
 
 export const DropdownField = React.forwardRef<

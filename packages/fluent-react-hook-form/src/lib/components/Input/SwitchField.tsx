@@ -1,5 +1,13 @@
-import { Field, FieldProps, Switch, SwitchOnChangeData, SwitchProps, LabelProps } from "@fluentui/react-components";
-import { InfoLabel, InfoLabelProps } from "@fluentui/react-components/unstable";
+import {
+  Field,
+  FieldProps,
+  Switch,
+  SwitchOnChangeData,
+  SwitchProps,
+  LabelProps,
+  InfoLabel,
+  InfoLabelProps,
+} from '@fluentui/react-components';
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
@@ -15,7 +23,7 @@ export const SwitchField = forwardRef<HTMLInputElement, SwitchFieldProps>(({ nam
     const { form: { control } } = useFormContext();
 
     const { ...fieldProps }: FieldProps = rest;
-    const { ...SwitchProps }: SwitchProps = rest;
+    const { ...switchProps }: SwitchProps = rest;
     const { ...infoLabelProps }: InfoLabelProps = rest;
 
     return (
@@ -28,38 +36,47 @@ export const SwitchField = forwardRef<HTMLInputElement, SwitchFieldProps>(({ nam
 
                 const handleOnChange = (ev: React.ChangeEvent<HTMLInputElement>, data: SwitchOnChangeData) => {
                     onChange(data.checked);
-                    SwitchProps.onChange?.(ev, data);
+                    switchProps.onChange?.(ev, data);
                 }
 
                 const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
                     onBlur();
-                    SwitchProps.onBlur?.(ev);
+                    switchProps.onBlur?.(ev);
+                }
+
+                const handleOnReset : SwitchProps["onReset"] = (e) => {
+
+                    console.log("handleOnReset");
+                    console.log(e);
                 }
 
                 return (
-                    <Field
-                        {...fieldProps}
-                        label={{
-                            children: (_: unknown, props: LabelProps) => (
-                                <InfoLabel {...props} {...infoLabelProps} />
-                            )
-                        } as unknown as InfoLabelProps}
-                        validationState={fieldState.invalid ? "error" : undefined}
-                        validationMessage={fieldState.error?.message}
-                        required={required}
-                    >
-                        <Switch
-                            {...SwitchProps}
-                            ref={SwitchRef || ref}
-                            name={name}
-                            onChange={handleOnChange}
-                            onBlur={handleOnBlur}
-                            checked={value || false}
-                            label={value ? rest.checkedLabel : rest.uncheckedLabel}
-                            required={false}
-                        />
-                    </Field>
-                )
+                  <Field
+                    {...fieldProps}
+                    label={
+                      {
+                        children: (_: unknown, props: LabelProps) => (
+                          <InfoLabel {...props} {...infoLabelProps} />
+                        ),
+                      } as unknown as InfoLabelProps
+                    }
+                    validationState={fieldState.invalid ? 'error' : undefined}
+                    validationMessage={fieldState.error?.message}
+                    required={required}
+                  >
+                    <Switch
+                      {...switchProps}
+                      ref={SwitchRef || ref}
+                      name={name}
+                      onChange={handleOnChange}
+                      onReset={handleOnReset}
+                      onBlur={handleOnBlur}
+                      checked={!!value}
+                      label={value ? rest.checkedLabel : rest.uncheckedLabel}
+                      required={false}
+                    />
+                  </Field>
+                );
             }}
         />)
 })

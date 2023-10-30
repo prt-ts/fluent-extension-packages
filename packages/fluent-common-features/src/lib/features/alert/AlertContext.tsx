@@ -1,16 +1,20 @@
 /* eslint-disable */
-import { Toaster, useId, useToastController } from "@fluentui/react-components";
+import { Toaster, ToasterProps, useId, useToastController } from "@fluentui/react-components";
 import * as React from "react";
-
+import { ArgumentsType } from "vitest";
 
 export type DispatchToastOptions = {
   toastId?: string | undefined;
-  intent?: "success" | "error" | "info" | "warning" | undefined;
+  intent?: 'success' | 'error' | 'info' | 'warning' | undefined;
   pauseOnHover?: boolean | undefined;
   pauseOnWindowBlur?: boolean | undefined;
   priority?: number;
-  politeness?: "assertive" | "polite" | undefined;
+  politeness?: 'assertive' | 'polite' | undefined;
   timeout?: number | undefined;
+};
+
+export type UpdateToastOptions = DispatchToastOptions & {
+  content?: React.ReactNode;
 };
 
 export type AlertContextType = {
@@ -31,7 +35,7 @@ export const useAlertContext = () => {
   return React.useContext(AlertContext);
 };
 
-export const AlertProvider: React.FC<{children}> = ({ children }) => {
+export const AlertProvider: React.FC<React.PropsWithChildren<ToasterProps>> = ({ children, ...toasterProps }) => {
   const toasterId = useId("toaster");
   const toastController = useToastController(toasterId);
 
@@ -42,6 +46,7 @@ export const AlertProvider: React.FC<{children}> = ({ children }) => {
         position="bottom-end"
         pauseOnHover
         pauseOnWindowBlur
+        {...toasterProps}
       />
       {children}
     </AlertContext.Provider>

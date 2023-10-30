@@ -25,8 +25,8 @@ import {
    FieldProps,
    useId,
    mergeClasses,
+   InfoLabel, InfoLabelProps
 } from '@fluentui/react-components';
-import { InfoLabel, InfoLabelProps } from '@fluentui/react-components/unstable';
 
 const useStyles = makeStyles({
    root: {

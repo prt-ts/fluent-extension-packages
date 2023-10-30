@@ -1,5 +1,4 @@
-import { DropdownProps, FieldProps, OptionProps } from "@fluentui/react-components";
-import { InfoLabelProps } from "@fluentui/react-components/unstable";
+import { DropdownProps, FieldProps, OptionProps, InfoLabelProps } from "@fluentui/react-components";
 
 export type DropdownFieldProps = FieldProps &
   InfoLabelProps
@@ -12,7 +11,7 @@ export type DropdownFieldProps = FieldProps &
 
 export type DropdownOption = OptionProps & {
   label: string;
-  value: string; 
+  value: string;
   text?: string;
   meta?: unknown;
 };

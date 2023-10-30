@@ -5,6 +5,8 @@ import {
   DatePicker,
   Input,
   RadioGroup,
+  Calendar,
+  DateRangeType,
 } from '@prt-ts/fluent-react-hook-form';
 import { useCallback } from 'react';
 import * as yup from 'yup';
@@ -19,7 +21,6 @@ const schema = yup.object({
   subscribePhone: yup.boolean(),
   dateOfBirth: yup.date().required('Date of Birth is required'),
   email: yup.string().when('subscribeEmail', ([subscribeEmail]) => {
-    console.log('subscribeEmail', subscribeEmail);
     if (subscribeEmail)
       return yup
         .string()
@@ -27,7 +28,6 @@ const schema = yup.object({
         .required('Must enter email address');
   }),
   phoneNumber: yup.string().when('subscribePhone', ([subscribePhone]) => {
-    console.log('subscribePhone', subscribePhone);
     if (subscribePhone)
       return yup
         .string()
@@ -135,6 +135,12 @@ export const SignUpForm = () => {
           allowTextInput
           name={'dateOfBirth'}
           label={'Date of Birth'}
+        />
+
+        <Calendar
+          name={'dateOfBirth'}
+          label={'Date of Birth'}
+          dateRangeType={DateRangeType.Month}
         />
 
         <Button type="submit" appearance="primary">

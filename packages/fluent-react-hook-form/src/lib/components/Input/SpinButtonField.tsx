@@ -1,5 +1,4 @@
-import { Field, FieldProps, SpinButton, SpinButtonOnChangeData, SpinButtonProps, LabelProps, SpinButtonChangeEvent } from "@fluentui/react-components";
-import { InfoLabel, InfoLabelProps } from "@fluentui/react-components/unstable";
+import { Field, FieldProps, SpinButton, SpinButtonOnChangeData, SpinButtonProps, LabelProps, SpinButtonChangeEvent, InfoLabel, InfoLabelProps } from "@fluentui/react-components";
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
@@ -11,18 +10,18 @@ export const SpinButtonField = forwardRef<HTMLInputElement, SpinButtonFieldProps
 
     const { ...fieldProps }: FieldProps = rest;
     const { ...spinButtonProps }: SpinButtonProps = rest;
-    const { ...infoLabelProps }: InfoLabelProps = rest; 
+    const { ...infoLabelProps }: InfoLabelProps = rest;
 
     return (
-        <Controller 
+        <Controller
             name={name}
             control={control}
             rules={rules}
-            render={({ field, fieldState }) => { 
-                const { onChange, onBlur, value, ref } = field; 
- 
+            render={({ field, fieldState }) => {
+                const { onChange, onBlur, value, ref } = field;
+
                 const handleOnChange : SpinButtonProps["onChange"] = (ev: SpinButtonChangeEvent, data: SpinButtonOnChangeData) => {
-                     
+
                     if (data.value !== undefined) {
                         onChange(data.value);
                       } else if (data.displayValue !== undefined) {
@@ -39,7 +38,7 @@ export const SpinButtonField = forwardRef<HTMLInputElement, SpinButtonFieldProps
                 const handleOnBlur : SpinButtonProps["onBlur"]  = (ev: React.FocusEvent<HTMLInputElement>) => {
                     onBlur();
                     spinButtonProps.onBlur?.(ev);
-                }  
+                }
 
                 return (
                     <Field
@@ -53,7 +52,7 @@ export const SpinButtonField = forwardRef<HTMLInputElement, SpinButtonFieldProps
                         validationMessage={fieldState.error?.message}
                         required={required}
                     >
-                        <SpinButton 
+                        <SpinButton
                             {...spinButtonProps}
                             ref={spinButtonRef || ref}
                             name={name}

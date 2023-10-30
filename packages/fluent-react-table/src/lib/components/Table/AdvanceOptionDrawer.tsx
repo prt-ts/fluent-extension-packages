@@ -1,11 +1,11 @@
 /* eslint-disable  */
 import {
-    DrawerBody,
-    DrawerHeader,
-    DrawerHeaderTitle,
-    Drawer,
-    DrawerProps,
-} from "@fluentui/react-components/unstable";
+  DrawerBody,
+  DrawerHeader,
+  DrawerHeaderTitle,
+  Drawer,
+  DrawerProps
+} from '@fluentui/react-components/unstable';
 import * as React from "react";
 
 import {
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 type DrawerType = Required<DrawerProps>["type"];
 
 export const AdvanceConfigSetting : React.FC<{open : boolean,  setOpen: React.Dispatch<React.SetStateAction<boolean>>}> = ({open, setOpen}) => {
-     
+
     return (
         <>
             <Drawer

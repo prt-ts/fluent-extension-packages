@@ -1,5 +1,4 @@
-import { SliderProps, FieldProps } from "@fluentui/react-components";
-import { InfoLabelProps } from "@fluentui/react-components/unstable";
+import { SliderProps, FieldProps, InfoLabelProps } from "@fluentui/react-components";
 
 export type SliderInputFieldProps = SliderProps & FieldProps & InfoLabelProps & {
     name: string;

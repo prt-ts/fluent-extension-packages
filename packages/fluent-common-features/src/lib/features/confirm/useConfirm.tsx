@@ -1,8 +1,16 @@
 /* eslint-disable */
-import { useConfirmContext } from "./ConfirmContext";
+import * as React from "react";
+import { ConfirmStateType, useConfirmContext } from "./ConfirmContext";
 
 export const useConfirm = () => {
-  const { confirm } = useConfirmContext();
+  const { setConfirmDetail } = useConfirmContext();
+
+  const confirm = React.useCallback((confirmDetail: Omit<ConfirmStateType, 'isOpen'>) => {
+    setConfirmDetail?.({
+      ...confirmDetail,
+      isOpen: true,
+    });
+  }, [setConfirmDetail]);
 
   return {
     confirm,

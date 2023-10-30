@@ -8,6 +8,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 // import { DevTool } from '@hookform/devtools';
 
+import { useNavigate, unstable_usePrompt as usePrompt} from "react-router-dom"
+
 const schema = yup.object({
   firstName: yup
     .string()
@@ -67,6 +69,16 @@ export const ReactHookForm = () => {
   const addMore = useCallback(() => {
     testForm?.setValue("arrayItem", [...(arrayItem || []), { label: '', value: '' }])
   }, [arrayItem, testForm])
+
+  usePrompt({
+    when: testForm?.formState.isDirty,
+    message: 'You have unsaved changes, are you sure you want to leave?',
+  })
+
+  const navigate = useNavigate()
+  const onCancel = useCallback(() => {
+    navigate('/home')
+  }, [navigate])
 
   console.log("rendering")
   return (
@@ -220,6 +232,9 @@ export const ReactHookForm = () => {
 
         <Button type="submit" appearance="primary">
           Submit
+        </Button>
+        <Button onClick={onCancel} appearance="secondary">
+          Cancel
         </Button>
       </Form>
      {/* <DevTool control={testForm.control} />   */}

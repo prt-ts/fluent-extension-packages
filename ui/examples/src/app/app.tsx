@@ -2,23 +2,57 @@
 
 import Web from './Web';
 
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import { TableExample } from "./TableExample";
 import { ErrorPage } from "./ErrorComponent";
 import { AccessDenied, ErrorBoundary, PageNotFound } from "@prt-ts/fluent-common-features";
-import { Divider } from '@fluentui/react-components';
+import { Divider, Link } from '@fluentui/react-components';
 import { ReactHookForm } from './RHFTest';
 import { SignUpForm } from './examples/SignUpForm/SignUpForm';
+import Features from './examples/FeatureComp/Features';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route
+        path="/"
+        element={
+          <div>
+            <Web />
+          </div>
+        }
+      />
+      <Route path="/page-2" element={<TableExample />} />
+      <Route
+        path="/page-3"
+        element={
+          <>
+            <ErrorBoundary>
+              <ErrorPage />
+            </ErrorBoundary>
+            <AccessDenied />
+            <PageNotFound />
+            <Web />
+          </>
+        }
+      />
+      <Route path="/page-4" element={<ReactHookForm />} />
+      <Route path="/page-5" element={<Features />} />
+      <Route path="/sign-up" element={<SignUpForm />} />
+    </>
+  )
+);
 
 
 export function App() {
   return (
     <div>
-      <div style={{
-        marginBottom: '1rem',
-      }}>
+      <div
+        style={{
+          marginBottom: '1rem',
+        }}
+      >
         <ul
-          role="navigation"
           style={{
             display: 'flex',
             justifyContent: 'start',
@@ -31,47 +65,27 @@ export function App() {
           }}
         >
           <li>
-            <Link to="/">Fluent Formik</Link>
+            <Link href="/">Fluent Formik</Link>
           </li>
           <li>
-            <Link to="/page-2">Table</Link>
+            <Link href="/page-2">Table</Link>
           </li>
           <li>
-            <Link to="/page-3">Error Boundary</Link>
+            <Link href="/page-3">Error Boundary</Link>
           </li>
           <li>
-            <Link to="/page-4">React Hook Form</Link>
+            <Link href="/page-4">React Hook Form</Link>
+          </li>
+          <li>
+            <Link href="/page-5">Common Features</Link>
+          </li>
+          <li>
+            <Link href="/Sign-Up">SignUp Form</Link>
           </li>
         </ul>
         <Divider />
       </div>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              <Web />
-            </div>
-          }
-        />
-        <Route path="/page-2" element={<TableExample />} />
-        <Route
-          path="/page-3"
-          element={
-            <>
-              <ErrorBoundary>
-                <ErrorPage />
-              </ErrorBoundary>
-              <AccessDenied />
-              <PageNotFound />
-              <Web />
-            </>
-          }
-        />
-        <Route path="/page-4" element={<ReactHookForm />} />
-        <Route path="/sign-up" element={<SignUpForm />} />
-      </Routes>
-
+      <RouterProvider router={router} />
 
       {/* END: routes */}
     </div>
