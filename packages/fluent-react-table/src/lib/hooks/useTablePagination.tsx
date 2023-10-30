@@ -1,7 +1,7 @@
+import * as React from "react";
 export const range = (from: number, to: number, step = 1) =>
     [...Array(Math.floor((to - from) / step) + 1)]?.map((_, i) => from + i * step);
     
-import * as React from "react";
 
 const DEFAULT_NUMBER_OF_PAGE_BTN = 5;
 export const MAX_PAGE_OPTION = 100000000;

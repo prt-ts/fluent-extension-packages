@@ -89,7 +89,7 @@ export function TableExample() {
           <GridActions selectedItems={selectedItems as Item[]} />
         )}
         defaultPageSize={100}
-        maxTableHeight={4000}
+        maxTableHeight={650}
         noItemPage={<>Hello there is no item in the grid</>}
       >
         <Column
@@ -100,20 +100,14 @@ export function TableExample() {
             <Button appearance="transparent" size="small">
               Test Action
             </Button>
-          )}
-          sizeOptions={{
-            // defaultWidth: 400,
-            minWidth: 200,
-            idealWidth: 400,
-          }}
+          )} 
+          disableSorting={true}
+          disableGrouping={true}
         />
         <Column
           columnId="author.label"
-          header={'Author Label'}
-          sizeOptions={{
-            defaultWidth: 400,
-            minWidth: 400,
-          }}
+          header={'Author Label'} 
+          disableSorting={true}
         />
         <Column columnId="author.status" header={<>Author Status</>} />
         <Column columnId="lastUpdated.label" header={<>Last Updated</>} />
@@ -125,11 +119,7 @@ export function TableExample() {
         />
         <Column
           columnId="lastUpdate.label"
-          header={<>Last Update Label</>}
-          sizeOptions={{
-            defaultWidth: 1000,
-            minWidth: 900,
-          }}
+          header={<>Last Update Label</>} 
         />
       </Table>
     </div>

@@ -2,7 +2,7 @@ import { TableProps as FluentTableProps } from "@fluentui/react-components";
 import { IColumn, SelectionMode } from "../types";
 
 export type TableProps<TItem extends NonNullable<{ id: string | number }>> =
-  FluentTableProps & {
+  Partial<Omit<FluentTableProps, "children">> & {
     /**
      * This is the unique name of the table - this name is used for the views and other stuff....
      * It must be uniques across your application
@@ -26,7 +26,7 @@ export type TableProps<TItem extends NonNullable<{ id: string | number }>> =
      */
     columns?: IColumn<TItem>[];
 
-    children?: Array<React.ReactElement<IColumn<TItem>>>;
+    children?: Array<React.ReactElement<IColumn<TItem>>> | React.ReactElement<IColumn<TItem>>;
 
     /**
      * calculates pagination based on group

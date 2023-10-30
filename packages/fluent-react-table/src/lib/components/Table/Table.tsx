@@ -27,13 +27,7 @@ import {
   DialogBody,
   DialogActions,
   Field,
-  MenuItemRadio,
-  // MenuItemRadio,
-  // MenuGroup,
-  // MenuGroupHeader,
-  // MenuDivider,
-  // MenuCheckedValueChangeData,
-  // Tooltip,
+  MenuItemRadio, 
 } from "@fluentui/react-components";
 import { AdvanceConfigSetting } from "./AdvanceOptionDrawer";
 import * as React from "react";
@@ -94,20 +88,18 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
   } = props;
 
   const columns = React.useMemo(() => {
-    const childColumns = (
-      children
-        //?.filter((col) => col?.props?.fieldName)
-        ?.map(
-          (child, index) =>
-          ({
-            ...child?.props,
-            key: `${child?.props?.columnId}-column-${index}`,
-          } as IColumn<TItem>)
-        ) ?? []
+    const childColumns = ((Array.isArray(children) ? children : [children])
+      ?.map(
+        (child, index) =>
+        ({
+          ...child?.props,
+          key: `${child?.props?.columnId}-column-${index}`,
+        } as IColumn<TItem>)
+      ) ?? []
     );
 
     return childColumns?.length > 0 ? childColumns : props.columns ?? [];
-  }, [children]);
+  }, []);
 
   const { ...tableProps }: FluentTableProps = rest;
 
@@ -171,7 +163,7 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
 
   React.useImperativeHandle(ref, () => ({
     setCurrentPage: (pageNumber: number) => {
-      const maxAllowedPageNumber = Math.min(pageNumber-1, paginationState.totalNumberOfPage-1);
+      const maxAllowedPageNumber = Math.min(pageNumber - 1, paginationState.totalNumberOfPage - 1);
       paginationState.setPage(maxAllowedPageNumber);
     },
     setPageSize: (pageSize: number) => {
@@ -185,7 +177,7 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
         currentPage: paginationState.currentPage,
         pageSize: paginationState.pageSize,
         globalFilter: filterValue,
-        groupedColumnsIds: groupedColumns, 
+        groupedColumnsIds: groupedColumns,
         visibleColumnsIds: visibleColumns,
       }
     }
@@ -197,7 +189,7 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
   const viewNameRef = React.useRef<HTMLInputElement>(null)
   const [open, setOpen] = React.useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-  
+
 
   return (
     <>
@@ -322,7 +314,7 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
         />
       </div>
       <Divider />
-      <div className={styles.gridTableSection}  style={{ maxHeight: `${(props.maxTableHeight || 650)}px`}}>
+      <div className={styles.gridTableSection} style={{ maxHeight: `${(props.maxTableHeight || 300)}px` }}>
         <Table {...tableProps} ref={tableRef} className={styles.gridTable}>
           <TableHeader>
             <TableRow className={styles.headerRow}>
@@ -353,23 +345,30 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
               }
 
               {extendedColumns.map((column, colIndex) => (
-                <TableHeaderCell
-                  key={`${column.columnId}_${colIndex}`}
-                  {...columnSizing_unstable.getTableHeaderCellProps(
-                    column.columnId
-                  )}
-                  onClick={(e) => e.detail == 1 ? toggleSortColumn(column.columnId as string, false) : null}
-                  onDoubleClick={(e) => { e.preventDefault(); toggleColumnGroup(column.columnId as string, true) }}
-                  sortDirection={
-                    isColumnSorted(column.columnId as string)
-                      ? (isSortedAscending(column.columnId as string) ? "ascending" : "descending")
-                      : undefined}
-                  className={styles.headerCell}
-                >
-                  <Body1Stronger>
-                    {column.header}
-                  </Body1Stronger>
-                </TableHeaderCell>
+                <>
+                  <TableHeaderCell
+                    key={`${column.columnId}_${colIndex}`}
+                    {...columnSizing_unstable.getTableHeaderCellProps(
+                      column.columnId
+                    )}
+                    onClick={(e) => (e.detail == 1 && !column.disableSorting) ? toggleSortColumn(column.columnId as string, false) : null}
+                    onDoubleClick={(e) => {
+                      e.preventDefault();
+                      if (column.disableGrouping) return;
+                      toggleColumnGroup(column.columnId as string, true)
+                    }}
+                    sortDirection={
+                      !column.disableSorting && isColumnSorted(column.columnId as string)
+                        ? (isSortedAscending(column.columnId as string) ? "ascending" : "descending")
+                        : undefined}
+                    sortable={!column.disableSorting}
+                    className={styles.headerCell}
+                  >
+                    <Body1Stronger>
+                      {column.header}
+                    </Body1Stronger>
+                  </TableHeaderCell> 
+                </>
               ))}
             </TableRow>
           </TableHeader>
@@ -498,7 +497,7 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
           }
         </Table>
         {showLoader && (<Loading />)}
-        {showNoItem && (<EmptyGrid message={props.noItemPage}/>)}
+        {showNoItem && (<EmptyGrid message={props.noItemPage} />)}
         {showNoItemMatch && (<NoFilterMatch />)}
       </div>
       <Divider />
@@ -506,7 +505,7 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
         <Pagination {...paginationState} />
       </div>
       <Divider />
-      <AdvanceConfigSetting  open={isDrawerOpen} setOpen={setIsDrawerOpen} />
+      <AdvanceConfigSetting open={isDrawerOpen} setOpen={setIsDrawerOpen} />
     </>
   );
 });
