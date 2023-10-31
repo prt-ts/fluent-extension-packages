@@ -1,8 +1,8 @@
+import { FilterRegular } from "@fluentui/react-icons";
+import { FilterFilled } from "@fluentui/react-icons";
 import {
     SearchRegular,
-    SearchFilled,
-    MoreVerticalRegular,
-    MoreVerticalFilled,
+    SearchFilled, 
 
     CodeTextOff16Filled, 
     CodeTextOff16Regular,
@@ -33,7 +33,7 @@ export const SaveIcon = bundleIcon(SaveFilled, SaveRegular);
 export const ChangeViewIcon = bundleIcon(TableSimpleCheckmarkFilled, TableSimpleCheckmarkRegular)
 
 export const SearchIcon = bundleIcon(SearchFilled, SearchRegular);
-export const VerticalMoreIcon = bundleIcon(MoreVerticalFilled, MoreVerticalRegular);
+export const VerticalMoreIcon = bundleIcon(FilterFilled, FilterRegular);
 
 export const ClearFilterIcon = bundleIcon(CodeTextOff16Filled, CodeTextOff16Regular);
 export const ToggleSelectColumnIcon = bundleIcon(ColumnEditFilled, ColumnEditRegular);

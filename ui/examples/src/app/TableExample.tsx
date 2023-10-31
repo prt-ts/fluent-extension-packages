@@ -66,12 +66,27 @@ export function TableExample() {
     tableRef.current?.setGlobalFilter(filter);
   }
 
+  const setDefaultView = () => {
+    const viewName = localStorage.getItem('table1_LastUsedView');
+    console.log(viewName);
+    tableRef.current?.applyTableView(viewName);
+  }
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDefaultView();
+    }, 100);
+
+    return () => clearTimeout(timeout);
+  }, [])
+
   return (
     <div> 
       <Button onClick={() => alert(JSON.stringify(tableRef.current.getTableState()))}>getTableState</Button>
       <Button onClick={() => changePageNumber(101)}>Change Page Number</Button>
       <Button onClick={() => setFilterValue("filter value")}>SetFilterValue</Button>
       <Button onClick={() => tableRef.current.setPageSize(50)}>setPageSize(50)</Button>
+      <Button onClick={() => setDefaultView()}>Set Last used View</Button>
       <Table
         ref={tableRef}
         tableName="table1"

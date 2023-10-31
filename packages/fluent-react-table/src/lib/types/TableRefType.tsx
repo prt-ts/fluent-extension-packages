@@ -11,5 +11,7 @@ export type TableRefType = {
     setPageSize: (pageSize: number) => void;
     setGlobalFilter: (filter: string) => void;
 
+    applyTableView: (viewName: string) => void;
+
     getTableState: () => TableState;
 }
