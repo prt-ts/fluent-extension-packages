@@ -49,7 +49,6 @@ import { GroupColumns } from "./GroupColumns";
 import { SelectColumns } from "./SelectColumns";
 import { ChangeViewIcon, ClearFilterIcon, GroupCollapsedIcon, GroupExpandedIcon, SaveIcon, SearchIcon, VerticalMoreIcon } from "../Icons"
 import { IColumn, TableRefType, TableState } from "../../types";
-import { LayerRegular } from "@fluentui/react-icons";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function tryGetObjectValue(fieldName: string | undefined, item: any) {
@@ -97,6 +96,8 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
         } as IColumn<TItem>)
       ) ?? []
     );
+
+    console.log("childColumns", childColumns);
 
     return childColumns?.length > 0 ? childColumns : props.columns ?? [];
   }, []);
@@ -171,6 +172,9 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
     },
     setGlobalFilter: (filter: string) => {
       setFilterValue(filter);
+    },
+    applyTableView: (viewName: string) => {
+      applyTableView(viewName);
     },
     getTableState: (): TableState => {
       return {
@@ -319,22 +323,25 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
       <div className={styles.gridTableSection} style={{ maxHeight: `${(props.maxTableHeight || 300)}px` }}>
         <Table {...tableProps} ref={tableRef} className={styles.gridTable}>
           <TableHeader>
-            <TableRow className={styles.headerRow}>
+            <TableRow className={styles.headerRow} key="table-header">
 
-              {selectionMode === "multiple" && <TableSelectionCell
-                checked={isEverySelected(pagedItems)}
-                onClick={() => toggleAllRows(pagedItems)}
-                onKeyDown={() => toggleAllRows(pagedItems)}
-                checkboxIndicator={{ 'aria-label': 'Select all rows ' }}
-                className={styles.headerRow}
-              />}
+              {selectionMode === "multiple" && (
+                <TableSelectionCell
+                  key={"multi-select"}
+                  checked={isEverySelected(pagedItems)}
+                  onClick={() => toggleAllRows(pagedItems)}
+                  onKeyDown={() => toggleAllRows(pagedItems)}
+                  checkboxIndicator={{ 'aria-label': 'Select all rows ' }}
+                  className={styles.headerRow}
+                />)}
               {
                 selectionMode === "single" &&
-                (<TableHeaderCell className={styles.headerSelectionCell}></TableHeaderCell>)
+                (<TableHeaderCell key={"single-select"} className={styles.headerSelectionCell}></TableHeaderCell>)
               }
               {
                 groups?.length > 0 &&
                 (<TableHeaderCell
+                  key={"group-toggle"}
                   className={styles.headerToggleCell}
                   onClick={() => toggleAllGroupExpand(isAllCollapsed)}
                 >
@@ -347,30 +354,28 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
               }
 
               {extendedColumns.map((column, colIndex) => (
-                <>
-                  <TableHeaderCell
-                    key={`${column.columnId}_${colIndex}`}
-                    {...columnSizing_unstable.getTableHeaderCellProps(
-                      column.columnId
-                    )}
-                    onClick={(e) => (e.detail == 1 && !column.disableSorting) ? toggleSortColumn(column.columnId as string, false) : null}
-                    onDoubleClick={(e) => {
-                      e.preventDefault();
-                      if (column.disableGrouping) return;
-                      toggleColumnGroup(column.columnId as string, true)
-                    }}
-                    sortDirection={
-                      !column.disableSorting && isColumnSorted(column.columnId as string)
-                        ? (isSortedAscending(column.columnId as string) ? "ascending" : "descending")
-                        : undefined}
-                    sortable={!column.disableSorting}
-                    className={styles.headerCell}
-                  >
-                    <Body1Stronger>
-                      {column.header}
-                    </Body1Stronger>
-                  </TableHeaderCell> 
-                </>
+                <TableHeaderCell
+                  key={`${column.columnId}_${colIndex}`}
+                  {...(columnSizing_unstable as any).getTableHeaderCellProps(
+                    column.columnId
+                  )}
+                  onClick={(e: any) => (e.detail == 1 && !column.disableSorting) ? toggleSortColumn(column.columnId as string, false) : null}
+                  onDoubleClick={(e: any) => {
+                    e.preventDefault();
+                    if (column.disableGrouping) return;
+                    toggleColumnGroup(column.columnId as string, true)
+                  }}
+                  sortDirection={
+                    !column.disableSorting && isColumnSorted(column.columnId as string)
+                      ? (isSortedAscending(column.columnId as string) ? "ascending" : "descending")
+                      : undefined}
+                  sortable={!column.disableSorting}
+                  className={styles.headerCell}
+                >
+                  <Body1Stronger>
+                    {column.header}
+                  </Body1Stronger>
+                </TableHeaderCell>
               ))}
             </TableRow>
           </TableHeader>

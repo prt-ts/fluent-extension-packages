@@ -18,7 +18,7 @@ export function useCustomTableFeature<
     isLoading,
     selectionMode = 'none',
     defaultPageSize = 10,
-    pageSizeOption = [10, 20, 50, 100],
+    pageSizeOption = [10, 20, 50, 100, 1000],
     isPageOnGroup = true,
     isGroupDefaultExpanded = true,
     defaultSortedColumnIds = [],
@@ -96,7 +96,7 @@ export function useCustomTableFeature<
   const {
     columnSizing_unstable,
     tableRef,
-  }: { columnSizing_unstable: any; tableRef: React.Ref<HTMLDivElement> } =
+  }: { columnSizing_unstable: unknown; tableRef: React.Ref<HTMLDivElement> } =
     useTableFeatures<TItem>(
       {
         columns,
@@ -251,6 +251,7 @@ export function useCustomTableFeature<
         setFilterValue(viewDetail.filter);
         setVisibleColumns(viewDetail.visibleColumns);
         setGroupedColumns(viewDetail.groupedColumns);
+        localStorage.setItem(`${tableName}_LastUsedView`, viewName);
       }
     },
     [views]

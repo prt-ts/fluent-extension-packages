@@ -93,6 +93,7 @@ export function TableExample() {
         noItemPage={<>Hello there is no item in the grid</>}
       >
         <Column
+          key="file.icon"
           columnId="file.label"
           header={<>File Label</>}
           appearance="primary"
@@ -105,19 +106,22 @@ export function TableExample() {
           disableGrouping={true}
         />
         <Column
+          key='author.icon'
           columnId="author.label"
           header={'Author Label'} 
           disableSorting={true}
         />
-        <Column columnId="author.status" header={<>Author Status</>} />
-        <Column columnId="lastUpdated.label" header={<>Last Updated</>} />
-        <Column columnId="lastUpdate.icon" header={<>Last Update Icon</>} />
+        <Column key='author.status' columnId="author.status" header={<>Author Status</>} />
+        <Column key="lastUpdated.label" columnId="lastUpdated.label" header={<>Last Updated</>} />
+        <Column key="lastUpdate.icon" columnId="lastUpdate.icon" header={<>Last Update Icon</>} />
         <Column
+          key="lastUpdated.timestamp"
           columnId="lastUpdated.timestamp"
           header={<>Last Timestamp</>}
           renderCell={(item) => new Date(item.lastUpdated.timestamp)?.toLocaleTimeString() ?? `` }
         />
         <Column
+          key="lastUpdate.label"
           columnId="lastUpdate.label"
           header={<>Last Update Label</>} 
         />

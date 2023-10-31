@@ -1,6 +1,8 @@
 import { TableColumnId } from "@fluentui/react-components"
 
 export type IColumn<TItem extends NonNullable<{ id: string | number }>> = {
+  key: string;
+  
   columnId: TableColumnId;
   // renderHeaderCell?: () => React.ReactNode;
   header: React.ReactNode;
