@@ -56,7 +56,7 @@ export function TableExample() {
 
     return () => clearTimeout(timeout);
   }, []);
-  const tableRef = React.useRef<TableRefType>(null);
+  const tableRef = React.useRef<TableRefType<Item>>(null);
 
   const changePageNumber = (pageNumber: number) => {
     tableRef.current?.setCurrentPage(pageNumber - 1);
@@ -74,11 +74,13 @@ export function TableExample() {
 
   React.useEffect(() => {
     const timeout = setTimeout(() => {
-      setDefaultView();
+      // setDefaultView();
     }, 100);
 
     return () => clearTimeout(timeout);
   }, [])
+
+  const [showDeleteBtn, setShowDeleteBtn] = React.useState<boolean>(false);
 
   return (
     <div> 
@@ -87,7 +89,8 @@ export function TableExample() {
       <Button onClick={() => setFilterValue("filter value")}>SetFilterValue</Button>
       <Button onClick={() => tableRef.current.setPageSize(50)}>setPageSize(50)</Button>
       <Button onClick={() => setDefaultView()}>Set Last used View</Button>
-      <Table
+      <Button onClick={() => setShowDeleteBtn(!showDeleteBtn)}>Toggle Delete Button</Button>
+      <Table 
         ref={tableRef}
         tableName="table1"
         items={gridItems}
@@ -101,14 +104,37 @@ export function TableExample() {
         isGroupDefaultExpanded={true}
         // getRowClasses={(item, index) => (item.id == 3 ? styles.evenRow : '')}
         onGetGridActionMenu={(selectedItems) => (
-          <GridActions selectedItems={selectedItems as Item[]} />
+          <GridActions selectedItems={selectedItems as Item[]} showDeleteBtn = {showDeleteBtn}/>
         )}
-        defaultPageSize={100}
+        defaultPageSize={20}
         maxTableHeight={650}
         noItemPage={<>Hello there is no item in the grid</>}
       >
-        <Column
-          key="file.icon"
+        <Column<Item>
+          key="actions"
+          columnId="actions"
+          header={<>Actions</>}
+          appearance="primary"
+          renderCell={(item) => (
+            <>
+              <Button appearance="primary" size="small">
+                Test Action 
+              </Button>
+              {
+                showDeleteBtn && (
+                  <Button
+                    appearance="primary"
+                    size="small"
+                    onClick={() => console.log("delete")}>
+                    Delete</Button>)
+              }
+            </>
+          )}
+          disableSorting={true}
+          disableGrouping={true}
+        />
+        <Column<Item>
+          key="action"
           columnId="file.label"
           header={<>File Label</>}
           appearance="primary"
@@ -120,36 +146,45 @@ export function TableExample() {
           disableSorting={true}
           disableGrouping={true}
         />
-        <Column
+        <Column<Item>
           key='author.icon'
           columnId="author.label"
           header={'Author Label'} 
           disableSorting={true}
         />
-        <Column key='author.status' columnId="author.status" header={<>Author Status</>} />
-        <Column key="lastUpdated.label" columnId="lastUpdated.label" header={<>Last Updated</>} />
-        <Column key="lastUpdate.icon" columnId="lastUpdate.icon" header={<>Last Update Icon</>} />
-        <Column
+        <Column<Item> key='author.status' columnId="author.status" header={<>Author Status</>} />
+        <Column<Item> key="lastUpdated.label" columnId="lastUpdated.label" header={<>Last Updated</>} />
+        <Column<Item> key="lastUpdate.icon" columnId="lastUpdate.icon" header={<>Last Update Icon</>} />
+        <Column<Item>
           key="lastUpdated.timestamp"
           columnId="lastUpdated.timestamp"
           header={<>Last Timestamp</>}
           renderCell={(item) => new Date(item.lastUpdated.timestamp)?.toLocaleTimeString() ?? `` }
+          hideInDefaultView={true}
         />
-        <Column
+        <Column<Item>
           key="lastUpdate.label"
           columnId="lastUpdate.label"
           header={<>Last Update Label</>} 
+          hideInDefaultView={true}
         />
       </Table>
     </div>
   );
 }
 
-export const GridActions: React.FC<{ selectedItems: Item[] }> = ({
+export const GridActions: React.FC<{ selectedItems: Item[], showDeleteBtn: boolean }> = ({
   selectedItems,
+  showDeleteBtn
 }) => {
   return (
     <Toolbar aria-label="Default">
+      {selectedItems.length > 0 && ("Selected " + selectedItems.length + " items")}
+      {showDeleteBtn && <ToolbarButton
+        aria-label="Increase Font Size"
+        appearance="primary"
+        icon={<FontIncrease24Regular />}
+      />}
       <ToolbarButton
         aria-label="Increase Font Size"
         appearance="primary"

@@ -274,7 +274,7 @@ export function useCustomTableFeature<
 
   const gridActionMenu = React.useMemo(() => {
     return onGetGridActionMenu && onGetGridActionMenu(selectedItems);
-  }, [selectedItems]);
+  }, [selectedItems, onGetGridActionMenu]);
 
   return {
     items,

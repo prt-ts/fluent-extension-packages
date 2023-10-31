@@ -10,7 +10,7 @@ export const Loading: React.FC = () => {
     return (<div className={styles.invertedWrapper}>
         <Skeleton>
             {
-                [...Array(12)].map((_, i) => (<div key={i} className={styles.row}>
+                [...Array(16)].map((_, i) => (<div key={i} className={styles.row}>
                     <SkeletonItem shape="circle" size={24} />
                     <SkeletonItem size={16} />
                     <SkeletonItem size={16} />

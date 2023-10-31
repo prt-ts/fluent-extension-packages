@@ -74,9 +74,10 @@ export function tryGetObjectValue(fieldName: string | undefined, item: any) {
   return item[props[i]];
 }
 
-export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: string | number }>,>(props: PropsWithChildren<TableProps<TItem>>, ref: React.ForwardedRef<TableRefType>) => {
+export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: string | number }>,>(props: PropsWithChildren<TableProps<TItem>>, ref: React.ForwardedRef<TableRefType<TItem>>) => {
 
   const styles = useTableStyles();
+  console.log("ExtendedTable Rendered");
 
   const {
     children,
@@ -146,7 +147,7 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
       isSortedAscending
     },
 
-    selectionState: { isEverySelected, isItemSelected, toggleRow, toggleAllRows },
+    selectionState: { selectedItems, isEverySelected, isItemSelected, toggleRow, toggleAllRows },
 
     paginationState,
 
@@ -176,18 +177,16 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
     applyTableView: (viewName: string) => {
       applyTableView(viewName);
     },
-    getTableState: (): TableState => {
+    getTableState: (): TableState<TItem> => {
       return {
         currentPage: paginationState.currentPage,
         pageSize: paginationState.pageSize,
         globalFilter: filterValue,
         groupedColumnsIds: groupedColumns,
         visibleColumnsIds: visibleColumns,
+        selectedItems: selectedItems,
       }
-    }
-
-
-
+    } 
   }));
 
   const viewNameRef = React.useRef<HTMLInputElement>(null)
@@ -517,4 +516,4 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
   );
 });
 
-export const Column = (props: IColumn<any>) => <>{props.children}</>;
+export const Column = <TItem extends {id: string | number}>(props: IColumn<TItem>) => <>{props.children}</>;
