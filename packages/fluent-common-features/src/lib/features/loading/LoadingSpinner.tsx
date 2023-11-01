@@ -16,13 +16,13 @@ import { useLoadingContext } from "./LoadingContext";
 const useLoadingStyles = makeStyles({
   portal: {
     backgroundColor: tokens.colorNeutralBackground6,
-    opacity: 0.8,
+    opacity: 0.9,
     position: 'absolute',
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
-    zIndex: 1000,
+    zIndex: 999999999999,
   },
   spinner: {
     marginTop: '50vh',

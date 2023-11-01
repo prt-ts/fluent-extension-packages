@@ -1,5 +1,15 @@
-import { useAlert, useConfirm } from '@prt-ts/fluent-common-features';
+import { useAlert, useConfirm, useLoading } from '@prt-ts/fluent-common-features';
 import React from 'react';
+import {
+  Dialog,
+  DialogTrigger,
+  DialogSurface,
+  DialogTitle,
+  DialogBody,
+  DialogActions,
+  DialogContent,
+  Button,
+} from '@fluentui/react-components';
 
 const Features = () => {
   const { success, error, info, warning, progress } = useAlert();
@@ -90,8 +100,51 @@ const Features = () => {
       >
         Confirm
       </button>
+
+
+        <DialogExampleWithLoading />
+
     </div>
   );
 };
 
 export default Features;
+
+
+export const DialogExampleWithLoading = () => {
+
+  const {showLoader, hideLoader} = useLoading()
+
+  return (
+    <Dialog>
+      <DialogTrigger disableButtonEnhancement>
+        <Button>Open dialog</Button>
+      </DialogTrigger>
+      <DialogSurface>
+        <DialogBody>
+          <DialogTitle>Dialog title</DialogTitle>
+          <DialogContent>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+            exercitationem cumque repellendus eaque est dolor eius expedita
+            nulla ullam? Tenetur reprehenderit aut voluptatum impedit voluptates
+            in natus iure cumque eaque?
+
+            <button onClick={() => {
+              showLoader('Loading...')
+              setTimeout(() => {
+                hideLoader()
+              }, 3000)
+            }}>Show loader</button>
+
+          </DialogContent>
+          <DialogActions>
+            <DialogTrigger disableButtonEnhancement>
+              <Button appearance="secondary">Close</Button>
+            </DialogTrigger>
+            <Button appearance="primary">Do Something</Button>
+          </DialogActions>
+        </DialogBody>
+      </DialogSurface>
+    </Dialog>
+  );
+};
