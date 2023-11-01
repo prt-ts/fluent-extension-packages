@@ -97,9 +97,7 @@ export type FileInputFieldProps = FieldProps &
 export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
   (
     {
-      label,
       name,
-      info,
       required,
       disabled,
       savedFiles,
@@ -205,7 +203,7 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
                   </p>
                 </div>
                 {showFileList && (
-                  <Table aria-label="All Documents" size="small">
+                  <Table aria-label="All Documents" size="extra-small">
                     <TableBody>
                       {(value as File[])?.map((file: File, index: number) => (
                         <TableRow key={index}>

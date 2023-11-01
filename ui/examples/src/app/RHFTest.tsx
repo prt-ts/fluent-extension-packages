@@ -279,6 +279,7 @@ export const ReactHookForm = () => {
 
         <FileInput
           name={'attachments'}
+          label={'Attachments'}
           savedFiles={[
             {
               name: 'file1',
