@@ -381,50 +381,52 @@ export const ExtendedTable = React.forwardRef(<TItem extends NonNullable<{ id: s
 
           {/* Table Def Without Group */}
           {
-            groups.length === 0 && <TableBody>
-              {pagedItems.map((item, index) => (
-                <TableRow
-                  key={index}
-                  className={
-                    mergeClasses(isItemSelected(item) ? styles.selectedRow : undefined, getRowClasses ? getRowClasses(item, index) : undefined)
-                  }
-                >
-                  {selectionMode !== 'none' && <TableSelectionCell
-                    checked={isItemSelected(item)}
-                    onChange={() => toggleRow(item)}
-                    checkboxIndicator={{ 'aria-label': 'Select row' }}
-                    type={selectionMode == 'single' ? 'radio' : 'checkbox'}
-                  />}
-                  {extendedColumns.map((column, colIndex) => (
-                    <TableCell key={`${column.columnId}_${colIndex}`}>
-                      <TableCellLayout
-                        media={
-                          column.renderMedia &&
-                          (column.renderMedia(item) as JSX.Element)
-                        }
-                        appearance={column.appearance}
-                        description={column.renderSecondary && column.renderSecondary(item) as JSX.Element}
-                        className={styles.tableDataCell}
-                      >
-                        {column.renderCell
-                          ? column.renderCell(item)
-                          : (tryGetObjectValue(
-                            column.columnId as string,
-                            item
-                          ) as string)}
-                      </TableCellLayout>
-                      {column.renderActions ? (
-                        <TableCellActions>
-                          {column.renderActions(item)}
-                        </TableCellActions>
-                      ) : (
-                        <></>
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>}
+            groups.length === 0 && (
+              <TableBody>
+                {pagedItems.map((item, index) => (
+                  <TableRow
+                    key={index}
+                    className={
+                      mergeClasses(isItemSelected(item) ? styles.selectedRow : undefined, getRowClasses ? getRowClasses(item, index) : undefined)
+                    }
+                  >
+                    {selectionMode !== 'none' && <TableSelectionCell
+                      checked={isItemSelected(item)}
+                      onChange={() => toggleRow(item)}
+                      checkboxIndicator={{ 'aria-label': 'Select row' }}
+                      type={selectionMode == 'single' ? 'radio' : 'checkbox'}
+                    />}
+                    {extendedColumns.map((column, colIndex) => (
+                      <TableCell key={`${column.columnId}_${colIndex}`}>
+                        <TableCellLayout
+                          media={
+                            column.renderMedia &&
+                            (column.renderMedia(item) as JSX.Element)
+                          }
+                          appearance={column.appearance}
+                          description={column.renderSecondary && column.renderSecondary(item) as JSX.Element}
+                          className={styles.tableDataCell}
+                        >
+                          {column.renderCell
+                            ? column.renderCell(item)
+                            : (tryGetObjectValue(
+                              column.columnId as string,
+                              item
+                            ) as string)}
+                        </TableCellLayout>
+                        {column.renderActions ? (
+                          <TableCellActions>
+                            {column.renderActions(item)}
+                          </TableCellActions>
+                        ) : (
+                          <></>
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>)
+          }
 
           {/* Table Def with Group */}
           {

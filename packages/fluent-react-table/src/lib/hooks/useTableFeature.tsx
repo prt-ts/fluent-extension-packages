@@ -12,6 +12,7 @@ import { useTableColumnSizing_unstable, useTableFeatures, } from "@fluentui/reac
 export function useCustomTableFeature<
   TItem extends NonNullable<{ id: string | number }>
 >(props: TableProps<TItem>, providedColumns: IColumn<TItem>[]) {
+  console.time('useCustomTableFeature');
   const {
     tableName,
     items,
@@ -110,11 +111,14 @@ export function useCustomTableFeature<
    */
   const filteredItems = React.useMemo(() => {
     // filter items
+    console.time('applyFilter');
     const columnIds = columns.map((x) => x.columnId);
     const fItems = applyFilter(columnIds, items) as TItem[];
 
     // update total number of items to calculate page
     updateTotalItemCount(fItems?.length ?? 0);
+
+    console.timeEnd('applyFilter');
 
     return fItems;
   }, [items, filter, props.columns]);
@@ -123,6 +127,9 @@ export function useCustomTableFeature<
    * Calculate Sort for Grid
    */
   const sortedItems = React.useMemo(() => {
+
+    console.time('applySort');
+
     if (sortedColumns?.length > 0) {
       // set page to first page
       setPage(0);
@@ -149,6 +156,8 @@ export function useCustomTableFeature<
     //console.log('combinedSortColumns', combinedSortColumns);
 
     const sItems = applySort(combinedSortColumns, filteredItems);
+
+    console.timeEnd('applySort');
     return sItems;
 
     // return filteredItems;
@@ -158,6 +167,9 @@ export function useCustomTableFeature<
    * Calculate pagedItems
    */
   const pagedItems = React.useMemo(() => {
+
+    console.time('calculateGroups');
+
     let startIndex = currentPage * pageSize;
     let count = pageSize;
 
@@ -204,6 +216,7 @@ export function useCustomTableFeature<
     // set groups
     setGroups(pGroups);
 
+    console.timeEnd('calculateGroups');
     // Pagination Calculation
     return pItems;
   }, [sortedItems, currentPage, pageSize, isPageOnGroup, groupedColumns]);
@@ -275,6 +288,8 @@ export function useCustomTableFeature<
   const gridActionMenu = React.useMemo(() => {
     return onGetGridActionMenu && onGetGridActionMenu(selectedItems);
   }, [selectedItems, onGetGridActionMenu]);
+
+  console.timeEnd('useCustomTableFeature');
 
   return {
     items,
