@@ -1,6 +1,6 @@
 
 import { Button, Table, TableBody, TableCell, TableHeader, TableHeaderCell, TableRow } from "@fluentui/react-components";
-import { Form, Checkbox, DatePicker, Input, Slider, Switch, Textarea, SpinButton, RichInput, Dropdown, CurrencyInput } from "@prt-ts/fluent-react-hook-form";
+import { Form, Checkbox, DatePicker, Input, Slider, Switch, Textarea, SpinButton, RichInput, Dropdown, CurrencyInput, FileInput } from "@prt-ts/fluent-react-hook-form";
 import { Fragment, useCallback } from "react";
 import { defaultValues, useDefaultValues } from "./examples/useDefaultValue";
 import * as yup from 'yup'
@@ -88,7 +88,11 @@ export const ReactHookForm = () => {
       <Button onClick={addMore}>Add Dynamic Values</Button>
       <Form form={testForm} onSubmit={onSubmit}>
         <Input name={'firstName'} label={'First Name'} required={true} />
-        <CurrencyInput name={'currencyValue'} label={'Currency'} required={true} />
+        <CurrencyInput
+          name={'currencyValue'}
+          label={'Currency'}
+          required={true}
+        />
         <Input
           name={'lastName'}
           label={<>LastName with Info</>}
@@ -162,11 +166,17 @@ export const ReactHookForm = () => {
                     />
                   </TableCell>
                   <TableCell>
-                    <Button onClick={() => {
-                      const newArrayItem = [...(testForm?.getValues()?.arrayItem || [])];
-                      newArrayItem.splice(index, 1);
-                      testForm?.setValue(`arrayItem`, newArrayItem);
-                    }}>Delete</Button>
+                    <Button
+                      onClick={() => {
+                        const newArrayItem = [
+                          ...(testForm?.getValues()?.arrayItem || []),
+                        ];
+                        newArrayItem.splice(index, 1);
+                        testForm?.setValue(`arrayItem`, newArrayItem);
+                      }}
+                    >
+                      Delete
+                    </Button>
                   </TableCell>
                 </TableRow>
               </Fragment>
@@ -208,27 +218,85 @@ export const ReactHookForm = () => {
         />
 
         <Slider name={'slider'} label={'Slider'} min={0} max={100} />
-        <RichInput name="richHTMLText" size="large" label={<strong>Rich Input Text</strong>}/>
+        <RichInput
+          name="richHTMLText"
+          size="large"
+          label={<strong>Rich Input Text</strong>}
+        />
 
-        <Textarea name="textarea" size="small" label={<strong>Textarea</strong>} info={<>Info Details</>} />
-        <Textarea name="textarea" size="medium" label={<strong>Textarea</strong>} />
-        <Textarea name="textarea" size="large" label={<strong>Textarea</strong>} />
+        <Textarea
+          name="textarea"
+          size="small"
+          label={<strong>Textarea</strong>}
+          info={<>Info Details</>}
+        />
+        <Textarea
+          name="textarea"
+          size="medium"
+          label={<strong>Textarea</strong>}
+        />
+        <Textarea
+          name="textarea"
+          size="large"
+          label={<strong>Textarea</strong>}
+        />
 
-        <SpinButton name="spinButton" size="small" label={<strong>Spin Button</strong>} />
-        <SpinButton name="spinButton" size="medium" label={<strong>Spin Button</strong>} />
+        <SpinButton
+          name="spinButton"
+          size="small"
+          label={<strong>Spin Button</strong>}
+        />
+        <SpinButton
+          name="spinButton"
+          size="medium"
+          label={<strong>Spin Button</strong>}
+        />
 
+        <Dropdown
+          name={'dropdownValue'}
+          label={'Ice Cream Type'}
+          options={[
+            { label: 'Vanilla', value: 'vanilla' },
+            { label: 'Chocolate', value: 'chocolate' },
+            { label: 'Strawberry', value: 'strawberry' },
+          ]}
+        />
 
-        <Dropdown name={'dropdownValue'} label={'Ice Cream Type'} options={[
-          { label: 'Vanilla', value: 'vanilla' },
-          { label: 'Chocolate', value: 'chocolate' },
-          { label: 'Strawberry', value: 'strawberry' },
-        ]} />
+        <Dropdown
+          multiselect
+          name={'dropdownValueMultiple'}
+          label={'Ice Cream Type'}
+          options={[
+            {
+              label: 'Vanilla',
+              value: 'vanilla',
+              optionProps: { disabled: true },
+            },
+            { label: 'Chocolate', value: 'chocolate' },
+            { label: 'Strawberry', value: 'strawberry' },
+          ]}
+        />
 
-        <Dropdown multiselect name={'dropdownValueMultiple'} label={'Ice Cream Type'} options={[
-          { label: 'Vanilla', value: 'vanilla', optionProps: { disabled: true } },
-          { label: 'Chocolate', value: 'chocolate' },
-          { label: 'Strawberry', value: 'strawberry' },
-        ]} />
+        <FileInput
+          name={'attachments'}
+          savedFiles={[
+            {
+              name: 'file1',
+              size: 100,
+              type: 'image/png',
+              path: 'https://via.placeholder.com/150',
+            },
+            {
+              name: 'file2',
+              size: 100,
+              type: 'image/png',
+              path: 'https://via.placeholder.com/150',
+            },
+          ]}
+          onRemoveSavedFile={(file) => {
+            console.log(file);
+          }}
+        />
 
         <Button type="submit" appearance="primary">
           Submit
@@ -237,7 +305,7 @@ export const ReactHookForm = () => {
           Cancel
         </Button>
       </Form>
-     {/* <DevTool control={testForm.control} />   */}
+      {/* <DevTool control={testForm.control} />   */}
     </>
   );
 }

@@ -24,3 +24,5 @@ export { SpinButtonField as SpinButton } from './SpinButtonField';
 export { RichInputField as RichInput } from './RichInputField';
 export { DropdownField as Dropdown } from './DropdownField';
 export { RadioGroupField as RadioGroup } from './RadioGroupField';
+export { FileInputField as FileInput } from './FileInputField';
+export type { FileInfo } from './FileInputField';
