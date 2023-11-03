@@ -50,7 +50,7 @@ export const TimePickerField = forwardRef<
   TimePickerFieldProps
 >(({ name, rules, required, ...rest }, inputRef) => {
   const {
-    form: { control },
+    form: { control, setValue, getValues },
   } = useFormContext();
 
   const { ...fieldProps }: FieldProps = rest;
@@ -62,9 +62,9 @@ export const TimePickerField = forwardRef<
 
   const [selectedDate, setSelectedDate] = React.useState<
     Date | null | undefined
-  >(null);
+  >(getValues(name) ?? null);
 
-  const [selectedTime, setSelectedTime] = React.useState<Date | null>(null);
+  const [selectedTime, setSelectedTime] = React.useState<Date | null>(getValues(name) ?? null);
   const [timePickerValue, setTimePickerValue] = React.useState<string>(
     selectedTime ? formatDateToTimeString(selectedTime) : ''
   );
@@ -91,6 +91,19 @@ export const TimePickerField = forwardRef<
   const onTimePickerInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setTimePickerValue(ev.target.value);
   };
+
+  React.useEffect(() => {
+    if (selectedDate && selectedTime) {
+      const newDate = new Date(
+        selectedDate.getFullYear(),
+        selectedDate.getMonth(),
+        selectedDate.getDate(),
+        selectedTime.getHours(),
+        selectedTime.getMinutes()
+      );
+      setValue(name, newDate);
+    }
+  }, [selectedDate, selectedTime, control, name, setValue]);
 
   return (
     <Controller

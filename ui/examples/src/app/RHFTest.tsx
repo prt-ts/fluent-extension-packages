@@ -1,6 +1,6 @@
 
 import { Button, Table, TableBody, TableCell, TableHeader, TableHeaderCell, TableRow } from "@fluentui/react-components";
-import { Form, Checkbox, DatePicker, Input, Slider, Switch, Textarea, SpinButton, RichInput, Dropdown, CurrencyInput, FileInput } from "@prt-ts/fluent-react-hook-form";
+import { Form, Checkbox, DatePicker, Input, Slider, Switch, Textarea, SpinButton, RichInput, Dropdown, CurrencyInput, FileInput, TimePicker } from "@prt-ts/fluent-react-hook-form";
 import { Fragment, useCallback } from "react";
 import { defaultValues, useDefaultValues } from "./examples/useDefaultValue";
 import * as yup from 'yup'
@@ -298,6 +298,8 @@ export const ReactHookForm = () => {
             console.log(file);
           }}
         />
+
+        <TimePicker name={'timePickerValue'} label={'Time Picker'} />
 
         <Button type="submit" appearance="primary">
           Submit

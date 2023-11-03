@@ -37,7 +37,8 @@ const getDefaultValue = () => {
                 datePickerValue: new Date(),
                 isIceCreamLiked: true,
                 yesNoQuestionCheckbox: true,
-                slider: 50
+              slider: 50,
+                timePickerValue: new Date(),
             })
         }, 2000)
     })
