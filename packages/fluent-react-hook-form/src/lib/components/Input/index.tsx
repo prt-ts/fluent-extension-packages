@@ -5,6 +5,7 @@ export {
   formatCurrency,
 } from './CurrencyInputField';
 export { DatePickerField as DatePicker } from './DatePickerField';
+export { TimePickerField as TimePicker } from './TimePickerField';
 export {
   CalendarField as Calendar,
   DateRangeType,

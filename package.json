@@ -87,5 +87,8 @@
   "bugs": {
     "url": "https://github.com/prt-ts/spfx-workspace.git"
   },
-  "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme"
+  "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme",
+  "dependencies": {
+    "@fluentui/react-timepicker-compat-preview": "^0.1.0"
+  }
 }
