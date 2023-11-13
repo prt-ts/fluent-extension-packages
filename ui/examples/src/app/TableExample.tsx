@@ -1,218 +1,225 @@
-import { Column, Table } from '@prt-ts/fluent-react-table';
-import {
-  Toolbar,
-  ToolbarButton,
-  ToolbarDivider,
-  Menu,
-  MenuTrigger,
-  MenuPopover,
-  MenuList,
-  MenuItem,
-  Button,
-  Text,
-} from '@fluentui/react-components';
-import {
-  TextFont24Regular,
-  MoreHorizontal24Filled,
-  FontIncrease24Regular,
-  FontDecrease24Regular,
-} from '@fluentui/react-icons';
-import { Subtitle2Stronger } from '@fluentui/react-components';
-import * as React from 'react';
-
-import { makeStyles, tokens } from '@fluentui/react-components';
-import { Item, items } from './data';
-import { TableRefType } from 'packages/fluent-react-table/src/lib/types';
-
-export const useTableStyles = makeStyles({
-  evenRow: {
-    backgroundColor: tokens.colorPaletteRedBackground3,
-    ':hover': {
-      backgroundColor: tokens.colorBrandBackground2,
-    },
-  },
-});
-
-const GridTitle = () => {
-  return (
-    <div>
-      <Subtitle2Stronger>Example Table</Subtitle2Stronger>
-      { " | "}
-      <Text size={200}>This is some more example subtext</Text>
-    </div>
-  );
-}
+import { createRef, useEffect, useState } from 'react';
+import { Person, makeData } from './data/data';
+import { Button, Field, Radio, RadioGroup } from '@fluentui/react-components';
+import { EditRegular, DeleteRegular } from '@fluentui/react-icons';
+import { ColumnDef, Table, TableRef, createColumnHelper } from '@prt-ts/fluent-react-table';
 
 export function TableExample() {
-  const [gridItems, setGridItems] = React.useState<Item[]>([]);
-  const [isLoading, setIsLoading] = React.useState<boolean>(true);
-  const styles = useTableStyles();
+  const columnHelper = createColumnHelper<Person>();
 
-  React.useEffect(() => {
+  const columns = [
+    columnHelper.accessor('id', {
+      id: 'id',
+      header: () => 'ID',
+      cell: ({ row }) => {
+        return (
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <strong>{row.getValue('id')}</strong>
+            <TableAction />
+          </div>
+        );
+      },
+      aggregatedCell: () => null,
+      filterFn: 'arrIncludesSome',
+      enableGrouping: false,
+      enablePinning: true,
+    }),
+    columnHelper.accessor('firstName', {
+      id: 'firstName',
+      header: () => 'First Name',
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor((row) => row.lastName, {
+      id: 'lastName',
+      cell: (info) => <i>{info.getValue()}</i>,
+      header: () => <span>Last Name</span>,
+      aggregatedCell: () => null,
+    }),
+    columnHelper.accessor('age', {
+      id: 'age',
+      header: () => 'Age (Additional text for Long header)',
+      cell: (info) => info.renderValue(),
+      aggregationFn: 'mean',
+      size: 400,
+      enableGrouping: false,
+    }),
+    columnHelper.accessor('visits', {
+      id: 'visits',
+      header: () => <span>Visits</span>,
+      enableHiding: false,
+    }),
+    columnHelper.accessor('progress', {
+      id: 'progress',
+      header: 'Profile Progress',
+      aggregatedCell: () => null,
+    }),
+    columnHelper.group({
+      id: 'address',
+      header: 'Address',
+      columns: [
+        columnHelper.accessor('address.street', {
+          id: 'street',
+          header: 'Street',
+          aggregatedCell: () => null,
+        }),
+        columnHelper.accessor('address.city', {
+          id: 'city',
+          header: 'City',
+          aggregatedCell: () => null,
+        }),
+        columnHelper.accessor('address.state', {
+          id: 'state',
+          header: 'State',
+          aggregatedCell: () => null,
+          filterFn: 'arrIncludesSome',
+        }),
+        columnHelper.accessor('address.zipCode', {
+          id: 'zipCode',
+          header: 'Zip Code',
+          aggregatedCell: () => null,
+          enableColumnFilter: false,
+        }),
+        columnHelper.accessor('address.country', {
+          id: 'country',
+          header: 'Country',
+          aggregatedCell: () => null,
+          filterFn: 'arrIncludes',
+        }),
+      ],
+    }),
+    columnHelper.group({
+      id: 'additionalInfo',
+      header: 'Additional Info',
+      columns: [
+        columnHelper.accessor('status', {
+          id: 'status',
+          header: 'Status',
+          aggregatedCell: () => null,
+          filterFn: 'arrIncludesSome',
+        }),
+        columnHelper.accessor('createdAt', {
+          id: 'createdAt',
+          header: 'Created At',
+          cell: (info) =>
+            info.renderValue()
+              ? new Date(info.renderValue() as Date)?.toLocaleDateString()
+              : '',
+          aggregatedCell: () => null,
+          filterFn: (row, filterValue) => {
+            const value = row.getValue('createdAt') as string;
+            console.log(value);
+            if (!value) return false;
+            return value
+              ? new Date(value as string)
+                  ?.toLocaleDateString()
+                  .includes(filterValue as string)
+              : false;
+          },
+          enableColumnFilter: false,
+        }),
+      ],
+    }),
+  ] as ColumnDef<Person>[];
+
+  const [data, setData] = useState<Person[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
     const timeout = setTimeout(() => {
-      setGridItems(items);
+      setData(() => makeData(1000));
       setIsLoading(false);
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(timeout);
   }, []);
-  const tableRef = React.useRef<TableRefType<Item>>(null);
 
-  const changePageNumber = (pageNumber: number) => {
-    tableRef.current?.setCurrentPage(pageNumber - 1);
-  }
+  const tableRef = createRef<TableRef<Person>>();
 
-  const setFilterValue = (filter: string) => {
-    tableRef.current?.setGlobalFilter(filter);
-  }
+  const logSelectedRows = () => {
+    const table = tableRef.current?.table;
+    const selectedRow = table
+      ?.getSelectedRowModel()
+      .flatRows.map((row) => row.original);
+    console.log(selectedRow);
+  };
 
-  const setDefaultView = () => {
-    const viewName = localStorage.getItem('table1_LastUsedView');
-    console.log(viewName);
-    tableRef.current?.applyTableView(viewName);
-  }
+  const logTableState = () => {
+    const tableState = tableRef.current?.getTableState();
+    console.log(tableState);
+  };
 
-  React.useEffect(() => {
-    const timeout = setTimeout(() => {
-      // setDefaultView();
-    }, 100);
+  const saveCurrentTableState = () => {
+    const tableState = tableRef.current?.saveCurrentTableState('view1');
+    console.log(tableState);
+  };
 
-    return () => clearTimeout(timeout);
-  }, [])
+  const applyLastSavedTableState = () => {
+    const tableState = tableRef.current?.applySavedView('view1');
+    console.log(tableState);
+  };
 
-  const [showDeleteBtn, setShowDeleteBtn] = React.useState<boolean>(false);
+  const [selectionMode, setSelectionMode] = useState<
+    'single' | 'multiple' | undefined
+  >('multiple');
 
   return (
-    <div> 
-      <Button onClick={() => alert(JSON.stringify(tableRef.current.getTableState()))}>getTableState</Button>
-      <Button onClick={() => changePageNumber(101)}>Change Page Number</Button>
-      <Button onClick={() => setFilterValue("filter value")}>SetFilterValue</Button>
-      <Button onClick={() => tableRef.current.setPageSize(50)}>setPageSize(50)</Button>
-      <Button onClick={() => setDefaultView()}>Set Last used View</Button>
-      <Button onClick={() => setShowDeleteBtn(!showDeleteBtn)}>Toggle Delete Button</Button>
-      <Table 
+    <div>
+      <button onClick={logSelectedRows}>Log Selected Rows</button>
+      <button onClick={logTableState}>Get Table State</button>
+      <button onClick={saveCurrentTableState}>Save Current Table State</button>
+      <button onClick={applyLastSavedTableState}>
+        Apply Last Saved Table State
+      </button>
+      <Field label="Selection Mode">
+        <RadioGroup
+          value={selectionMode}
+          onChange={(_, data) =>
+            setSelectionMode(data.value as unknown as 'single' | 'multiple')
+          }
+          layout="horizontal"
+        >
+          <Radio value={undefined} label="None" />
+          <Radio value={'single'} label="Single" />
+          <Radio value={'multiple'} label="Multiple" />
+        </RadioGroup>
+      </Field>
+      <Table
         ref={tableRef}
-        tableName="table1"
-        items={gridItems}
+        data={data}
+        columns={columns}
+        pageSize={100}
+        pageSizeOptions={[10, 20, 100, 1000, 10000]}
         isLoading={isLoading}
-        gridTitle={<GridTitle />}
-        size="small"
-        selectionMode="multiple"
-        defaultSortedColumnIds={['lastUpdated.label']}
-        // defaultGroupColumnIds={['file.label', 'author.label']}
-        isPageOnGroup={false}
-        isGroupDefaultExpanded={true}
-        // getRowClasses={(item, index) => (item.id == 3 ? styles.evenRow : '')}
-        onGetGridActionMenu={(selectedItems) => (
-          <GridActions selectedItems={selectedItems as Item[]} showDeleteBtn = {showDeleteBtn}/>
-        )}
-        defaultPageSize={20}
-        maxTableHeight={650}
-        noItemPage={<>Hello there is no item in the grid</>}
-      >
-        <Column<Item>
-          key="actions"
-          columnId="actions"
-          header={<>Actions</>}
-          appearance="primary"
-          renderCell={(item) => (
-            <>
-              <Button appearance="primary" size="small">
-                Test Action 
-              </Button>
-              {
-                showDeleteBtn && (
-                  <Button
-                    appearance="primary"
-                    size="small"
-                    onClick={() => console.log("delete")}>
-                    Delete</Button>)
-              }
-            </>
-          )}
-          disableSorting={true}
-          disableGrouping={true}
-        />
-        <Column<Item>
-          key="action"
-          columnId="file.label"
-          header={<>File Label</>}
-          appearance="primary"
-          renderActions={(items) => (
-            <Button appearance="transparent" size="small">
-              Test Action
-            </Button>
-          )} 
-          disableSorting={true}
-          disableGrouping={true}
-        />
-        <Column<Item>
-          key='author.icon'
-          columnId="author.label"
-          header={'Author Label'} 
-          disableSorting={true}
-        />
-        <Column<Item> key='author.status' columnId="author.status" header={<>Author Status</>} />
-        <Column<Item> key="lastUpdated.label" columnId="lastUpdated.label" header={<>Last Updated</>} />
-        <Column<Item> key="lastUpdate.icon" columnId="lastUpdate.icon" header={<>Last Update Icon</>} />
-        <Column<Item>
-          key="lastUpdated.timestamp"
-          columnId="lastUpdated.timestamp"
-          header={<>Last Timestamp</>}
-          renderCell={(item) => new Date(item.lastUpdated.timestamp)?.toLocaleTimeString() ?? `` }
-          hideInDefaultView={true}
-        />
-        <Column<Item>
-          key="lastUpdate.label"
-          columnId="lastUpdate.label"
-          header={<>Last Update Label</>} 
-          hideInDefaultView={true}
-        />
-      </Table>
+        gridTitle={<strong>Grid Header</strong>}
+        rowSelectionMode={selectionMode}
+        columnVisibility={{
+          progress: false,
+          firstName: false,
+        }}
+        // sortingState={[
+        //   { id: "id", desc: false },
+        //   { id: "age", desc: true },
+        // ]}
+        // columnPinningState={
+        //   {
+        //     left: ["state"],
+        //   }
+        // }
+        // groupingState={["status"]}
+        // expandedState={{
+        //   "status:complicated": true
+        // }}
+        // noItemPage={<div>No Item</div>}
+        // noFilterMatchPage={<div>No Filter Match</div>}
+      />
     </div>
   );
 }
-
-export const GridActions: React.FC<{ selectedItems: Item[], showDeleteBtn: boolean }> = ({
-  selectedItems,
-  showDeleteBtn
-}) => {
+export const TableAction = () => {
   return (
-    <Toolbar aria-label="Default">
-      {selectedItems.length > 0 && ("Selected " + selectedItems.length + " items")}
-      {showDeleteBtn && <ToolbarButton
-        aria-label="Increase Font Size"
-        appearance="primary"
-        icon={<FontIncrease24Regular />}
-      />}
-      <ToolbarButton
-        aria-label="Increase Font Size"
-        appearance="primary"
-        icon={<FontIncrease24Regular />}
-      />
-      <ToolbarButton
-        aria-label="Decrease Font Size"
-        icon={<FontDecrease24Regular />}
-      />
-      <ToolbarButton
-        aria-label="Reset Font Size"
-        icon={<TextFont24Regular />}
-      />
-      <ToolbarDivider />
-      <Menu>
-        <MenuTrigger>
-          <ToolbarButton aria-label="More" icon={<MoreHorizontal24Filled />} />
-        </MenuTrigger>
-
-        <MenuPopover>
-          <MenuList>
-            <MenuItem>New </MenuItem>
-            <MenuItem>New Window</MenuItem>
-            <MenuItem disabled>Open File</MenuItem>
-            <MenuItem>Open Folder</MenuItem>
-          </MenuList>
-        </MenuPopover>
-      </Menu>
-    </Toolbar>
+    <>
+      <Button icon={<EditRegular />} aria-label="Edit" />
+      <Button icon={<DeleteRegular />} aria-label="Delete" />
+    </>
   );
 };

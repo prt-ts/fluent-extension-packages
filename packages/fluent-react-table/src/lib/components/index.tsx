@@ -1,0 +1,1 @@
+export { ForwardedAdvancedTable as Table } from "./GridContainer";
