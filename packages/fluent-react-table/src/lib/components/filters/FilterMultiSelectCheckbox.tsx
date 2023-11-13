@@ -31,7 +31,7 @@ export const FilterMultiSelectCheckbox = <TItem extends object>({
             : Array.from(column.getFacetedUniqueValues().keys()).sort()
         setFilterOptions(uniqueSortedOptions)
     },
-        // eslint-disable-next-line react-hooks/exhaustive-deps 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [column.getFacetedUniqueValues()])
 
     const [localColumnFilterValue, setLocalColumnFilterValue] = React.useState<string>("");
@@ -52,17 +52,17 @@ export const FilterMultiSelectCheckbox = <TItem extends object>({
     const paddingBottom = virtualRows.length > 0
         ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0)
         : 0;
- 
+
     const allOptionChecked = columnFilterValue?.length > 0 && columnFilterValue?.length !== filterOptions?.length ? "mixed" : columnFilterValue?.length === filterOptions?.length && filterOptions?.length > 0;
 
     const styles = useCheckboxFilterStyles();
 
     return (
         <div>
-            <Input 
-                value={localColumnFilterValue} 
-                onChange={(e, data) => setLocalColumnFilterValue(data.value)} 
-                placeholder="Search Options..." 
+            <Input
+                value={localColumnFilterValue}
+                onChange={(_, data) => setLocalColumnFilterValue(data.value)}
+                placeholder="Search Options..."
                 size="small"
                 className={styles.searchInput}/>
             <div
@@ -111,4 +111,4 @@ export const FilterMultiSelectCheckbox = <TItem extends object>({
             </div>
         </div>
     )
-} 
+}
