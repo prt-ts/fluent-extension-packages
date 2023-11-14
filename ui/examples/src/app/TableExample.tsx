@@ -2,7 +2,7 @@ import { createRef, useEffect, useState } from 'react';
 import { Person, makeData } from './data/data';
 import { Button, Field, Radio, RadioGroup } from '@fluentui/react-components';
 import { EditRegular, DeleteRegular } from '@fluentui/react-icons';
-import { ColumnDef, Table, TableRef, createColumnHelper } from '@prt-ts/fluent-react-table';
+import { ColumnDef, Table, TableRef, createColumnHelper } from '@prt-ts/fluent-react-table-v2';
 
 export function TableExample() {
   const columnHelper = createColumnHelper<Person>();
