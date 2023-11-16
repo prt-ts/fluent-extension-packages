@@ -44,8 +44,6 @@ export const GridHeader = <TItem extends object>(
   const { table, gridTitle, globalFilter, setGlobalFilter } = props;
   const styles = useGridHeaderStyles();
 
-  const allLeafColumns = table.getAllLeafColumns() || [];
-
   const resetAllFilters = React.useCallback(() => {
     table.setGlobalFilter('');
     table.resetColumnFilters();
@@ -74,16 +72,17 @@ export const GridHeader = <TItem extends object>(
           <PopoverSurface>
             <div className={styles.tableTopHeaderColumnTogglePopover}>
               <MenuGroupHeader>Group Columns</MenuGroupHeader>
-              {allLeafColumns.map((column) => {
+              {table.getAllLeafColumns().map((column) => {
                 if (column.id === 'select') return null;
                 if (column.id === 'id') return null;
+
                 return (
                   <Checkbox
                     key={column.id}
                     checked={column.getIsGrouped()}
                     onChange={column.getToggleGroupingHandler()}
                     disabled={!column.getCanGroup()}
-                    label={column.id}
+                    label={<span>{column.id}</span>}
                   />
                 );
               })}
