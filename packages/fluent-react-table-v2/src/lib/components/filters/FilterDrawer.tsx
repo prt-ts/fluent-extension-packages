@@ -26,7 +26,7 @@ export const FilterDrawer = <TItem extends object>({
   const headerGroups = table.getHeaderGroups();
 
   return (
-    <InlineDrawer position="end" open={open}>
+    <InlineDrawer position="end" open={open} separator>
       <DrawerHeader>
         <DrawerHeaderTitle
           action={
