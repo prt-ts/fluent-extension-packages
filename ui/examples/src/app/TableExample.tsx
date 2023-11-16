@@ -204,7 +204,6 @@ export function TableExample() {
   // apply before edit state so that the table state is applied after the data is loaded
   useEffect(
     () => {
-      console.log('data changed', data);
       applyBeforeEditState();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
