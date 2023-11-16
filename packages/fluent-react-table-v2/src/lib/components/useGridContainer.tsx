@@ -17,8 +17,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { TableProps } from "../..";
-import { TableRef } from "../../types";
+import { TableProps } from "..";
+import { TableRef } from "../types";
 import * as React from "react";
 
 const arrIncludesSome: FilterFn<unknown> = (row, columnId, value) => {

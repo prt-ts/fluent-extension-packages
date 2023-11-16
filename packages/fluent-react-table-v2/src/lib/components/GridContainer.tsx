@@ -5,7 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { useStaticStyles } from "./table/useTableStaticStyles";
 import { Pagination } from "./pagination";
 import { GridHeader } from "./grid-header";
-import { useGridContainer } from "./thead/useGridContainer";
+import { useGridContainer } from "./useGridContainer";
 import { TableContainer } from "./table";
 
 export function AdvancedTable<TItem extends object>(
