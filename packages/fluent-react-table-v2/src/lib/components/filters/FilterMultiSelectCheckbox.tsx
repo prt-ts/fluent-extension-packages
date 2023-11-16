@@ -84,7 +84,7 @@ export const FilterMultiSelectCheckbox = <TItem extends object>({
                             column.setFilterValue(undefined)
                             return;
                         }
-                        column.setFilterValue([...filterOptions])
+                        column.setFilterValue([...(filterOptions?.map(x => `${x}`) || [])])
                     }}
                     label={"(Toggle All)"}
 

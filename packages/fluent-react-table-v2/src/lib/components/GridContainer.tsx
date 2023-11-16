@@ -7,6 +7,7 @@ import { Pagination } from "./pagination";
 import { GridHeader } from "./grid-header";
 import { useGridContainer } from "./useGridContainer";
 import { TableContainer } from "./table";
+import { FilterDrawer } from "./filters";
 
 export function AdvancedTable<TItem extends object>(
   props: TableProps<TItem>,
@@ -15,6 +16,8 @@ export function AdvancedTable<TItem extends object>(
   const { table, globalFilter, setGlobalFilter } = useGridContainer(props, ref);
   useStaticStyles();
 
+  const [isFilterDrawerOpen, setIsFilterDrawerOpen] = React.useState<boolean>(false);
+
   return (
     <DndProvider backend={HTML5Backend}>
       <GridHeader
@@ -22,16 +25,24 @@ export function AdvancedTable<TItem extends object>(
         gridTitle={props.gridTitle}
         globalFilter={globalFilter}
         setGlobalFilter={setGlobalFilter}
+        setFilterDrawerOpen={setIsFilterDrawerOpen}
+        openFilterDrawer={isFilterDrawerOpen}
       />
-
-      <TableContainer
-        table={table}
-        data={props.data}
-        isLoading={props.isLoading || false}
-        rowSelectionMode={props.rowSelectionMode}
-        noFilterMatchPage={props.noFilterMatchPage}
-        noItemPage={props.noItemPage}
-      />
+      <div style={{ display: 'flex' }}>
+        <TableContainer
+          table={table}
+          data={props.data}
+          isLoading={props.isLoading || false}
+          rowSelectionMode={props.rowSelectionMode}
+          noFilterMatchPage={props.noFilterMatchPage}
+          noItemPage={props.noItemPage}
+        />
+        <FilterDrawer
+          open={isFilterDrawerOpen}
+          setOpen={setIsFilterDrawerOpen}
+          table={table}
+        />
+      </div>
 
       <Pagination table={table} pageSizeOptions={props.pageSizeOptions} />
     </DndProvider>
