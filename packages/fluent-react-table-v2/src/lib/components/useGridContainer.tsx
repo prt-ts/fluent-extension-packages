@@ -77,10 +77,10 @@ export const useGridContainer = <TItem extends object>(
     columns: columns,
     data,
     filterFns: {
-      arrIncludesSome,
+      arrIncludesSome: arrIncludesSome,
     },
     initialState: {
-      expanded: true
+      expanded: true,
     },
     state: {
       pagination,
@@ -94,9 +94,9 @@ export const useGridContainer = <TItem extends object>(
       columnVisibility,
       columnPinning,
     },
-    columnResizeMode: "onChange",
+    columnResizeMode: 'onChange',
     enableRowSelection: rowSelectionMode !== undefined,
-    enableMultiRowSelection: rowSelectionMode === "multiple",
+    enableMultiRowSelection: rowSelectionMode === 'multiple',
     enableFilters: true,
     enableGlobalFilter: true,
     enableColumnFilters: true,
