@@ -14,8 +14,8 @@ export function TableExample() {
       cell: ({ row }) => {
         return (
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-            <strong>{row.getValue('id')}</strong>
             <TableAction />
+            <strong>{row.getValue('id')}</strong>
           </div>
         );
       },
@@ -127,6 +127,7 @@ export function TableExample() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setData(() => makeData(1000));
+      applyLastSavedTableState();
       setIsLoading(false);
     }, 1000);
 
@@ -218,8 +219,8 @@ export function TableExample() {
 export const TableAction = () => {
   return (
     <>
-      <Button icon={<EditRegular />} aria-label="Edit" />
-      <Button icon={<DeleteRegular />} aria-label="Delete" />
+      <Button icon={<EditRegular />} aria-label="Edit" size="small" />
+      <Button icon={<DeleteRegular />} aria-label="Delete" size="small" />
     </>
   );
 };
