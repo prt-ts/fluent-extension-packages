@@ -31,13 +31,13 @@ export const FilterMultiSelectCheckbox = <TItem extends object>({
             : Array.from(column.getFacetedUniqueValues().keys()).sort()
         setFilterOptions(uniqueSortedOptions)
     },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
         [column.getFacetedUniqueValues()])
 
     const [localColumnFilterValue, setLocalColumnFilterValue] = React.useState<string>("");
     const filterOptionsFiltered = React.useMemo(() => {
         if (!localColumnFilterValue) return filterOptions;
-        return filterOptions.filter(option => option.toLowerCase().includes(localColumnFilterValue.toLowerCase()));
+        return filterOptions.filter(option => `${option}`?.toLowerCase()?.includes(localColumnFilterValue?.toLowerCase()));
     }, [localColumnFilterValue, filterOptions])
 
     const filterContainer = React.useRef<HTMLDivElement>(null);

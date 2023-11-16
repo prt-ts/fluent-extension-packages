@@ -6,10 +6,11 @@ import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } 
 import { TableExample } from "./TableExample";
 import { ErrorPage } from "./ErrorComponent";
 import { AccessDenied, ErrorBoundary, PageNotFound } from "@prt-ts/fluent-common-features";
-import { Divider, Link } from '@fluentui/react-components';
+import { Button, Divider, Link } from '@fluentui/react-components';
 import { ReactHookForm } from './RHFTest';
 import { SignUpForm } from './examples/SignUpForm/SignUpForm';
 import Features from './examples/FeatureComp/Features';
+import DummyEditPage from './DummyEditPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +24,10 @@ const router = createBrowserRouter(
         }
       />
       <Route path="/page-2" element={<TableExample />} />
+      <Route
+        path="/dummy-edit/:id/:mode"
+        element={<DummyEditPage />}
+      />
       <Route
         path="/page-3"
         element={

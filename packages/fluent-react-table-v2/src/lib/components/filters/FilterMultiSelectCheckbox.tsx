@@ -37,7 +37,7 @@ export const FilterMultiSelectCheckbox = <TItem extends object>({
     const [localColumnFilterValue, setLocalColumnFilterValue] = React.useState<string>("");
     const filterOptionsFiltered = React.useMemo(() => {
         if (!localColumnFilterValue) return filterOptions;
-        return filterOptions.filter(option => option.toLowerCase().includes(localColumnFilterValue.toLowerCase()));
+        return filterOptions.filter(option => `${option}`?.toLowerCase()?.includes(`${localColumnFilterValue}`?.toLowerCase()));
     }, [localColumnFilterValue, filterOptions])
 
     const filterContainer = React.useRef<HTMLDivElement>(null);
