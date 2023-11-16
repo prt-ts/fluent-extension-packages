@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-common-features",
-  "version": "9.36.0-build.6.0",
+  "version": "9.40.0-build.1.0",
   "main": "./index.js",
   "types": "./index.d.ts",
   "exports": {
@@ -10,7 +10,7 @@
     }
   },
   "peerDependencies": {
-    "@fluentui/react-components": ">=9.36.0",
+    "@fluentui/react-components": ">=9.40.0",
     "@fluentui/react-icons": ">=2.0.221",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
