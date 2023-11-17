@@ -7,9 +7,6 @@ import {
   Checkbox,
   Divider,
   Input,
-  Menu,
-  MenuTrigger,
-  MenuPopover,
   MenuList,
   MenuItem,
 } from '@fluentui/react-components';
@@ -82,7 +79,7 @@ export const GridHeader = <TItem extends object>(
                     checked={column.getIsGrouped()}
                     onChange={column.getToggleGroupingHandler()}
                     disabled={!column.getCanGroup()}
-                    label={<span>{column.id}</span>}
+                    label={<span>{column.columnDef.id}</span>}
                   />
                 );
               })}
@@ -108,7 +105,6 @@ export const GridHeader = <TItem extends object>(
               <Divider />
               {table.getAllLeafColumns().map((column) => {
                 if (column.id === 'select') return null;
-                if (column.id === 'id') return null;
 
                 return (
                   <Checkbox
@@ -123,16 +119,16 @@ export const GridHeader = <TItem extends object>(
             </div>
           </PopoverSurface>
         </Popover>
-        <Menu>
-          <MenuTrigger disableButtonEnhancement>
+        <Popover withArrow>
+          <PopoverTrigger disableButtonEnhancement>
             <Button
               // appearance="subtle"
               icon={<TextGrammarDismissRegular />}
               aria-label="View Menu"
             />
-          </MenuTrigger>
+          </PopoverTrigger>
 
-          <MenuPopover>
+          <PopoverSurface>
             <MenuList>
               <MenuItem icon={<ClearFilterIcon />} onClick={resetAllFilters}>
                 Clear All Filters
@@ -144,8 +140,8 @@ export const GridHeader = <TItem extends object>(
                 Clear All Selection
               </MenuItem>
             </MenuList>
-          </MenuPopover>
-        </Menu>
+          </PopoverSurface>
+        </Popover>
         <DebouncedInput
           value={globalFilter ?? ''}
           onChange={(value) => setGlobalFilter(String(value))}
@@ -200,6 +196,7 @@ function DebouncedInput({
       contentAfter={
         <Button
           appearance="subtle"
+          title='Ad'
           icon={openFilterDrawer ? <FilterDismissFilled /> : <FilterFilled />}
           aria-label="View Menu"
           onClick={() => {
