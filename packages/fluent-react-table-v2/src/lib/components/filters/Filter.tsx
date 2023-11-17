@@ -1,7 +1,7 @@
 import { Column, Table } from '@tanstack/react-table';
 import { FilterMultiSelectCheckbox } from './FilterMultiSelectCheckbox';
 import { Field, Input, makeStyles } from '@fluentui/react-components';
-import { FilterMultiSelectRadio } from './FilterMultiSelectRadio';
+import { FilterSelectRadio } from './FilterSelectRadio';
 import { FilterNumberRange } from './FilterNumberRange';
 
 const useFilterStyles = makeStyles({
@@ -36,10 +36,9 @@ export const Filter = <TItem extends object>({
   switch (filterFunctionName) {
     case 'arrIncludesSome':
       return <FilterMultiSelectCheckbox column={column} table={table} />;
-    case 'arrIncludesAll':
-      return <FilterMultiSelectRadio column={column} table={table} />;
+    case 'arrIncludesAll': 
     case 'arrIncludes':
-      return <FilterMultiSelectRadio column={column} table={table} />;
+      return <FilterSelectRadio column={column} table={table} />;
     case 'inNumberRange':
       return <FilterNumberRange column={column} table={table} />;
   }

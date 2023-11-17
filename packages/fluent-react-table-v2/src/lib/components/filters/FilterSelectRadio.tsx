@@ -40,52 +40,59 @@ const useRadioFilterStyles = makeStyles({
   },
 });
 
-export const FilterMultiSelectRadio = <TItem extends object>({
-    column,
-    table
+export const FilterSelectRadio = <TItem extends object>({
+  column,
+  table,
 }: {
-    column: Column<TItem, unknown>,
-    table: Table<TItem>
+  column: Column<TItem, unknown>;
+  table: Table<TItem>;
 }) => {
-    const firstValue = table
-        .getPreFilteredRowModel()
-        .flatRows[0]?.getValue(column.id)
-    const columnFilterValue = column.getFilterValue() as string[]
-    const [filterOptions, setFilterOptions] = React.useState<string[]>([]);
-    React.useEffect(() => {
-        const uniqueSortedOptions = typeof firstValue === "number" || !isNaN(firstValue as number) ?
-            Array.from(column.getFacetedUniqueValues().keys()).sort((a, b) => Number(a) - Number(b))
-            : Array.from(column.getFacetedUniqueValues().keys()).sort()
-        setFilterOptions(uniqueSortedOptions)
+  const firstValue = table
+    .getPreFilteredRowModel()
+    .flatRows[0]?.getValue(column.id);
+  const columnFilterValue = column.getFilterValue() as string[];
+  const [filterOptions, setFilterOptions] = React.useState<string[]>([]);
+  React.useEffect(
+    () => {
+      const uniqueSortedOptions =
+        typeof firstValue === 'number' || !isNaN(firstValue as number)
+          ? Array.from(column.getFacetedUniqueValues().keys()).sort(
+              (a, b) => Number(a) - Number(b)
+            )
+          : Array.from(column.getFacetedUniqueValues().keys()).sort();
+      setFilterOptions(uniqueSortedOptions);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-      [column.getFacetedUniqueValues()])
+    [column.getFacetedUniqueValues()]
+  );
 
-    const [localColumnFilterValue, setLocalColumnFilterValue] = React.useState<string>('');
-    const filterOptionsFiltered = React.useMemo(() => {
-      if (!localColumnFilterValue) return filterOptions;
-      return filterOptions.filter((option) =>
-        `${option}`
-          ?.toLowerCase()
-          ?.includes(`${localColumnFilterValue}`?.toLowerCase())
-      );
-    }, [localColumnFilterValue, filterOptions]);
+  const [localColumnFilterValue, setLocalColumnFilterValue] =
+    React.useState<string>('');
+  const filterOptionsFiltered = React.useMemo(() => {
+    if (!localColumnFilterValue) return filterOptions;
+    return filterOptions.filter((option) =>
+      `${option}`
+        ?.toLowerCase()
+        ?.includes(`${localColumnFilterValue}`?.toLowerCase())
+    );
+  }, [localColumnFilterValue, filterOptions]);
 
-    const filterContainer = React.useRef<HTMLDivElement>(null);
+  const filterContainer = React.useRef<HTMLDivElement>(null);
 
-    const rowVirtualizer = useVirtual({
-      parentRef: filterContainer,
-      size: filterOptionsFiltered.length,
-      overscan: 15,
-    });
-    const { virtualItems: virtualRows, totalSize } = rowVirtualizer;
+  const rowVirtualizer = useVirtual({
+    parentRef: filterContainer,
+    size: filterOptionsFiltered.length,
+    overscan: 15,
+  });
+  const { virtualItems: virtualRows, totalSize } = rowVirtualizer;
 
-    const paddingTop = virtualRows.length > 0 ? virtualRows?.[0]?.start || 0 : 0;
-    const paddingBottom = virtualRows.length > 0
-        ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0)
-        : 0;
+  const paddingTop = virtualRows.length > 0 ? virtualRows?.[0]?.start || 0 : 0;
+  const paddingBottom =
+    virtualRows.length > 0
+      ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0)
+      : 0;
 
-    const styles = useRadioFilterStyles();
+  const styles = useRadioFilterStyles();
   return (
     <div>
       <Input
@@ -120,4 +127,4 @@ export const FilterMultiSelectRadio = <TItem extends object>({
       </div>
     </div>
   );
-}
+};
