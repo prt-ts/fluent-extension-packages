@@ -10,6 +10,9 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  MenuPopover,
+  MenuTrigger,
+  Menu,
 } from '@fluentui/react-components';
 import * as React from 'react';
 import {
@@ -122,16 +125,16 @@ export const GridHeader = <TItem extends object>(
             </div>
           </PopoverSurface>
         </Popover>
-        <Popover withArrow>
-          <PopoverTrigger disableButtonEnhancement>
+        <Menu>
+          <MenuTrigger disableButtonEnhancement>
             <Button
               // appearance="subtle"
               icon={<TextGrammarDismissRegular />}
               aria-label="View Menu"
             />
-          </PopoverTrigger>
+          </MenuTrigger>
 
-          <PopoverSurface>
+          <MenuPopover>
             <MenuList>
               <MenuItem icon={<ClearFilterIcon />} onClick={resetAllFilters}>
                 Clear All Filters
@@ -150,8 +153,8 @@ export const GridHeader = <TItem extends object>(
                 Reset to Default View
               </MenuItem>
             </MenuList>
-          </PopoverSurface>
-        </Popover>
+          </MenuPopover>
+        </Menu>
         <DebouncedInput
           value={globalFilter ?? ''}
           onChange={(value) => setGlobalFilter(String(value))}

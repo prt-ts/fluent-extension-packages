@@ -58,7 +58,10 @@ export const TableContainer = <TItem extends object>(
           {headerGroups?.map((headerGroup) => (
             <tr key={headerGroup.id}>
               {rowSelectionMode === 'multiple' && (
-                <th style={{ width: '1rem' }}>
+                <th
+                  style={{ width: '1rem' }}
+                  aria-label="Select All Row Column"
+                >
                   {headerGroup.depth === headerGroups?.length - 1 && (
                     <Checkbox
                       checked={
@@ -74,7 +77,12 @@ export const TableContainer = <TItem extends object>(
                 </th>
               )}
               {rowSelectionMode === 'single' && (
-                <th style={{ width: '1rem' }}> </th>
+                <th
+                  style={{ width: '1rem' }}
+                  aria-label="Select All Row Column"
+                >
+                  {' '}
+                </th>
               )}
               {headerGroup.headers.map((header) => {
                 return (
@@ -110,7 +118,10 @@ export const TableContainer = <TItem extends object>(
                 }
               >
                 {rowSelectionMode === 'multiple' && (
-                  <td className={styles.tBodyCell}>
+                  <td
+                    className={styles.tBodyCell}
+                    aria-label="Select Row Column"
+                  >
                     <Checkbox
                       checked={
                         row.getIsSomeSelected()
@@ -124,7 +135,10 @@ export const TableContainer = <TItem extends object>(
                   </td>
                 )}
                 {rowSelectionMode === 'single' && (
-                  <td className={styles.tBodyCell}>
+                  <td
+                    className={styles.tBodyCell}
+                    aria-label="Select Row Column"
+                  >
                     <Radio
                       checked={row.getIsSelected()}
                       disabled={!row.getCanSelect()}

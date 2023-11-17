@@ -88,7 +88,7 @@ export function TableExample() {
       aggregatedCell: () => null,
       filterFn: 'arrIncludesSome',
       enableGrouping: false,
-      enablePinning: true,
+      enableHiding: false,
     }),
     columnHelper.accessor('firstName', {
       id: 'firstName',
@@ -107,7 +107,8 @@ export function TableExample() {
       cell: (info) => info.renderValue(),
       filterFn: 'includesString',
       aggregationFn: 'mean',
-      size: 400,
+      size: 200,
+      maxSize: 250,
       enableGrouping: false,
     }),
     columnHelper.accessor('visits', {
