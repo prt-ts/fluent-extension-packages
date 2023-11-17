@@ -78,7 +78,7 @@ export const GridHeader = <TItem extends object>(
                     key={column.id}
                     checked={column.getIsGrouped()}
                     onChange={column.getToggleGroupingHandler()}
-                    disabled={!column.getCanGroup()}
+                    disabled={!column.getCanGroup() || !column.getIsVisible()}
                     label={<span>{column.columnDef.id}</span>}
                   />
                 );

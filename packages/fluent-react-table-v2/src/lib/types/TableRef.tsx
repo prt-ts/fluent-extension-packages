@@ -5,4 +5,6 @@ export type TableRef<TItem extends object> = {
   getTableState: () => Record<string, unknown>;
   saveCurrentTableState: (viewName: string) => boolean;
   applySavedView: (viewName: string) => boolean;
+
+  resetToDefaultView: () => boolean;
 };

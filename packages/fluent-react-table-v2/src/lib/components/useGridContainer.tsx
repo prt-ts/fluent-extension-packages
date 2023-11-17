@@ -165,6 +165,53 @@ export const useGridContainer = <TItem extends object>(
     columnPinning,
   ]);
 
+  const resetToDefaultView = () => {
+    setSorting(props.sortingState ?? []);
+    setColumnFilters(props.columnFilterState ?? []);
+    setGlobalFilter(props.defaultGlobalFilter ?? '');
+    setGrouping(props.groupingState ?? []);
+    setExpanded(props.expandedState ?? {});
+    setRowSelection(props.rowSelectionState ?? {});
+    setColumnOrder(() => {
+      if (props.columnOrderState) {
+        return props.columnOrderState;
+      }
+
+      const leafColumns = getLeafColumns(columns as unknown as Column<TItem>[]);
+      return leafColumns.map((col: Column<TItem>) => col.id as string);
+    });
+    setColumnVisibility(props.columnVisibility ?? {});
+    setColumnPinning(props.columnPinningState ?? {});
+    setTimeout(() => {
+      setPagination({
+        pageSize: props.pageSize || 10,
+        pageIndex: 0,
+      });
+    }, 10);
+    return true;
+  };
+
+  const applySavedView = (viewName: string) => {
+    const tableStateString = localStorage.getItem(viewName);
+    if (tableStateString) {
+      const tableState = JSON.parse(tableStateString);
+      setSorting(tableState.sorting);
+      setColumnFilters(tableState.columnFilters);
+      setGlobalFilter(tableState.globalFilter);
+      setGrouping(tableState.grouping);
+      setExpanded(tableState.expanded);
+      setRowSelection(tableState.rowSelection);
+      setColumnOrder(tableState.columnOrder);
+      setColumnVisibility(tableState.columnVisibility);
+      setColumnPinning(tableState.columnPinning);
+      setTimeout(() => {
+        setPagination(tableState.pagination);
+      }, 10);
+      return true;
+    }
+    return false;
+  };
+
   React.useImperativeHandle(
     ref,
     () => {
@@ -177,28 +224,11 @@ export const useGridContainer = <TItem extends object>(
           localStorage.setItem(viewName, tableStateString);
           return true;
         },
-        applySavedView: (viewName: string) => {
-          const tableStateString = localStorage.getItem(viewName);
-          if (tableStateString) {
-            const tableState = JSON.parse(tableStateString);
-            setSorting(tableState.sorting);
-            setColumnFilters(tableState.columnFilters);
-            setGlobalFilter(tableState.globalFilter);
-            setGrouping(tableState.grouping);
-            setExpanded(tableState.expanded);
-            setRowSelection(tableState.rowSelection);
-            setColumnOrder(tableState.columnOrder);
-            setColumnVisibility(tableState.columnVisibility);
-            setColumnPinning(tableState.columnPinning);
-            setTimeout(() => {
-              setPagination(tableState.pagination);
-            }, 10);
-            return true;
-          }
-          return false;
-        },
+        applySavedView: applySavedView,
+        resetToDefaultView: resetToDefaultView,
       };
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [table, getTableState]
   );
 

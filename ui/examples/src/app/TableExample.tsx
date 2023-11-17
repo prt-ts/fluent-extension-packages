@@ -206,7 +206,10 @@ export function TableExample() {
   // apply before edit state so that the table state is applied after the data is loaded
   useEffect(
     () => {
-      applyBeforeEditState();
+      if(data?.length> 0){
+        applyBeforeEditState();
+        localStorage.removeItem('table1_edit_temp');
+      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [data]
