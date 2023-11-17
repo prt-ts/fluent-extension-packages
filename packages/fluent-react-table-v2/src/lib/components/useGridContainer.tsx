@@ -1,4 +1,5 @@
 import {
+  Column,
   ColumnFiltersState,
   ColumnOrderState,
   ExpandedState,
@@ -16,10 +17,10 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
-import { TableProps } from "..";
-import { TableRef } from "../types";
-import * as React from "react";
+} from '@tanstack/react-table';
+import { TableProps } from '..';
+import { TableRef } from '../types';
+import * as React from 'react';
 
 const arrIncludesSome: FilterFn<unknown> = (row, columnId, value) => {
   // Rank the item
@@ -32,6 +33,20 @@ const arrIncludesSome: FilterFn<unknown> = (row, columnId, value) => {
 
   // Return if the item should be filtered in/out
   return passed;
+};
+
+const getLeafColumns = <TItem extends object>(
+  columns: Column<TItem>[]
+): Column<TItem>[] => {
+  if (!columns || !columns.length) {
+    return [];
+  }
+  return columns.reduce((totalItems: Column<TItem>[], col: Column<TItem>) => {
+    if (!col.columns) {
+      totalItems.push(col);
+    }
+    return totalItems.concat(getLeafColumns(col.columns));
+  }, []);
 };
 
 export const useGridContainer = <TItem extends object>(
@@ -52,7 +67,7 @@ export const useGridContainer = <TItem extends object>(
     props.columnFilterState ?? []
   );
   const [globalFilter, setGlobalFilter] = React.useState(
-    props.defaultGlobalFilter ?? ""
+    props.defaultGlobalFilter ?? ''
   );
   const [grouping, setGrouping] = React.useState<GroupingState>(
     props.groupingState ?? []
@@ -63,9 +78,16 @@ export const useGridContainer = <TItem extends object>(
   const [columnVisibility, setColumnVisibility] = React.useState(
     props.columnVisibility ?? {}
   );
-  const [columnOrder, setColumnOrder] = React.useState<ColumnOrderState>(
-    () => props.columnOrderState ?? columns.map((column) => column.id as string)
-  );
+  const [columnOrder, setColumnOrder] = React.useState<ColumnOrderState>(() => {
+    if (props.columnOrderState) {
+      return props.columnOrderState;
+    }
+
+    const leafColumns = getLeafColumns(columns as unknown as Column<TItem>[]);
+
+    console.log('columns', leafColumns);
+    return leafColumns.map((col: Column<TItem>) => col.id as string);
+  });
   const [expanded, setExpanded] = React.useState<ExpandedState>(
     props.expandedState ?? {}
   );
