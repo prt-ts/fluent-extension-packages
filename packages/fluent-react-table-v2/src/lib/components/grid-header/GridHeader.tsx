@@ -9,6 +9,7 @@ import {
   Input,
   MenuList,
   MenuItem,
+  MenuDivider,
 } from '@fluentui/react-components';
 import * as React from 'react';
 import {
@@ -33,6 +34,8 @@ type GridHeaderProps<TItem extends object> = {
 
   openFilterDrawer: boolean;
   setFilterDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  resetToGridDefaultView: () => boolean;
 };
 
 export const GridHeader = <TItem extends object>(
@@ -138,6 +141,13 @@ export const GridHeader = <TItem extends object>(
               </MenuItem>
               <MenuItem icon={<ClearFilterIcon />} onClick={clearAllSelection}>
                 Clear All Selection
+              </MenuItem>
+              <MenuDivider />
+              <MenuItem
+                icon={<ClearFilterIcon />}
+                onClick={props.resetToGridDefaultView}
+              >
+                Reset to Default View
               </MenuItem>
             </MenuList>
           </PopoverSurface>

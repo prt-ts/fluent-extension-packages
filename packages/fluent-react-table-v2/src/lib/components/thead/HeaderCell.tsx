@@ -170,29 +170,33 @@ export const HeaderCell: React.FC<HeaderCellProps> = ({
       colSpan={header.colSpan}
       style={{
         opacity: isDragging ? 0.5 : 1,
-        cursor: isDragging ? "grabbing" : "pointer",
+        cursor: isDragging ? 'grabbing' : 'pointer',
         alignItems:
-          headerDepth === totalNumberOfHeaderDepth ? "left" : "center",
+          headerDepth === totalNumberOfHeaderDepth ? 'left' : 'center',
         zIndex: 99,
-        backgroundColor: isOver ? "#0000000d" : "transparent",
-        border: isOver ? "1px dashed #0000000d" : "none",
+        backgroundColor: isOver ? '#0000000d' : 'transparent',
+        border: isOver ? '1px dashed #0000000d' : 'none',
       }}
       className={styles.tHeadCell}
     >
-      <div ref={dragRef}>
-        <div className={styles.tHeadCellContent} ref={dropRef}>
-          <div ref={previewRef}>
+      <div ref={header.isPlaceholder ? undefined : dragRef}>
+        <div
+          className={styles.tHeadCellContent}
+          ref={header.isPlaceholder ? undefined : dropRef}
+        >
+          <div ref={header.isPlaceholder ? undefined : previewRef}>
             {header.isPlaceholder ? null : (
               <Button
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "left",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'left',
                   flex: 1,
                 }}
                 onClick={(e) => {
+                  if(!header.column.getCanSort()) return;
                   header.column.toggleSorting(
-                    header.column.getIsSorted() === "asc",
+                    header.column.getIsSorted() === 'asc',
                     e.ctrlKey
                   );
                 }}
@@ -218,21 +222,6 @@ export const HeaderCell: React.FC<HeaderCellProps> = ({
                 }
                 iconPosition="after"
               >
-                {/* {header.column.getCanGroup() && (
-                <button
-                  {...{
-                    onClick: header.column.getToggleGroupingHandler(),
-                    style: {
-                      cursor: "pointer",
-                    },
-                  }}
-                >
-                  {header.column.getIsGrouped()
-                    ? `🛑(${header.column.getGroupedIndex()}) `
-                    : `👊 `}
-                </button>
-              )} */}
-
                 <strong>
                   {flexRender(
                     header.column.columnDef.header,
@@ -255,162 +244,166 @@ export const HeaderCell: React.FC<HeaderCellProps> = ({
               </Button>
             )}
           </div>
-          {!header.isPlaceholder && !hideMenu && (
-            <div>
-              <Menu>
-                <MenuTrigger disableButtonEnhancement>
-                  <MenuButton
-                    appearance="transparent"
-                    aria-label="View Column Actions"
-                  ></MenuButton>
-                </MenuTrigger>
+          {!header.isPlaceholder &&
+            !hideMenu &&
+            (header.column.getCanSort() ||
+              header.column.getCanGroup() ||
+              header.column.getCanFilter()) && (
+              <div>
+                <Menu>
+                  <MenuTrigger disableButtonEnhancement>
+                    <MenuButton
+                      appearance="transparent"
+                      aria-label="View Column Actions"
+                    ></MenuButton>
+                  </MenuTrigger>
 
-                <MenuPopover className={styles.tHeadMenuPopover}>
-                  <MenuList>
-                    {header.column.getCanSort() && (
-                      <MenuGroup key={"sort-group"}>
-                        <MenuGroupHeader>
-                          Sort by{" "}
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                        </MenuGroupHeader>
-                        {
+                  <MenuPopover className={styles.tHeadMenuPopover}>
+                    <MenuList>
+                      {header.column.getCanSort() && (
+                        <MenuGroup key={'sort-group'}>
+                          <MenuGroupHeader>
+                            Sort by{' '}
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                          </MenuGroupHeader>
+                          {
+                            <MenuItem
+                              onClick={(e) => {
+                                const isControlKeySelected = e.ctrlKey;
+                                header.column?.toggleSorting(
+                                  false,
+                                  isControlKeySelected
+                                );
+                              }}
+                              icon={<TextSortAscendingFilled />}
+                              disabled={header.column.getIsSorted() === 'asc'}
+                            >
+                              Sort A to Z
+                            </MenuItem>
+                          }
                           <MenuItem
                             onClick={(e) => {
                               const isControlKeySelected = e.ctrlKey;
                               header.column?.toggleSorting(
-                                false,
+                                true,
                                 isControlKeySelected
                               );
                             }}
-                            icon={<TextSortAscendingFilled />}
-                            disabled={header.column.getIsSorted() === "asc"}
+                            icon={<TextSortDescendingFilled />}
+                            disabled={header.column.getIsSorted() === 'desc'}
                           >
-                            Sort A to Z
+                            Sort Z to A
                           </MenuItem>
-                        }
-                        <MenuItem
-                          onClick={(e) => {
-                            const isControlKeySelected = e.ctrlKey;
-                            header.column?.toggleSorting(
-                              true,
-                              isControlKeySelected
-                            );
-                          }}
-                          icon={<TextSortDescendingFilled />}
-                          disabled={header.column.getIsSorted() === "desc"}
-                        >
-                          Sort Z to A
-                        </MenuItem>
-                        <MenuDivider />
-                      </MenuGroup>
-                    )}
+                          <MenuDivider />
+                        </MenuGroup>
+                      )}
 
-                    {header.column.getCanGroup() && (
-                      <MenuGroup key={"grouping-group"}>
-                        <MenuGroupHeader>
-                          Group by{" "}
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                        </MenuGroupHeader>
-                        {!header.column.getIsGrouped() && (
-                          <MenuItem
-                            onClick={() =>
-                              header.column.getToggleGroupingHandler()()
-                            }
-                            icon={<GroupFilled />}
-                          >
-                            Group by{" "}
+                      {header.column.getCanGroup() && (
+                        <MenuGroup key={'grouping-group'}>
+                          <MenuGroupHeader>
+                            Group by{' '}
                             {flexRender(
                               header.column.columnDef.header,
                               header.getContext()
                             )}
-                          </MenuItem>
-                        )}
-                        {header.column.getIsGrouped() && (
-                          <MenuItem
-                            onClick={() =>
-                              header.column.getToggleGroupingHandler()()
-                            }
-                            icon={<GroupDismissFilled />}
-                          >
-                            Remove Grouping on{" "}
+                          </MenuGroupHeader>
+                          {!header.column.getIsGrouped() && (
+                            <MenuItem
+                              onClick={() =>
+                                header.column.getToggleGroupingHandler()()
+                              }
+                              icon={<GroupFilled />}
+                            >
+                              Group by{' '}
+                              {flexRender(
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
+                            </MenuItem>
+                          )}
+                          {header.column.getIsGrouped() && (
+                            <MenuItem
+                              onClick={() =>
+                                header.column.getToggleGroupingHandler()()
+                              }
+                              icon={<GroupDismissFilled />}
+                            >
+                              Remove Grouping on{' '}
+                              {flexRender(
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
+                            </MenuItem>
+                          )}
+                          <MenuDivider />
+                        </MenuGroup>
+                      )}
+
+                      {header.column.getCanSort() && (
+                        <MenuGroup key={'pin columns'}>
+                          <MenuGroupHeader>
+                            Pin Column{' '}
                             {flexRender(
                               header.column.columnDef.header,
                               header.getContext()
                             )}
-                          </MenuItem>
-                        )}
-                        <MenuDivider />
-                      </MenuGroup>
-                    )}
-
-                    {header.column.getCanSort() && (
-                      <MenuGroup key={"pin columns"}>
-                        <MenuGroupHeader>
-                          Pin Column{" "}
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                        </MenuGroupHeader>
-                        {
+                          </MenuGroupHeader>
+                          {
+                            <MenuItem
+                              onClick={() => {
+                                header.column?.pin('left');
+                              }}
+                              icon={<ArrowStepInLeftRegular />}
+                              disabled={header.column.getIsPinned() === 'left'}
+                            >
+                              To Left
+                            </MenuItem>
+                          }
                           <MenuItem
                             onClick={() => {
-                              header.column?.pin("left");
+                              header.column?.pin('right');
                             }}
-                            icon={<ArrowStepInLeftRegular />}
-                            disabled={header.column.getIsPinned() === "left"}
+                            icon={<ArrowStepInRightRegular />}
+                            disabled={header.column.getIsPinned() === 'right'}
                           >
-                            To Left
+                            To Right
                           </MenuItem>
-                        }
-                        <MenuItem
-                          onClick={() => {
-                            header.column?.pin("right");
-                          }}
-                          icon={<ArrowStepInRightRegular />}
-                          disabled={header.column.getIsPinned() === "right"}
-                        >
-                          To Right
-                        </MenuItem>
-                        {["left", "right"].includes(
-                          header.column.getIsPinned() as string
-                        ) && (
-                          <MenuItem
-                            onClick={() => {
-                              header.column?.pin(false);
-                            }}
-                            icon={<PinOffRegular />}
-                          >
-                            Unpin Column
-                          </MenuItem>
-                        )}
-                        <MenuDivider />
-                      </MenuGroup>
-                    )}
-
-                    {header.column.getCanFilter() && (
-                      <MenuGroup key={"filter-group"}>
-                        <MenuGroupHeader>
-                          Filter by{" "}
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
+                          {['left', 'right'].includes(
+                            header.column.getIsPinned() as string
+                          ) && (
+                            <MenuItem
+                              onClick={() => {
+                                header.column?.pin(false);
+                              }}
+                              icon={<PinOffRegular />}
+                            >
+                              Unpin Column
+                            </MenuItem>
                           )}
-                        </MenuGroupHeader>
-                        <Filter column={header.column} table={table} />
-                      </MenuGroup>
-                    )}
-                  </MenuList>
-                </MenuPopover>
-              </Menu>
-            </div>
-          )}
+                          <MenuDivider />
+                        </MenuGroup>
+                      )}
+
+                      {header.column.getCanFilter() && (
+                        <MenuGroup key={'filter-group'}>
+                          <MenuGroupHeader>
+                            Filter by{' '}
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                          </MenuGroupHeader>
+                          <Filter column={header.column} table={table} />
+                        </MenuGroup>
+                      )}
+                    </MenuList>
+                  </MenuPopover>
+                </Menu>
+              </div>
+            )}
         </div>
       </div>
 

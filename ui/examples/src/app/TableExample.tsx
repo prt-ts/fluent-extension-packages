@@ -146,6 +146,11 @@ export function TableExample() {
           header: 'Zip Code',
           aggregatedCell: () => null,
           enableColumnFilter: false,
+          enableGlobalFilter: false,
+          enableGrouping: false,
+          enableHiding: false,
+          enablePinning: false,
+          enableSorting: false,
         }),
         columnHelper.accessor('address.country', {
           id: 'country',
