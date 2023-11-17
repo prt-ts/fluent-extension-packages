@@ -193,7 +193,7 @@ export function TableExample() {
    useEffect(
     () => {
       const timeout = setTimeout(() => {
-        setData(() => makeData(1000));
+        setData(() => makeData(100156));
         setIsLoading(false);
       }, 1000);
 
