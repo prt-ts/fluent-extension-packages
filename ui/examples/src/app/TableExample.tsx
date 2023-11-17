@@ -105,6 +105,7 @@ export function TableExample() {
       id: 'age',
       header: () => 'Age (Additional text for Long header)',
       cell: (info) => info.renderValue(),
+      filterFn: 'includesString',
       aggregationFn: 'mean',
       size: 400,
       enableGrouping: false,
@@ -112,6 +113,7 @@ export function TableExample() {
     columnHelper.accessor('visits', {
       id: 'visits',
       header: () => <span>Visits</span>,
+      filterFn: 'inNumberRange',
       enableHiding: false,
     }),
     columnHelper.accessor('progress', {

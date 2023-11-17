@@ -108,6 +108,7 @@ export const FilterMultiSelectCheckbox = <TItem extends object>({
   return (
     <div>
       <Input
+        type='search'
         value={localColumnFilterValue}
         onChange={(_, data) => setLocalColumnFilterValue(data.value)}
         placeholder="Search Options..."
