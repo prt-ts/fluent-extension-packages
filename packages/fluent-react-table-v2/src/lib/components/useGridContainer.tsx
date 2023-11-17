@@ -29,9 +29,6 @@ const arrIncludesSome: FilterFn<unknown> = (row, columnId, value) => {
     Array.isArray(value) &&
     (value?.length === 0 || value.includes(`${rowValue}`));
 
-  // console.log("rowValue", rowValue, "value", value, "passed", passed, "columnId", columnId)
-
-  // Return if the item should be filtered in/out
   return passed;
 };
 
@@ -84,8 +81,6 @@ export const useGridContainer = <TItem extends object>(
     }
 
     const leafColumns = getLeafColumns(columns as unknown as Column<TItem>[]);
-
-    console.log('columns', leafColumns);
     return leafColumns.map((col: Column<TItem>) => col.id as string);
   });
   const [expanded, setExpanded] = React.useState<ExpandedState>(
