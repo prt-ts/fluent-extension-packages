@@ -1,10 +1,8 @@
-import { Table } from "@tanstack/react-table";
+import { Table, TableState } from "@tanstack/react-table";
 
 export type TableRef<TItem extends object> = {
   table: Table<TItem>;
-  getTableState: () => Record<string, unknown>;
-  saveCurrentTableState: (viewName: string) => boolean;
-  applySavedView: (viewName: string) => boolean;
-
+  getTableState: () => Partial<TableState>;
+  applyTableState: (tableState: Partial<TableState>) => boolean;
   resetToDefaultView: () => boolean;
 };

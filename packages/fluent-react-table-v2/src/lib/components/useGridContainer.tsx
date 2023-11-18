@@ -8,6 +8,7 @@ import {
   PaginationState,
   RowSelectionState,
   SortingState,
+  TableState,
   getCoreRowModel,
   getExpandedRowModel,
   getFacetedMinMaxValues,
@@ -90,6 +91,8 @@ export const useGridContainer = <TItem extends object>(
     props.columnPinningState ?? {}
   );
 
+  const [columnSizing, setColumnSizing] = React.useState({}); 
+
   const table = useReactTable<TItem>({
     columns: columns,
     data,
@@ -110,6 +113,7 @@ export const useGridContainer = <TItem extends object>(
       columnOrder,
       columnVisibility,
       columnPinning,
+      columnSizing
     },
     columnResizeMode: 'onChange',
     enableRowSelection: rowSelectionMode !== undefined,
@@ -129,6 +133,7 @@ export const useGridContainer = <TItem extends object>(
     onExpandedChange: setExpanded,
     onColumnVisibilityChange: setColumnVisibility,
     onColumnPinningChange: setColumnPinning,
+    onColumnSizingChange: setColumnSizing, 
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -139,7 +144,7 @@ export const useGridContainer = <TItem extends object>(
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
   });
 
-  const getTableState = React.useCallback(() => {
+  const getTableState = React.useCallback(() : Partial<TableState> => {
     return {
       pagination,
       sorting,
@@ -151,6 +156,7 @@ export const useGridContainer = <TItem extends object>(
       columnOrder,
       columnVisibility,
       columnPinning,
+      columnSizing
     };
   }, [
     pagination,
@@ -163,6 +169,7 @@ export const useGridContainer = <TItem extends object>(
     columnOrder,
     columnVisibility,
     columnPinning,
+    columnSizing
   ]);
 
   const resetToDefaultView = () => {
@@ -191,21 +198,23 @@ export const useGridContainer = <TItem extends object>(
     return true;
   };
 
-  const applySavedView = (viewName: string) => {
-    const tableStateString = localStorage.getItem(viewName);
-    if (tableStateString) {
-      const tableState = JSON.parse(tableStateString);
-      setSorting(tableState.sorting);
-      setColumnFilters(tableState.columnFilters);
-      setGlobalFilter(tableState.globalFilter);
-      setGrouping(tableState.grouping);
-      setExpanded(tableState.expanded);
-      setRowSelection(tableState.rowSelection);
-      setColumnOrder(tableState.columnOrder);
-      setColumnVisibility(tableState.columnVisibility);
-      setColumnPinning(tableState.columnPinning);
+  const applySavedView = (tableState: Partial<TableState>) => { 
+    if (tableState) { 
+      setSorting(tableState.sorting ?? []);
+      setColumnFilters(tableState.columnFilters ?? []);
+      setGlobalFilter(tableState.globalFilter ?? '');
+      setGrouping(tableState.grouping ?? []);
+      setExpanded(tableState.expanded ?? {});
+      setRowSelection(tableState.rowSelection ?? {});
+      setColumnOrder(tableState.columnOrder ?? []);
+      setColumnVisibility(tableState.columnVisibility ?? {});
+      setColumnPinning(tableState.columnPinning ?? {});
+      setColumnSizing(tableState.columnSizing ?? {});
       setTimeout(() => {
-        setPagination(tableState.pagination);
+        setPagination(tableState.pagination ?? {
+          pageSize: props.pageSize || 10,
+          pageIndex: 0,
+        });
       }, 10);
       return true;
     }
@@ -217,14 +226,8 @@ export const useGridContainer = <TItem extends object>(
     () => {
       return {
         table,
-        getTableState: getTableState,
-        saveCurrentTableState: (viewName: string) => {
-          const tableState = getTableState();
-          const tableStateString = JSON.stringify(tableState);
-          localStorage.setItem(viewName, tableStateString);
-          return true;
-        },
-        applySavedView: applySavedView,
+        getTableState: getTableState, 
+        applyTableState: applySavedView,
         resetToDefaultView: resetToDefaultView,
       };
     },

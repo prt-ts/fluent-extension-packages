@@ -6,6 +6,7 @@ import {
   ColumnDef,
   Table,
   TableRef,
+  TableState,
   createColumnHelper,
 } from '@prt-ts/fluent-react-table-v2';
 import { useNavigate } from 'react-router-dom';
@@ -34,17 +35,23 @@ export function TableExample() {
   };
 
   const saveCurrentTableState = () => {
-    const tableState = tableRef.current?.saveCurrentTableState('view1');
+    const tableState = tableRef.current?.getTableState();
+    localStorage.setItem('view1', JSON.stringify(tableState));
     console.log(tableState);
   };
 
   const applyLastSavedTableState = () => {
-    const tableState = tableRef.current?.applySavedView('view1');
+    const tableState = JSON.parse(localStorage.getItem('view1') || '') as TableState;
+    tableRef.current?.applyTableState(tableState);
     console.log(tableState);
   };
 
   const applyBeforeEditState = () => {
-    const tableState = tableRef.current?.applySavedView('table1_edit_temp');
+    const localStorageString = localStorage.getItem('table1_edit_temp');
+    if(!localStorageString) return;
+
+    const tableState = JSON.parse(localStorageString) as TableState;
+    tableRef.current?.applyTableState(tableState);
     console.log(tableState);
   };
 
@@ -60,11 +67,8 @@ export function TableExample() {
               aria-label="Edit"
               size="small"
               onClick={async () => {
-                const saveResult =
-                  await tableRef?.current?.saveCurrentTableState(
-                    'table1_edit_temp'
-                  );
-                console.log(saveResult);
+                const tableState = tableRef.current?.getTableState();
+                localStorage.setItem('table1_edit_temp', JSON.stringify(tableState));
                 navigate(`/dummy-edit/${row.getValue('id')}/edit`);
               }}
             />
@@ -108,7 +112,7 @@ export function TableExample() {
       filterFn: 'includesString',
       aggregationFn: 'mean',
       size: 200,
-      maxSize: 250,
+      maxSize: 800,
       enableGrouping: false,
     }),
     columnHelper.accessor('visits', {
