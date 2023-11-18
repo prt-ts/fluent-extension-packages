@@ -173,32 +173,37 @@ export const useGridContainer = <TItem extends object>(
   ]);
 
   const resetToDefaultView = () => {
-    setSorting(props.sortingState ?? []);
-    setColumnFilters(props.columnFilterState ?? []);
-    setGlobalFilter(props.defaultGlobalFilter ?? '');
-    setGrouping(props.groupingState ?? []);
-    setExpanded(props.expandedState ?? {});
-    setRowSelection(props.rowSelectionState ?? {});
-    setColumnOrder(() => {
-      if (props.columnOrderState) {
-        return props.columnOrderState;
-      }
 
-      const leafColumns = getLeafColumns(columns as unknown as Column<TItem>[]);
-      return leafColumns.map((col: Column<TItem>) => col.id as string);
-    });
-    setColumnVisibility(props.columnVisibility ?? {});
-    setColumnPinning(props.columnPinningState ?? {});
-    setTimeout(() => {
-      setPagination({
+    const defaultTableState : Partial<TableState> = {
+      pagination: {
         pageSize: props.pageSize || 10,
         pageIndex: 0,
-      });
-    }, 10);
+      },
+      sorting: props.sortingState ?? [],
+      columnFilters: props.columnFilterState ?? [],
+      globalFilter: props.defaultGlobalFilter ?? '',
+      grouping: props.groupingState ?? [],
+      expanded: props.expandedState ?? {},
+      rowSelection: props.rowSelectionState ?? {},
+      columnOrder: (() => {
+        if (props.columnOrderState) {
+          return props.columnOrderState;
+        }
+    
+        const leafColumns = getLeafColumns(columns as unknown as Column<TItem>[]);
+        return leafColumns.map((col: Column<TItem>) => col.id as string);
+      })(),
+      columnVisibility: props.columnVisibility ?? {},
+      columnPinning: props.columnPinningState ?? {},
+      columnSizing: {}
+    };
+    applyTableView(defaultTableState);
+
+     
     return true;
   };
 
-  const applySavedView = (tableState: Partial<TableState>) => { 
+  const applyTableView = (tableState: Partial<TableState>) => { 
     if (tableState) { 
       setSorting(tableState.sorting ?? []);
       setColumnFilters(tableState.columnFilters ?? []);
@@ -227,7 +232,7 @@ export const useGridContainer = <TItem extends object>(
       return {
         table,
         getTableState: getTableState, 
-        applyTableState: applySavedView,
+        applyTableState: applyTableView,
         resetToDefaultView: resetToDefaultView,
       };
     },
