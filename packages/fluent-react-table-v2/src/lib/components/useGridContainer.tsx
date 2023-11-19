@@ -2,13 +2,15 @@ import {
   Column,
   ColumnFiltersState,
   ColumnOrderState,
-  ExpandedState,
-  FilterFn,
+  ColumnPinningState,
+  ColumnSizingState,
+  ExpandedState, 
   GroupingState,
   PaginationState,
   RowSelectionState,
   SortingState,
   TableState,
+  VisibilityState,
   getCoreRowModel,
   getExpandedRowModel,
   getFacetedMinMaxValues,
@@ -20,33 +22,11 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { TableProps } from '..';
-import { TableRef } from '../types';
+import { TableRef, TableView } from '../types';
 import * as React from 'react';
-
-const arrIncludesSome: FilterFn<unknown> = (row, columnId, value) => {
-  // Rank the item
-  const rowValue = row.getValue(columnId);
-  const passed =
-    Array.isArray(value) &&
-    (value?.length === 0 || value.includes(`${rowValue}`));
-
-  return passed;
-};
-
-const getLeafColumns = <TItem extends object>(
-  columns: Column<TItem>[]
-): Column<TItem>[] => {
-  if (!columns || !columns.length) {
-    return [];
-  }
-  return columns.reduce((totalItems: Column<TItem>[], col: Column<TItem>) => {
-    if (!col.columns) {
-      totalItems.push(col);
-    }
-    return totalItems.concat(getLeafColumns(col.columns));
-  }, []);
-};
-
+import { arrIncludesSome } from '../helpers/FilterHelpers';
+import { getLeafColumns } from '../helpers/Helpers';
+ 
 export const useGridContainer = <TItem extends object>(
   props: TableProps<TItem>,
   ref: React.ForwardedRef<TableRef<TItem>>
@@ -57,14 +37,13 @@ export const useGridContainer = <TItem extends object>(
     pageSize: props.pageSize || 10,
     pageIndex: 0,
   });
-
   const [sorting, setSorting] = React.useState<SortingState>(
     props.sortingState ?? []
   );
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     props.columnFilterState ?? []
   );
-  const [globalFilter, setGlobalFilter] = React.useState(
+  const [globalFilter, setGlobalFilter] = React.useState<string>(
     props.defaultGlobalFilter ?? ''
   );
   const [grouping, setGrouping] = React.useState<GroupingState>(
@@ -73,7 +52,7 @@ export const useGridContainer = <TItem extends object>(
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>(
     props.rowSelectionState ?? {}
   );
-  const [columnVisibility, setColumnVisibility] = React.useState(
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>(
     props.columnVisibility ?? {}
   );
   const [columnOrder, setColumnOrder] = React.useState<ColumnOrderState>(() => {
@@ -87,11 +66,12 @@ export const useGridContainer = <TItem extends object>(
   const [expanded, setExpanded] = React.useState<ExpandedState>(
     props.expandedState ?? {}
   );
-  const [columnPinning, setColumnPinning] = React.useState(
+  const [columnPinning, setColumnPinning] = React.useState<ColumnPinningState>(
     props.columnPinningState ?? {}
   );
+  const [columnSizing, setColumnSizing] = React.useState<ColumnSizingState>({}); 
 
-  const [columnSizing, setColumnSizing] = React.useState({}); 
+  const [tableViews, setTableViews] = React.useState<TableView[]>([]);
 
   const table = useReactTable<TItem>({
     columns: columns,
@@ -173,7 +153,6 @@ export const useGridContainer = <TItem extends object>(
   ]);
 
   const resetToDefaultView = () => {
-
     const defaultTableState : Partial<TableState> = {
       pagination: {
         pageSize: props.pageSize || 10,
@@ -197,13 +176,10 @@ export const useGridContainer = <TItem extends object>(
       columnPinning: props.columnPinningState ?? {},
       columnSizing: {}
     };
-    applyTableView(defaultTableState);
-
-     
-    return true;
+    return applyTableState(defaultTableState);  
   };
 
-  const applyTableView = (tableState: Partial<TableState>) => { 
+  const applyTableState = (tableState: Partial<TableState>) => { 
     if (tableState) { 
       setSorting(tableState.sorting ?? []);
       setColumnFilters(tableState.columnFilters ?? []);
@@ -231,9 +207,10 @@ export const useGridContainer = <TItem extends object>(
     () => {
       return {
         table,
-        getTableState: getTableState, 
-        applyTableState: applyTableView,
-        resetToDefaultView: resetToDefaultView,
+        getTableState,
+        applyTableState,
+        resetToDefaultView,
+        setTableAvailableViews: (views: TableView[]) => setTableViews(views),
       };
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -243,7 +220,8 @@ export const useGridContainer = <TItem extends object>(
   return {
     table,
     globalFilter,
+    tableViews,
     setGlobalFilter,
-    resetToDefaultView
+    resetToDefaultView,
   };
 };
