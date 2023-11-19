@@ -10,6 +10,23 @@ import {
   createColumnHelper,
 } from '@prt-ts/fluent-react-table-v2';
 import { useNavigate } from 'react-router-dom';
+import * as React from "react";
+import {
+  FontIncrease24Regular,
+  FontDecrease24Regular,
+  TextFont24Regular,
+  MoreHorizontal24Filled,
+} from "@fluentui/react-icons";
+import {
+  Toolbar,
+  ToolbarButton,
+  ToolbarDivider,
+  Menu,
+  MenuTrigger,
+  MenuPopover,
+  MenuList,
+  MenuItem,
+} from "@fluentui/react-components";
 
 export function TableExample() {
   const navigate = useNavigate();
@@ -48,7 +65,7 @@ export function TableExample() {
 
   const applyBeforeEditState = () => {
     const localStorageString = localStorage.getItem('table1_edit_temp');
-    if(!localStorageString) return;
+    if (!localStorageString) return;
 
     const tableState = JSON.parse(localStorageString) as TableState;
     tableRef.current?.applyTableState(tableState);
@@ -182,25 +199,14 @@ export function TableExample() {
             info.renderValue()
               ? new Date(info.renderValue() as Date)?.toLocaleDateString()
               : '',
-          aggregatedCell: () => null,
-          filterFn: (row, filterValue) => {
-            const value = row.getValue('createdAt') as string;
-            console.log(value);
-            if (!value) return false;
-            return value
-              ? new Date(value as string)
-                  ?.toLocaleDateString()
-                  .includes(filterValue as string)
-              : false;
-          },
-          enableColumnFilter: false,
+          aggregatedCell: () => null, 
         }),
       ],
     }),
   ] as ColumnDef<Person>[];
 
   // get data from server
-   useEffect(
+  useEffect(
     () => {
       const timeout = setTimeout(() => {
         setData(() => makeData(100156));
@@ -217,7 +223,7 @@ export function TableExample() {
   useEffect(
     () => {
       applyBeforeEditState();
-      if(data?.length> 0){
+      if (data?.length > 0) {
         localStorage.removeItem('table1_edit_temp');
       }
     },
@@ -254,26 +260,90 @@ export function TableExample() {
         pageSizeOptions={[10, 20, 100, 1000, 10000]}
         isLoading={isLoading}
         gridTitle={<strong>Grid Header</strong>}
+        headerMenu={(selectedItems) => <TopToolbar selectedItems={selectedItems}/>}
         rowSelectionMode={selectionMode}
         columnVisibility={{
           progress: false,
           firstName: false,
         }}
-        // sortingState={[
-        //   { id: "id", desc: false }
-        // ]}
-        // columnPinningState={
-        //   {
-        //     left: ["state"],
-        //   }
-        // }
-        // groupingState={["status"]}
-        // expandedState={{
-        //   "status:complicated": true
-        // }}
-        // noItemPage={<div>No Item</div>}
-        // noFilterMatchPage={<div>No Filter Match</div>}
+      // sortingState={[
+      //   { id: "id", desc: false }
+      // ]}
+      // columnPinningState={
+      //   {
+      //     left: ["state"],
+      //   }
+      // }
+      // groupingState={["status"]}
+      // expandedState={{
+      //   "status:complicated": true
+      // }}
+      // noItemPage={<div>No Item</div>}
+      // noFilterMatchPage={<div>No Filter Match</div>}
       />
     </div>
+  );
+}
+
+export const TopToolbar: React.FC<{
+  selectedItems: Person[];
+}> = ({ selectedItems }) => {
+
+  console.log(selectedItems);
+
+  return (
+    <Toolbar aria-label="Default" >
+      <ToolbarButton
+        aria-label="Increase Font Size"
+        appearance="primary"
+        icon={<FontIncrease24Regular />}
+      />
+      <ToolbarButton
+        aria-label="Decrease Font Size"
+        icon={<FontDecrease24Regular />}
+      />
+      <ToolbarButton aria-label="Reset Font Size" icon={<TextFont24Regular />} /> 
+      {selectedItems?.length === 1 && (
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+        <Button
+          icon={<EditRegular />}
+          aria-label="Edit"
+          size="small"
+          onClick={async () => {
+            alert('Edit');
+          }}
+        />
+        <Button
+          icon={<DeleteRegular />}
+          aria-label="Delete"
+          size="small"
+          onClick={() => {
+            const confirm = window.confirm(
+              'Are you sure you want to delete this row?'
+            );
+            if (confirm) {
+              alert('Deleted');
+            }
+          }}
+        /> 
+      </div>
+      )}
+      {selectedItems?.length === 1 && (
+        <><ToolbarDivider />
+          <Menu>
+            <MenuTrigger>
+              <ToolbarButton aria-label="More" icon={<MoreHorizontal24Filled />} />
+            </MenuTrigger>
+
+            <MenuPopover>
+              <MenuList>
+                <MenuItem>New </MenuItem>
+                <MenuItem>New Window</MenuItem>
+                <MenuItem disabled>Open File</MenuItem>
+                <MenuItem>Open Folder</MenuItem>
+              </MenuList>
+            </MenuPopover>
+          </Menu></>)}
+    </Toolbar>
   );
 }

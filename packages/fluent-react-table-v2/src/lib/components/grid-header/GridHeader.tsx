@@ -32,6 +32,7 @@ import { Search24Regular } from '@fluentui/react-icons';
 type GridHeaderProps<TItem extends object> = {
   table: Table<TItem>;
   gridTitle: JSX.Element | React.ReactNode;
+  headerMenu?: JSX.Element | React.ReactNode;
   globalFilter: string;
   setGlobalFilter: (value: string) => void;
 
@@ -64,6 +65,8 @@ export const GridHeader = <TItem extends object>(
     <div className={styles.tableTopHeaderContainer}>
       <div className={styles.tableTopHeaderLeft}>{gridTitle}</div>
       <div className={styles.tableTopHeaderRight}>
+        {props.headerMenu}
+        {props.headerMenu && <Divider vertical/>}
         <Popover withArrow>
           <PopoverTrigger disableButtonEnhancement>
             <Button

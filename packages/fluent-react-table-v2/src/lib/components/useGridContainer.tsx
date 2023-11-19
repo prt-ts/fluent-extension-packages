@@ -217,10 +217,21 @@ export const useGridContainer = <TItem extends object>(
     [table, getTableState]
   );
 
+  const headerMenu = React.useMemo((): JSX.Element | React.ReactNode => {
+    if (props.headerMenu) {
+      const selectedRows = table?.getSelectedRowModel().flatRows.map((row) => row.original) || [];
+      return props.headerMenu(selectedRows);
+    }
+    return null;
+  }, 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  [props.headerMenu, rowSelection]);
+
   return {
     table,
     globalFilter,
     tableViews,
+    headerMenu,
     setGlobalFilter,
     resetToDefaultView,
   };

@@ -23,6 +23,11 @@ export type TableProps<TItem extends object> = {
     gridTitle?: JSX.Element | React.ReactNode;
 
     /**
+     * Table header menu
+     */
+    headerMenu?: (selectedItems : TItem[]) => JSX.Element | React.ReactNode;
+
+    /**
      * Table default page size.
      */
     pageSize?: number;

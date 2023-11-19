@@ -14,7 +14,7 @@ export function AdvancedTable<TItem extends object>(
   ref: React.ForwardedRef<TableRef<TItem>>
 ) {
   useStaticStyles();
-  const { table, globalFilter, setGlobalFilter, resetToDefaultView } = useGridContainer(props, ref); 
+  const { table, globalFilter, headerMenu, setGlobalFilter, resetToDefaultView } = useGridContainer(props, ref); 
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = React.useState<boolean>(false);
 
   return (
@@ -22,6 +22,7 @@ export function AdvancedTable<TItem extends object>(
       <GridHeader
         table={table}
         gridTitle={props.gridTitle}
+        headerMenu={headerMenu}
         globalFilter={globalFilter}
         setGlobalFilter={setGlobalFilter}
         setFilterDrawerOpen={setIsFilterDrawerOpen}
