@@ -235,10 +235,10 @@ export function TableExample() {
     <div>
       <button onClick={logSelectedRows}>Log Selected Rows</button>
       <button onClick={logTableState}>Get Table State</button>
-      <button onClick={saveCurrentTableState}>Save Current Table State</button>
+      <button onClick={saveCurrentTableState}>Save Current View</button>
       <button onClick={applyLastSavedTableState}>
         Apply Last Saved Table State
-      </button>
+      </button> 
       <Field label="Selection Mode">
         <RadioGroup
           value={selectionMode}
@@ -247,7 +247,7 @@ export function TableExample() {
           }
           layout="horizontal"
         >
-          <Radio value={undefined} label="None" />
+          <Radio value={''} label="None" />
           <Radio value={'single'} label="Single" />
           <Radio value={'multiple'} label="Multiple" />
         </RadioGroup>
@@ -260,7 +260,7 @@ export function TableExample() {
         pageSizeOptions={[10, 20, 100, 1000, 10000]}
         isLoading={isLoading}
         gridTitle={<strong>Grid Header</strong>}
-        headerMenu={(selectedItems) => <TopToolbar selectedItems={selectedItems}/>}
+        headerMenu={(selectedItems) => <TopToolbar selectedItems={selectedItems} />}
         rowSelectionMode={selectionMode}
         columnVisibility={{
           progress: false,
@@ -286,12 +286,13 @@ export function TableExample() {
 }
 
 export const TopToolbar: React.FC<{
-  selectedItems: Person[];
+  selectedItems: Person[]; 
 }> = ({ selectedItems }) => {
 
   console.log(selectedItems);
-
   return (
+   <>
+    Selected Items: {selectedItems?.length}
     <Toolbar aria-label="Default" >
       <ToolbarButton
         aria-label="Increase Font Size"
@@ -344,6 +345,6 @@ export const TopToolbar: React.FC<{
               </MenuList>
             </MenuPopover>
           </Menu></>)}
-    </Toolbar>
+    </Toolbar></>
   );
 }
