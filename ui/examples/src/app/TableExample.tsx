@@ -199,7 +199,8 @@ export function TableExample() {
             info.renderValue()
               ? new Date(info.renderValue() as Date)?.toLocaleDateString()
               : '',
-          aggregatedCell: () => null, 
+          aggregatedCell: () => null,
+          filterFn: 'date' as any,
         }),
       ],
     }),
@@ -238,7 +239,7 @@ export function TableExample() {
       <button onClick={saveCurrentTableState}>Save Current View</button>
       <button onClick={applyLastSavedTableState}>
         Apply Last Saved Table State
-      </button> 
+      </button>
       <Field label="Selection Mode">
         <RadioGroup
           value={selectionMode}
@@ -286,7 +287,7 @@ export function TableExample() {
 }
 
 export const TopToolbar: React.FC<{
-  selectedItems: Person[]; 
+  selectedItems: Person[];
 }> = ({ selectedItems }) => {
 
   console.log(selectedItems);
@@ -303,7 +304,7 @@ export const TopToolbar: React.FC<{
         aria-label="Decrease Font Size"
         icon={<FontDecrease24Regular />}
       />
-      <ToolbarButton aria-label="Reset Font Size" icon={<TextFont24Regular />} /> 
+      <ToolbarButton aria-label="Reset Font Size" icon={<TextFont24Regular />} />
       {selectedItems?.length === 1 && (
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
         <Button
@@ -326,7 +327,7 @@ export const TopToolbar: React.FC<{
               alert('Deleted');
             }
           }}
-        /> 
+        />
       </div>
       )}
       {selectedItems?.length === 1 && (

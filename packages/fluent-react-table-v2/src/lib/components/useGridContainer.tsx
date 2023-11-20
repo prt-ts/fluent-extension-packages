@@ -4,7 +4,7 @@ import {
   ColumnOrderState,
   ColumnPinningState,
   ColumnSizingState,
-  ExpandedState, 
+  ExpandedState,
   GroupingState,
   PaginationState,
   RowSelectionState,
@@ -24,9 +24,9 @@ import {
 import { TableProps } from '..';
 import { TableRef, TableView } from '../types';
 import * as React from 'react';
-import { arrIncludesSome } from '../helpers/FilterHelpers';
+import { arrIncludesSome, date, dateRange } from '../helpers/FilterHelpers';
 import { getLeafColumns } from '../helpers/Helpers';
- 
+
 export const useGridContainer = <TItem extends object>(
   props: TableProps<TItem>,
   ref: React.ForwardedRef<TableRef<TItem>>
@@ -69,7 +69,7 @@ export const useGridContainer = <TItem extends object>(
   const [columnPinning, setColumnPinning] = React.useState<ColumnPinningState>(
     props.columnPinningState ?? {}
   );
-  const [columnSizing, setColumnSizing] = React.useState<ColumnSizingState>({}); 
+  const [columnSizing, setColumnSizing] = React.useState<ColumnSizingState>({});
 
   const [tableViews, setTableViews] = React.useState<TableView[]>([]);
 
@@ -78,6 +78,8 @@ export const useGridContainer = <TItem extends object>(
     data,
     filterFns: {
       arrIncludesSome: arrIncludesSome,
+      dateRange,
+      date
     },
     initialState: {
       expanded: true,
@@ -93,7 +95,7 @@ export const useGridContainer = <TItem extends object>(
       columnOrder,
       columnVisibility,
       columnPinning,
-      columnSizing
+      columnSizing,
     },
     columnResizeMode: 'onChange',
     enableRowSelection: rowSelectionMode !== undefined,
@@ -113,7 +115,7 @@ export const useGridContainer = <TItem extends object>(
     onExpandedChange: setExpanded,
     onColumnVisibilityChange: setColumnVisibility,
     onColumnPinningChange: setColumnPinning,
-    onColumnSizingChange: setColumnSizing, 
+    onColumnSizingChange: setColumnSizing,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -168,7 +170,7 @@ export const useGridContainer = <TItem extends object>(
         if (props.columnOrderState) {
           return props.columnOrderState;
         }
-    
+
         const leafColumns = getLeafColumns(columns as unknown as Column<TItem>[]);
         return leafColumns.map((col: Column<TItem>) => col.id as string);
       })(),
@@ -176,11 +178,11 @@ export const useGridContainer = <TItem extends object>(
       columnPinning: props.columnPinningState ?? {},
       columnSizing: {}
     };
-    return applyTableState(defaultTableState);  
+    return applyTableState(defaultTableState);
   };
 
-  const applyTableState = (tableState: Partial<TableState>) => { 
-    if (tableState) { 
+  const applyTableState = (tableState: Partial<TableState>) => {
+    if (tableState) {
       setSorting(tableState.sorting ?? []);
       setColumnFilters(tableState.columnFilters ?? []);
       setGlobalFilter(tableState.globalFilter ?? '');
@@ -223,7 +225,7 @@ export const useGridContainer = <TItem extends object>(
       return props.headerMenu(selectedRows);
     }
     return null;
-  }, 
+  },
   // eslint-disable-next-line react-hooks/exhaustive-deps
   [props.headerMenu, rowSelection]);
 

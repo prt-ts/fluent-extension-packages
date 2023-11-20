@@ -3,6 +3,8 @@ import { FilterMultiSelectCheckbox } from './FilterMultiSelectCheckbox';
 import { Field, Input, makeStyles } from '@fluentui/react-components';
 import { FilterSelectRadio } from './FilterSelectRadio';
 import { FilterNumberRange } from './FilterNumberRange';
+import { FilterDateRange } from './FilterDateRange';
+import { FilterDate } from './FilterDate';
 
 const useFilterStyles = makeStyles({
   searchInput: {
@@ -29,18 +31,40 @@ export const Filter = <TItem extends object>({
 }) => {
   const filterFunctionName = column.columnDef.filterFn;
 
-  console.log('filterFunctionName', filterFunctionName);
+  console.log('filterFunctionName', column.columnDef.id, filterFunctionName, column.getFilterFn());
 
   const styles = useFilterStyles();
 
-  switch (filterFunctionName) {
+  switch (filterFunctionName as unknown as string) {
     case 'arrIncludesSome':
       return <FilterMultiSelectCheckbox column={column} table={table} />;
-    case 'arrIncludesAll': 
+    case 'arrIncludesAll':
     case 'arrIncludes':
       return <FilterSelectRadio column={column} table={table} />;
     case 'inNumberRange':
       return <FilterNumberRange column={column} table={table} />;
+
+    case 'dateRange': {
+      const firstValue = table
+        .getPreFilteredRowModel()
+        .flatRows[0]?.getValue(column.id) as Date;
+
+      if (typeof firstValue.getMonth === 'function') {
+        return <FilterDateRange column={column} table={table} />;
+      }
+      break;
+    }
+
+    case 'date': {
+      const firstValue = table
+        .getPreFilteredRowModel()
+        .flatRows[0]?.getValue(column.id) as Date;
+
+      if (typeof firstValue.getMonth === 'function') {
+        return <FilterDate column={column} table={table} />;
+      }
+      break;
+    }
   }
 
   return (
