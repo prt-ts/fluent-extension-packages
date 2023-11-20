@@ -50,6 +50,7 @@ export const FilterDate = <TItem extends object>(
         className={styles.searchInput}
         placeholder={`Select a date`}
         size='small'
+        allowTextInput
       />
     </div>
   );

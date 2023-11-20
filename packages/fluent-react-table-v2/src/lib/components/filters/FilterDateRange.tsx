@@ -67,6 +67,7 @@ export const FilterDateRange = <TItem extends object>(
               : ''
             }`}
           size='small'
+          allowTextInput
         />
       </Field>
       <Field
@@ -86,6 +87,7 @@ export const FilterDateRange = <TItem extends object>(
               : ''
             }`}
           size='small'
+          allowTextInput
         />
       </Field>
     </div>
