@@ -7,6 +7,7 @@ import {
   Table,
   TableRef,
   TableState,
+  TableView,
   createColumnHelper,
 } from '@prt-ts/fluent-react-table-v2';
 import { useNavigate } from 'react-router-dom';
@@ -27,12 +28,14 @@ import {
   MenuList,
   MenuItem,
 } from "@fluentui/react-components";
+import { tableViews as views } from './data/tableView';
 
 export function TableExample() {
   const navigate = useNavigate();
   const columnHelper = createColumnHelper<Person>();
   const tableRef = createRef<TableRef<Person>>();
   const [data, setData] = useState<Person[]>([]);
+  const [tableViews, setTableViews] = useState<TableView[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectionMode, setSelectionMode] = useState<
     'single' | 'multiple' | undefined
@@ -210,7 +213,7 @@ export function TableExample() {
   useEffect(
     () => {
       const timeout = setTimeout(() => {
-        setData(() => makeData(100156));
+        setData(() => makeData(10000));
         setIsLoading(false);
       }, 1000);
 
@@ -219,6 +222,20 @@ export function TableExample() {
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
     []
   );
+
+    // get data from server
+    useEffect(
+      () => {
+        const timeout = setTimeout(() => {
+          setTableViews(() => views);
+          setIsLoading(false);
+        }, 1000);
+  
+        return () => clearTimeout(timeout);
+      },
+      /* eslint-disable-next-line react-hooks/exhaustive-deps */
+      []
+    );
 
   // apply before edit state so that the table state is applied after the data is loaded
   useEffect(
@@ -231,6 +248,8 @@ export function TableExample() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [data]
   );
+
+
 
   return (
     <div>
@@ -281,6 +300,7 @@ export function TableExample() {
       // }}
       // noItemPage={<div>No Item</div>}
       // noFilterMatchPage={<div>No Filter Match</div>}
+      views={tableViews}
       />
     </div>
   );
