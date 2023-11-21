@@ -71,7 +71,7 @@ export const useGridContainer = <TItem extends object>(
   );
   const [columnSizing, setColumnSizing] = React.useState<ColumnSizingState>({});
 
-  const [tableViews, setTableViews] = React.useState<TableView[]>([]);
+  const tableViews = React.useMemo<TableView[]>(() => props.views ?? [], [props.views]);
 
   const table = useReactTable<TItem>({
     columns: columns,
@@ -211,8 +211,7 @@ export const useGridContainer = <TItem extends object>(
         table,
         getTableState,
         applyTableState,
-        resetToDefaultView,
-        setTableAvailableViews: (views: TableView[]) => setTableViews(views),
+        resetToDefaultView
       };
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -236,5 +235,6 @@ export const useGridContainer = <TItem extends object>(
     headerMenu,
     setGlobalFilter,
     resetToDefaultView,
+    applyTableState,
   };
 };

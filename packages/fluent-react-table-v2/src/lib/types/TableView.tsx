@@ -1,4 +1,4 @@
-import { TableState } from "@fluentui/react-components";
+import { TableState } from "@tanstack/react-table";
 
 export type TableView = {
     id: number,

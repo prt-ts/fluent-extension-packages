@@ -21,13 +21,14 @@ import {
   ToggleSelectColumnIcon,
 } from '../icon-components/GridIcons';
 import { useGridHeaderStyles } from './useGridHeaderStyles';
-import { Table } from '@tanstack/react-table';
+import { Table, TableState } from '@tanstack/react-table';
 import {
   FilterDismissFilled,
   FilterFilled,
   TextGrammarDismissRegular,
 } from '@fluentui/react-icons';
 import { Search24Regular } from '@fluentui/react-icons';
+import { TableView } from '../../types';
 
 type GridHeaderProps<TItem extends object> = {
   table: Table<TItem>;
@@ -35,6 +36,9 @@ type GridHeaderProps<TItem extends object> = {
   headerMenu?: JSX.Element | React.ReactNode;
   globalFilter: string;
   setGlobalFilter: (value: string) => void;
+
+  tableViews: TableView[];
+  applyTableState: (tableState: Partial<TableState>) => boolean
 
   openFilterDrawer: boolean;
   setFilterDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -45,7 +49,7 @@ type GridHeaderProps<TItem extends object> = {
 export const GridHeader = <TItem extends object>(
   props: GridHeaderProps<TItem>
 ) => {
-  const { table, gridTitle, globalFilter, setGlobalFilter } = props;
+  const { table, gridTitle, globalFilter, setGlobalFilter, applyTableState, tableViews } = props;
   const styles = useGridHeaderStyles();
 
   const resetAllFilters = React.useCallback(() => {
@@ -66,7 +70,7 @@ export const GridHeader = <TItem extends object>(
       <div className={styles.tableTopHeaderLeft}>{gridTitle}</div>
       <div className={styles.tableTopHeaderRight}>
         {props.headerMenu}
-        {props.headerMenu && <Divider vertical/>}
+        {props.headerMenu && <Divider vertical />}
         <Popover withArrow>
           <PopoverTrigger disableButtonEnhancement>
             <Button
@@ -155,6 +159,22 @@ export const GridHeader = <TItem extends object>(
               >
                 Reset to Default View
               </MenuItem>
+              {
+                tableViews.length > 0 && <MenuDivider />
+              }
+              {
+                tableViews.map((view) => {
+                  return (
+                    <MenuItem
+                      key={view.id}
+                      icon={<ClearFilterIcon />}
+                      onClick={() => applyTableState(view.tableState)}
+                    >
+                      {view.viewName}
+                    </MenuItem>
+                  );
+                })
+              }
             </MenuList>
           </MenuPopover>
         </Menu>

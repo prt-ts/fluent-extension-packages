@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ColumnDef, ColumnFiltersState, ColumnOrderState, ColumnPinningState, ExpandedState, GroupingState, RowSelectionState, SortingState, VisibilityState } from "@tanstack/react-table";
+import { TableView } from "./TableView";
 
 export type TableProps<TItem extends object> = {
     /**
@@ -98,4 +99,9 @@ export type TableProps<TItem extends object> = {
      * @default defaultNoItemComponent
      */
     noItemPage?: React.ReactNode;
+
+    /**
+     * Table Views
+     */
+    views?: TableView[];
 };
