@@ -61,11 +61,7 @@ export const FilterDateRange = <TItem extends object>(
           max={max}
           onSelectDate={handleMinChange}
           className={styles.searchInput}
-          placeholder={`Min ${
-            column.getFacetedMinMaxValues()?.[0]
-              ? `(${column.getFacetedMinMaxValues()?.[0]?.toLocaleString()})`
-              : ''
-            }`}
+          placeholder={`From Date`}
           size='small'
         />
       </Field>
@@ -80,11 +76,7 @@ export const FilterDateRange = <TItem extends object>(
           max={max}
           onSelectDate={handleMaxChange}
           className={styles.searchInput}
-          placeholder={`Max ${
-            column.getFacetedMinMaxValues()?.[1]
-              ? `(${column.getFacetedMinMaxValues()?.[1]?.toLocaleString()})`
-              : ''
-            }`}
+          placeholder={`To Date`}
           size='small'
         />
       </Field>
