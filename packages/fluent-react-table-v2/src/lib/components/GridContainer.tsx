@@ -17,7 +17,7 @@ export function AdvancedTable<TItem extends object>(
   useStaticStyles();
   const { table, globalFilter, headerMenu, tableViews, setGlobalFilter, resetToDefaultView, applyTableState, getTableState } = useGridContainer(props, ref);
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = React.useState<boolean>(false);
-  const [isViewsDrawerOpen, setIsViewsDrawerOpen] = React.useState<boolean>(true);
+  const [isViewsDrawerOpen, setIsViewsDrawerOpen] = React.useState<boolean>(false);
 
   return (
     <DndProvider backend={HTML5Backend}>

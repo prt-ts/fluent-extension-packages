@@ -33,7 +33,7 @@ export const Filter = <TItem extends object>({
   const styles = useFilterStyles();
 
   switch (filterFunctionName as unknown as string) {
-    case 'includeArray':
+    case 'arrIncludesSome':
       return <FilterMultiSelectCheckbox column={column} table={table} />;
     case 'arrIncludesAll':
     case 'arrIncludes':

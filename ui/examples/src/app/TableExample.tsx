@@ -79,7 +79,7 @@ export function TableExample() {
 
   const columns = [
     columnHelper.accessor('id', {
-      id: 'id',
+      id: 'ID',
       header: () => 'ID',
       cell: ({ row }) => {
         return (
@@ -117,18 +117,18 @@ export function TableExample() {
       enableHiding: false,
     }),
     columnHelper.accessor('firstName', {
-      id: 'firstName',
+      id: 'First Name',
       header: () => 'First Name',
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor((row) => row.lastName, {
-      id: 'lastName',
+      id: 'Last Name',
       cell: (info) => <i>{info.getValue()}</i>,
       header: () => <span>Last Name</span>,
       aggregatedCell: () => null,
     }),
     columnHelper.accessor('age', {
-      id: 'age',
+      id: 'Age',
       header: () => 'Age (Additional text for Long header)',
       cell: (info) => info.renderValue(),
       filterFn: 'includesString',
@@ -138,13 +138,13 @@ export function TableExample() {
       enableGrouping: false,
     }),
     columnHelper.accessor('visits', {
-      id: 'visits',
+      id: 'Visits',
       header: () => <span>Visits</span>,
       filterFn: 'inNumberRange',
       enableHiding: false,
     }),
     columnHelper.accessor('progress', {
-      id: 'progress',
+      id: 'Progress',
       header: 'Profile Progress',
       aggregatedCell: () => null,
     }),
@@ -153,23 +153,23 @@ export function TableExample() {
       header: 'Address',
       columns: [
         columnHelper.accessor('address.street', {
-          id: 'street',
+          id: 'Street',
           header: 'Street',
           aggregatedCell: () => null,
         }),
         columnHelper.accessor('address.city', {
-          id: 'city',
+          id: 'City',
           header: 'City',
           aggregatedCell: () => null,
         }),
         columnHelper.accessor('address.state', {
-          id: 'state',
+          id: 'State',
           header: 'State',
           aggregatedCell: () => null,
           filterFn: 'arrIncludesSome',
         }),
         columnHelper.accessor('address.zipCode', {
-          id: 'zipCode',
+          id: 'Zip Code',
           header: 'Zip Code',
           aggregatedCell: () => null,
           enableColumnFilter: false,
@@ -180,7 +180,7 @@ export function TableExample() {
           enableSorting: false,
         }),
         columnHelper.accessor('address.country', {
-          id: 'country',
+          id: 'Country',
           header: 'Country',
           aggregatedCell: () => null,
           filterFn: 'arrIncludes',
@@ -192,13 +192,13 @@ export function TableExample() {
       header: 'Additional Info',
       columns: [
         columnHelper.accessor('status', {
-          id: 'status',
+          id: 'Status',
           header: 'Status',
           aggregatedCell: () => null,
           filterFn: 'arrIncludesSome',
         }),
         columnHelper.accessor(({createdAt}) => createdAt, {
-          id: 'createdAt',
+          id: 'Created At',
           header: 'Created At',
           cell: (info) =>
             info.renderValue()
