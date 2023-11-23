@@ -256,5 +256,6 @@ export const useGridContainer = <TItem extends object>(
     setGlobalFilter,
     resetToDefaultView,
     applyTableState,
+    getTableState
   };
 };

@@ -4,5 +4,6 @@ export type TableView = {
     id: number,
     viewName: string,
     tableState: Partial<TableState>,
-    isDefault?: boolean,
+    isGlobal?: boolean,
+    isViewOwner?: boolean
 }

@@ -104,4 +104,14 @@ export type TableProps<TItem extends object> = {
      * Table Views
      */
     views?: TableView[];
+
+    /**
+     * Callback when a table view is saved
+     */
+    onTableViewSave?: (tableView: TableView) => void;
+
+    /**
+     * Callback when a table view is deleted
+     */
+    onTableViewDelete?: (tableView: TableView) => void;
 };

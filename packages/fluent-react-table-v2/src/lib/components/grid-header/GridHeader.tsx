@@ -7,28 +7,20 @@ import {
   Checkbox,
   Divider,
   Input,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  MenuPopover,
-  MenuTrigger,
-  Menu,
 } from '@fluentui/react-components';
 import * as React from 'react';
 import {
-  ClearFilterIcon,
   ToggleGroupColumnIcon,
   ToggleSelectColumnIcon,
 } from '../icon-components/GridIcons';
 import { useGridHeaderStyles } from './useGridHeaderStyles';
 import { Table, TableState } from '@tanstack/react-table';
 import {
+  Album24Regular,
   FilterDismissFilled,
-  FilterFilled,
-  TextGrammarDismissRegular,
+  FilterFilled, 
 } from '@fluentui/react-icons';
 import { Search24Regular } from '@fluentui/react-icons';
-import { TableView } from '../../types';
 
 type GridHeaderProps<TItem extends object> = {
   table: Table<TItem>;
@@ -37,33 +29,20 @@ type GridHeaderProps<TItem extends object> = {
   globalFilter: string;
   setGlobalFilter: (value: string) => void;
 
-  tableViews: TableView[];
   applyTableState: (tableState: Partial<TableState>) => boolean
 
   openFilterDrawer: boolean;
   setFilterDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 
-  resetToGridDefaultView: () => boolean;
+  openViewsDrawer: boolean;
+  setViewsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const GridHeader = <TItem extends object>(
   props: GridHeaderProps<TItem>
 ) => {
-  const { table, gridTitle, globalFilter, setGlobalFilter, applyTableState, tableViews } = props;
+  const { table, gridTitle, globalFilter, setGlobalFilter } = props;
   const styles = useGridHeaderStyles();
-
-  const resetAllFilters = React.useCallback(() => {
-    table.setGlobalFilter('');
-    table.resetColumnFilters();
-  }, [table]);
-
-  const resetAllGrouping = React.useCallback(() => {
-    table.resetGrouping();
-  }, [table]);
-
-  const clearAllSelection = React.useCallback(() => {
-    table.toggleAllRowsSelected(false);
-  }, [table]);
 
   return (
     <div className={styles.tableTopHeaderContainer}>
@@ -132,52 +111,12 @@ export const GridHeader = <TItem extends object>(
             </div>
           </PopoverSurface>
         </Popover>
-        <Menu>
-          <MenuTrigger disableButtonEnhancement>
-            <Button
-              // appearance="subtle"
-              icon={<TextGrammarDismissRegular />}
-              aria-label="View Menu"
-            />
-          </MenuTrigger>
-
-          <MenuPopover>
-            <MenuList>
-              <MenuItem icon={<ClearFilterIcon />} onClick={resetAllFilters}>
-                Clear All Filters
-              </MenuItem>
-              <MenuItem icon={<ClearFilterIcon />} onClick={resetAllGrouping}>
-                Clear All Grouping
-              </MenuItem>
-              <MenuItem icon={<ClearFilterIcon />} onClick={clearAllSelection}>
-                Clear All Selection
-              </MenuItem>
-              <MenuDivider />
-              <MenuItem
-                icon={<ClearFilterIcon />}
-                onClick={props.resetToGridDefaultView}
-              >
-                Reset to Default View
-              </MenuItem>
-              {
-                tableViews.length > 0 && <MenuDivider />
-              }
-              {
-                tableViews.map((view) => {
-                  return (
-                    <MenuItem
-                      key={view.id}
-                      icon={<ClearFilterIcon />}
-                      onClick={() => applyTableState(view.tableState)}
-                    >
-                      {view.viewName}
-                    </MenuItem>
-                  );
-                })
-              }
-            </MenuList>
-          </MenuPopover>
-        </Menu>
+        <Button
+          // appearance="subtle"
+          onClick={() => props.setViewsDrawerOpen((value) => !value)}
+          icon={<Album24Regular />}
+          aria-label="View Menu"
+        />
         <DebouncedInput
           value={globalFilter ?? ''}
           onChange={(value) => setGlobalFilter(String(value))}

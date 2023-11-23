@@ -8,14 +8,16 @@ import { GridHeader } from "./grid-header";
 import { useGridContainer } from "./useGridContainer";
 import { TableContainer } from "./table";
 import { FilterDrawer } from "./filters";
+import { ViewsDrawer } from "./views/ViewsDrawer";
 
 export function AdvancedTable<TItem extends object>(
   props: TableProps<TItem>,
   ref: React.ForwardedRef<TableRef<TItem>>
 ) {
   useStaticStyles();
-  const { table, globalFilter, headerMenu, tableViews, setGlobalFilter, resetToDefaultView, applyTableState } = useGridContainer(props, ref); 
+  const { table, globalFilter, headerMenu, tableViews, setGlobalFilter, resetToDefaultView, applyTableState, getTableState } = useGridContainer(props, ref);
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = React.useState<boolean>(false);
+  const [isViewsDrawerOpen, setIsViewsDrawerOpen] = React.useState<boolean>(true);
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -25,10 +27,10 @@ export function AdvancedTable<TItem extends object>(
         headerMenu={headerMenu}
         globalFilter={globalFilter}
         openFilterDrawer={isFilterDrawerOpen}
+        openViewsDrawer={isViewsDrawerOpen}
         setGlobalFilter={setGlobalFilter}
         setFilterDrawerOpen={setIsFilterDrawerOpen}
-        resetToGridDefaultView={resetToDefaultView}
-        tableViews={tableViews}
+        setViewsDrawerOpen={setIsViewsDrawerOpen}
         applyTableState={applyTableState}
       />
       <div style={{ display: 'flex' }}>
@@ -44,6 +46,17 @@ export function AdvancedTable<TItem extends object>(
           open={isFilterDrawerOpen}
           setOpen={setIsFilterDrawerOpen}
           table={table}
+        />
+        <ViewsDrawer
+          table={table}
+          open={isViewsDrawerOpen}
+          setOpen={setIsViewsDrawerOpen}
+          tableViews={tableViews}
+          applyTableState={applyTableState}
+          resetToGridDefaultView={resetToDefaultView}
+          getTableState={getTableState}
+          onTableViewSave={props.onTableViewSave}
+          onTableViewDelete={props.onTableViewDelete}
         />
       </div>
 

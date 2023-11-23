@@ -75,6 +75,8 @@ export function TableExample() {
     console.log(tableState);
   };
 
+
+
   const columns = [
     columnHelper.accessor('id', {
       id: 'id',
@@ -450,6 +452,10 @@ export function TableExample() {
         // noItemPage={<div>No Item</div>}
         // noFilterMatchPage={<div>No Filter Match</div>}
         views={tableViews}
+        onTableViewSave={(tableView) => {
+          console.log(tableView);
+          setTableViews((prev) => [...prev, tableView]);
+        }}
       />
     </div>
   );
