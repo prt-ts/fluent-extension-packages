@@ -110,7 +110,7 @@ export function TableExample() {
         );
       },
       aggregatedCell: () => null,
-      filterFn: 'arrIncludesSome',
+      filterFn: 'includeArray',
       enableGrouping: false,
       enableHiding: false,
     }),
@@ -195,7 +195,7 @@ export function TableExample() {
           aggregatedCell: () => null,
           filterFn: 'arrIncludesSome',
         }),
-        columnHelper.accessor('createdAt', {
+        columnHelper.accessor(({createdAt}) => createdAt, {
           id: 'createdAt',
           header: 'Created At',
           cell: (info) =>
@@ -203,8 +203,8 @@ export function TableExample() {
               ? new Date(info.renderValue() as Date)?.toLocaleDateString()
               : '',
           aggregatedCell: () => null,
-          filterFn: 'date' as any,
-        }),
+          filterFn: 'dateRange',
+        }) as ColumnDef<Person>,
       ],
     }),
   ] as ColumnDef<Person>[];

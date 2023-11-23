@@ -1,3 +1,13 @@
+import { FilterFn } from "@tanstack/react-table";
+
+declare module '@tanstack/table-core' {
+    interface FilterFns {
+        includeArray: FilterFn<unknown>
+        date: FilterFn<unknown>
+        dateRange: FilterFn<unknown>
+    }
+}
+
 export { Table } from "./components";
 
 export type { TableProps, TableRef, TableView } from "./types";
