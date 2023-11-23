@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-react-table-v2",
-  "version": "9.40.0-build.4.0",
+  "version": "9.40.0-build.5.0",
   "main": "./index.js",
   "types": "./index.d.ts",
   "peerDependencies": {

@@ -63,6 +63,7 @@ export const FilterDateRange = <TItem extends object>(
           className={styles.searchInput}
           placeholder={`From Date`}
           size='small'
+          allowTextInput
         />
       </Field>
       <Field
@@ -78,6 +79,7 @@ export const FilterDateRange = <TItem extends object>(
           className={styles.searchInput}
           placeholder={`To Date`}
           size='small'
+          allowTextInput
         />
       </Field>
     </div>
