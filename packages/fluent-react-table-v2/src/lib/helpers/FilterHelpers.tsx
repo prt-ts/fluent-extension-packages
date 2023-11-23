@@ -22,13 +22,14 @@ export const dateRange: FilterFn<unknown> = (row, columnId, value) => {
   if (!value || value.length === 0) {
     return true;
   }
-
-  if (value.length === 2 && value[0] && !value[1]) {
+  else if (value.length === 2 && value[0] && !value[1]) {
     return typeof rowValue.getMonth === 'function' && rowValue >= value[0];
   }
-
-  if (value.length === 2 && !value[0] && value[1]) {
+  else if (value.length === 2 && !value[0] && value[1]) {
     return typeof rowValue.getMonth === 'function' && rowValue <= value[1];
+  }
+  else if (value.length === 2 && !value[0] && !value[1]) {
+    return true;
   }
 
   const passed = typeof rowValue.getMonth === 'function' && value[0] <= rowValue && rowValue <= value[1];

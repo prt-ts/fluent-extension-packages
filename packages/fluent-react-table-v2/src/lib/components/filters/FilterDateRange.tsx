@@ -39,12 +39,18 @@ export const FilterDateRange = <TItem extends object>(
   const max = column.getFacetedMinMaxValues()?.[1] ?? undefined;
 
   const handleMinChange: DatePickerProps['onSelectDate'] = (date) => {
-    if(!date) return;
+    if(!date) {
+      column.setFilterValue((old: [Date, Date]) => [undefined, old?.[1]]);
+      return;
+    };
     column.setFilterValue((old: [Date, Date]) => [date, old?.[1]]);
   };
 
   const handleMaxChange: DatePickerProps['onSelectDate'] = (date) => {
-    if(!date) return;
+    if(!date) {
+      column.setFilterValue((old: [Date, Date]) => [old?.[0], undefined]);
+      return;
+    };
     column.setFilterValue((old: [Date, Date]) => [old?.[0], date]);
   };
 
@@ -81,7 +87,7 @@ export const FilterDateRange = <TItem extends object>(
           className={styles.searchInput}
           placeholder={`To Date`}
           size='small'
-          allowTextInput
+          allowTextInput 
         />
       </Field>
     </div>

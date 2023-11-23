@@ -35,7 +35,10 @@ export const FilterDate = <TItem extends object>(
   const max = column.getFacetedMinMaxValues()?.[1] ?? undefined;
 
   const onDateSelect: DatePickerProps['onSelectDate'] = (date) => {
-    if(!date) return;
+    if(!date) {
+      column.setFilterValue(undefined);
+      return;
+    };
     
     column.setFilterValue(date);
   };
