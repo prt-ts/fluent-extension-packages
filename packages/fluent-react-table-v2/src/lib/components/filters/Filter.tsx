@@ -29,10 +29,7 @@ export const Filter = <TItem extends object>({
   column: Column<TItem, unknown>;
   table: Table<TItem>;
 }) => {
-  const filterFunctionName = column.columnDef.filterFn;
-
-  console.log('filterFunctionName', column.columnDef.id, filterFunctionName, column.getFilterFn());
-
+  const filterFunctionName = column.columnDef.filterFn; 
   const styles = useFilterStyles();
 
   switch (filterFunctionName as unknown as string) {

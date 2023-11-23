@@ -228,6 +228,26 @@ export const useGridContainer = <TItem extends object>(
   // eslint-disable-next-line react-hooks/exhaustive-deps
   [props.headerMenu, rowSelection]);
 
+  // add event listeners to listen ctrl + shift + t and log current table state
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.altKey && event.key === 'c') {
+        event.preventDefault();
+        const tableState = getTableState();
+        // log table state to console
+        console.log(tableState);
+        // save table state to local storage
+        localStorage.setItem('hotkey_table_state_temp', JSON.stringify(tableState));
+        // copy table state to clipboard
+        navigator.clipboard.writeText(JSON.stringify(tableState));
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [getTableState]);
+
   return {
     table,
     globalFilter,
