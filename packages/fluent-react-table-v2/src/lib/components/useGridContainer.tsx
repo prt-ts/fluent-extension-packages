@@ -77,9 +77,9 @@ export const useGridContainer = <TItem extends object>(
     columns: columns,
     data,
     filterFns: {
-      includeArray: arrIncludesSome,
-      dateRange,
-      date
+      arrIncludesSome: arrIncludesSome,
+      inDateRange: dateRange,
+      matchDate: date,
     },
     initialState: {
       expanded: true,

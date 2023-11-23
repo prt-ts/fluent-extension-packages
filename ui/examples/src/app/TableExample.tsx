@@ -110,7 +110,7 @@ export function TableExample() {
         );
       },
       aggregatedCell: () => null,
-      filterFn: 'includeArray',
+      filterFn: 'arrIncludesSome',
       enableGrouping: false,
       enableHiding: false,
     }),
@@ -203,7 +203,7 @@ export function TableExample() {
               ? new Date(info.renderValue() as Date)?.toLocaleDateString()
               : '',
           aggregatedCell: () => null,
-          filterFn: 'dateRange',
+          filterFn: 'inDateRange',
         }) as ColumnDef<Person>,
       ],
     }),

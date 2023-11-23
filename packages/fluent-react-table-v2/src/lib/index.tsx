@@ -1,10 +1,10 @@
 import { FilterFn } from "@tanstack/react-table";
 
 declare module '@tanstack/table-core' {
-    interface FilterFns {
-        includeArray: FilterFn<unknown>
-        date: FilterFn<unknown>
-        dateRange: FilterFn<unknown>
+    interface FilterFns { 
+        arrIncludesSome: FilterFn<unknown>
+        matchDate: FilterFn<unknown>
+        inDateRange: FilterFn<unknown>
     }
 }
 
