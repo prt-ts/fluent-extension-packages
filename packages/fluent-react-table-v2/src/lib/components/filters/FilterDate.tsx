@@ -34,7 +34,9 @@ export const FilterDate = <TItem extends object>(
   const min = column.getFacetedMinMaxValues()?.[0] ?? undefined;
   const max = column.getFacetedMinMaxValues()?.[1] ?? undefined;
 
-  const handleMinChange: DatePickerProps['onSelectDate'] = (date) => {
+  const onDateSelect: DatePickerProps['onSelectDate'] = (date) => {
+    if(!date) return;
+    
     column.setFilterValue(date);
   };
 
@@ -46,7 +48,7 @@ export const FilterDate = <TItem extends object>(
         value={(columnFilterValue as Date) || null}
         min={min}
         max={max}
-        onSelectDate={handleMinChange}
+        onSelectDate={onDateSelect}
         className={styles.searchInput}
         placeholder={`Select a date`}
         size='small'
