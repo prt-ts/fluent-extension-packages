@@ -29,10 +29,10 @@ export const Filter = <TItem extends object>({
   column: Column<TItem, unknown>;
   table: Table<TItem>;
 }) => {
-  const filterFunctionName = column.columnDef.filterFn; 
+  const filterFunctionName = column.columnDef.filterFn;
   const styles = useFilterStyles();
 
-  switch (filterFunctionName as unknown as string) {
+  switch (filterFunctionName) {
     case 'arrIncludesSome':
       return <FilterMultiSelectCheckbox column={column} table={table} />;
     case 'arrIncludesAll':
@@ -41,7 +41,7 @@ export const Filter = <TItem extends object>({
     case 'inNumberRange':
       return <FilterNumberRange column={column} table={table} />;
 
-    case 'dateRange': {
+    case 'inDateRange': {
       const firstValue = table
         .getPreFilteredRowModel()
         .flatRows[0]?.getValue(column.id) as Date;
@@ -52,7 +52,7 @@ export const Filter = <TItem extends object>({
       break;
     }
 
-    case 'date': {
+    case 'matchDate': {
       const firstValue = table
         .getPreFilteredRowModel()
         .flatRows[0]?.getValue(column.id) as Date;
