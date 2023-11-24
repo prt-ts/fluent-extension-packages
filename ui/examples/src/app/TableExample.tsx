@@ -345,7 +345,7 @@ export function TableExample() {
   //         filterFn: 'arrIncludesSome',
   //       },
   //       {
-  //         id: 'createdAt', 
+  //         id: 'createdAt',
   //         accessorFn: (row) => row.createdAt,
   //         aggregatedCell: () => null,
   //         header: 'Created At',
@@ -431,7 +431,9 @@ export function TableExample() {
         pageSizeOptions={[10, 20, 100, 1000, 10000]}
         isLoading={isLoading}
         gridTitle={<strong>Grid Header</strong>}
-        headerMenu={(selectedItems) => <TopToolbar selectedItems={selectedItems} />}
+        headerMenu={(selectedItems) => (
+          <TopToolbar selectedItems={selectedItems} />
+        )}
         rowSelectionMode={selectionMode}
         columnVisibility={{
           progress: false,
@@ -455,6 +457,12 @@ export function TableExample() {
         onTableViewSave={(tableView) => {
           console.log(tableView);
           setTableViews((prev) => [...prev, tableView]);
+        }}
+        onTableViewDelete={(tableView) => {
+          console.log(tableView);
+          setTableViews((prev) =>
+            prev.filter((view) => view.id !== tableView.id)
+          );
         }}
       />
     </div>

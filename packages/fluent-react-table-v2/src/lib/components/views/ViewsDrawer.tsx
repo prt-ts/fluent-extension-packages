@@ -66,7 +66,7 @@ type ViewsDrawerProps<TItem extends object> = {
 
 export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>) => {
 
-  const { open, setOpen, table, tableViews, applyTableState, resetToGridDefaultView, getTableState, onTableViewSave } = props;
+  const { open, setOpen, table, tableViews, applyTableState, resetToGridDefaultView, getTableState, onTableViewSave, onTableViewDelete } = props;
   const styles = useFilterDrawerStyles();
 
   const [checkedValues, setCheckedValues] = React.useState<
@@ -126,15 +126,32 @@ export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>
           {
             tableViews.map((view) => {
               return (
-                <MenuItemRadio
-                  key={view.id}
-                  name='table-views'
-                  value={view.viewName}
-                  onClick={() => applyTableState(view.tableState)}
-                  icon={<ViewDesktop20Regular />}
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    width: '100%',
+                  }}
                 >
-                  {view.viewName}
-                </MenuItemRadio >
+                  <MenuItemRadio
+                    key={view.id}
+                    name="table-views"
+                    value={view.viewName}
+                    onClick={() => applyTableState(view.tableState)}
+                    icon={<ViewDesktop20Regular />}
+                  >
+                    {view.viewName}
+                  </MenuItemRadio>
+                  {onTableViewDelete && view.isViewOwner && (
+                    <Button
+                      appearance="subtle"
+                      aria-label="Close"
+                      icon={<Dismiss24Regular />}
+                      onClick={() => onTableViewDelete(view)}
+                    />
+                  )}
+                </div>
               );
             })
           }
@@ -151,7 +168,7 @@ export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>
           </MenuItem>
           <MenuItem icon={<ClearFilterIcon />} onClick={clearAllSelection}>
             Clear All Selection
-          </MenuItem> 
+          </MenuItem>
         </MenuList>
       </DrawerFooter>
     </InlineDrawer>
