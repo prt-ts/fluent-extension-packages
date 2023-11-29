@@ -24,9 +24,6 @@
       "@prt-ts/fluent-react-hook-form": [
         "packages/fluent-react-hook-form/src/index.ts"
       ],
-      "@prt-ts/fluent-react-table": [
-        "packages/fluent-react-table/src/index.ts"
-      ],
       "@prt-ts/fluent-react-table-v2": [
         "packages/fluent-react-table-v2/src/index.ts"
       ],
