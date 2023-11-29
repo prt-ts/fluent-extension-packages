@@ -7,6 +7,7 @@ import {
   Checkbox,
   Divider,
   Input,
+  Tooltip,
 } from '@fluentui/react-components';
 import * as React from 'react';
 import {
@@ -18,7 +19,7 @@ import { Table, TableState } from '@tanstack/react-table';
 import {
   Album24Regular,
   FilterDismissFilled,
-  FilterFilled, 
+  FilterFilled,
 } from '@fluentui/react-icons';
 import { Search24Regular } from '@fluentui/react-icons';
 
@@ -52,10 +53,12 @@ export const GridHeader = <TItem extends object>(
         {props.headerMenu && <Divider vertical />}
         <Popover withArrow>
           <PopoverTrigger disableButtonEnhancement>
-            <Button
-              icon={<ToggleGroupColumnIcon />}
-              aria-label="Toggle Group Column"
-            />
+            <Tooltip content={'Toggle Group Column'} relationship="label">
+              <Button
+                icon={<ToggleGroupColumnIcon />}
+                aria-label="Toggle Group Column"
+              />
+            </Tooltip>
           </PopoverTrigger>
 
           <PopoverSurface>
@@ -80,10 +83,12 @@ export const GridHeader = <TItem extends object>(
         </Popover>
         <Popover withArrow>
           <PopoverTrigger disableButtonEnhancement>
-            <Button
-              icon={<ToggleSelectColumnIcon />}
-              aria-label="Toggle Column Visibility"
-            />
+            <Tooltip content={'Toggle Column Visibility'} relationship="label">
+              <Button
+                icon={<ToggleSelectColumnIcon />}
+                aria-label="Toggle Column Visibility"
+              />
+            </Tooltip>
           </PopoverTrigger>
 
           <PopoverSurface>
@@ -111,12 +116,14 @@ export const GridHeader = <TItem extends object>(
             </div>
           </PopoverSurface>
         </Popover>
-        <Button
-          // appearance="subtle"
-          onClick={() => props.setViewsDrawerOpen((value) => !value)}
-          icon={<Album24Regular />}
-          aria-label="View Menu"
-        />
+        <Tooltip content={'Table Views Management'} relationship="label">
+          <Button
+            // appearance="subtle"
+            onClick={() => props.setViewsDrawerOpen((value) => !value)}
+            icon={<Album24Regular />}
+            aria-label="View Menu"
+          />
+        </Tooltip>
         <DebouncedInput
           value={globalFilter ?? ''}
           onChange={(value) => setGlobalFilter(String(value))}
@@ -169,15 +176,20 @@ function DebouncedInput({
       contentBefore={<Search24Regular />}
       style={{ width: '300px' }}
       contentAfter={
-        <Button
-          appearance="subtle"
-          title='Ad'
-          icon={openFilterDrawer ? <FilterDismissFilled /> : <FilterFilled />}
-          aria-label="View Menu"
-          onClick={() => {
-            setFilterDrawerOpen((open) => !open);
-          }}
-        />
+        <Tooltip
+          content={openFilterDrawer ? 'Close Filter Window' : 'Open Advance Filter'}
+          relationship="label"
+        >
+          <Button
+            appearance="subtle"
+            title="Ad"
+            icon={openFilterDrawer ? <FilterDismissFilled /> : <FilterFilled />}
+            aria-label="View Menu"
+            onClick={() => {
+              setFilterDrawerOpen((open) => !open);
+            }}
+          />
+        </Tooltip>
       }
     />
   );
