@@ -182,7 +182,6 @@ function DebouncedInput({
         >
           <Button
             appearance="subtle"
-            title="Ad"
             icon={openFilterDrawer ? <FilterDismissFilled /> : <FilterFilled />}
             aria-label="View Menu"
             onClick={() => {
