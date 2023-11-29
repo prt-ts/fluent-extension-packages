@@ -66,7 +66,7 @@ type ViewsDrawerProps<TItem extends object> = {
 
 export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>) => {
 
-  const { open, setOpen, table, tableViews, applyTableState, resetToGridDefaultView, getTableState, onTableViewSave, onTableViewDelete } = props;
+  const { open, setOpen, table, tableViews, applyTableState, resetToGridDefaultView, getTableState, onTableViewSave } = props;
   const styles = useFilterDrawerStyles();
 
   const [checkedValues, setCheckedValues] = React.useState<
@@ -127,6 +127,7 @@ export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>
             tableViews.map((view) => {
               return (
                 <div
+                  key={view.id + view.viewName}
                   style={{
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -135,7 +136,6 @@ export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>
                   }}
                 >
                   <MenuItemRadio
-                    key={view.id}
                     name="table-views"
                     value={view.viewName}
                     onClick={() => applyTableState(view.tableState)}
@@ -143,12 +143,12 @@ export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>
                   >
                     {view.viewName}
                   </MenuItemRadio>
-                  {onTableViewDelete && view.isViewOwner && (
+                  {props.onTableViewDelete && view?.isViewOwner && (
                     <Button
                       appearance="subtle"
                       aria-label="Close"
                       icon={<Dismiss24Regular />}
-                      onClick={() => onTableViewDelete(view)}
+                      onClick={() => props.onTableViewDelete?.(view)}
                     />
                   )}
                 </div>
