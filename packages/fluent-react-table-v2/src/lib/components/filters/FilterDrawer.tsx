@@ -74,7 +74,7 @@ export const FilterDrawer = <TItem extends object>({
             />
           }
         >
-          Advance Filters
+          Advanced Filters
         </DrawerHeaderTitle>
       </DrawerHeader>
 
