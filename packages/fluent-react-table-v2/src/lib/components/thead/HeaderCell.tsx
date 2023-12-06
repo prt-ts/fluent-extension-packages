@@ -67,64 +67,88 @@ const reorderColumn = (
 
 const useTableHeaderCellStyles = makeStyles({
   tHeadCell: {
-    position: "relative",
+    zIndex: 99,
+    backgroundColor: "transparent",
+    position: 'relative',
     fontSize: tokens.fontSizeBase300,
     fontWeight: tokens.fontWeightBold,
-    minWidth: "1rem",
-    ...shorthands.padding("2px", "4px"),
-    ...shorthands.borderLeft("1px", "solid", tokens.colorNeutralStroke1),
-    ...shorthands.borderRight("1px", "solid", tokens.colorNeutralStroke1),
-    ...shorthands.borderBottom("1px", "solid", tokens.colorNeutralStroke1),
+    minWidth: '1rem',
+    ...shorthands.padding('2px', '4px'),
   },
 
-  tHeadCellContent: {
-    display: "flex",
-    alignContent: "space-between",
-    alignItems: "center",
-    justifyContent: "space-between",
-    cursor: "pointer",
-    width: "100%",
-    minWidth: "1rem",
-    ...shorthands.padding("3px", "4px"),
+  tHeadNonLeafCell: {
+    ...shorthands.borderBottom('1px', 'solid', tokens.colorNeutralBackground5),
+  },
+
+  tHeadCellDragging: {
+    opacity: 0.5,
+    cursor: 'grab',
+  },
+
+  tHeadCellOver: {
+    backgroundColor: tokens.colorNeutralStroke1,
+    ...shorthands.border(tokens.strokeWidthThin, 'dashed', tokens.colorNeutralBackground5),
+  },
+
+  tLeafHeadCellContent: {
+    display: 'flex',
+    alignContent: 'space-between',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    cursor: 'pointer',
+    width: '100%',
+    minWidth: '1rem',
+    ...shorthands.padding('3px', '4px'),
+  },
+
+  tNonLeafHeadCellContent: {
+    display: 'flex',
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    width: '100%',
+    minWidth: '1rem',
+    ...shorthands.padding('3px', '4px'),
   },
 
   tHeadContentBtn: {
-    ...shorthands.padding("0px", "0px", "0px", "0px"),
-    display: "flex",
-    ...shorthands.gap("5px"),
-    alignContent: "space-between",
-    alignItems: "center",
-    justifyContent: "space-between",
-    cursor: "pointer",
-    width: "100%",
-    height: "100%",
-    minWidth: "1rem",
+    ...shorthands.padding('0px', '0px', '0px', '0px'),
+    display: 'flex',
+    ...shorthands.gap('5px'),
+    alignContent: 'space-between',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    cursor: 'pointer',
+    width: '100%',
+    height: '100%',
+    minWidth: '1rem',
   },
 
   tHeadMenuPopover: {
-    ...shorthands.padding("0px", "0px", "0px", "0px"),
-    width: "300px",
+    ...shorthands.padding('0px', '0px', '0px', '0px'),
+    width: '300px',
   },
 
   resizer: {
-    ...shorthands.borderRight("1px", "solid", tokens.colorNeutralBackground5),
+    ...shorthands.borderRight('1px', 'solid', tokens.colorNeutralBackground5),
 
-    width: "8px",
-    position: "absolute",
+    width: '8px',
+    position: 'absolute',
     top: 0,
     right: 0,
     bottom: 0,
-    cursor: "col-resize",
-    resize: "horizontal",
+    cursor: 'col-resize',
+    resize: 'horizontal',
 
-    ":hover": {
-      borderRightWidth: "4px",
+    ':hover': {
+      borderRightWidth: '4px',
       borderRightColor: tokens.colorNeutralBackground2Pressed,
     },
   },
 
   resizerActive: {
-    borderRightWidth: "4px",
+    borderRightWidth: '4px',
     borderRightColor: tokens.colorNeutralBackground2Pressed,
   },
 });
@@ -165,26 +189,31 @@ export const HeaderCell: React.FC<HeaderCellProps> = ({
 
   const styles = useTableHeaderCellStyles();
 
+  const canDragDrop = headerDepth === totalNumberOfHeaderDepth && !header.isPlaceholder;
+  const isLeafHeaders = headerDepth === totalNumberOfHeaderDepth;
+
   return (
     <th
       colSpan={header.colSpan}
-      style={{
-        opacity: isDragging ? 0.5 : 1,
-        cursor: isDragging ? 'grabbing' : 'pointer',
-        alignItems:
-          headerDepth === totalNumberOfHeaderDepth ? 'left' : 'center',
-        zIndex: 99,
-        backgroundColor: isOver ? '#0000000d' : 'transparent',
-        border: isOver ? '1px dashed #0000000d' : 'none',
-      }}
-      className={styles.tHeadCell}
+      className={mergeClasses(
+        styles.tHeadCell,
+        isLeafHeaders || header.isPlaceholder
+          ? undefined
+          : styles.tHeadNonLeafCell,
+        isDragging && styles.tHeadCellDragging,
+        isOver && isLeafHeaders && styles.tHeadCellOver
+      )}
     >
-      <div ref={header.isPlaceholder ? undefined : dragRef}>
+      <div ref={canDragDrop ? dragRef : undefined}>
         <div
-          className={styles.tHeadCellContent}
-          ref={header.isPlaceholder ? undefined : dropRef}
+          className={
+            isLeafHeaders
+              ? styles.tLeafHeadCellContent
+              : styles.tNonLeafHeadCellContent
+          }
+          ref={canDragDrop ? dropRef : undefined}
         >
-          <div ref={header.isPlaceholder ? undefined : previewRef}>
+          <div ref={canDragDrop ? previewRef : undefined}>
             {header.isPlaceholder ? null : (
               <Button
                 style={{
@@ -194,7 +223,7 @@ export const HeaderCell: React.FC<HeaderCellProps> = ({
                   flex: 1,
                 }}
                 onClick={(e) => {
-                  if(!header.column.getCanSort()) return;
+                  if (!header.column.getCanSort()) return;
                   header.column.toggleSorting(
                     header.column.getIsSorted() === 'asc',
                     e.ctrlKey
