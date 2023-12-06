@@ -152,16 +152,23 @@ export function TableExample() {
       id: 'address',
       header: 'Address',
       columns: [
-        columnHelper.accessor('address.street', {
-          id: 'Street',
-          header: 'Street',
-          aggregatedCell: () => null,
+         columnHelper.group({
+          id: 'Address Line 1',
+          header: 'Address Line 1',
+          columns: [
+            columnHelper.accessor('address.street', {
+              id: 'Street',
+              header: 'Street',
+              aggregatedCell: () => null,
+            }),
+            columnHelper.accessor('address.city', {
+              id: 'City',
+              header: 'City',
+              aggregatedCell: () => null,
+            }),
+          ]
         }),
-        columnHelper.accessor('address.city', {
-          id: 'City',
-          header: 'City',
-          aggregatedCell: () => null,
-        }),
+
         columnHelper.accessor('address.state', {
           id: 'State',
           header: 'State',

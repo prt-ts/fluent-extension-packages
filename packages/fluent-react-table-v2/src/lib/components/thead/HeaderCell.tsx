@@ -68,7 +68,6 @@ const reorderColumn = (
 const useTableHeaderCellStyles = makeStyles({
   tHeadCell: {
     zIndex: 99,
-    backgroundColor: "transparent",
     position: 'relative',
     fontSize: tokens.fontSizeBase300,
     fontWeight: tokens.fontWeightBold,
@@ -78,6 +77,10 @@ const useTableHeaderCellStyles = makeStyles({
 
   tHeadNonLeafCell: {
     ...shorthands.borderBottom('1px', 'solid', tokens.colorNeutralBackground5),
+  },
+
+  tHeadCellDraggable: {
+    height: '100%',
   },
 
   tHeadCellDragging: {
@@ -97,6 +100,7 @@ const useTableHeaderCellStyles = makeStyles({
     justifyContent: 'space-between',
     cursor: 'pointer',
     width: '100%',
+    height: '100%',
     minWidth: '1rem',
     ...shorthands.padding('3px', '4px'),
   },
@@ -204,7 +208,7 @@ export const HeaderCell: React.FC<HeaderCellProps> = ({
         isOver && isLeafHeaders && styles.tHeadCellOver
       )}
     >
-      <div ref={canDragDrop ? dragRef : undefined}>
+      <div className={styles.tHeadCellDraggable} ref={canDragDrop ? dragRef : undefined}>
         <div
           className={
             isLeafHeaders
