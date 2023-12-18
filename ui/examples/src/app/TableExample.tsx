@@ -81,7 +81,7 @@ export function TableExample() {
     columnHelper.accessor('id', {
       id: 'ID',
       header: () => 'ID',
-      cell: ({ row }) => {
+      cell: ({ getValue }) => {
         return (
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             <Button
@@ -91,7 +91,7 @@ export function TableExample() {
               onClick={async () => {
                 const tableState = tableRef.current?.getTableState();
                 localStorage.setItem('table1_edit_temp', JSON.stringify(tableState));
-                navigate(`/dummy-edit/${row.getValue('id')}/edit`);
+                navigate(`/dummy-edit/${getValue()}/edit`);
               }}
             />
             <Button
@@ -107,7 +107,7 @@ export function TableExample() {
                 }
               }}
             />
-            <strong>{row.getValue('id')}</strong>
+            <strong>{getValue()}</strong>
           </div>
         );
       },
