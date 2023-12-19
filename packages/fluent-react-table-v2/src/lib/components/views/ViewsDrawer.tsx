@@ -19,6 +19,7 @@ import { TableProps, TableView } from '../../types';
 import { Table, TableState } from '@tanstack/react-table';
 import { ClearFilterIcon } from '../icon-components/GridIcons';
 import { ViewSaveForm } from './ViewSaveForm';
+import { ActionType, DrawerTableState } from '../reducer';
 
 const useFilterDrawerStyles = makeStyles({
   drawerBody: {
@@ -53,8 +54,8 @@ const useFilterDrawerStyles = makeStyles({
 });
 
 type ViewsDrawerProps<TItem extends object> = {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  drawerState: DrawerTableState,
+  dispatch: React.Dispatch<ActionType<string>>
   table: Table<TItem>;
   tableViews: TableView[];
   applyTableState: (tableView: Partial<TableState>) => void;
@@ -66,7 +67,7 @@ type ViewsDrawerProps<TItem extends object> = {
 
 export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>) => {
 
-  const { open, setOpen, table, tableViews, applyTableState, resetToGridDefaultView, getTableState, onTableViewSave } = props;
+  const { drawerState, dispatch, tableViews, applyTableState, resetToGridDefaultView, getTableState, onTableViewSave } = props;
   const styles = useFilterDrawerStyles();
 
   const [checkedValues, setCheckedValues] = React.useState<
@@ -79,21 +80,21 @@ export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>
     setCheckedValues((s) => ({ ...s, [name]: checkedItems }));
   };
 
-  const resetAllFilters = React.useCallback(() => {
-    table.setGlobalFilter('');
-    table.resetColumnFilters();
-  }, [table]);
+  // const resetAllFilters = React.useCallback(() => {
+  //   table.setGlobalFilter('');
+  //   table.resetColumnFilters();
+  // }, [table]);
 
-  const resetAllGrouping = React.useCallback(() => {
-    table.resetGrouping();
-  }, [table]);
+  // const resetAllGrouping = React.useCallback(() => {
+  //   table.resetGrouping();
+  // }, [table]);
 
-  const clearAllSelection = React.useCallback(() => {
-    table.toggleAllRowsSelected(false);
-  }, [table]);
+  // const clearAllSelection = React.useCallback(() => {
+  //   table.toggleAllRowsSelected(false);
+  // }, [table]);
 
   return (
-    <InlineDrawer position="end" open={open} separator>
+    <InlineDrawer position="end" open={drawerState.isViewsDrawerOpen} separator>
       <DrawerHeader>
         <DrawerHeaderTitle
           action={
@@ -101,7 +102,7 @@ export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>
               appearance="subtle"
               aria-label="Close"
               icon={<Dismiss24Regular />}
-              onClick={() => setOpen(false)}
+              onClick={() => dispatch({ type: "CLOSE_VIEW_DRAWER" })}
             />
           }
         >
@@ -160,14 +161,8 @@ export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>
       <DrawerFooter>
         <MenuList>
           <MenuDivider />
-          <MenuItem icon={<ClearFilterIcon />} onClick={resetAllFilters}>
-            Clear All Filters
-          </MenuItem>
-          <MenuItem icon={<ClearFilterIcon />} onClick={resetAllGrouping}>
-            Clear All Grouping
-          </MenuItem>
-          <MenuItem icon={<ClearFilterIcon />} onClick={clearAllSelection}>
-            Clear All Selection
+          <MenuItem icon={<ClearFilterIcon />} onClick={resetToGridDefaultView}>
+            Reset to Default View
           </MenuItem>
         </MenuList>
       </DrawerFooter>

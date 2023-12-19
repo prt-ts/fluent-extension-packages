@@ -8,10 +8,16 @@ import {
   Caption1Stronger,
   makeStyles,
   shorthands,
+  DrawerFooter,
+  MenuList,
+  MenuDivider,
+  MenuItem,
 } from '@fluentui/react-components';
 import { Dismiss24Regular } from '@fluentui/react-icons';
 import { Table, flexRender } from '@tanstack/react-table';
 import { Filter } from './Filter';
+import { ActionType, DrawerTableState } from '../reducer';
+import { ClearFilterIcon } from '../icon-components/GridIcons';
 
 
 const useFilterDrawerStyles = makeStyles({
@@ -47,22 +53,27 @@ const useFilterDrawerStyles = makeStyles({
 });
 
 type FilterDrawerProps<TItem extends object> = {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  drawerState: DrawerTableState,
+  dispatch: React.Dispatch<ActionType<string>>
   table: Table<TItem>;
 };
 
 export const FilterDrawer = <TItem extends object>({
-  open,
-  setOpen,
+  drawerState,
+  dispatch,
   table
 }: FilterDrawerProps<TItem>) => {
 
   const headerGroups = table.getHeaderGroups();
   const styles = useFilterDrawerStyles();
 
+  const resetAllFilters = React.useCallback(() => {
+    table.setGlobalFilter('');
+    table.resetColumnFilters();
+  }, [table]);
+
   return (
-    <InlineDrawer position="end" open={open} separator>
+    <InlineDrawer position="end" open={drawerState.isFilterDrawerOpen} separator>
       <DrawerHeader>
         <DrawerHeaderTitle
           action={
@@ -70,7 +81,7 @@ export const FilterDrawer = <TItem extends object>({
               appearance="subtle"
               aria-label="Close"
               icon={<Dismiss24Regular />}
-              onClick={() => setOpen(false)}
+              onClick={() => dispatch({ type : "CLOSE_FILTER_DRAWER" })}
             />
           }
         >
@@ -107,6 +118,14 @@ export const FilterDrawer = <TItem extends object>({
           });
         })}
       </DrawerBody>
+      <DrawerFooter>
+        <MenuList>
+          <MenuDivider />
+          <MenuItem icon={<ClearFilterIcon />} onClick={resetAllFilters}>
+            Clear All Filters
+          </MenuItem> 
+        </MenuList>
+      </DrawerFooter>
     </InlineDrawer>
   );
 };
