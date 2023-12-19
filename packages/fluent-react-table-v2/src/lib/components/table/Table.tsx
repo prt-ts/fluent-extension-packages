@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { useTableStaticStyles } from './useTableStaticStyles';
-import { Header, Table, flexRender } from '@tanstack/react-table';
+import { Header, Table } from '@tanstack/react-table';
 import { useVirtual } from 'react-virtual';
 import { HeaderCell } from '../thead';
-import { Button, Checkbox, Radio } from '@fluentui/react-components';
+import { Checkbox } from '@fluentui/react-components';
 import { Loading } from '../loading';
 import { NoItemGrid } from '../no-item';
 import { NoSearchResult } from '../no-search-result';
-import {
-  GroupCollapsedIcon,
-  GroupExpandedIcon,
-} from '../icon-components/GridIcons';
+import { TableBody } from '../tbody';
 
 type TableContainerProps<TItem extends object> = {
   rowSelectionMode?: 'single' | 'multiple';
@@ -35,14 +32,7 @@ export const TableContainer = <TItem extends object>(
     size: rows.length,
     overscan: 10,
   });
-  const { virtualItems: virtualRows, totalSize } = rowVirtualizer;
-
-  const paddingTop = virtualRows.length > 0 ? virtualRows?.[0]?.start || 0 : 0;
-  const paddingBottom =
-    virtualRows.length > 0
-      ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0)
-      : 0;
-
+  const { virtualItems: virtualRows, totalSize } = rowVirtualizer;  
   const headerGroups = table.getHeaderGroups();
 
   // utilities
@@ -99,126 +89,13 @@ export const TableContainer = <TItem extends object>(
             </tr>
           ))}
         </thead>
-        <tbody className={styles.tBody}>
-          {/* placeholder for virtualization */}
-          {paddingTop > 0 && (
-            <tr className={styles.tBodyRow} aria-hidden={true}>
-              <td style={{ height: `${paddingTop}px` }} />
-            </tr>
-          )}
-          {virtualRows.map((virtualRow) => {
-            const row = rows[virtualRow.index];
-            return (
-              <tr
-                key={row.id}
-                className={
-                  row.getIsSelected() || row.getIsAllSubRowsSelected()
-                    ? styles.tBodySelectedRow
-                    : styles.tBodyRow
-                }
-              >
-                {rowSelectionMode === 'multiple' && (
-                  <td
-                    className={styles.tBodyCell}
-                    aria-label="Select Row Column"
-                  >
-                    <Checkbox
-                      checked={
-                        row.getIsSomeSelected()
-                          ? 'mixed'
-                          : row.getIsSelected() || row.getIsAllSubRowsSelected()
-                      }
-                      disabled={!row.getCanSelect()}
-                      onChange={row.getToggleSelectedHandler()}
-                      aria-label="Select Row"
-                    />
-                  </td>
-                )}
-                {rowSelectionMode === 'single' && (
-                  <td
-                    className={styles.tBodyCell}
-                    aria-label="Select Row Column"
-                  >
-                    <Radio
-                      checked={row.getIsSelected()}
-                      disabled={!row.getCanSelect()}
-                      onChange={row.getToggleSelectedHandler()}
-                      aria-label="Select Row"
-                    />
-                  </td>
-                )}
-                {row.getVisibleCells().map((cell) => (
-                  <td
-                    {...{
-                      key: cell.id,
-                      style: {
-                        // background: cell.getIsGrouped()
-                        //   ? "#0aff0082"
-                        //   : cell.getIsAggregated()
-                        //   ? "#ffa50078"
-                        //   : cell.getIsPlaceholder()
-                        //   ? "#ff000042"
-                        //   : "white",
+        
+        <TableBody 
+          rows={rows} 
+          virtualRows={virtualRows} 
+          rowSelectionMode={rowSelectionMode} 
+          totalSize={totalSize} />
 
-                        width: cell.column.getSize(),
-                      },
-                    }}
-                    className={styles.tBodyCell}
-                    // rowSpan={cell.getIsGrouped() ? row.subRows.length : undefined}
-                  >
-                    {cell.getIsGrouped() ? (
-                      // If it's a grouped cell, add an expander and row count
-                      <Button
-                        {...{
-                          onClick: row.getToggleExpandedHandler(),
-                          style: {
-                            cursor: row.getCanExpand() ? 'pointer' : 'normal',
-                          },
-                        }}
-                        appearance="transparent"
-                        icon={
-                          row.getIsExpanded() ? (
-                            <GroupExpandedIcon />
-                          ) : (
-                            <GroupCollapsedIcon />
-                          )
-                        }
-                      >
-                        <strong>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}{' '}
-                          ({row.subRows.length})
-                        </strong>
-                      </Button>
-                    ) : cell.getIsAggregated() ? (
-                      // If the cell is aggregated, use the Aggregated
-                      // renderer for cell
-                      <strong>
-                        {flexRender(
-                          cell.column.columnDef.aggregatedCell ??
-                            cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </strong>
-                    ) : cell.getIsPlaceholder() ? null : ( // For cells with repeated values, render null
-                      // Otherwise, just render the regular cell
-                      flexRender(cell.column.columnDef.cell, cell.getContext())
-                    )}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
-
-          {/* placeholder for virtualization */}
-          {paddingBottom > 0 && (
-            <tr className={styles.tBodyRow} aria-hidden={true}>
-              <td style={{ height: `${paddingBottom}px` }} />
-            </tr>
-          )}
-        </tbody>
         {rowSelectionMode === 'multiple' &&
           !isLoading &&
           !noItems &&
