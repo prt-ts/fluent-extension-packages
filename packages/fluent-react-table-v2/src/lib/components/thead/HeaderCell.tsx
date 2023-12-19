@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   Column,
   ColumnOrderState,
@@ -18,10 +17,7 @@ import {
   MenuList,
   MenuPopover,
   MenuTrigger,
-  makeStyles,
   mergeClasses,
-  shorthands,
-  tokens,
 } from "@fluentui/react-components";
 import {
   bundleIcon,
@@ -41,12 +37,13 @@ import {
   PinRegular,
 } from "@fluentui/react-icons";
 import { Filter } from "../filters";
+import { useTableHeaderStyles } from "./useTableHeaderStyles";
 const SortAscIcon = bundleIcon(ArrowSortDown20Filled, ArrowSortDown20Regular);
 const SortDescIcon = bundleIcon(ArrowSortUp20Filled, ArrowSortUp20Regular);
 
-type HeaderCellProps = {
-  header: Header<object, unknown>;
-  table: Table<object>;
+type HeaderCellProps<TItem extends object> = {
+  header: Header<TItem, unknown>;
+  table: Table<TItem>;
   hideMenu?: boolean;
   headerDepth: number;
   totalNumberOfHeaderDepth: number;
@@ -65,105 +62,15 @@ const reorderColumn = (
   return [...columnOrder];
 };
 
-const useTableHeaderCellStyles = makeStyles({
-  tHeadCell: {
-    zIndex: 99,
-    position: 'relative',
-    fontSize: tokens.fontSizeBase300,
-    fontWeight: tokens.fontWeightBold,
-    minWidth: '1rem',
-    ...shorthands.padding('2px', '4px'),
-  },
 
-  tHeadNonLeafCell: {
-    ...shorthands.borderBottom('1px', 'solid', tokens.colorNeutralBackground5),
-  },
 
-  tHeadCellDraggable: {
-    height: '100%',
-  },
-
-  tHeadCellDragging: {
-    opacity: 0.5,
-    cursor: 'grab',
-  },
-
-  tHeadCellOver: {
-    backgroundColor: tokens.colorNeutralStroke1,
-    ...shorthands.border(tokens.strokeWidthThin, 'dashed', tokens.colorNeutralBackground5),
-  },
-
-  tLeafHeadCellContent: {
-    display: 'flex',
-    alignContent: 'space-between',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    cursor: 'pointer',
-    width: '100%',
-    height: '100%',
-    minWidth: '1rem',
-    ...shorthands.padding('3px', '4px'),
-  },
-
-  tNonLeafHeadCellContent: {
-    display: 'flex',
-    alignContent: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'pointer',
-    width: '100%',
-    minWidth: '1rem',
-    ...shorthands.padding('3px', '4px'),
-  },
-
-  tHeadContentBtn: {
-    ...shorthands.padding('0px', '0px', '0px', '0px'),
-    display: 'flex',
-    ...shorthands.gap('5px'),
-    alignContent: 'space-between',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    cursor: 'pointer',
-    width: '100%',
-    height: '100%',
-    minWidth: '1rem',
-  },
-
-  tHeadMenuPopover: {
-    ...shorthands.padding('0px', '0px', '0px', '0px'),
-    width: '300px',
-  },
-
-  resizer: {
-    ...shorthands.borderRight('1px', 'solid', tokens.colorNeutralBackground5),
-
-    width: '8px',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    cursor: 'col-resize',
-    resize: 'horizontal',
-
-    ':hover': {
-      borderRightWidth: '4px',
-      borderRightColor: tokens.colorNeutralBackground2Pressed,
-    },
-  },
-
-  resizerActive: {
-    borderRightWidth: '4px',
-    borderRightColor: tokens.colorNeutralBackground2Pressed,
-  },
-});
-
-export const HeaderCell: React.FC<HeaderCellProps> = ({
+export function HeaderCell<TItem extends object>({
   header,
   table,
   hideMenu,
   headerDepth,
   totalNumberOfHeaderDepth,
-}) => {
+} : HeaderCellProps<TItem>) {
   const { getState, setColumnOrder } = table;
   const { columnOrder } = getState();
   const { column } = header;
@@ -191,7 +98,7 @@ export const HeaderCell: React.FC<HeaderCellProps> = ({
     type: "column",
   });
 
-  const styles = useTableHeaderCellStyles();
+  const styles = useTableHeaderStyles();
 
   const canDragDrop = headerDepth === totalNumberOfHeaderDepth && !header.isPlaceholder;
   const isLeafHeaders = headerDepth === totalNumberOfHeaderDepth;
@@ -201,8 +108,7 @@ export const HeaderCell: React.FC<HeaderCellProps> = ({
       colSpan={header.colSpan}
       className={mergeClasses(
         styles.tHeadCell,
-        isLeafHeaders || header.isPlaceholder
-          ? undefined
+        isLeafHeaders || header.isPlaceholder ? undefined
           : styles.tHeadNonLeafCell,
         isDragging && styles.tHeadCellDragging,
         isOver && isLeafHeaders && styles.tHeadCellOver

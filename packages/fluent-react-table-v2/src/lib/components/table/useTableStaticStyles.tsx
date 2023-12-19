@@ -44,27 +44,6 @@ export const useTableStaticStyles = makeStyles({
     width: "100%",
     borderCollapse: "collapse",
   },
-
-  tHead: {
-    ...shorthands.padding("0px", "0px", "0px", "0px"),
-    zIndex: 1,
-    backgroundColor: tokens.colorPaletteAnchorBackground2,
-    color: tokens.colorNeutralForeground1,
-
-    position: "sticky",
-    top: 0,
-    width: "100%",
-    boxShadow: tokens.shadow2,
-  },
-
-  tHeadRow: {
-    ...shorthands.padding("0px", "0px", "0px", "0px"),
-    ...shorthands.borderBottom(
-      tokens.strokeWidthThickest,
-      "solid",
-      tokens.colorNeutralStroke1
-    ),
-  },
   
   tFoot: {
     backgroundColor: tokens.colorNeutralBackground1,

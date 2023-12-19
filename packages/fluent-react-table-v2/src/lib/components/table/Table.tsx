@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useTableStaticStyles } from './useTableStaticStyles';
-import { Header, Table } from '@tanstack/react-table';
+import { Table } from '@tanstack/react-table';
 import { useVirtual } from 'react-virtual';
-import { HeaderCell } from '../thead';
+import { TableHeader } from '../thead';
 import { Checkbox } from '@fluentui/react-components';
 import { Loading } from '../loading';
 import { NoItemGrid } from '../no-item';
@@ -43,53 +43,12 @@ export const TableContainer = <TItem extends object>(
 
   return (
     <div ref={tableContainerRef} className={styles.tableContainer}>
-      <table className={styles.table} aria-label="Data Grid">
-        <thead className={styles.tHead}>
-          {headerGroups?.map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {rowSelectionMode === 'multiple' && (
-                <th
-                  style={{ width: '1rem' }}
-                  aria-label="Select All Row Column"
-                >
-                  {headerGroup.depth === headerGroups?.length - 1 && (
-                    <Checkbox
-                      checked={
-                        table.getIsSomeRowsSelected()
-                          ? 'mixed'
-                          : table.getIsAllRowsSelected()
-                      }
-                      onChange={table.getToggleAllRowsSelectedHandler()}
-                      aria-label="Select All Rows"
-                      title={'Select All Rows'}
-                    />
-                  )}
-                </th>
-              )}
-              {rowSelectionMode === 'single' && (
-                <th
-                  style={{ width: '1rem' }}
-                  aria-label="Select All Row Column"
-                >
-                  {' '}
-                </th>
-              )}
-              {headerGroup.headers.map((header) => {
-                return (
-                  <HeaderCell
-                    key={header.id}
-                    header={header as unknown as Header<object, unknown>}
-                    table={table as unknown as Table<object>}
-                    hideMenu={headerGroup.depth !== headerGroups?.length - 1}
-                    headerDepth={headerGroup.depth}
-                    totalNumberOfHeaderDepth={headerGroups?.length - 1}
-                  />
-                );
-              })}
-            </tr>
-          ))}
-        </thead>
-        
+      <table className={styles.table} aria-label="Data Grid"> 
+        <TableHeader 
+          table={table} 
+          rowSelectionMode={rowSelectionMode} 
+          headerGroups={headerGroups} />
+
         <TableBody 
           rows={rows} 
           virtualRows={virtualRows} 
