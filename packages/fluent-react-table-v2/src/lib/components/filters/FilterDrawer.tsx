@@ -8,10 +8,7 @@ import {
   Caption1Stronger,
   makeStyles,
   shorthands,
-  DrawerFooter,
-  MenuList,
-  MenuDivider,
-  MenuItem,
+  DrawerFooter, 
 } from '@fluentui/react-components';
 import { Dismiss24Regular } from '@fluentui/react-icons';
 import { Table, flexRender } from '@tanstack/react-table';
@@ -102,7 +99,9 @@ export const FilterDrawer = <TItem extends object>({
             return (
               <div key={header.column.id}>
                 {header.column.getCanFilter() && (
-                  <div key={'filter-group'}>
+                  <div key={'filter-group'} style={{
+                    marginTop: "20px",
+                  }}> 
                     <Caption1Stronger>
                       Filter by{' '}
                       {flexRender(
@@ -119,12 +118,9 @@ export const FilterDrawer = <TItem extends object>({
         })}
       </DrawerBody>
       <DrawerFooter>
-        <MenuList>
-          <MenuDivider />
-          <MenuItem icon={<ClearFilterIcon />} onClick={resetAllFilters}>
-            Clear All Filters
-          </MenuItem> 
-        </MenuList>
+        <Button icon={<ClearFilterIcon />} onClick={resetAllFilters} style={{width: "100%"}}>
+          Clear All Filters
+        </Button>
       </DrawerFooter>
     </InlineDrawer>
   );
