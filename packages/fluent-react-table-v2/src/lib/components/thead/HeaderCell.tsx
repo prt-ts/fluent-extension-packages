@@ -1,4 +1,4 @@
-/* eslint-disable */
+
 import {
   Column,
   ColumnOrderState,
@@ -104,9 +104,22 @@ export function HeaderCell<TItem extends object>({
 
   if (header.isPlaceholder) {
     return (
-      <th colSpan={header.colSpan} className={styles.tHeadCell}></th>
+      <th colSpan={header.colSpan} className={styles.tHeadCell}>
+        {header.column.getCanResize() && (
+        <div
+          onMouseDown={header.getResizeHandler()}
+          onTouchStart={header.getResizeHandler()}
+          className={mergeClasses(
+            styles.resizer,
+            column.getIsResizing() && styles.resizerActive
+          )}
+        />
+      )}
+      </th>
     );
   }
+
+  console.log(header.column.id, header.column.getCanResize());
 
   return (
     <th
@@ -137,11 +150,11 @@ export function HeaderCell<TItem extends object>({
                   justifyContent: 'left',
                   flex: 1,
                 }}
-                onClick={(e) => {
+                onClick={(e: MouseEvent) => {
                   if (!header.column.getCanSort()) return;
                   header.column.toggleSorting(
                     header.column.getIsSorted() === 'asc',
-                    e.ctrlKey
+                    e.ctrlKey 
                   );
                 }}
                 onDoubleClick={() => {
@@ -217,13 +230,13 @@ function HeaderMenu<TItem extends object>(props: HeaderMenuProps<TItem>): JSX.El
   const { header, table, hideMenu } = props;
   const styles = useTableHeaderStyles();
 
-  if (hideMenu || header.isPlaceholder) return (<></>);
+  if (hideMenu || header.isPlaceholder) return (<> </>);
 
   const canHavePopOver = header.column.getCanSort() ||
     header.column.getCanGroup() ||
     header.column.getCanFilter();
 
-  if (!canHavePopOver) return (<></>);
+  if (!canHavePopOver) return (<> </>);
 
   return (
     <Menu>
@@ -247,7 +260,7 @@ function HeaderMenu<TItem extends object>(props: HeaderMenuProps<TItem>): JSX.El
               </MenuGroupHeader>
               {
                 <MenuItem
-                  onClick={(e) => {
+                  onClick={(e : MouseEvent) => {
                     const isControlKeySelected = e.ctrlKey;
                     header.column?.toggleSorting(
                       false,
@@ -261,7 +274,7 @@ function HeaderMenu<TItem extends object>(props: HeaderMenuProps<TItem>): JSX.El
                 </MenuItem>
               }
               <MenuItem
-                onClick={(e) => {
+                onClick={(e: MouseEvent) => {
                   const isControlKeySelected = e.ctrlKey;
                   header.column?.toggleSorting(
                     true,

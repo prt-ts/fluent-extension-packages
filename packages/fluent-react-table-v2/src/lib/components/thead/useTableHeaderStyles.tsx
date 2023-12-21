@@ -4,7 +4,7 @@ import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 export const useTableHeaderStyles = makeStyles({
     tHead: {
         zIndex: 1,
-        backgroundColor: tokens.colorNeutralBackground4,
+        backgroundColor: tokens.colorBrandBackground2,
         color: tokens.colorNeutralForeground1, 
         position: "sticky",
         top: 0,
@@ -12,7 +12,7 @@ export const useTableHeaderStyles = makeStyles({
         boxShadow: tokens.shadow2,
     },
     tHeadRow: {
-        backgroundColor: tokens.colorNeutralBackground4, 
+        backgroundColor: tokens.colorBrandBackground2, 
     },
     tHeadCell: {
         zIndex: 99,
@@ -24,21 +24,22 @@ export const useTableHeaderStyles = makeStyles({
     },
 
     tHeadNonLeafCell: {
-        ...shorthands.border('1px', 'solid', tokens.colorNeutralBackground5),
+        ...shorthands.borderBottom('1px', 'solid', tokens.colorNeutralBackground5),
     },
 
     tHeadCellDraggable: {
         height: '100%',
+        cursor: 'grab',
     },
 
     tHeadCellDragging: {
         opacity: 0.5,
-        cursor: 'grab',
+        cursor: 'grabbing',
     },
 
     tHeadCellOver: {
         backgroundColor: tokens.colorNeutralStroke1,
-        ...shorthands.border(tokens.strokeWidthThin, 'dashed', tokens.colorNeutralBackground5),
+        ...shorthands.border(tokens.strokeWidthThin, 'dashed', tokens.colorBrandBackground2Pressed),
     },
 
     tLeafHeadCellContent: {
@@ -83,7 +84,7 @@ export const useTableHeaderStyles = makeStyles({
     },
 
     resizer: {
-        ...shorthands.borderRight('1px', 'solid', tokens.colorNeutralBackground5),
+        ...shorthands.borderRight('1px', 'solid', tokens.colorNeutralBackground1),
 
         width: '8px',
         position: 'absolute',
