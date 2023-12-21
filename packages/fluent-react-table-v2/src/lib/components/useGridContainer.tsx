@@ -140,19 +140,7 @@ export const useGridContainer = <TItem extends object>(
       columnPinning,
       columnSizing
     };
-  }, [
-    pagination,
-    sorting,
-    columnFilters,
-    globalFilter,
-    grouping,
-    expanded,
-    rowSelection,
-    columnOrder,
-    columnVisibility,
-    columnPinning,
-    columnSizing
-  ]);
+  }, [pagination, sorting, columnFilters, globalFilter, grouping, expanded, rowSelection, columnOrder, columnVisibility, columnPinning, columnSizing]);
 
   const resetToDefaultView = () => {
     const defaultTableState : Partial<TableState> = {

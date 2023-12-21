@@ -119,14 +119,14 @@ export function HeaderCell<TItem extends object>({
         isOver && isLeafHeaders && styles.tHeadCellOver
       )}
     >
-      <div className={styles.tHeadCellDraggable} ref={canDragDrop ? dragRef : undefined}>
+      <div className={styles.tHeadCellDraggable} ref={canDragDrop ? dropRef : undefined}>
         <div
           className={
             isLeafHeaders
               ? styles.tLeafHeadCellContent
               : styles.tNonLeafHeadCellContent
-          }
-          ref={canDragDrop ? dropRef : undefined}
+          }          
+          ref={canDragDrop ? dragRef : undefined}
         >
           <div ref={canDragDrop ? previewRef : undefined}>
             {header.isPlaceholder ? null : (
