@@ -4,7 +4,7 @@ import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 export const useTableHeaderStyles = makeStyles({
     tHead: {
         zIndex: 1,
-        backgroundColor: tokens.colorBrandBackground2,
+        backgroundColor: tokens.colorNeutralStroke2,
         color: tokens.colorNeutralForeground1, 
         position: "sticky",
         top: 0,
@@ -12,7 +12,7 @@ export const useTableHeaderStyles = makeStyles({
         boxShadow: tokens.shadow2,
     },
     tHeadRow: {
-        backgroundColor: tokens.colorBrandBackground2, 
+        backgroundColor: tokens.colorNeutralStroke2, 
     },
     tHeadCell: {
         zIndex: 99,
@@ -24,7 +24,7 @@ export const useTableHeaderStyles = makeStyles({
     },
 
     tHeadNonLeafCell: {
-        ...shorthands.borderBottom('1px', 'solid', tokens.colorNeutralBackground5),
+        ...shorthands.borderBottom('1px', 'solid', tokens.colorNeutralBackground1),
     },
 
     tHeadCellDraggable: {

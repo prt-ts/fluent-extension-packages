@@ -14,9 +14,9 @@ export const useTableBodyStyles = makeStyles({
             "solid",
             tokens.colorNeutralStroke1
         ),
-        ":nth-child(even)": {
-            backgroundColor: tokens.colorNeutralBackground2,
-        },
+        // ":nth-child(even)": {
+        //     backgroundColor: tokens.colorNeutralBackground2,
+        // },
 
         ":hover": {
             backgroundColor: tokens.colorNeutralBackground2Hover,

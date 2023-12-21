@@ -119,8 +119,6 @@ export function HeaderCell<TItem extends object>({
     );
   }
 
-  console.log(header.column.id, header.column.getCanResize());
-
   return (
     <th
       colSpan={header.colSpan}
@@ -260,7 +258,7 @@ function HeaderMenu<TItem extends object>(props: HeaderMenuProps<TItem>): JSX.El
               </MenuGroupHeader>
               {
                 <MenuItem
-                  onClick={(e : MouseEvent) => {
+                  onClick={(e) => {
                     const isControlKeySelected = e.ctrlKey;
                     header.column?.toggleSorting(
                       false,
@@ -274,7 +272,7 @@ function HeaderMenu<TItem extends object>(props: HeaderMenuProps<TItem>): JSX.El
                 </MenuItem>
               }
               <MenuItem
-                onClick={(e: MouseEvent) => {
+                onClick={(e) => {
                   const isControlKeySelected = e.ctrlKey;
                   header.column?.toggleSorting(
                     true,

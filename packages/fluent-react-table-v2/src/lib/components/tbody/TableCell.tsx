@@ -68,9 +68,7 @@ export function TableCell<TItem extends object>({ cell, row } : TableCellProps<T
     return (
         <td
             key={cell.id}
-            style={{
-                width: cell.column.getSize(),
-            }}
+            style={tdStyle}
             className={styles.tBodyCell}
         >
             {flexRender(cell.column.columnDef.cell, cell.getContext())}
