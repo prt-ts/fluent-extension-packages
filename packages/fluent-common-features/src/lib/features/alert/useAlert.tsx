@@ -111,86 +111,92 @@ export const useAlert = () => {
     alert: AlertContentType,
     options?: DispatchToastOptions | UpdateToastOptions
   ) => {
-    !options?.toastId
-      ? dispatchToast?.(<AlertContent {...alert} />, {
-        pauseOnHover: true,
+    const intent = "success";
+    if (options?.toastId) {
+      update(alert, {
         ...options,
-        intent: 'success',
+        intent: intent,
       })
-      : updateToast?.({
-        content: <AlertContent {...alert} />,
-        pauseOnHover: true,
-        timeout: 5000,
-        ...options, 
-      } as unknown as UpdateToastOptions);
+      return;
+    }
+    dispatchToast?.(<AlertContent {...alert} intent={intent} />, {
+      ...options,
+      intent: intent,
+    })
   };
 
   const error = (
     alert: AlertContentType,
     options?: DispatchToastOptions | UpdateToastOptions
   ) => {
-    !options?.toastId
-      ? dispatchToast?.(<AlertContent {...alert} intent="error" />, {
-        pauseOnHover: true,
+    const intent = "error";
+    if (options?.toastId) {
+      update(alert, {
         ...options,
-        intent: 'error',
+        intent: intent,
       })
-      : updateToast?.({
-        content: <AlertContent {...alert} />,
-        pauseOnHover: true,
-        ...options,
-      } as unknown as UpdateToastOptions);
+      return;
+    }
+
+    dispatchToast?.(<AlertContent {...alert} intent={intent} />, {
+      ...options,
+      intent: intent,
+    })
   };
 
   const info = (
     alert: AlertContentType,
     options?: DispatchToastOptions | UpdateToastOptions
   ) => {
-    !options?.toastId
-      ? dispatchToast?.(<AlertContent {...alert} intent="info" />, {
-        pauseOnHover: true,
+
+    const intent = "info";
+    if (options?.toastId) {
+      update(alert, {
         ...options,
-        intent: 'info',
+        intent: intent,
       })
-      : updateToast?.({
-        content: <AlertContent {...alert} />,
-        pauseOnHover: true,
-        timeout: 5000,
-        ...options, 
-      } as unknown as UpdateToastOptions);
+      return;
+    }
+    dispatchToast?.(<AlertContent {...alert} intent={intent} />, {
+      ...options,
+      intent: intent,
+    })
   };
 
   const warning = (
     alert: AlertContentType,
     options?: DispatchToastOptions | UpdateToastOptions
   ) => {
-    !options?.toastId
-      ? dispatchToast?.(<AlertContent {...alert} intent="warning" />, {
-        pauseOnHover: true,
+
+    const intent = "warning";
+    if (options?.toastId) {
+      update(alert, {
         ...options,
-        intent: 'warning',
+        intent: intent,
       })
-      : updateToast?.({
-        content: <AlertContent {...alert} />,
-        pauseOnHover: true,
-        timeout: 5000,
-        ...options,
-        intent: 'warning',
-      } as unknown as UpdateToastOptions);
+      return;
+    }
+    dispatchToast?.(<AlertContent {...alert} intent="warning" />, {
+      ...options,
+      intent: 'warning',
+    });
+
   };
 
   const progress = (
     alert: AlertContentType,
     options?: DispatchToastOptions
   ): string => {
-    const progressId = `progress-${toastId}-${Math.random() * 100}}`
+    const progressId = `progress-${toastId}-${Math.random() * 100}}`;
+
     dispatchToast?.(
       <AlertContent {...alert} isInProgress={true} intent="info" />,
       {
         ...options,
         toastId: progressId,
         intent: 'info',
-        pauseOnHover: true,
+        pauseOnHover: false,
+        pauseOnWindowBlur: false,
         timeout: -1,
       }
     );
@@ -201,10 +207,10 @@ export const useAlert = () => {
   const update = (alert: AlertContentType, options?: UpdateToastOptions) => {
     const intent = options?.intent || alert.intent || 'success';
     updateToast?.({
-      content: <AlertContent {...alert} intent={intent} />,
-      pauseOnHover: true,
-      pauseOnFocusLoss: true,
+      content: <AlertContent {...alert} intent={intent} />, 
       timeout: 5000,
+      pauseOnHover: true,
+      pauseOnWindowBlur: true,
       ...options,
       intent: intent,
     } as unknown as UpdateToastOptions);

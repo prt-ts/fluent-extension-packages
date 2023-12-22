@@ -22,7 +22,7 @@ const FeatureComponent = () => {
 }
 
 const Features = () => {
-  const { success, error, info, warning, progress, update } = useAlert();
+  const { success, error, info, warning, progress } = useAlert();
   const { confirm } = useConfirm();
   const { showLoader, hideLoader } = useLoading();
 
@@ -122,13 +122,12 @@ const Features = () => {
             })
 
             setTimeout(() => {
-              update({
+              error({
                 title: 'Error',
                 body: 'Something went wrong',
                 intent: "error"
               }, {
-                toastId: toastId,
-                intent: "error"
+                toastId: toastId
               })
             }, 3000)
           }}

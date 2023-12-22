@@ -46,6 +46,7 @@ export const AlertProvider: React.FC<React.PropsWithChildren<ToasterProps>> = ({
         position="bottom-end"
         pauseOnHover
         pauseOnWindowBlur
+        timeout={5000}
         {...toasterProps}
       />
       {children}
