@@ -197,7 +197,7 @@ Examples
 ### Button Action 
     return (
         <div className="App">
-        <button onClick={handlePdfMake}>Download</button>
+        <Button onClick={handlePdfMake}>Download</Button>
         </div>
     );
 

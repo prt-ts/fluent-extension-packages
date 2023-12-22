@@ -412,12 +412,17 @@ export function TableExample() {
 
   return (
     <div>
-      <button onClick={logSelectedRows}>Log Selected Rows</button>
-      <button onClick={logTableState}>Get Table State</button>
-      <button onClick={saveCurrentTableState}>Save Current View</button>
-      <button onClick={applyLastSavedTableState}>
+      <div style={{
+        display: 'flex',
+        gap: '10px',
+      }}>
+      <Button onClick={logSelectedRows}>Log Selected Rows</Button>
+      <Button onClick={logTableState}>Get Table State</Button>
+      <Button onClick={saveCurrentTableState}>Save Current View</Button>
+      <Button onClick={applyLastSavedTableState}>
         Apply Last Saved Table State
-      </button>
+      </Button>
+        </div>
       <Field label="Selection Mode">
         <RadioGroup
           value={selectionMode}

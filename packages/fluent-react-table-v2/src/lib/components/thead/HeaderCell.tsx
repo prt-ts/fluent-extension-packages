@@ -195,7 +195,7 @@ export function HeaderCell<TItem extends object>({
 
                 {header.column.getIsPinned() && <PinRegular />}
 
-                {/* {header.column.columnDef.id && header.column.getCanResize() && <button ref={dragRef}>🟰</button>} */}
+                {/* {header.column.columnDef.id && header.column.getCanResize() && <Button ref={dragRef}>🟰</Button>} */}
               </Button>
             )}
           </div>

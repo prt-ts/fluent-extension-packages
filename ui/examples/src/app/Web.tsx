@@ -255,7 +255,7 @@ export default function Web() {
               allowTextInput
             />
 
-            <button type="submit">Submit</button>
+            <Button type="submit">Submit</Button>
 
             <pre> {JSON.stringify(props.values, null, 4)}</pre>
           </Form>

@@ -56,14 +56,14 @@ export const ErrorPage: React.FC = () => {
     <div role="alert">
       I am normal happy page,
       <br />
-      <button
+      <Button
         onClick={() => {
           setError(new Error('Oh noes! I am an error! I ma not happy anymore!'));
         }}
       >
         {' '}
         Click me to generate Error
-      </button>
+      </Button>
 
       <Button onClick={triggerLoaderFor3Seconds}>Trigger Loader for 3 seconds</Button>
       <Button onClick={triggerDownloadExcel}>Download Excel</Button>
