@@ -84,22 +84,53 @@ const Features = () => {
       </button>
 
       {/* confirm */}
-      <button
+      <Button
         onClick={() =>
           confirm({
-            title: 'Confirm',
-            message: <>This is a confirm message</>,
+            title: 'Default Confirm',
+            message: <>Default Confirm with default button props</>,
             onConfirm: () => {
               console.log('confirmed');
             },
             onCancel: () => {
               console.log('canceled');
             },
+
           })
         }
       >
         Confirm
-      </button>
+      </Button>
+
+      <Button
+        onClick={() =>
+          confirm({
+            title: 'Are you sure you want to delete this item?',
+            message: <>Once you delete, you will not be able to revert this action.</>,
+            onConfirm: () => {
+              console.log('confirmed');
+            },
+            onCancel: () => {
+              console.log('canceled');
+            },
+            confirmButtonProps: {
+              children: 'Delete',
+              icon: null,
+              style: {
+                backgroundColor: 'red',
+                color: 'white'
+              }
+            },
+            cancelButtonProps: {
+              children: 'Cancel',
+              icon: null,
+            },
+          })
+        }
+      >
+        Second Confirm
+      </Button>
+
 
 
         <DialogExampleWithLoading />

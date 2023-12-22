@@ -10,12 +10,13 @@ import {
   DialogActions,
   Button,
   makeStyles,
+  ButtonProps,
 } from '@fluentui/react-components';
 import { contextDefaultValue, useConfirmContext } from './ConfirmContext';
 
 const useStyle = makeStyles({
   dialog: {
-    maxWidth: '350px',
+    maxWidth: '400px',
   },
 });
 
@@ -23,20 +24,20 @@ export const ConfirmDialog: React.FC = () => {
 
   console.log('ConfirmDialog');
 
+  const { isOpen, setIsOpen, getContextDetails } = useConfirmContext();
+
   const {
-    confirmDetail: {
-      isOpen,
-      title,
-      message,
-      confirmButtonLabel,
-      cancelButtonLabel,
-      onConfirm,
-      onCancel,
-      confirmButtonIcon = contextDefaultValue.confirmButtonIcon,
-      cancelButtonIcon = contextDefaultValue.cancelButtonIcon,
-    },
-    setConfirmDetail,
-  } = useConfirmContext();
+    title,
+    message,
+    onConfirm,
+    onCancel,
+    confirmButtonProps,
+    cancelButtonProps,
+  } = getContextDetails?.() ?? contextDefaultValue;
+  const {
+    confirmButtonProps: defaultConfirmButtonProps,
+    cancelButtonProps: defaultCancelButtonProps,
+  } = contextDefaultValue;
 
   const classes = useStyle();
 
@@ -48,48 +49,26 @@ export const ConfirmDialog: React.FC = () => {
           <DialogContent>{message}</DialogContent>
           <DialogActions>
             <Button
-              appearance="primary"
+              {...({
+                ...defaultConfirmButtonProps,
+                ...confirmButtonProps,
+              } as unknown as ButtonProps)}
               onClick={async () => {
-                await setConfirmDetail?.({
-                  title,
-                  message,
-                  confirmButtonLabel,
-                  cancelButtonLabel,
-                  onConfirm,
-                  onCancel,
-                  confirmButtonIcon,
-                  cancelButtonIcon,
-                  isOpen: false,
-                });
+                setIsOpen?.(false);
                 await onConfirm?.();
               }}
-              size="small"
-              icon={confirmButtonIcon}
-            >
-              {confirmButtonLabel || 'Yes'}
-            </Button>
+            />
             <DialogTrigger disableButtonEnhancement>
               <Button
-                appearance="secondary"
+                {...({
+                  ...defaultCancelButtonProps,
+                  ...cancelButtonProps,
+                } as unknown as ButtonProps)}
                 onClick={async () => {
-                  await setConfirmDetail?.({
-                    title,
-                    message,
-                    confirmButtonLabel,
-                    cancelButtonLabel,
-                    onConfirm,
-                    onCancel,
-                    confirmButtonIcon,
-                    cancelButtonIcon,
-                    isOpen: false,
-                  });
+                  setIsOpen?.(false);
                   await onCancel?.();
                 }}
-                size="small"
-                icon={cancelButtonIcon}
-              >
-                {cancelButtonLabel || 'Cancel'}
-              </Button>
+              />
             </DialogTrigger>
           </DialogActions>
         </DialogBody>

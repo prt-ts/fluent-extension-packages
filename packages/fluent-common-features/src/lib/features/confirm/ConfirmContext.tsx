@@ -2,16 +2,17 @@
 import * as React from 'react';
 import { ConfirmDialog } from './ConfirmDialog';
 import {
-  CheckmarkStarburstFilled,
-  CheckmarkStarburstRegular,
+  CheckmarkFilled,
+  CheckmarkRegular,
   DismissFilled,
   DismissRegular,
   bundleIcon,
 } from '@fluentui/react-icons';
+import { ButtonProps } from '@fluentui/react-components';
 
 const ConfirmIcon = bundleIcon(
-  CheckmarkStarburstFilled,
-  CheckmarkStarburstRegular
+  CheckmarkFilled,
+  CheckmarkRegular,
 );
 
 const CancelIcon = bundleIcon(DismissFilled, DismissRegular);
@@ -20,36 +21,44 @@ type ConfirmCallbackType = () => void;
 type CancelCallbackType = () => void;
 
 export type ConfirmStateType = {
-  isOpen: boolean;
   title: string;
-  message: JSX.Element;
+  message: JSX.Element | React.ReactNode;
   onConfirm: ConfirmCallbackType;
   onCancel?: CancelCallbackType;
-  confirmButtonLabel?: string;
-  cancelButtonLabel?: string;
-  confirmButtonIcon?: JSX.Element;
-  cancelButtonIcon?: JSX.Element;
+
+  confirmButtonProps?: Omit<ButtonProps, 'onClick'>;
+  cancelButtonProps?: Omit<ButtonProps, 'onClick'>;
 };
 
 export type ConfirmContextType = {
-  confirmDetail: ConfirmStateType;
-  setConfirmDetail?: React.Dispatch<React.SetStateAction<ConfirmStateType>>;
+  isOpen?: boolean;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  getContextDetails?: () => ConfirmStateType;
+  setContextDetails?: (details: ConfirmStateType) => void;
 };
 
 export const contextDefaultValue: ConfirmStateType = {
-  isOpen: false,
   title: '',
   message: <></>,
   onConfirm: () => {},
-  onCancel: () => {},
-  confirmButtonLabel: 'Yes',
-  cancelButtonLabel: 'Cancel',
-  confirmButtonIcon: <ConfirmIcon />,
-  cancelButtonIcon: <CancelIcon />,
+  onCancel: () => { },
+
+  confirmButtonProps: {
+    appearance: 'primary',
+    children: 'Yes',
+    icon: <ConfirmIcon />,
+  } as ButtonProps,
+  cancelButtonProps: {
+    children: 'No',
+    icon: <CancelIcon />,
+  } as ButtonProps,
 };
 
 export const ConfirmContext = React.createContext<ConfirmContextType>({
-  confirmDetail: contextDefaultValue,
+  isOpen: false,
+  setIsOpen: () => { },
+  getContextDetails: () => contextDefaultValue,
+  setContextDetails: () => { },
 });
 
 export const useConfirmContext = () => {
@@ -57,11 +66,27 @@ export const useConfirmContext = () => {
 };
 
 export const ConfirmProvider: React.FC<{ children }> = ({ children }) => {
-  const [confirmDetail, setConfirmDetail] =
-    React.useState<ConfirmStateType>(contextDefaultValue);
+
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const detailRef = React.useRef<ConfirmStateType>(contextDefaultValue);
+
+  const getDetails = () => {
+    return detailRef.current;
+  };
+
+  const setDetails = (details: ConfirmStateType) => {
+    detailRef.current = details;
+  };
 
   return (
-    <ConfirmContext.Provider value={{ confirmDetail, setConfirmDetail }}>
+    <ConfirmContext.Provider
+      value={{
+        isOpen,
+        setIsOpen,
+        getContextDetails: getDetails,
+        setContextDetails: setDetails,
+      }}
+    >
       <ConfirmDialog />
       {children}
     </ConfirmContext.Provider>

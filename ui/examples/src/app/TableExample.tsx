@@ -120,6 +120,7 @@ export function TableExample() {
       id: 'First Name',
       header: () => 'First Name',
       cell: (info) => info.getValue(),
+      filterFnDefinition: () => 'firstName',
     }),
     columnHelper.accessor((row) => row.lastName, {
       id: 'Last Name',
