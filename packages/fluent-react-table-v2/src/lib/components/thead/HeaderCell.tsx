@@ -136,7 +136,7 @@ export function HeaderCell<TItem extends object>({
             isLeafHeaders
               ? styles.tLeafHeadCellContent
               : styles.tNonLeafHeadCellContent
-          }          
+          }
           ref={canDragDrop ? dragRef : undefined}
         >
           <div ref={canDragDrop ? previewRef : undefined}>
@@ -148,11 +148,11 @@ export function HeaderCell<TItem extends object>({
                   justifyContent: 'left',
                   flex: 1,
                 }}
-                onClick={(e: MouseEvent) => {
+                onClick={(e) => {
                   if (!header.column.getCanSort()) return;
                   header.column.toggleSorting(
                     header.column.getIsSorted() === 'asc',
-                    e.ctrlKey 
+                    e.ctrlKey
                   );
                 }}
                 onDoubleClick={() => {
@@ -199,7 +199,7 @@ export function HeaderCell<TItem extends object>({
               </Button>
             )}
           </div>
-          <HeaderMenu header={header} table={table} hideMenu={hideMenu} /> 
+          <HeaderMenu header={header} table={table} hideMenu={hideMenu} />
         </div>
       </div>
 
