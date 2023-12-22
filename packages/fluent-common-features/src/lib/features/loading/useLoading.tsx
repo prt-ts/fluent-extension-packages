@@ -1,34 +1,37 @@
 /* eslint-disable */
-import * as React from "react";
-import { LoadingPros, useLoadingContext } from "./LoadingContext";
+import * as React from 'react';
+import { LoadingState, useLoadingContext } from './LoadingContext';
 
 export const useLoading = () => {
   (async () => {})();
 
-  const { setLoadingState } = useLoadingContext();
+  const { setLoadingState, setIsLoading } = useLoadingContext();
 
-  const showLoader = React.useCallback((loadingText?: string) => {
-    try {
-      setLoadingState({
-        loading: true,
-        loadingText: loadingText,
-      } as LoadingPros);
-    } catch (error) {
-      console.log("showLoader -> error", error);
-      throw error;
-    }
-  }, []);
+  const showLoader = React.useCallback(
+    (loadingText?: string) => {
+      try {
+        console.log('showLoader -> loadingText', loadingText);
+        setLoadingState({
+          loadingText: loadingText || 'Loading, Please Wait...',
+        } as LoadingState);
+        setIsLoading(true);
+      } catch (error) {
+        console.log('showLoader -> error', error);
+        throw error;
+      }
+    },
+    [setLoadingState, setIsLoading]
+  );
 
   const hideLoader = React.useCallback(() => {
     try {
-      setLoadingState({
-        loading: false,
-      } as LoadingPros);
+      console.log('hideLoader');
+      setIsLoading(false);
     } catch (error) {
-      console.log("showLoader -> error", error);
+      console.log('showLoader -> error', error);
       throw error;
     }
-  }, []);
+  }, [setLoadingState, setIsLoading]);
 
   return {
     showLoader,

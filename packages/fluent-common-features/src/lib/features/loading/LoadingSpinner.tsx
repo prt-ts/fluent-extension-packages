@@ -1,5 +1,5 @@
 /* eslint-disable */
-import * as React from "react";
+import * as React from 'react';
 import {
   Dialog,
   DialogSurface,
@@ -9,52 +9,70 @@ import {
   makeStyles,
   tokens,
   Portal,
-} from "@fluentui/react-components";
-import { useLoadingContext } from "./LoadingContext";
-
+  ProgressBar,
+  DialogTrigger,
+} from '@fluentui/react-components';
+import { useLoadingContext } from './LoadingContext';
 
 const useLoadingStyles = makeStyles({
-  portal: {
+  modalSurface: {
     backgroundColor: tokens.colorNeutralBackground6,
-    opacity: 0.9,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    zIndex: 999999999999,
+    boxShadow: 'none',
+    height: '100vh',
+    width: '100vw',
+    maxWidth: '100vw',
+    opacity: 0.7,
+    transitionProperty: "unset",
+    transitionDuration: "unset",
+    transitionTimingFunction: "unset",
+    transitionDelay: "unset",
+    transform: "unset",
   },
   spinner: {
-    marginTop: '50vh',
+    marginTop: '40vh',
     translate: 'translate(-50%)',
   },
 });
 
 export const LoadingSpinner = () => {
-  const { loadingState } = useLoadingContext();
-  const [rootElement, setRootElement] = React.useState<HTMLElement | null>(
-    null
-  );
+  const {
+    isLoading,
+    getLoadingState,
+  } = useLoadingContext();
+
+  const { loadingText } = getLoadingState();
   const styles = useLoadingStyles();
+
+  const spinner = React.useMemo(() => {
+    return (
+      <>
+        <ProgressBar thickness="large" />
+        <Spinner
+          className={styles.spinner}
+          size="extra-large"
+          label={
+            <strong
+              style={{
+                color: 'black',
+                fontSize: tokens.fontSizeBase500,
+              }}
+            >
+              {loadingText || 'Loading, Please Wait...'}
+            </strong>
+          }
+          labelPosition="below"
+        />
+      </>
+    );
+  }, [loadingText]);
+
   return (
-    <div style={{ overflow: 'hidden' }}>
-      {loadingState?.loading && (
-        <Portal mountNode={rootElement}>
-          <div role="alert" aria-busy="true" className={styles.portal}>
-            <Spinner
-              className={styles.spinner}
-              size="extra-large"
-              label={
-                <strong>
-                  {loadingState?.loadingText || 'Loading, Please Wait...'}
-                </strong>
-              }
-              labelPosition="below"
-            />
-          </div>
-        </Portal>
-      )}
-      <div ref={setRootElement} />
-    </div>
+    <Dialog open={isLoading} onOpenChange={() => {}} modalType='alert'>
+      <DialogSurface className={styles.modalSurface}>
+        <DialogBody>
+          <DialogContent>{spinner}</DialogContent>
+        </DialogBody>
+      </DialogSurface>
+    </Dialog>
   );
 };

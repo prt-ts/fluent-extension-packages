@@ -16,7 +16,7 @@ export const ErrorPage: React.FC = () => {
 
     setTimeout(() => {
       hideLoader();
-    }, 3000);
+    }, 10000);
   }
 
   const triggerDownloadExcel = async () => {
