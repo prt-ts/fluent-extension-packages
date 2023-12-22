@@ -15,8 +15,13 @@ import {
 import { contextDefaultValue, useConfirmContext } from './ConfirmContext';
 
 const useStyle = makeStyles({
-  dialog: {
+  dialogSurface: {
     maxWidth: '400px',
+    transitionProperty: 'unset',
+    transitionDuration: 'unset',
+    transitionTimingFunction: 'unset',
+    transitionDelay: 'unset',
+    transform: 'unset',
   },
 });
 
@@ -43,7 +48,7 @@ export const ConfirmDialog: React.FC = () => {
 
   return (
     <Dialog open={isOpen} modalType="alert">
-      <DialogSurface className={classes.dialog}>
+      <DialogSurface className={classes.dialogSurface}>
         <DialogBody>
           <DialogTitle>⚠️ {title}</DialogTitle>
           <DialogContent>{message}</DialogContent>

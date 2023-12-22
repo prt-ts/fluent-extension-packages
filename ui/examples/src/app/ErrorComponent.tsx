@@ -2,7 +2,6 @@ import { Button } from '@fluentui/react-components';
 import { useLoading } from '@prt-ts/fluent-common-features';
 
 import * as React from 'react';
-import { items } from './data';
 import { ExportFileInfo, exportToFile } from '@prt-ts/export-helpers';
 
 export const ErrorPage: React.FC = () => {
