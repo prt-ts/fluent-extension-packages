@@ -62,46 +62,46 @@ const AlertContent: React.FunctionComponent<
   isInProgress = false,
   intent = 'success',
 }) => {
-  const classes = useToastStyles();
+    const classes = useToastStyles();
 
-  const toastClass = React.useMemo(() => {
-    switch (intent) {
-      case 'success':
-        return classes.success;
-      case 'error':
-        return classes.error;
-      case 'info':
-        return classes.info;
-      case 'warning':
-        return classes.warning;
-      default:
-        return classes.default;
-    }
-  }, [intent, classes]);
+    const toastClass = React.useMemo(() => {
+      switch (intent) {
+        case 'success':
+          return classes.success;
+        case 'error':
+          return classes.error;
+        case 'info':
+          return classes.info;
+        case 'warning':
+          return classes.warning;
+        default:
+          return classes.default;
+      }
+    }, [intent, classes]);
 
-  return (
-    <>
-      <Toast appearance={appearance} className={toastClass}>
-        <ToastTitle
-          action={
-            <ToastTrigger>
-              <Link>
-                <DismissCircleRegular />
-              </Link>
-            </ToastTrigger>
-          }
-          media={isInProgress ? <Spinner />: undefined}
-        >
-          {title}
-        </ToastTitle>
-        <ToastBody subtitle={bodySubtitle}>
-          {body}
-        </ToastBody>
-        <ToastFooter>{footer}</ToastFooter>
-      </Toast>
-    </>
-  );
-};
+    return (
+      <>
+        <Toast appearance={appearance} className={toastClass}>
+          <ToastTitle
+            action={
+              <ToastTrigger>
+                <Link>
+                  <DismissCircleRegular />
+                </Link>
+              </ToastTrigger>
+            }
+            media={isInProgress ? <Spinner /> : undefined}
+          >
+            {title}
+          </ToastTitle>
+          <ToastBody subtitle={bodySubtitle}>
+            {body}
+          </ToastBody>
+          <ToastFooter>{footer}</ToastFooter>
+        </Toast>
+      </>
+    );
+  };
 
 export const useAlert = () => {
   const { dispatchToast, updateToast } = useAlertContext();
@@ -113,17 +113,16 @@ export const useAlert = () => {
   ) => {
     !options?.toastId
       ? dispatchToast?.(<AlertContent {...alert} />, {
-          ...options,
-          intent: 'success',
-          pauseOnHover: true,
-        })
+        pauseOnHover: true,
+        ...options,
+        intent: 'success',
+      })
       : updateToast?.({
-          content: <AlertContent {...alert} />,
-          ...options,
-          intent: 'success',
-          pauseOnHover: true,
-          timeout: 5000,
-        } as unknown as UpdateToastOptions);
+        content: <AlertContent {...alert} />,
+        pauseOnHover: true,
+        timeout: 5000,
+        ...options, 
+      } as unknown as UpdateToastOptions);
   };
 
   const error = (
@@ -132,16 +131,15 @@ export const useAlert = () => {
   ) => {
     !options?.toastId
       ? dispatchToast?.(<AlertContent {...alert} intent="error" />, {
-          ...options,
-          intent: 'error',
-          pauseOnHover: true,
-        })
+        pauseOnHover: true,
+        ...options,
+        intent: 'error',
+      })
       : updateToast?.({
-          content: <AlertContent {...alert} />,
-          ...options,
-          intent: 'error',
-          pauseOnHover: true,
-        } as unknown as UpdateToastOptions);
+        content: <AlertContent {...alert} />,
+        pauseOnHover: true,
+        ...options,
+      } as unknown as UpdateToastOptions);
   };
 
   const info = (
@@ -150,17 +148,16 @@ export const useAlert = () => {
   ) => {
     !options?.toastId
       ? dispatchToast?.(<AlertContent {...alert} intent="info" />, {
-          ...options,
-          intent: 'info',
-          pauseOnHover: true,
-        })
+        pauseOnHover: true,
+        ...options,
+        intent: 'info',
+      })
       : updateToast?.({
-          content: <AlertContent {...alert} />,
-          ...options,
-          intent: 'info',
-          pauseOnHover: true,
-          timeout: 5000,
-        } as unknown as UpdateToastOptions);
+        content: <AlertContent {...alert} />,
+        pauseOnHover: true,
+        timeout: 5000,
+        ...options, 
+      } as unknown as UpdateToastOptions);
   };
 
   const warning = (
@@ -169,42 +166,50 @@ export const useAlert = () => {
   ) => {
     !options?.toastId
       ? dispatchToast?.(<AlertContent {...alert} intent="warning" />, {
-          ...options,
-          intent: 'warning',
-          pauseOnHover: true,
-        })
+        pauseOnHover: true,
+        ...options,
+        intent: 'warning',
+      })
       : updateToast?.({
-          content: <AlertContent {...alert} />,
-          ...options,
-          intent: 'warning',
-          pauseOnHover: true,
-          timeout: 5000,
-        } as unknown as UpdateToastOptions);
+        content: <AlertContent {...alert} />,
+        pauseOnHover: true,
+        timeout: 5000,
+        ...options,
+        intent: 'warning',
+      } as unknown as UpdateToastOptions);
   };
 
   const progress = (
     alert: AlertContentType,
     options?: DispatchToastOptions
   ): string => {
+    const progressId = `progress-${toastId}-${Math.random() * 100}}`
     dispatchToast?.(
       <AlertContent {...alert} isInProgress={true} intent="info" />,
       {
         ...options,
-        toastId: toastId,
+        toastId: progressId,
         intent: 'info',
         pauseOnHover: true,
         timeout: -1,
       }
     );
 
-    return toastId;
+    return progressId;
   };
 
-  const update = (alert: AlertContentType, options?: UpdateToastOptions) =>
+  const update = (alert: AlertContentType, options?: UpdateToastOptions) => {
+    const intent = options?.intent || alert.intent || 'success';
     updateToast?.({
-      content: <AlertContent {...alert} />,
+      content: <AlertContent {...alert} intent={intent} />,
+      pauseOnHover: true,
+      pauseOnFocusLoss: true,
+      timeout: 5000,
       ...options,
+      intent: intent,
     } as unknown as UpdateToastOptions);
+  }
+
 
   return {
     success,

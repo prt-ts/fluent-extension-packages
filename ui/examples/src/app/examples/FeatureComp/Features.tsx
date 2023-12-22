@@ -12,7 +12,7 @@ import {
 } from '@fluentui/react-components';
 
 const Features = () => {
-  const { success, error, info, warning, progress } = useAlert();
+  const { success, error, info, warning, progress, update } = useAlert();
   const { confirm } = useConfirm();
 
   return (
@@ -72,16 +72,53 @@ const Features = () => {
       </button>
 
       {/* progress */}
-      <button
+      <Button
         onClick={() =>
-          progress({
+          {
+            const toastId = progress({
             title: 'Progress',
             body: 'This is a progress message',
           })
-        }
+
+          setTimeout(() => {
+            success({
+              title: 'Progress',
+              body: 'This is a progress message',              
+            }, {
+              toastId: toastId
+            })
+          }, 3000)
+        }}
+        appearance='primary'
       >
-        Progress
-      </button>
+        Lazy Progress (With Success)
+      </Button>
+
+      <Button
+        onClick={() =>
+          {
+            const toastId = progress({
+            title: 'Progress',
+            body: 'This is a progress message',
+            intent: "error"
+          })
+
+          setTimeout(() => {
+            update({
+              title: 'Error',
+              body: 'Something went wrong',  
+              intent: "error"            
+            }, {
+              toastId: toastId,
+              intent: "error"
+            })
+          }, 3000)
+        }}
+        appearance='secondary'
+      >
+        Lazy Progress (With Error)
+      </Button>
+
 
       {/* confirm */}
       <Button
