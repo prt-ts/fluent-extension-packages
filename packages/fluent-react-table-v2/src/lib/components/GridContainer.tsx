@@ -9,6 +9,7 @@ import { useGridContainer } from "./useGridContainer";
 import { TableContainer } from "./table";
 import { FilterDrawer } from "./filters";
 import { ViewsDrawer } from "./views/ViewsDrawer";
+import { tableReducer } from "./reducer";
 
 export function AdvancedTable<TItem extends object>(
   props: TableProps<TItem>,
@@ -16,8 +17,14 @@ export function AdvancedTable<TItem extends object>(
 ) {
   useStaticStyles();
   const { table, globalFilter, headerMenu, tableViews, setGlobalFilter, resetToDefaultView, applyTableState, getTableState } = useGridContainer(props, ref);
-  const [isFilterDrawerOpen, setIsFilterDrawerOpen] = React.useState<boolean>(false);
-  const [isViewsDrawerOpen, setIsViewsDrawerOpen] = React.useState<boolean>(false);
+  
+  const [drawerState, dispatch] = React.useReducer<typeof tableReducer<string>>(
+    tableReducer,
+    {
+      isFilterDrawerOpen: false, 
+      isViewsDrawerOpen: false
+    }
+  );
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -25,13 +32,11 @@ export function AdvancedTable<TItem extends object>(
         table={table}
         gridTitle={props.gridTitle}
         headerMenu={headerMenu}
-        globalFilter={globalFilter}
-        openFilterDrawer={isFilterDrawerOpen}
-        openViewsDrawer={isViewsDrawerOpen}
-        setGlobalFilter={setGlobalFilter}
-        setFilterDrawerOpen={setIsFilterDrawerOpen}
-        setViewsDrawerOpen={setIsViewsDrawerOpen}
+        globalFilter={globalFilter} 
+        setGlobalFilter={setGlobalFilter} 
         applyTableState={applyTableState}
+        drawerState={drawerState}
+        dispatch={dispatch}
       />
       <div style={{ display: 'flex' }}>
         <TableContainer
@@ -43,14 +48,14 @@ export function AdvancedTable<TItem extends object>(
           noItemPage={props.noItemPage}
         />
         <FilterDrawer
-          open={isFilterDrawerOpen}
-          setOpen={setIsFilterDrawerOpen}
+          drawerState={drawerState}
+          dispatch={dispatch}
           table={table}
         />
         <ViewsDrawer
           table={table}
-          open={isViewsDrawerOpen}
-          setOpen={setIsViewsDrawerOpen}
+          drawerState={drawerState}
+          dispatch={dispatch}
           tableViews={tableViews}
           applyTableState={applyTableState}
           resetToGridDefaultView={resetToDefaultView}

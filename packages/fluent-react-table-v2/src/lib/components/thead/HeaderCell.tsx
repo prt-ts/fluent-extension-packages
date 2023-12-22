@@ -1,4 +1,4 @@
-import * as React from "react";
+
 import {
   Column,
   ColumnOrderState,
@@ -18,10 +18,7 @@ import {
   MenuList,
   MenuPopover,
   MenuTrigger,
-  makeStyles,
   mergeClasses,
-  shorthands,
-  tokens,
 } from "@fluentui/react-components";
 import {
   bundleIcon,
@@ -41,12 +38,13 @@ import {
   PinRegular,
 } from "@fluentui/react-icons";
 import { Filter } from "../filters";
+import { useTableHeaderStyles } from "./useTableHeaderStyles";
 const SortAscIcon = bundleIcon(ArrowSortDown20Filled, ArrowSortDown20Regular);
 const SortDescIcon = bundleIcon(ArrowSortUp20Filled, ArrowSortUp20Regular);
 
-type HeaderCellProps = {
-  header: Header<object, unknown>;
-  table: Table<object>;
+type HeaderCellProps<TItem extends object> = {
+  header: Header<TItem, unknown>;
+  table: Table<TItem>;
   hideMenu?: boolean;
   headerDepth: number;
   totalNumberOfHeaderDepth: number;
@@ -65,105 +63,13 @@ const reorderColumn = (
   return [...columnOrder];
 };
 
-const useTableHeaderCellStyles = makeStyles({
-  tHeadCell: {
-    zIndex: 99,
-    position: 'relative',
-    fontSize: tokens.fontSizeBase300,
-    fontWeight: tokens.fontWeightBold,
-    minWidth: '1rem',
-    ...shorthands.padding('2px', '4px'),
-  },
-
-  tHeadNonLeafCell: {
-    ...shorthands.borderBottom('1px', 'solid', tokens.colorNeutralBackground5),
-  },
-
-  tHeadCellDraggable: {
-    height: '100%',
-  },
-
-  tHeadCellDragging: {
-    opacity: 0.5,
-    cursor: 'grab',
-  },
-
-  tHeadCellOver: {
-    backgroundColor: tokens.colorNeutralStroke1,
-    ...shorthands.border(tokens.strokeWidthThin, 'dashed', tokens.colorNeutralBackground5),
-  },
-
-  tLeafHeadCellContent: {
-    display: 'flex',
-    alignContent: 'space-between',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    cursor: 'pointer',
-    width: '100%',
-    height: '100%',
-    minWidth: '1rem',
-    ...shorthands.padding('3px', '4px'),
-  },
-
-  tNonLeafHeadCellContent: {
-    display: 'flex',
-    alignContent: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'pointer',
-    width: '100%',
-    minWidth: '1rem',
-    ...shorthands.padding('3px', '4px'),
-  },
-
-  tHeadContentBtn: {
-    ...shorthands.padding('0px', '0px', '0px', '0px'),
-    display: 'flex',
-    ...shorthands.gap('5px'),
-    alignContent: 'space-between',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    cursor: 'pointer',
-    width: '100%',
-    height: '100%',
-    minWidth: '1rem',
-  },
-
-  tHeadMenuPopover: {
-    ...shorthands.padding('0px', '0px', '0px', '0px'),
-    width: '300px',
-  },
-
-  resizer: {
-    ...shorthands.borderRight('1px', 'solid', tokens.colorNeutralBackground5),
-
-    width: '8px',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    cursor: 'col-resize',
-    resize: 'horizontal',
-
-    ':hover': {
-      borderRightWidth: '4px',
-      borderRightColor: tokens.colorNeutralBackground2Pressed,
-    },
-  },
-
-  resizerActive: {
-    borderRightWidth: '4px',
-    borderRightColor: tokens.colorNeutralBackground2Pressed,
-  },
-});
-
-export const HeaderCell: React.FC<HeaderCellProps> = ({
+export function HeaderCell<TItem extends object>({
   header,
   table,
   hideMenu,
   headerDepth,
   totalNumberOfHeaderDepth,
-}) => {
+}: HeaderCellProps<TItem>) {
   const { getState, setColumnOrder } = table;
   const { columnOrder } = getState();
   const { column } = header;
@@ -191,31 +97,47 @@ export const HeaderCell: React.FC<HeaderCellProps> = ({
     type: "column",
   });
 
-  const styles = useTableHeaderCellStyles();
+  const styles = useTableHeaderStyles();
 
   const canDragDrop = headerDepth === totalNumberOfHeaderDepth && !header.isPlaceholder;
   const isLeafHeaders = headerDepth === totalNumberOfHeaderDepth;
+
+  if (header.isPlaceholder) {
+    return (
+      <th colSpan={header.colSpan} className={styles.tHeadCell}>
+        {header.column.getCanResize() && (
+        <div
+          onMouseDown={header.getResizeHandler()}
+          onTouchStart={header.getResizeHandler()}
+          className={mergeClasses(
+            styles.resizer,
+            column.getIsResizing() && styles.resizerActive
+          )}
+        />
+      )}
+      </th>
+    );
+  }
 
   return (
     <th
       colSpan={header.colSpan}
       className={mergeClasses(
         styles.tHeadCell,
-        isLeafHeaders || header.isPlaceholder
-          ? undefined
+        isLeafHeaders || header.isPlaceholder ? undefined
           : styles.tHeadNonLeafCell,
         isDragging && styles.tHeadCellDragging,
         isOver && isLeafHeaders && styles.tHeadCellOver
       )}
     >
-      <div className={styles.tHeadCellDraggable} ref={canDragDrop ? dragRef : undefined}>
+      <div className={styles.tHeadCellDraggable} ref={canDragDrop ? dropRef : undefined}>
         <div
           className={
             isLeafHeaders
               ? styles.tLeafHeadCellContent
               : styles.tNonLeafHeadCellContent
-          }
-          ref={canDragDrop ? dropRef : undefined}
+          }          
+          ref={canDragDrop ? dragRef : undefined}
         >
           <div ref={canDragDrop ? previewRef : undefined}>
             {header.isPlaceholder ? null : (
@@ -226,11 +148,11 @@ export const HeaderCell: React.FC<HeaderCellProps> = ({
                   justifyContent: 'left',
                   flex: 1,
                 }}
-                onClick={(e) => {
+                onClick={(e: MouseEvent) => {
                   if (!header.column.getCanSort()) return;
                   header.column.toggleSorting(
                     header.column.getIsSorted() === 'asc',
-                    e.ctrlKey
+                    e.ctrlKey 
                   );
                 }}
                 onDoubleClick={() => {
@@ -277,166 +199,7 @@ export const HeaderCell: React.FC<HeaderCellProps> = ({
               </Button>
             )}
           </div>
-          {!header.isPlaceholder &&
-            !hideMenu &&
-            (header.column.getCanSort() ||
-              header.column.getCanGroup() ||
-              header.column.getCanFilter()) && (
-              <div>
-                <Menu>
-                  <MenuTrigger disableButtonEnhancement>
-                    <MenuButton
-                      appearance="transparent"
-                      aria-label="View Column Actions"
-                    ></MenuButton>
-                  </MenuTrigger>
-
-                  <MenuPopover className={styles.tHeadMenuPopover}>
-                    <MenuList>
-                      {header.column.getCanSort() && (
-                        <MenuGroup key={'sort-group'}>
-                          <MenuGroupHeader>
-                            Sort by{' '}
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                          </MenuGroupHeader>
-                          {
-                            <MenuItem
-                              onClick={(e) => {
-                                const isControlKeySelected = e.ctrlKey;
-                                header.column?.toggleSorting(
-                                  false,
-                                  isControlKeySelected
-                                );
-                              }}
-                              icon={<TextSortAscendingFilled />}
-                              disabled={header.column.getIsSorted() === 'asc'}
-                            >
-                              Sort A to Z
-                            </MenuItem>
-                          }
-                          <MenuItem
-                            onClick={(e) => {
-                              const isControlKeySelected = e.ctrlKey;
-                              header.column?.toggleSorting(
-                                true,
-                                isControlKeySelected
-                              );
-                            }}
-                            icon={<TextSortDescendingFilled />}
-                            disabled={header.column.getIsSorted() === 'desc'}
-                          >
-                            Sort Z to A
-                          </MenuItem>
-                          <MenuDivider />
-                        </MenuGroup>
-                      )}
-
-                      {header.column.getCanGroup() && (
-                        <MenuGroup key={'grouping-group'}>
-                          <MenuGroupHeader>
-                            Group by{' '}
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                          </MenuGroupHeader>
-                          {!header.column.getIsGrouped() && (
-                            <MenuItem
-                              onClick={() =>
-                                header.column.getToggleGroupingHandler()()
-                              }
-                              icon={<GroupFilled />}
-                            >
-                              Group by{' '}
-                              {flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
-                            </MenuItem>
-                          )}
-                          {header.column.getIsGrouped() && (
-                            <MenuItem
-                              onClick={() =>
-                                header.column.getToggleGroupingHandler()()
-                              }
-                              icon={<GroupDismissFilled />}
-                            >
-                              Remove Grouping on{' '}
-                              {flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
-                            </MenuItem>
-                          )}
-                          <MenuDivider />
-                        </MenuGroup>
-                      )}
-
-                      {header.column.getCanSort() && (
-                        <MenuGroup key={'pin columns'}>
-                          <MenuGroupHeader>
-                            Pin Column{' '}
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                          </MenuGroupHeader>
-                          {
-                            <MenuItem
-                              onClick={() => {
-                                header.column?.pin('left');
-                              }}
-                              icon={<ArrowStepInLeftRegular />}
-                              disabled={header.column.getIsPinned() === 'left'}
-                            >
-                              To Left
-                            </MenuItem>
-                          }
-                          <MenuItem
-                            onClick={() => {
-                              header.column?.pin('right');
-                            }}
-                            icon={<ArrowStepInRightRegular />}
-                            disabled={header.column.getIsPinned() === 'right'}
-                          >
-                            To Right
-                          </MenuItem>
-                          {['left', 'right'].includes(
-                            header.column.getIsPinned() as string
-                          ) && (
-                            <MenuItem
-                              onClick={() => {
-                                header.column?.pin(false);
-                              }}
-                              icon={<PinOffRegular />}
-                            >
-                              Unpin Column
-                            </MenuItem>
-                          )}
-                          <MenuDivider />
-                        </MenuGroup>
-                      )}
-
-                      {header.column.getCanFilter() && (
-                        <MenuGroup key={'filter-group'}>
-                          <MenuGroupHeader>
-                            Filter by{' '}
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                          </MenuGroupHeader>
-                          <Filter column={header.column} table={table} />
-                        </MenuGroup>
-                      )}
-                    </MenuList>
-                  </MenuPopover>
-                </Menu>
-              </div>
-            )}
+          <HeaderMenu header={header} table={table} hideMenu={hideMenu} /> 
         </div>
       </div>
 
@@ -453,3 +216,177 @@ export const HeaderCell: React.FC<HeaderCellProps> = ({
     </th>
   );
 };
+
+type HeaderMenuProps<TItem extends object> = {
+  header: Header<TItem, unknown>;
+  table: Table<TItem>;
+  hideMenu?: boolean;
+};
+
+function HeaderMenu<TItem extends object>(props: HeaderMenuProps<TItem>): JSX.Element {
+
+  const { header, table, hideMenu } = props;
+  const styles = useTableHeaderStyles();
+
+  if (hideMenu || header.isPlaceholder) return (<> </>);
+
+  const canHavePopOver = header.column.getCanSort() ||
+    header.column.getCanGroup() ||
+    header.column.getCanFilter();
+
+  if (!canHavePopOver) return (<> </>);
+
+  return (
+    <Menu>
+      <MenuTrigger disableButtonEnhancement>
+        <MenuButton
+          appearance="transparent"
+          aria-label="View Column Actions"
+        ></MenuButton>
+      </MenuTrigger>
+
+      <MenuPopover className={styles.tHeadMenuPopover}>
+        <MenuList>
+          {header.column.getCanSort() && (
+            <MenuGroup key={'sort-group'}>
+              <MenuGroupHeader>
+                Sort by{' '}
+                {flexRender(
+                  header.column.columnDef.header,
+                  header.getContext()
+                )}
+              </MenuGroupHeader>
+              {
+                <MenuItem
+                  onClick={(e) => {
+                    const isControlKeySelected = e.ctrlKey;
+                    header.column?.toggleSorting(
+                      false,
+                      isControlKeySelected
+                    );
+                  }}
+                  icon={<TextSortAscendingFilled />}
+                  disabled={header.column.getIsSorted() === 'asc'}
+                >
+                  Sort A to Z
+                </MenuItem>
+              }
+              <MenuItem
+                onClick={(e) => {
+                  const isControlKeySelected = e.ctrlKey;
+                  header.column?.toggleSorting(
+                    true,
+                    isControlKeySelected
+                  );
+                }}
+                icon={<TextSortDescendingFilled />}
+                disabled={header.column.getIsSorted() === 'desc'}
+              >
+                Sort Z to A
+              </MenuItem>
+              <MenuDivider />
+            </MenuGroup>
+          )}
+
+          {header.column.getCanGroup() && (
+            <MenuGroup key={'grouping-group'}>
+              <MenuGroupHeader>
+                Group by{' '}
+                {flexRender(
+                  header.column.columnDef.header,
+                  header.getContext()
+                )}
+              </MenuGroupHeader>
+              {!header.column.getIsGrouped() && (
+                <MenuItem
+                  onClick={() =>
+                    header.column.getToggleGroupingHandler()()
+                  }
+                  icon={<GroupFilled />}
+                >
+                  Group by{' '}
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
+                </MenuItem>
+              )}
+              {header.column.getIsGrouped() && (
+                <MenuItem
+                  onClick={() =>
+                    header.column.getToggleGroupingHandler()()
+                  }
+                  icon={<GroupDismissFilled />}
+                >
+                  Remove Grouping on{' '}
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
+                </MenuItem>
+              )}
+              <MenuDivider />
+            </MenuGroup>
+          )}
+
+          {header.column.getCanSort() && (
+            <MenuGroup key={'pin columns'}>
+              <MenuGroupHeader>
+                Pin Column{' '}
+                {flexRender(
+                  header.column.columnDef.header,
+                  header.getContext()
+                )}
+              </MenuGroupHeader>
+              {
+                <MenuItem
+                  onClick={() => {
+                    header.column?.pin('left');
+                  }}
+                  icon={<ArrowStepInLeftRegular />}
+                  disabled={header.column.getIsPinned() === 'left'}
+                >
+                  To Left
+                </MenuItem>
+              }
+              <MenuItem
+                onClick={() => {
+                  header.column?.pin('right');
+                }}
+                icon={<ArrowStepInRightRegular />}
+                disabled={header.column.getIsPinned() === 'right'}
+              >
+                To Right
+              </MenuItem>
+              {['left', 'right'].includes(
+                header.column.getIsPinned() as string
+              ) && (
+                  <MenuItem
+                    onClick={() => {
+                      header.column?.pin(false);
+                    }}
+                    icon={<PinOffRegular />}
+                  >
+                    Unpin Column
+                  </MenuItem>
+                )}
+              <MenuDivider />
+            </MenuGroup>
+          )}
+
+          {header.column.getCanFilter() && (
+            <MenuGroup key={'filter-group'}>
+              <MenuGroupHeader>
+                Filter by{' '}
+                {flexRender(
+                  header.column.columnDef.header,
+                  header.getContext()
+                )}
+              </MenuGroupHeader>
+              <Filter column={header.column} table={table} />
+            </MenuGroup>
+          )}
+        </MenuList>
+      </MenuPopover>
+    </Menu>);
+}

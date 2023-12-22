@@ -8,10 +8,13 @@ import {
   Caption1Stronger,
   makeStyles,
   shorthands,
+  DrawerFooter, 
 } from '@fluentui/react-components';
 import { Dismiss24Regular } from '@fluentui/react-icons';
 import { Table, flexRender } from '@tanstack/react-table';
 import { Filter } from './Filter';
+import { ActionType, DrawerTableState } from '../reducer';
+import { ClearFilterIcon } from '../icon-components/GridIcons';
 
 
 const useFilterDrawerStyles = makeStyles({
@@ -47,22 +50,27 @@ const useFilterDrawerStyles = makeStyles({
 });
 
 type FilterDrawerProps<TItem extends object> = {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  drawerState: DrawerTableState,
+  dispatch: React.Dispatch<ActionType<string>>
   table: Table<TItem>;
 };
 
 export const FilterDrawer = <TItem extends object>({
-  open,
-  setOpen,
+  drawerState,
+  dispatch,
   table
 }: FilterDrawerProps<TItem>) => {
 
   const headerGroups = table.getHeaderGroups();
   const styles = useFilterDrawerStyles();
 
+  const resetAllFilters = React.useCallback(() => {
+    table.setGlobalFilter('');
+    table.resetColumnFilters();
+  }, [table]);
+
   return (
-    <InlineDrawer position="end" open={open} separator>
+    <InlineDrawer position="end" open={drawerState.isFilterDrawerOpen} separator>
       <DrawerHeader>
         <DrawerHeaderTitle
           action={
@@ -70,7 +78,7 @@ export const FilterDrawer = <TItem extends object>({
               appearance="subtle"
               aria-label="Close"
               icon={<Dismiss24Regular />}
-              onClick={() => setOpen(false)}
+              onClick={() => dispatch({ type : "CLOSE_FILTER_DRAWER" })}
             />
           }
         >
@@ -91,7 +99,9 @@ export const FilterDrawer = <TItem extends object>({
             return (
               <div key={header.column.id}>
                 {header.column.getCanFilter() && (
-                  <div key={'filter-group'}>
+                  <div key={'filter-group'} style={{
+                    marginTop: "20px",
+                  }}> 
                     <Caption1Stronger>
                       Filter by{' '}
                       {flexRender(
@@ -107,6 +117,11 @@ export const FilterDrawer = <TItem extends object>({
           });
         })}
       </DrawerBody>
+      <DrawerFooter>
+        <Button icon={<ClearFilterIcon />} onClick={resetAllFilters} style={{width: "100%"}}>
+          Clear All Filters
+        </Button>
+      </DrawerFooter>
     </InlineDrawer>
   );
 };

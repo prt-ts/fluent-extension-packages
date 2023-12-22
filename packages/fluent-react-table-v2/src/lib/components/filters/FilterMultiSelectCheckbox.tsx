@@ -21,6 +21,7 @@ const useCheckboxFilterStyles = makeStyles({
     maxHeight: '300px',
     width: '100%',
     ...shorthands.overflow('auto', 'auto'),
+    ...shorthands.padding('0px', "0px", "2px", '0px'),
 
     '::-webkit-scrollbar': {
       width: '6px',

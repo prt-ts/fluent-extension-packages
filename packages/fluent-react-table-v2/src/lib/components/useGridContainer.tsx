@@ -70,9 +70,7 @@ export const useGridContainer = <TItem extends object>(
     props.columnPinningState ?? {}
   );
   const [columnSizing, setColumnSizing] = React.useState<ColumnSizingState>({});
-
-  const tableViews = React.useMemo<TableView[]>(() => props.views ?? [], [props.views]);
-
+ 
   const table = useReactTable<TItem>({
     columns: columns,
     data,
@@ -126,7 +124,9 @@ export const useGridContainer = <TItem extends object>(
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
   });
 
-  const getTableState = React.useCallback(() : Partial<TableState> => {
+  const tableViews = React.useMemo<TableView[]>(() => props.views ?? [], [props.views]);
+
+  const getTableState = React.useCallback((): Partial<TableState> => {
     return {
       pagination,
       sorting,
@@ -140,19 +140,7 @@ export const useGridContainer = <TItem extends object>(
       columnPinning,
       columnSizing
     };
-  }, [
-    pagination,
-    sorting,
-    columnFilters,
-    globalFilter,
-    grouping,
-    expanded,
-    rowSelection,
-    columnOrder,
-    columnVisibility,
-    columnPinning,
-    columnSizing
-  ]);
+  }, [pagination, sorting, columnFilters, globalFilter, grouping, expanded, rowSelection, columnOrder, columnVisibility, columnPinning, columnSizing]);
 
   const resetToDefaultView = () => {
     const defaultTableState : Partial<TableState> = {

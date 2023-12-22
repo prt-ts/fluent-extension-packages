@@ -22,6 +22,7 @@ import {
   FilterFilled,
 } from '@fluentui/react-icons';
 import { Search24Regular } from '@fluentui/react-icons';
+import { ActionType, DrawerTableState } from '../reducer';
 
 type GridHeaderProps<TItem extends object> = {
   table: Table<TItem>;
@@ -30,19 +31,16 @@ type GridHeaderProps<TItem extends object> = {
   globalFilter: string;
   setGlobalFilter: (value: string) => void;
 
-  applyTableState: (tableState: Partial<TableState>) => boolean
+  applyTableState: (tableState: Partial<TableState>) => boolean 
 
-  openFilterDrawer: boolean;
-  setFilterDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
-
-  openViewsDrawer: boolean;
-  setViewsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  drawerState: DrawerTableState,
+  dispatch: React.Dispatch<ActionType<string>>
 };
 
 export const GridHeader = <TItem extends object>(
   props: GridHeaderProps<TItem>
 ) => {
-  const { table, gridTitle, globalFilter, setGlobalFilter } = props;
+  const { table, gridTitle, globalFilter, setGlobalFilter, dispatch, drawerState } = props;
   const styles = useGridHeaderStyles();
 
   return (
@@ -117,9 +115,10 @@ export const GridHeader = <TItem extends object>(
           </PopoverSurface>
         </Popover>
         <Tooltip content={'Table Views Management'} relationship="label">
-          <Button
-            // appearance="subtle"
-            onClick={() => props.setViewsDrawerOpen((value) => !value)}
+          <Button 
+            onClick={() => {
+              dispatch({ type: "TOGGLE_VIEW_DRAWER" });
+            }}
             icon={<Album24Regular />}
             aria-label="View Menu"
           />
@@ -129,8 +128,8 @@ export const GridHeader = <TItem extends object>(
           onChange={(value) => setGlobalFilter(String(value))}
           className="p-2 font-lg shadow border border-block"
           placeholder="Search all columns..."
-          openFilterDrawer={props.openFilterDrawer}
-          setFilterDrawerOpen={props.setFilterDrawerOpen}
+          drawerState={drawerState}
+          dispatch={dispatch}
         />
       </div>
     </div>
@@ -142,15 +141,16 @@ function DebouncedInput({
   value: initialValue,
   onChange,
   debounce = 500,
-  openFilterDrawer,
-  setFilterDrawerOpen,
+  
+  drawerState,
+  dispatch,
 }: {
   value: string | number;
   onChange: (value: string | number) => void;
   debounce?: number;
 
-  openFilterDrawer: boolean;
-  setFilterDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  drawerState: DrawerTableState,
+  dispatch: React.Dispatch<ActionType<string>>
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'>) {
   const [value, setValue] = React.useState<string | number>('');
 
@@ -177,15 +177,15 @@ function DebouncedInput({
       style={{ width: '300px' }}
       contentAfter={
         <Tooltip
-          content={openFilterDrawer ? 'Close Filter Window' : 'Open Advance Filter'}
+          content={drawerState.isFilterDrawerOpen ? 'Close Filter Window' : 'Open Advance Filter'}
           relationship="label"
         >
           <Button
             appearance="subtle"
-            icon={openFilterDrawer ? <FilterDismissFilled /> : <FilterFilled />}
+            icon={drawerState.isFilterDrawerOpen ? <FilterDismissFilled /> : <FilterFilled />}
             aria-label="View Menu"
-            onClick={() => {
-              setFilterDrawerOpen((open) => !open);
+            onClick={() => { 
+              dispatch({ type: "TOGGLE_FILTER_DRAWER" });
             }}
           />
         </Tooltip>
