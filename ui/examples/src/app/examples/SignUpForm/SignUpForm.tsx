@@ -81,7 +81,10 @@ export const SignUpForm = () => {
   const subscribeEmail = signUpForm.watch('subscribeEmail');
   const subscribePhone = signUpForm.watch('subscribePhone');
   return (
-    <>
+    <div style={{
+      maxWidth: '500px',
+      margin: 'auto',
+    }}>
       <h3>Sign Up Form Example</h3>
       <Form form={signUpForm} onSubmit={onSubmit}>
         <Input name={'firstName'} label={'First Name'} required={true} />
@@ -148,6 +151,6 @@ export const SignUpForm = () => {
         </Button>
       </Form>
       {/* <DevTool control={signUpForm.control} />   */}
-    </>
+    </div>
   );
 };

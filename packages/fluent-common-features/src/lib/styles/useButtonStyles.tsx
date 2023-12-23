@@ -32,11 +32,10 @@ export const useButtonStyles = makeStyles({
         backgroundColor: tokens.colorPaletteYellowBackground2,
 
         ":hover": {
-            backgroundColor: tokens.colorPaletteYellowForeground2,
+            backgroundColor: tokens.colorPaletteYellowBackground3,
         },
         ":hover:active": {
-            backgroundColor: tokens.colorPaletteYellowForeground1,
-            color: tokens.colorNeutralForegroundOnBrand,
+            backgroundColor: tokens.colorPaletteYellowBackground3
         } 
     },
     info: {
