@@ -38,8 +38,7 @@ export const Pagination = <TItem extends object>(
 
     if (start < 1) {
       start = 1;
-      end =
-        totalNumberOfPage > DEFAULT_NUMBER_OF_PAGE_BTN
+      end = totalNumberOfPage > DEFAULT_NUMBER_OF_PAGE_BTN
           ? DEFAULT_NUMBER_OF_PAGE_BTN
           : totalNumberOfPage;
     } else if (end > totalNumberOfPage) {

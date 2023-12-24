@@ -59,15 +59,14 @@ type ViewsDrawerProps<TItem extends object> = {
   table: Table<TItem>;
   tableViews: TableView[];
   applyTableState: (tableView: Partial<TableState>) => void;
-  resetToGridDefaultView: () => boolean;
-  getTableState: () => Partial<TableState>;
+  resetToGridDefaultView: () => boolean; 
   onTableViewSave?: TableProps<TItem>['onTableViewSave'];
   onTableViewDelete?: TableProps<TItem>['onTableViewDelete'];
 };
 
 export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>) => {
 
-  const { drawerState, dispatch, tableViews, applyTableState, resetToGridDefaultView, getTableState, onTableViewSave } = props;
+  const { table, drawerState, dispatch, tableViews, applyTableState, resetToGridDefaultView, onTableViewSave } = props;
   const styles = useFilterDrawerStyles();
 
   const [checkedValues, setCheckedValues] = React.useState<
@@ -111,7 +110,7 @@ export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>
       </DrawerHeader>
 
       <DrawerBody className={styles.drawerBody}>
-        {onTableViewSave && <ViewSaveForm mode='create' getTableState={getTableState} onSave={onTableViewSave} />}
+        {onTableViewSave && <ViewSaveForm mode='create' getTableState={table.getState} onSave={onTableViewSave} />}
         <MenuList checkedValues={checkedValues} onCheckedValueChange={onChange}>
           <MenuItemRadio
             name='table-views'

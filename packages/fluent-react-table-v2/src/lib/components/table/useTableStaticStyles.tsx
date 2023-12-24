@@ -52,7 +52,6 @@ export const useTableStaticStyles = makeStyles({
     bottom: 0,
     left: 0,
     width: "100%",
-  },
-  
+  }, 
  
 });

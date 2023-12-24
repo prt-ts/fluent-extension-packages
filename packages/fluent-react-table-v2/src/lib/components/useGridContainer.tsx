@@ -126,24 +126,8 @@ export const useGridContainer = <TItem extends object>(
 
   const tableViews = React.useMemo<TableView[]>(() => props.views ?? [], [props.views]);
 
-  const getTableState = React.useCallback((): Partial<TableState> => {
-    return {
-      pagination,
-      sorting,
-      columnFilters,
-      globalFilter,
-      grouping,
-      expanded,
-      rowSelection,
-      columnOrder,
-      columnVisibility,
-      columnPinning,
-      columnSizing
-    };
-  }, [pagination, sorting, columnFilters, globalFilter, grouping, expanded, rowSelection, columnOrder, columnVisibility, columnPinning, columnSizing]);
-
   const resetToDefaultView = () => {
-    const defaultTableState : Partial<TableState> = {
+    const defaultTableState : TableState = {
       pagination: {
         pageSize: props.pageSize || 10,
         pageIndex: 0,
@@ -164,13 +148,25 @@ export const useGridContainer = <TItem extends object>(
       })(),
       columnVisibility: props.columnVisibility ?? {},
       columnPinning: props.columnPinningState ?? {},
-      columnSizing: {}
+      columnSizing: {},
+      rowPinning: {},
+      columnSizingInfo: {
+        "startOffset": null,
+        "startSize": null,
+        "deltaOffset": null,
+        "deltaPercentage": null,
+        "isResizingColumn": false,
+        "columnSizingStart": []
+      },
     };
     return applyTableState(defaultTableState);
   };
 
-  const applyTableState = (tableState: Partial<TableState>) => {
+  const applyTableState = (tableState: TableState) => {
     if (tableState) {
+      // set table state
+      console.log('tableState', tableState); 
+
       setSorting(tableState.sorting ?? []);
       setColumnFilters(tableState.columnFilters ?? []);
       setGlobalFilter(tableState.globalFilter ?? '');
@@ -181,6 +177,7 @@ export const useGridContainer = <TItem extends object>(
       setColumnVisibility(tableState.columnVisibility ?? {});
       setColumnPinning(tableState.columnPinning ?? {});
       setColumnSizing(tableState.columnSizing ?? {});
+      
       setTimeout(() => {
         setPagination(tableState.pagination ?? {
           pageSize: props.pageSize || 10,
@@ -197,13 +194,13 @@ export const useGridContainer = <TItem extends object>(
     () => {
       return {
         table,
-        getTableState,
+        getTableState : table.getState,
         applyTableState,
         resetToDefaultView
       };
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [table, getTableState]
+    [table]
   );
 
   const headerMenu = React.useMemo((): JSX.Element | React.ReactNode => {
@@ -221,7 +218,7 @@ export const useGridContainer = <TItem extends object>(
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.ctrlKey && event.altKey && event.key === 'c') {
         event.preventDefault();
-        const tableState = getTableState();
+        const tableState = table.getState();
         // log table state to console
         console.log(tableState);
         // save table state to local storage
@@ -234,7 +231,7 @@ export const useGridContainer = <TItem extends object>(
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [getTableState]);
+  }, [table]);
 
   return {
     table,
@@ -243,7 +240,6 @@ export const useGridContainer = <TItem extends object>(
     headerMenu,
     setGlobalFilter,
     resetToDefaultView,
-    applyTableState,
-    getTableState
+    applyTableState
   };
 };

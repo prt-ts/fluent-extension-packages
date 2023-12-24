@@ -16,7 +16,7 @@ export function AdvancedTable<TItem extends object>(
   ref: React.ForwardedRef<TableRef<TItem>>
 ) {
   useStaticStyles();
-  const { table, globalFilter, headerMenu, tableViews, setGlobalFilter, resetToDefaultView, applyTableState, getTableState } = useGridContainer(props, ref);
+  const { table, globalFilter, headerMenu, tableViews, setGlobalFilter, resetToDefaultView, applyTableState } = useGridContainer(props, ref);
   
   const [drawerState, dispatch] = React.useReducer<typeof tableReducer<string>>(
     tableReducer,
@@ -58,8 +58,7 @@ export function AdvancedTable<TItem extends object>(
           dispatch={dispatch}
           tableViews={tableViews}
           applyTableState={applyTableState}
-          resetToGridDefaultView={resetToDefaultView}
-          getTableState={getTableState}
+          resetToGridDefaultView={resetToDefaultView} 
           onTableViewSave={props.onTableViewSave}
           onTableViewDelete={props.onTableViewDelete}
         />
