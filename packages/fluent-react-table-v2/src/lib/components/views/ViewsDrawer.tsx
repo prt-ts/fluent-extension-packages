@@ -58,7 +58,7 @@ type ViewsDrawerProps<TItem extends object> = {
   dispatch: React.Dispatch<ActionType<string>>
   table: Table<TItem>;
   tableViews: TableView[];
-  applyTableState: (tableView: Partial<TableState>) => void;
+  applyTableState: (tableView: TableState) => boolean;
   resetToGridDefaultView: () => boolean; 
   onTableViewSave?: TableProps<TItem>['onTableViewSave'];
   onTableViewDelete?: TableProps<TItem>['onTableViewDelete'];

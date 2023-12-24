@@ -30,7 +30,7 @@ export const TableContainer = <TItem extends object>(
   const rowVirtualizer = useVirtual({
     parentRef: tableContainerRef,
     size: rows.length,
-    overscan: 10,
+    overscan: 5,
   });
   const { virtualItems: virtualRows, totalSize } = rowVirtualizer;  
   const headerGroups = table.getHeaderGroups();

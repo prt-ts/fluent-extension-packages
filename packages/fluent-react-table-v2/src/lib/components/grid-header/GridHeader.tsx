@@ -31,7 +31,7 @@ type GridHeaderProps<TItem extends object> = {
   globalFilter: string;
   setGlobalFilter: (value: string) => void;
 
-  applyTableState: (tableState: Partial<TableState>) => boolean 
+  applyTableState: (tableState: TableState) => boolean 
 
   drawerState: DrawerTableState,
   dispatch: React.Dispatch<ActionType<string>>
