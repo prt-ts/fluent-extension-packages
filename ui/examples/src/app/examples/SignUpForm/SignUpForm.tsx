@@ -90,15 +90,13 @@ export const SignUpForm = () => {
     }}>
       <h3>Sign Up Form Example</h3>
       <Form form={signUpForm} onSubmit={onSubmit}>
-        <Input name={'firstName'} label={'First Name'} required={true} info={{
-          children: (_: unknown, props: InfoLabelProps) => (
-            <InfoLabel {...props}  />
-          ),
-          infoButton: {
+        <Input name={'firstName'}
+          label={'First Name'}
+          required={true}
+          info={"test"}
+          infoButton={{
             children: <Checkbox120Filled />
-          }
-
-        } as InfoLabelProps} hint={"some hint for the field"}/>
+          }} hint={"some hint for the field"} />
 
         <Input name={'lastName'} label={'Last Name'} required={true} />
 
