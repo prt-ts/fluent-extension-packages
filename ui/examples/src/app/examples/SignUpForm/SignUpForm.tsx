@@ -1,20 +1,23 @@
-import { Button } from '@fluentui/react-components';
+import { Button, InfoLabel, InfoLabelProps } from '@fluentui/react-components';
 import {
   Form,
   Checkbox,
   DatePicker,
   Input,
   RadioGroup,
-  Calendar,
-  DateRangeType,
+  Dropdown, 
 } from '@prt-ts/fluent-react-hook-form';
 import { useCallback } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';  
+import { Checkbox120Filled } from '@fluentui/react-icons';
 
 const schema = yup.object({
-  firstName: yup.string().required('First Name is required'),
+  firstName: yup.string()
+  .required('First Name is required')
+  .min(2, 'First Name must be at least 2 characters')
+  .max(20, 'First Name must be less than 20 characters'),
   lastName: yup.string().required('Last Name is required'),
   username: yup.string().required('Username is required'),
   subscribeEmail: yup.boolean(),
@@ -53,9 +56,9 @@ const schema = yup.object({
 export type SignUpFormType = yup.InferType<typeof schema>;
 
 const defaultValues: SignUpFormType = {
-  firstName: 'John',
-  lastName: 'Doe',
-  username: 'JohnDoe',
+  firstName: '',
+  lastName: '',
+  username: '',
   dateOfBirth: null,
   subscribeEmail: false,
   subscribePhone: false,
@@ -87,7 +90,16 @@ export const SignUpForm = () => {
     }}>
       <h3>Sign Up Form Example</h3>
       <Form form={signUpForm} onSubmit={onSubmit}>
-        <Input name={'firstName'} label={'First Name'} required={true} />
+        <Input name={'firstName'} label={'First Name'} required={true} info={{
+          children: (_: unknown, props: InfoLabelProps) => (
+            <InfoLabel {...props}  />
+          ),
+          infoButton: {
+            children: <Checkbox120Filled />
+          }
+
+        } as InfoLabelProps} hint={"some hint for the field"}/>
+
         <Input name={'lastName'} label={'Last Name'} required={true} />
 
         <Checkbox
@@ -140,11 +152,28 @@ export const SignUpForm = () => {
           label={'Date of Birth'}
         />
 
-        <Calendar
+        <Dropdown
+          name={'hobbies'}
+          label={<strong>Hobbies</strong>}
+          options={[
+            { label: 'Reading', value: 'reading' },
+            { label: 'Writing', value: 'writing' },
+            { 
+              label: 'Coding', 
+              value: 'coding', 
+              optionProps: { 
+                disabled: true,
+              }
+          },            
+          ]}
+          multiselect 
+        />
+
+        {/* <Calendar
           name={'dateOfBirth'}
           label={'Date of Birth'}
           dateRangeType={DateRangeType.Month}
-        />
+        /> */}
 
         <Button type="submit" appearance="primary">
           Sign Up
