@@ -1,4 +1,4 @@
-import { Button, InfoLabel, InfoLabelProps } from '@fluentui/react-components';
+import { Button } from '@fluentui/react-components';
 import {
   Form,
   Checkbox,
@@ -96,7 +96,8 @@ export const SignUpForm = () => {
           info={"test"}
           infoButton={{
             children: <Checkbox120Filled />
-          }} hint={"some hint for the field"} />
+          }} hint={"some hint for the field"} 
+        />
 
         <Input name={'lastName'} label={'Last Name'} required={true} />
 
