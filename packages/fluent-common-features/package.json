@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-common-features",
-  "version": "9.41.0-build.3.0",
+  "version": "9.41.0-build.4.0",
   "main": "./index.js",
   "types": "./index.d.ts",
   "exports": {
