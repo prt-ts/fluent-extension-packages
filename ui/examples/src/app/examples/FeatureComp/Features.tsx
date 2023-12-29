@@ -184,9 +184,36 @@ const Features = () => {
           Confirm Delete
         </Button>
 
+         <Button
+          className={buttonStyles.danger}
+          onClick={() =>
+            confirm({
+              title: 'Are you sure you want to delete this item?',
+              message: <>Once you delete, you will not be able to revert this action.</>,
+              onConfirm: () => {
+                console.log('Confirm Delete with long action');
+              },
+              onCancel: () => {
+                console.log('canceled');
+              },
+              confirmButtonProps: {
+                children: 'Confirm Delete',
+                icon: null,
+                className: buttonStyles.danger
+              },
+              cancelButtonProps: {
+                children: 'Cancel',
+                icon: null,
+              },
+            })
+          }
+        >
+          Long Action Btn
+        </Button>
+
           {/* loading example */}
         <Button
-          onClick={() => {  
+          onClick={() => {
             showLoader();
             setTimeout(() => {
               hideLoader();
@@ -207,7 +234,7 @@ export default FeatureComponent;
 
 
 export const DialogExampleWithLoading = () => {
- 
+
   return (
     <Dialog>
       <DialogTrigger disableButtonEnhancement>
@@ -222,7 +249,7 @@ export const DialogExampleWithLoading = () => {
           <DialogActions>
             <DialogTrigger disableButtonEnhancement>
               <Button appearance="secondary">Close</Button>
-            </DialogTrigger> 
+            </DialogTrigger>
           </DialogActions>
         </DialogBody>
       </DialogSurface>

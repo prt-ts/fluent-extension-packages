@@ -11,6 +11,8 @@ import {
   Button,
   makeStyles,
   ButtonProps,
+  Divider,
+  shorthands,
 } from '@fluentui/react-components';
 import { contextDefaultValue, useConfirmContext } from './ConfirmContext';
 
@@ -22,6 +24,17 @@ const useStyle = makeStyles({
     transitionTimingFunction: 'unset',
     transitionDelay: 'unset',
     transform: 'unset',
+  },
+  dialogActions: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gridColumnStart: 0,
+    gridColumnEnd: 4,
+  },
+  actionContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    ...shorthands.gap('10px')
   },
 });
 
@@ -44,37 +57,41 @@ export const ConfirmDialog: React.FC = () => {
     cancelButtonProps: defaultCancelButtonProps,
   } = contextDefaultValue;
 
-  const classes = useStyle();
+  const styles = useStyle();
 
   return (
     <Dialog open={isOpen} modalType="alert">
-      <DialogSurface className={classes.dialogSurface}>
+      <DialogSurface className={styles.dialogSurface}>
         <DialogBody>
           <DialogTitle>⚠️ {title}</DialogTitle>
+
           <DialogContent>{message}</DialogContent>
-          <DialogActions>
-            <Button
-              {...({
-                ...defaultConfirmButtonProps,
-                ...confirmButtonProps,
-              } as unknown as ButtonProps)}
-              onClick={async () => {
-                setIsOpen?.(false);
-                await onConfirm?.();
-              }}
-            />
-            <DialogTrigger disableButtonEnhancement>
+
+          <DialogActions className={styles.dialogActions}>
+            <div className={styles.actionContainer}>
               <Button
                 {...({
-                  ...defaultCancelButtonProps,
-                  ...cancelButtonProps,
+                  ...defaultConfirmButtonProps,
+                  ...confirmButtonProps,
                 } as unknown as ButtonProps)}
                 onClick={async () => {
                   setIsOpen?.(false);
-                  await onCancel?.();
+                  await onConfirm?.();
                 }}
               />
-            </DialogTrigger>
+              <DialogTrigger disableButtonEnhancement>
+                <Button
+                  {...({
+                    ...defaultCancelButtonProps,
+                    ...cancelButtonProps,
+                  } as unknown as ButtonProps)}
+                  onClick={async () => {
+                    setIsOpen?.(false);
+                    await onCancel?.();
+                  }}
+                />
+              </DialogTrigger>
+            </div>
           </DialogActions>
         </DialogBody>
       </DialogSurface>
