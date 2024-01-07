@@ -80,7 +80,7 @@ const ShowExample: React.FC = () => {
 
 // create switch example
 const SwitchExample: React.FC = () => {
-    const [status, setStatus] = React.useState<"success" | "error" | "ideal" | "staled">("success");
+    const [status, setStatus] = React.useState<"success" | "error" | "ideal" | "staled" | "sth-else">("success");
     return (
         <div>
             <h2>Switch</h2>
@@ -94,6 +94,7 @@ const SwitchExample: React.FC = () => {
                 <button onClick={() => setStatus("error")}>Error</button>
                 <button onClick={() => setStatus("ideal")}>Ideal</button>
                 <button onClick={() => setStatus("staled")}>Staled</button>
+                <button onClick={() => setStatus("sth-else")}>Something Else (not matching any case)</button>
             </div>
             <div style={{ display: "block" }}>
                 <Switch when={status}>
