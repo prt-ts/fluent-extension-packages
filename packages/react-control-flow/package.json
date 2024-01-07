@@ -1,0 +1,19 @@
+{
+  "name": "@prt-ts/react-control-flow",
+  "version": "0.0.1",
+  "description": "React Control Flow",
+  "type": "commonjs",
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
+  },
+  "license": "MIT",
+  "author": "Pradeep Raj Thapaliya",
+  "bugs": {
+    "url": "https://github.com/prt-ts/spfx-workspace.git"
+  },
+  "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}
