@@ -2,5 +2,5 @@ export {
     For,
     Show,
     Switch,
-    Case,
-} from './lib';
+    Case
+} from "./controls";

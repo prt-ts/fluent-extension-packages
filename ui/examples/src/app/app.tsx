@@ -6,11 +6,12 @@ import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } 
 import { TableExample } from "./TableExample";
 import { ErrorPage } from "./ErrorComponent";
 import { AccessDenied, ErrorBoundary, PageNotFound } from "@prt-ts/fluent-common-features";
-import { Button, Divider, Link } from '@fluentui/react-components';
+import {  Divider, Link } from '@fluentui/react-components';
 import { ReactHookForm } from './RHFTest';
 import { SignUpForm } from './examples/SignUpForm/SignUpForm';
 import Features from './examples/FeatureComp/Features';
 import DummyEditPage from './DummyEditPage';
+import Controls from './examples/Control/Controls';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,6 +45,7 @@ const router = createBrowserRouter(
       <Route path="/page-4" element={<ReactHookForm />} />
       <Route path="/page-5" element={<Features />} />
       <Route path="/sign-up" element={<SignUpForm />} />
+      <Route path="/controls" element={<Controls />} />
     </>
   )
 );
@@ -85,7 +87,10 @@ export function App() {
             <Link href="/page-5">Common Features</Link>
           </li>
           <li>
-            <Link href="/Sign-Up">SignUp Form</Link>
+            <Link href="/Sign-Up">SignUp Form</Link> 
+          </li>
+          <li>
+            <Link href="/controls">Controls</Link>
           </li>
         </ul>
         <Divider />

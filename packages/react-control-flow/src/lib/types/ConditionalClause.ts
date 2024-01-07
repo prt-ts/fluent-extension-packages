@@ -1,0 +1,1 @@
+export type ConditionClause = boolean | number | string | undefined;
