@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/react-control-flow",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Control Flow",
   "type": "commonjs",
   "peerDependencies": {
