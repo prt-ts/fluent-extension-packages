@@ -6,7 +6,14 @@
   "bin": {
     "prt-ts-spfx-common": "./src/index.js"
   },
-  "files": ["templates", "bin", "lib", "src", "package.json", "README.md"],
+  "files": [
+    "templates",
+    "bin",
+    "lib",
+    "src",
+    "package.json",
+    "README.md"
+  ],
   "license": "MIT",
   "author": "Pradeep Raj Thapaliya",
   "bugs": {

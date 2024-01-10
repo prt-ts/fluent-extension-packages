@@ -6,13 +6,8 @@
   "tags": [],
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "packages/fluent-react-hook-form/**/*.{ts,tsx,js,jsx}"
-        ]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "build": {
       "executor": "@nx/rollup:rollup",
@@ -31,12 +26,13 @@
             "input": ".",
             "output": "."
           }
-        ]
+        ],
+        "babelUpwardRootMode": true
       }
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/packages/fluent-react-hook-form"],
+      "outputs": ["{workspaceRoot}/coverage/packages/fluent-react-hook-form"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/packages/fluent-react-hook-form"

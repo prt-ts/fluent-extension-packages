@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/examples"
+        "outputPath": "dist/ui/examples"
       },
       "configurations": {
         "development": {
@@ -54,17 +54,20 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/packages/examples"],
+      "outputs": ["{workspaceRoot}/coverage/packages/examples"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/packages/examples"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/examples/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "ui/examples",
+          "packages/examples/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     },
     "serve-static": {

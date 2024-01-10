@@ -21,10 +21,13 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/examples-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": [
+          "ui/examples-e2e",
+          "packages/examples-e2e/**/*.{js,ts}"
+        ]
       }
     }
   },

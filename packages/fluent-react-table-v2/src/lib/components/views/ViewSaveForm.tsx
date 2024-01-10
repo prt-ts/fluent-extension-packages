@@ -7,7 +7,7 @@ import { Save20Filled } from '@fluentui/react-icons';
 type ViewSaveFormProps<TItem extends object> = {
     mode: 'create' | 'edit';
     onSave: TableProps<TItem>['onTableViewSave']
-    getTableState: () => Partial<TableState>;
+    getTableState: () => TableState;
 };
 export const ViewSaveForm = <TItem extends object>(props: ViewSaveFormProps<TItem>) => {
 
