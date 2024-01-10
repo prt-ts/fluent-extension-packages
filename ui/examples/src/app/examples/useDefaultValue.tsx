@@ -8,11 +8,11 @@ export const defaultValues: IFormInput = {
   lastName: '',
   iceCreamType: { label: '', value: '' },
   arrayItem: [],
-  datePickerValue: new Date(),
-  isIceCreamLiked: false,
-  yesNoQuestionCheckbox: false,
-  slider: 0,
-  currencyValue: "1234,2132,4.44",
+//   datePickerValue: new Date(),
+//   isIceCreamLiked: false,
+//   yesNoQuestionCheckbox: false,
+//   slider: 0,
+//   currencyValue: "1234,2132,4.44",
 };
 
 export const useDefaultValues = () => {
@@ -34,11 +34,11 @@ const getDefaultValue = () => {
                 lastName: 'Thapaliya',
                 iceCreamType: { label: 'Chocolate', value: 'chocolate' },
                 arrayItem: [{ label: 'Chocolate', value: 'chocolate' }, { label: 'Vanilla', value: 'vanilla' }],
-                datePickerValue: new Date(),
-                isIceCreamLiked: true,
-                yesNoQuestionCheckbox: true,
-              slider: 50,
-                timePickerValue: new Date(),
+            //     datePickerValue: new Date(),
+            //     isIceCreamLiked: true,
+            //     yesNoQuestionCheckbox: true,
+            //   slider: 50,
+            //     timePickerValue: new Date(),
             })
         }, 2000)
     })
