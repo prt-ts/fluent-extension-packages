@@ -17,7 +17,7 @@ import {
   TimePicker,
   TimePickerProps,
   formatDateToTimeString,
-} from '@fluentui/react-timepicker-compat-preview';
+} from '@fluentui/react-timepicker-compat';
 
 export type TimePickerFieldProps = FieldProps &
   InfoLabelProps & {
@@ -64,7 +64,9 @@ export const TimePickerField = forwardRef<
     Date | null | undefined
   >(getValues(name) ?? null);
 
-  const [selectedTime, setSelectedTime] = React.useState<Date | null>(getValues(name) ?? null);
+  const [selectedTime, setSelectedTime] = React.useState<Date | null>(
+    getValues(name) ?? null
+  );
   const [timePickerValue, setTimePickerValue] = React.useState<string>(
     selectedTime ? formatDateToTimeString(selectedTime) : ''
   );
