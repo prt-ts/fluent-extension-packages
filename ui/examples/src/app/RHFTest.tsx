@@ -1,14 +1,35 @@
-
-import { Button, Table, TableBody, TableCell, TableHeader, TableHeaderCell, TableRow } from "@fluentui/react-components";
-import { Form, Checkbox, DatePicker, Input, Slider, Switch, Textarea, SpinButton, RichInput, Dropdown, CurrencyInput, FileInput, TimePicker } from "@prt-ts/fluent-react-hook-form";
-import { Fragment, useCallback } from "react";
-import { defaultValues, useDefaultValues } from "./examples/useDefaultValue";
-import * as yup from 'yup'
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableHeaderCell,
+  TableRow,
+} from '@fluentui/react-components';
+import {
+  Form,
+  Checkbox,
+  DatePicker,
+  Input,
+  Slider,
+  Switch,
+  Textarea,
+  SpinButton,
+  RichInput,
+  Dropdown,
+  CurrencyInput,
+  FileInput,
+  TimePicker,
+  useForm,
+} from '@prt-ts/fluent-react-hook-form';
+import { Fragment, useCallback } from 'react';
+import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 // import { DevTool } from '@hookform/devtools';
 
-import { useNavigate, unstable_usePrompt as usePrompt} from "react-router-dom"
+import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
 
 const schema = yup.object({
   firstName: yup
@@ -38,49 +59,48 @@ const schema = yup.object({
   // SpinButton: yup.number().required('Spin Button is required'),
 });
 
-
-export type IFormInput = yup.InferType<typeof schema>
-
+export type IFormInput = yup.InferType<typeof schema>;
 
 export const ReactHookForm = () => {
-
   const onSubmit = useCallback((data: IFormInput) => {
-    console.log(data)
-  }, [])
+    console.log(data);
+  }, []);
 
-  const values = useDefaultValues()
-
+  const values = useDefaultValues();
 
   const testForm = useForm<IFormInput>({
     defaultValues: defaultValues,
     values: values,
     resolver: yupResolver(schema),
-  })
+  });
 
   const getFormValue = useCallback(() => {
-    console.log(testForm?.getValues())
-  }, [testForm])
+    console.log(testForm?.getValues());
+  }, [testForm]);
 
   const getFromError = useCallback(() => {
-    console.log(testForm?.formState.errors)
-  }, [testForm])
+    console.log(testForm?.formState.errors);
+  }, [testForm]);
 
-  const arrayItem = testForm?.watch("arrayItem");
+  const arrayItem = testForm?.watch('arrayItem');
   const addMore = useCallback(() => {
-    testForm?.setValue("arrayItem", [...(arrayItem || []), { label: '', value: '' }])
-  }, [arrayItem, testForm])
+    testForm?.setValue('arrayItem', [
+      ...(arrayItem || []),
+      { label: '', value: '' },
+    ]);
+  }, [arrayItem, testForm]);
 
   usePrompt({
     when: testForm?.formState.isDirty,
     message: 'You have unsaved changes, are you sure you want to leave?',
-  })
+  });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onCancel = useCallback(() => {
-    navigate('/home')
-  }, [navigate])
+    navigate('/home');
+  }, [navigate]);
 
-  console.log("rendering")
+  console.log('rendering');
   return (
     <>
       <Button onClick={getFormValue}>Get Form Value</Button>
@@ -311,4 +331,4 @@ export const ReactHookForm = () => {
       {/* <DevTool control={testForm.control} />   */}
     </>
   );
-}
+};

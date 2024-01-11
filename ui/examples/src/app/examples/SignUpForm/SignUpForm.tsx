@@ -5,19 +5,20 @@ import {
   DatePicker,
   Input,
   RadioGroup,
-  Dropdown, 
+  Dropdown,
+  useForm,
 } from '@prt-ts/fluent-react-hook-form';
 import { useCallback } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';  
 import { Checkbox120Filled } from '@fluentui/react-icons';
 
 const schema = yup.object({
-  firstName: yup.string()
-  .required('First Name is required')
-  .min(2, 'First Name must be at least 2 characters')
-  .max(20, 'First Name must be less than 20 characters'),
+  firstName: yup
+    .string()
+    .required('First Name is required')
+    .min(2, 'First Name must be at least 2 characters')
+    .max(20, 'First Name must be less than 20 characters'),
   lastName: yup.string().required('Last Name is required'),
   username: yup.string().required('Username is required'),
   subscribeEmail: yup.boolean(),
@@ -84,19 +85,23 @@ export const SignUpForm = () => {
   const subscribeEmail = signUpForm.watch('subscribeEmail');
   const subscribePhone = signUpForm.watch('subscribePhone');
   return (
-    <div style={{
-      maxWidth: '500px',
-      margin: 'auto',
-    }}>
+    <div
+      style={{
+        maxWidth: '500px',
+        margin: 'auto',
+      }}
+    >
       <h3>Sign Up Form Example</h3>
       <Form form={signUpForm} onSubmit={onSubmit}>
-        <Input name={'firstName'}
+        <Input
+          name={'firstName'}
           label={'First Name'}
           required={true}
-          info={"test"}
+          info={'test'}
           infoButton={{
-            children: <Checkbox120Filled />
-          }} hint={"some hint for the field"} 
+            children: <Checkbox120Filled />,
+          }}
+          hint={'some hint for the field'}
         />
 
         <Input name={'lastName'} label={'Last Name'} required={true} />
@@ -157,15 +162,15 @@ export const SignUpForm = () => {
           options={[
             { label: 'Reading', value: 'reading' },
             { label: 'Writing', value: 'writing' },
-            { 
-              label: 'Coding', 
-              value: 'coding', 
-              optionProps: { 
+            {
+              label: 'Coding',
+              value: 'coding',
+              optionProps: {
                 disabled: true,
-              }
-          },            
+              },
+            },
           ]}
-          multiselect 
+          multiselect
         />
 
         {/* <Calendar
