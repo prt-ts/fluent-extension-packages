@@ -2,7 +2,7 @@
   "name": "@prt-ts/export-helpers",
   "version": "2.0.1",
   "type": "commonjs",
-  "peerDependencies": {
+  "dependencies": {
     "file-saver": ">=2.0.0",
     "xlsx": ">=0.18.0",
     "pdfmake": ">=0.2.6"

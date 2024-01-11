@@ -3,15 +3,17 @@
   "version": "9.41.0-build.1.0",
   "description": "Fluent Formik is a component library for React that provides a set of components to build forms using Formik and Fluent UI",
   "type": "commonjs",
+  "dependencies": {
+    "formik": ">=2.2.0",
+    "react-dropzone": ">=14.0.0",
+    "react-quill": ">=2.0.0"
+  },
   "peerDependencies": {
     "@fluentui/react-components": ">=9.41.0",
     "@fluentui/react-icons": ">=2.0.221",
     "@fluentui/react-datepicker-compat": ">=0.4.0",
-    "formik": ">=2.2.0",
     "react": ">=17.0.0",
-    "react-dom": ">=17.0.0",
-    "react-dropzone": ">=14.0.0",
-    "react-quill": ">=2.0.0"
+    "react-dom": ">=17.0.0"
   },
   "license": "MIT",
   "author": "Pradeep Raj Thapaliya",
