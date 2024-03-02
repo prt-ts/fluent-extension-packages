@@ -162,24 +162,27 @@ export const ReactHookForm = () => {
           </TableHeader>
           <TableBody>
             {(arrayItem || [])?.map((item, index: number) => (
-              <Fragment key={index}>
+              <Fragment key={index + item.value}>
                 <TableRow>
                   <TableCell>
                     <Checkbox
                       name={`arrayItem.${index}.selected`}
                       shape="circular"
+                      
                     />
                   </TableCell>
                   <TableCell>
                     <Input
                       name={`arrayItem.${index}.label`}
-                      placeholder="Label"
+                      placeholder="Enter Label..."
+                      appearance='filled-lighter'
                     />
                   </TableCell>
                   <TableCell>
                     <Input
                       name={`arrayItem.${index}.value`}
-                      placeholder="Value"
+                      placeholder="Enter Value..."
+                      appearance='filled-lighter'
                     />
                   </TableCell>
                   <TableCell>
@@ -219,7 +222,7 @@ export const ReactHookForm = () => {
         <DatePicker
           allowTextInput
           name={'datePickerValue'}
-          label={'Ice Cream Type'}
+          label={'Date Picker'}
         />
         <Switch
           name={'isIceCreamLiked'}
