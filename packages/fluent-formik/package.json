@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-formik",
-  "version": "9.44.3-build.1.0",
+  "version": "9.46.7-build.1.0",
   "description": "Fluent Formik is a component library for React that provides a set of components to build forms using Formik and Fluent UI",
   "type": "commonjs",
   "dependencies": {
@@ -9,8 +9,8 @@
     "react-quill": ">=2.0.0"
   },
   "peerDependencies": {
-    "@fluentui/react-components": ">=9.44.3",
-    "@fluentui/react-icons": ">=2.0.224",
+    "@fluentui/react-components": ">=9.46.7",
+    "@fluentui/react-icons": ">=2.0.230",
     "@fluentui/react-datepicker-compat": ">=0.4.15",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
@@ -18,7 +18,7 @@
   "license": "MIT",
   "author": "Pradeep Raj Thapaliya",
   "bugs": {
-    "url": "https://github.com/prt-ts/spfx-workspace.git"
+    "url": "https://github.com/prt-ts/fluent-extension-packages.git"
   },
-  "homepage": "https://github.com/prt-ts/spfx-workspace.git#readme"
+  "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme"
 }

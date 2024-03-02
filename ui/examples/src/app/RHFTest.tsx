@@ -1,3 +1,4 @@
+
 import {
   Button,
   Table,
@@ -23,7 +24,7 @@ import {
   TimePicker,
   useForm,
 } from '@prt-ts/fluent-react-hook-form';
-import { Fragment, useCallback } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -101,13 +102,25 @@ export const ReactHookForm = () => {
   }, [navigate]);
 
   console.log('rendering');
+
+  const [isView, setIsView] = useState(false);
+
   return (
     <>
       <Button onClick={getFormValue}>Get Form Value</Button>
       <Button onClick={getFromError}>Get Form Error</Button>
       <Button onClick={addMore}>Add Dynamic Values</Button>
+      <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
       <Form form={testForm} onSubmit={onSubmit}>
-        <Input name={'firstName'} label={'First Name'} required={true} />
+        <Input 
+        name={'firstName'} 
+        label={'First Name'} 
+        required={true} 
+        appearance={isView ? "underline" : undefined} 
+        disabled={isView} 
+        readOnly={isView} 
+        autoCompleteOptions={['one', 'two', 'three']}
+        autoComplete='false'/>
         <CurrencyInput
           name={'currencyValue'}
           label={'Currency'}

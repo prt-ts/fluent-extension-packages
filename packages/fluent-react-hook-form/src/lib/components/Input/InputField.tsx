@@ -1,11 +1,16 @@
-import { Field, FieldProps, Input, InputOnChangeData, InputProps, LabelProps, InfoLabel, InfoLabelProps } from "@fluentui/react-components";
+import { Field, FieldProps, Input, InputOnChangeData, InputProps, LabelProps, InfoLabel, InfoLabelProps, useId } from "@fluentui/react-components";
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
 
-export type InputFieldProps = FieldProps & InputProps & InfoLabelProps & { name: string, rules?: ControllerProps['rules']}
+export type InputFieldProps = FieldProps & InputProps & InfoLabelProps & { 
+    name: string, 
+    rules?: ControllerProps['rules']
+    autoCompleteOptions?: string[]
+}
 
-export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ name, rules, required, ...rest }, inputRef) => {
+export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ name, rules, autoCompleteOptions = [], required, ...rest }, inputRef) => {
+    const autoCompleteListId = useId('autoCompleteList');
     const { form: { control } } = useFormContext();
 
     const { ...fieldProps }: FieldProps = rest;
@@ -50,7 +55,17 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ name,
                             onBlur={handleOnBlur}
                             value={value || ''}
                             required={false}
+                            list={autoCompleteOptions.length > 0 ? autoCompleteListId : undefined}
                         />
+                        {
+                            autoCompleteOptions.length > 0 && (
+                                <datalist id={autoCompleteListId}>
+                                    {autoCompleteOptions.map(option => (
+                                        <option key={option} value={option} />
+                                    ))}
+                                </datalist>
+                            )
+                        }
                     </Field>
                 )
             }}
