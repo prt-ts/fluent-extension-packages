@@ -22,7 +22,7 @@ export function FormProvider<TFormState extends FieldValues>({ children, ...prop
 
     return (
         <FormContext.Provider value={{ form }}>
-            <form ref={ref} onSubmit={onSubmit && form.handleSubmit(onSubmit)}>
+            <form ref={ref} onSubmit={onSubmit && form.handleSubmit(onSubmit)} autoComplete="off">
                 {children}
             </form>
         </FormContext.Provider>
