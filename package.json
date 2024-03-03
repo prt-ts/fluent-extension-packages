@@ -2,7 +2,9 @@
   "name": "prt-ts",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "npx nx run examples:build"
+  },
   "private": true,
   "devDependencies": {
     "@babel/core": "^7.14.5",
