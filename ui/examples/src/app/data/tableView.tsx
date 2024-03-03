@@ -63,7 +63,7 @@ export const tableViews: TableView[] = [
         left: ['id'],
         right: [],
       },
-      columnSizing: {},
+      columnSizing: {}, 
     },
   },
   {
@@ -127,7 +127,7 @@ export const tableViews: TableView[] = [
         left: ['id'],
         right: [],
       },
-      columnSizing: {},
+      columnSizing: {}, 
     },
   },
 ];
