@@ -23,6 +23,7 @@ import {
   FileInput,
   TimePicker,
   useForm,
+  RichViewer,
 } from '@prt-ts/fluent-react-hook-form';
 import { Fragment, useCallback, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
@@ -258,6 +259,11 @@ export const ReactHookForm = () => {
           name="richHTMLText"
           size="large"
           label={<strong>Rich Input Text</strong>}
+        />
+        <RichViewer
+          name="richHTMLText"
+          size="large"
+          label={<strong>Rich Input Viewer</strong>}
         />
 
         <Textarea
