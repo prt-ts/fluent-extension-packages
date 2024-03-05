@@ -1,12 +1,6 @@
 
 import {
   Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableHeaderCell,
-  TableRow,
 } from '@fluentui/react-components';
 import {
   Form,
@@ -141,7 +135,7 @@ export const ReactHookForm = () => {
           }
         />
 
-        <Table size="extra-small">
+        {/* <Table size="extra-small">
           <TableHeader>
             <TableRow>
               <TableHeaderCell>
@@ -219,7 +213,73 @@ export const ReactHookForm = () => {
               </Fragment>
             ))}
           </TableBody>
-        </Table>
+        </Table> */}
+        <table style={{width: "100%"}}>
+          <thead>
+            <tr>
+              <th>Selected</th>
+              <th>Label</th>
+              <th>Value</th>
+              <th>Is Active</th>
+              <th>Like Percentage</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(arrayItem || [])?.map((item, index: number) => (
+              <Fragment key={index + item.value}>
+                <tr >
+                  <td>
+                    <Checkbox
+                      name={`arrayItem.${index}.selected`}
+                      shape="circular"
+                    />
+                  </td>
+                  <td>
+                    <Input
+                      name={`arrayItem.${index}.label`}
+                      placeholder="Enter Label..."
+                    />
+                  </td>
+                  <td>
+                    <Input
+                      name={`arrayItem.${index}.value`}
+                      placeholder="Enter Value..."
+                    />
+                  </td>
+                  <td>
+                    <Switch
+                      name={`arrayItem.${index}.isActive`}
+                      checkedLabel={'Yes'}
+                      uncheckedLabel={'No'}
+                      orientation="horizontal"
+                    />
+                  </td>
+                  <td>
+                    <Slider
+                      name={`arrayItem.${index}.likePercentage`}
+                      min={0}
+                      max={100}
+                      hint={`${item.likePercentage || 0}%`}
+                    />
+                  </td>
+                  <td>
+                    <Button
+                      onClick={() => {
+                        const newArrayItem = [
+                          ...(testForm?.getValues()?.arrayItem || []),
+                        ];
+                        newArrayItem.splice(index, 1);
+                        testForm?.setValue(`arrayItem`, newArrayItem);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              </Fragment>
+            ))}
+          </tbody>
+          </table>
         <DatePicker
           allowTextInput
           name={'datePickerValue'}
