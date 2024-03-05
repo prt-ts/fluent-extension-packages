@@ -1,14 +1,9 @@
 {
   "name": "@prt-ts/fluent-common-features",
-  "version": "9.46.7-build.1.0",
+  "version": "9.46.7-build.2.0",
   "main": "./index.js",
   "types": "./index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./index.js"
-    }
-  },
+  "type": "commonjs", 
   "peerDependencies": {
     "@fluentui/react-components": ">=9.46.7",
     "@fluentui/react-icons": ">=2.0.230",

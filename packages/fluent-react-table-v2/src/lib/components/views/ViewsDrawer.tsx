@@ -138,7 +138,7 @@ export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>
                   <MenuItemRadio
                     name="table-views"
                     value={view.viewName}
-                    onClick={() => applyTableState(view.tableState)}
+                    onClick={() => applyTableState(view.tableState as TableState)}
                     icon={<ViewDesktop20Regular />}
                   >
                     {view.viewName}
