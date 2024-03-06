@@ -1,7 +1,6 @@
 {
   "name": "@prt-ts/pdf-json-helpers",
-  "version": "2.0.1",
-  "type": "commonjs",
+  "version": "2.0.1", 
   "dependencies": {
     "html-to-pdfmake": ">=2.0.0"
   },

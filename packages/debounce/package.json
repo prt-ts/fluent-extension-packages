@@ -1,7 +1,6 @@
 {
   "name": "@prt-ts/debounce",
-  "version": "1.0.1",
-  "type": "commonjs",
+  "version": "1.0.1", 
   "license": "MIT",
   "author": "Pradeep Raj Thapaliya",
   "bugs": {
