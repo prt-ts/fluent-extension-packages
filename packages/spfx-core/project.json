@@ -10,12 +10,13 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/spfx-core",
+        "format": ["esm", "cjs"],
         "tsConfig": "packages/spfx-core/tsconfig.lib.json",
         "project": "packages/spfx-core/package.json",
         "entryFile": "packages/spfx-core/src/index.ts",
         "external": ["react", "react-dom", "react/jsx-runtime"],
         "rollupConfig": "@nx/react/plugins/bundle-rollup",
-        "compiler": "babel",
+        "compiler": "tsc",
         "assets": [
           {
             "glob": "packages/spfx-core/README.md",

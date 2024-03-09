@@ -13,13 +13,14 @@
       "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "format": ["esm", "cjs"],
         "outputPath": "dist/packages/fluent-common-features",
         "tsConfig": "packages/fluent-common-features/tsconfig.lib.json",
         "project": "packages/fluent-common-features/package.json",
         "entryFile": "packages/fluent-common-features/src/index.ts",
         "external": ["react", "react-dom", "react/jsx-runtime"],
         "rollupConfig": "@nx/react/plugins/bundle-rollup",
-        "compiler": "swc",
+        "compiler": "tsc",
         "assets": [
           {
             "glob": "packages/fluent-common-features/README.md",

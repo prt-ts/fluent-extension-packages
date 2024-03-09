@@ -6,3 +6,6 @@ export * from "./email";
 
 // export app configs
 export* from "./app"; 
+
+// export auth configs
+export * from "./auth";
