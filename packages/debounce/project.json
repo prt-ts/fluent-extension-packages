@@ -9,11 +9,12 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/debounce",
+        "format": ["esm", "cjs"],
         "main": "packages/debounce/src/index.ts",
         "tsConfig": "packages/debounce/tsconfig.lib.json",
         "assets": [],
         "project": "packages/debounce/package.json",
-        "compiler": "swc",
+        "compiler": "tsc",
         "babelUpwardRootMode": true
       }
     },

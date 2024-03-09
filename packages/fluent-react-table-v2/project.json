@@ -14,20 +14,20 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/fluent-react-table-v2",
+        "format": ["esm", "cjs"],
         "tsConfig": "packages/fluent-react-table-v2/tsconfig.lib.json",
         "project": "packages/fluent-react-table-v2/package.json",
         "entryFile": "packages/fluent-react-table-v2/src/index.ts",
         "external": ["react", "react-dom", "react/jsx-runtime"],
         "rollupConfig": "@nx/react/plugins/bundle-rollup",
-        "compiler": "babel",
+        "compiler": "tsc",
         "assets": [
           {
             "glob": "packages/fluent-react-table-v2/README.md",
             "input": ".",
             "output": "."
           }
-        ],
-        "babelUpwardRootMode": true
+        ]
       }
     },
     "test": {

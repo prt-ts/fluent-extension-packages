@@ -24,7 +24,7 @@
  * @param key Key to search the value on
  * @return The new uniquified array
  */
-export function uniquifyByKey<T extends object, P extends keyof T>(
+export function uniqueByKey<T extends object, P extends keyof T>(
   array: T[],
   key: P
 ): T[] {
