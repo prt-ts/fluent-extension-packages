@@ -5,7 +5,7 @@ import * as React from 'react';
 import App from './app/app';
 import { FluentProvider, teamsLightTheme } from '@fluentui/react-components';
 import { ThemeService } from '@prt-ts/fluent-theme';
-import { AlertProvider, ConfirmProvider, LoadingProvider } from '@prt-ts/fluent-common-features';
+import { AppFeatureProvider } from '@prt-ts/fluent-common-features';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -21,13 +21,9 @@ export const AppRoot: React.FC = () => {
 
   return (
     <FluentProvider theme={theme}>
-      <LoadingProvider>
-        <ConfirmProvider>
-          <AlertProvider>
-            <App />
-          </AlertProvider>
-        </ConfirmProvider>
-      </LoadingProvider>
+      <AppFeatureProvider>
+        <App />
+      </AppFeatureProvider>
     </FluentProvider>
   );
 };
@@ -35,7 +31,7 @@ export const AppRoot: React.FC = () => {
 root.render(
   <StrictMode>
     {/* <BrowserRouter> */}
-      <AppRoot />
+    <AppRoot />
     {/* </BrowserRouter> */}
   </StrictMode>
 );
