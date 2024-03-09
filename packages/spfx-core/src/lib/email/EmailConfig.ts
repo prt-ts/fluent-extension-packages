@@ -1,12 +1,6 @@
+import { EmailSettingType } from "./EmailSetting";
 
-export type EmailSettingType = {
-    from: string;
-    isEnabled: boolean;
-    notificationDelegateEmails?: string[];
-}
-
-export default class EmailConfig {
-
+export default class EmailConfig { 
     private static instance: EmailConfig;
 
     _from: string;

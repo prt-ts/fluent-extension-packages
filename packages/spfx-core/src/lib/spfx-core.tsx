@@ -1,13 +1,8 @@
 // export pnp configs
-export {
-  getSP,
-  getGraphFi,
-} from "./pnp"
+export * from "./pnp";
 
 // export email configs
-export {
-  EmailBuilder,
-  EmailSettingType,
-  IEmailProps
-} from "./email"
-export * from "./email/EmailConfig"
+export * from "./email"; 
+
+// export app configs
+export* from "./app"; 

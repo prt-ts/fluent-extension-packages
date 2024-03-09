@@ -11,5 +11,8 @@
   "peerDependencies": {
     "@microsoft/sp-webpart-base": ">=1.14.0"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "types": "./index.cjs.d.js"
 }
