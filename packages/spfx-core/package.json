@@ -14,5 +14,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "types": "./index.cjs.d.js"
+  "types": "./index.cjs.d.ts"
 }
