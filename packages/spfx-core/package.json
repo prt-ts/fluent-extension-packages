@@ -1,4 +1,15 @@
 {
   "name": "@prt-ts/spfx-core",
-  "version": "0.0.1"
+  "version": "0.0.1-alpha.1",
+
+  "dependencies": {
+    "@pnp/core": ">3.0.0",
+    "@pnp/graph": ">3.0.0",
+    "@pnp/logging": ">3.0.0",
+    "@pnp/sp": ">3.0.0"
+  },
+  "peerDependencies": {
+    "@microsoft/sp-webpart-base": ">=1.14.0"
+  },
+  "types": "./index.cjs.d.js"
 }

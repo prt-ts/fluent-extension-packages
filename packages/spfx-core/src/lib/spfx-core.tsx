@@ -1,14 +1,13 @@
-import styles from './spfx-core.module.scss';
+// export pnp configs
+export {
+  getSP,
+  getGraphFi,
+} from "./pnp"
 
-/* eslint-disable-next-line */
-export interface SpfxCoreProps {}
-
-export function SpfxCore(props: SpfxCoreProps) {
-  return (
-    <div className={styles['container']}>
-      <h1>Welcome to SpfxCore!</h1>
-    </div>
-  );
-}
-
-export default SpfxCore;
+// export email configs
+export {
+  EmailBuilder,
+  EmailSettingType,
+  IEmailProps
+} from "./email"
+export * from "./email/EmailConfig"

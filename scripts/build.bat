@@ -27,5 +27,9 @@ call npx nx run pdf-json-helper:build --compiler=tsc --format=esm,cjs
 REM # Build the react-control-flow library
 call npx nx run react-control-flow:build --compiler=tsc --format=esm,cjs
 
+REM # Build the spfx-core library
+call npx nx run spfx-core:build --compiler=tsc --format=esm,cjs
+
+
 
 

@@ -20,6 +20,7 @@
     "@fluentui/react-timepicker-compat": "^0.1.1",
     "@hookform/devtools": "^4.3.1",
     "@hookform/resolvers": "^3.3.1",
+    "@microsoft/sp-webpart-base": "^1.18.2",
     "@nx/cypress": "18.0.6",
     "@nx/eslint": "18.0.6",
     "@nx/eslint-plugin": "18.0.6",
@@ -29,6 +30,10 @@
     "@nx/rollup": "18.0.6",
     "@nx/vite": "18.0.6",
     "@nx/workspace": "18.0.6",
+    "@pnp/core": "^3.23.0",
+    "@pnp/graph": "^3.23.0",
+    "@pnp/logging": "^3.23.0",
+    "@pnp/sp": "^3.23.0",
     "@rollup/plugin-url": "^7.0.0",
     "@svgr/rollup": "8.0.1",
     "@swc-node/register": "~1.8.0",
@@ -101,6 +106,5 @@
   "bugs": {
     "url": "https://github.com/prt-ts/fluent-extension-packages.git"
   },
-  "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme",
-  "dependencies": {}
+  "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme"
 }
