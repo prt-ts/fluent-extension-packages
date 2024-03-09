@@ -10,9 +10,6 @@ import "@pnp/sp/presets/all";
 
 declare global {
     interface Window {
-        SPFxCore: SPFxCore;
-    }
-    interface SPFxCore {
         __SP: SPFI;
         __GraphFI: GraphFI;
         __SPFxContext: WebPartContext;
@@ -29,15 +26,15 @@ export const getSP = async (
         // initialize once at init
 
 
-        window.SPFxCore.__SP = await spfi(siteURL)
+        window.__SP = await spfi(siteURL)
             .using(SPFx(context))
             .using(PnPLogging(LogLevel.Error));
 
-        window.SPFxCore.__SPFxContext = context;
+        window.__SPFxContext = context;
     }
 
     return new Promise((resolve, reject) => {
-        if (window.SPFxCore.__SP) resolve(window.SPFxCore.__SP);
+        if (window.__SP) resolve(window.__SP);
         else reject("PnpSP is Not Initialized");
     });
 };
@@ -49,15 +46,15 @@ export const getGraphFi = async (
     if (context) {
         // Set sp as the global variable so we don't have to pass webpartcontext deep down to the child component
         // initialize once at init
-        window.SPFxCore.__GraphFI = await graphfi()
+        window.__GraphFI = await graphfi()
             .using(graphSPFx(context))
             .using(PnPLogging(LogLevel.Error));
 
-        window.SPFxCore.__SPFxContext = context;
+        window.__SPFxContext = context;
     }
 
     return new Promise((resolve, reject) => {
-        if (window.SPFxCore.__GraphFI) resolve(window.SPFxCore.__GraphFI);
+        if (window.__GraphFI) resolve(window.__GraphFI);
         else reject("GraphFi is Not Initialized");
     });
 };
