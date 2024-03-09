@@ -1,10 +1,11 @@
 {
   "name": "@prt-ts/debounce",
-  "version": "1.0.1", 
+  "version": "1.0.2", 
   "license": "MIT",
   "author": "Pradeep Raj Thapaliya",
   "bugs": {
     "url": "https://github.com/prt-ts/fluent-extension-packages.git"
   },
-  "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme"
+  "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme",
+  "types": "./index.cjs.d.ts"
 }
