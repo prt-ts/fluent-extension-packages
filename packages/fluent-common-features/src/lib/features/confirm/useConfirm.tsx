@@ -2,9 +2,9 @@
 import * as React from 'react';
 import {
   ConfirmStateType,
-  contextDefaultValue,
-  useConfirmContext,
+  contextDefaultValue
 } from './ConfirmContext';
+import { useConfirmContext } from './useConfirmContext';
 
 export const useConfirm = () => {
   const { setIsOpen, setContextDetails } = useConfirmContext();
