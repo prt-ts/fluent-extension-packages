@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-common-features",
-  "version": "9.46.7-build.2.0", 
+  "version": "9.46.7-build.2.0",  
   "peerDependencies": {
     "@fluentui/react-components": ">=9.46.7",
     "@fluentui/react-icons": ">=2.0.230",
@@ -13,9 +13,5 @@
     "url": "https://github.com/prt-ts/fluent-extension-packages.git"
   },
   "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme",
-
-  "module": "./index.esm.js",
-  "main": "./index.cjs.js",
-  "types": "./index.cjs.d.ts"
-
+  "types": "index.cjs.d.ts"
 }
