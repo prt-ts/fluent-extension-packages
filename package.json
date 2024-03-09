@@ -20,6 +20,8 @@
     "@fluentui/react-timepicker-compat": "0.2.2",
     "@hookform/devtools": "^4.3.1",
     "@hookform/resolvers": "^3.3.1",
+    "@microsoft/sp-core-library": "^1.18.2",
+    "@microsoft/sp-list-subscription": "^1.18.2",
     "@microsoft/sp-webpart-base": "^1.18.2",
     "@nx/cypress": "18.0.6",
     "@nx/eslint": "18.0.6",
@@ -108,4 +110,3 @@
   },
   "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme"
 }
-
