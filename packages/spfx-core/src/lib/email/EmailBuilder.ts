@@ -2,6 +2,7 @@
 import { IEmailProperties } from "@pnp/sp/sputilities";
 import { getSP } from "../pnp";
 import EmailSettings from "./EmailConfig";
+import { SPFxCoreDebugKey } from "../types/DebugKey";
 
 export interface IEmailProps {
     from?: string;
@@ -82,8 +83,9 @@ export class EmailBuilder implements IEmailProperties {
             if (!this) throw "Email Configuration is not created.";
             if (!this.To) throw "Email Receiver is not added.";
 
-            const emailSettings = EmailSettings.getInstance();
-            if (!emailSettings.isEnabled) {
+            const { from, isEnabled, notificationDelegateEmails } = EmailSettings.getInstance();
+            const isEmailDisabled = localStorage.getItem(SPFxCoreDebugKey);
+            if (!isEnabled || (isEmailDisabled && isEmailDisabled == "true")) {
 
                 // override email receiver with delegate email
                 this.appendBody(
@@ -93,14 +95,14 @@ export class EmailBuilder implements IEmailProperties {
                 this.appendBody("CC Emails: " + this.CC?.join(",") + "<br/>");
                 this.appendBody("BCC Emails: " + this.BCC?.join(",") + "<br/>");
 
-                this.To = emailSettings.notificationDelegateEmails || [];
+                this.To = notificationDelegateEmails || [];
                 this.CC = [];
                 this.BCC = [];
             }
 
             // set from email if is available in settings
-            if (emailSettings && emailSettings.from?.length > 0) {
-                this.From = emailSettings.from;
+            if (from?.length > 0) {
+                this.From = from;
             }
 
             // get sp configuration
