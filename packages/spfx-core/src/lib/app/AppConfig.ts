@@ -64,14 +64,14 @@ export default class AppContext {
         return this;
     }
 
-    public initializeEmailConfig = async (config: EmailSettingType) => {
+    public initializeEmailConfig = (config: EmailSettingType) => {
         const emailConfig = EmailConfig.getInstance();
         emailConfig.initializeConfig(config);
         return this;
     }
 
-    public initializeAppSettings = async <TEnv, TProps>(settings: AppSettings<TEnv, TProps>) => {
-        this._settings = settings as AppSettings;
+    public initializeAppSettings = (settings: AppSettings) => {
+        this._settings = settings;
         return this;
     }
 
