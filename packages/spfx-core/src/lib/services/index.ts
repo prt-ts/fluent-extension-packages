@@ -9,3 +9,7 @@ export {
 export {
     ErrorService
 } from "./ErrorService";
+
+export {
+    AppInsightService
+} from "./AppInsightsService";
