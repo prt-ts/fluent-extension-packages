@@ -74,4 +74,4 @@ export function TableCell<TItem extends object>({ cell, row } : TableCellProps<T
             {flexRender(cell.column.columnDef.cell, cell.getContext())}
         </td>
     );
-};
+}

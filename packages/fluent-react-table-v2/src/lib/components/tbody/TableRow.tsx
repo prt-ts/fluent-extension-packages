@@ -56,4 +56,4 @@ export function TableRow<TItem extends object>({ row, rowSelectionMode }: TableR
         ))}
       </tr>
     );
-};
+}

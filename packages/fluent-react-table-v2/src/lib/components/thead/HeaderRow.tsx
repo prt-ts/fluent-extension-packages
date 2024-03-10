@@ -59,4 +59,4 @@ export function HeaderRow<TItem extends object>(props: HeaderRowProps<TItem>) {
             })}
         </tr>
     );
-};
+}

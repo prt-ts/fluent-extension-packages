@@ -215,7 +215,7 @@ export function HeaderCell<TItem extends object>({
       )}
     </th>
   );
-};
+}
 
 type HeaderMenuProps<TItem extends object> = {
   header: Header<TItem, unknown>;

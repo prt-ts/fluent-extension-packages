@@ -44,4 +44,4 @@ export function TableBody<TItem extends object>(props: TableBodyProps<TItem>) {
             )}
         </tbody>
     );
-};
+}
