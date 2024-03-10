@@ -5,3 +5,7 @@ export {
     OptionType,
     ChoiceFieldService
 } from "./ChoiceFieldService";
+
+export {
+    ErrorService
+} from "./ErrorService";
