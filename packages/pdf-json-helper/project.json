@@ -9,12 +9,12 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/pdf-json-helper",
+        "format": ["esm", "cjs"],
         "main": "packages/pdf-json-helper/src/index.ts",
         "tsConfig": "packages/pdf-json-helper/tsconfig.lib.json",
         "assets": [],
         "project": "packages/pdf-json-helper/package.json",
-        "compiler": "swc",
-        "babelUpwardRootMode": true
+        "compiler": "tsc"
       }
     },
     "publish": {

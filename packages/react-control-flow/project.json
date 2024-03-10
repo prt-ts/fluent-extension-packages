@@ -14,12 +14,13 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/react-control-flow",
+        "format": ["esm", "cjs"],
         "tsConfig": "packages/react-control-flow/tsconfig.lib.json",
         "project": "packages/react-control-flow/package.json",
         "entryFile": "packages/react-control-flow/src/index.ts",
         "external": ["react", "react-dom", "react/jsx-runtime"],
         "rollupConfig": "@nx/react/plugins/bundle-rollup",
-        "compiler": "babel",
+        "compiler": "swc",
         "assets": [
           {
             "glob": "packages/react-control-flow/README.md",

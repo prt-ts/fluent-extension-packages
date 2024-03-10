@@ -61,10 +61,6 @@ export const ConfirmContext = React.createContext<ConfirmContextType>({
   setContextDetails: () => { },
 });
 
-export const useConfirmContext = () => {
-  return React.useContext(ConfirmContext);
-};
-
 export const ConfirmProvider: React.FC<{ children }> = ({ children }) => {
 
   const [isOpen, setIsOpen] = React.useState<boolean>(false);

@@ -1,8 +1,7 @@
 {
   "name": "@prt-ts/react-control-flow",
-  "version": "1.0.1",
-  "description": "React Control Flow",
-  "type": "commonjs",
+  "version": "1.0.2",
+  "description": "React Control Flow", 
   "peerDependencies": {
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
@@ -15,5 +14,6 @@
   "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme",
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "types": "./index.cjs.d.ts"
 }

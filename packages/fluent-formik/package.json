@@ -1,16 +1,15 @@
 {
   "name": "@prt-ts/fluent-formik",
-  "version": "9.46.7-build.1.0",
+  "version": "9.46.8-build.2.0",
   "description": "Fluent Formik is a component library for React that provides a set of components to build forms using Formik and Fluent UI",
-  "type": "commonjs",
-  "dependencies": {
+   "dependencies": {
     "formik": ">=2.2.0",
     "react-dropzone": ">=14.0.0",
     "react-quill": ">=2.0.0"
   },
   "peerDependencies": {
-    "@fluentui/react-components": ">=9.46.7",
-    "@fluentui/react-icons": ">=2.0.230",
+    "@fluentui/react-components": ">=9.46.8",
+    "@fluentui/react-icons": ">=2.0.232",
     "@fluentui/react-datepicker-compat": ">=0.4.15",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
@@ -20,5 +19,6 @@
   "bugs": {
     "url": "https://github.com/prt-ts/fluent-extension-packages.git"
   },
-  "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme"
+  "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme",
+  "types": "./index.cjs.d.ts"
 }

@@ -9,12 +9,12 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/utilities",
+        "format": ["esm", "cjs"],
         "main": "packages/utilities/src/index.ts",
         "tsConfig": "packages/utilities/tsconfig.lib.json",
         "assets": [],
         "project": "packages/utilities/package.json",
-        "compiler": "swc",
-        "babelUpwardRootMode": true
+        "compiler": "tsc"
       }
     },
     "publish": {

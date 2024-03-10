@@ -14,7 +14,8 @@ import {
   Divider,
   shorthands,
 } from '@fluentui/react-components';
-import { contextDefaultValue, useConfirmContext } from './ConfirmContext';
+import { contextDefaultValue } from './ConfirmContext';
+import { useConfirmContext } from './useConfirmContext';
 
 const useStyle = makeStyles({
   dialogSurface: {

@@ -14,20 +14,20 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/fluent-theme",
+        "format": ["esm", "cjs"],
         "tsConfig": "packages/fluent-theme/tsconfig.lib.json",
         "project": "packages/fluent-theme/package.json",
         "entryFile": "packages/fluent-theme/src/index.ts",
         "external": ["react", "react-dom", "react/jsx-runtime"],
         "rollupConfig": "@nx/react/plugins/bundle-rollup",
-        "compiler": "babel",
+        "compiler": "tsc",
         "assets": [
           {
             "glob": "packages/fluent-theme/README.md",
             "input": ".",
             "output": "."
           }
-        ],
-        "babelUpwardRootMode": true
+        ]
       }
     }
   }

@@ -9,12 +9,12 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/fluent-formik",
+        "format": ["esm", "cjs"],
         "main": "packages/fluent-formik/src/index.ts",
         "tsConfig": "packages/fluent-formik/tsconfig.lib.json",
         "assets": [],
         "project": "packages/fluent-formik/package.json",
-        "compiler": "swc",
-        "babelUpwardRootMode": true
+        "compiler": "tsc"
       }
     },
     "publish": {

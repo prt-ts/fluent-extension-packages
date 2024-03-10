@@ -9,9 +9,11 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/export-helpers",
+        "format": ["esm", "cjs"],
         "main": "packages/export-helpers/src/index.ts",
         "tsConfig": "packages/export-helpers/tsconfig.lib.json",
-        "assets": ["packages/export-helpers/*.md"]
+        "assets": ["packages/export-helpers/*.md"],
+        "compiler": "tsc"
       }
     },
     "publish": {

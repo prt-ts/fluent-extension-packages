@@ -34,6 +34,10 @@ const modules = {
     keyboard: { bindings: { tab: false } },
 };
 
+const no_modules = {
+    toolbar: false,
+};
+
 export type RichInputFieldProps = FieldProps & ReactQuillProps & InfoLabelProps & { name: string, rules?: ControllerProps['rules'] }
 
 export const RichInputField = forwardRef<ReactQuill, RichInputFieldProps>(({ name, rules, required, ...rest }, reactQuillRef) => {
@@ -80,6 +84,52 @@ export const RichInputField = forwardRef<ReactQuill, RichInputFieldProps>(({ nam
                                 modules={modules}
                                 className={fieldState.invalid ? classes.error : classes.regular}
                                 {...fieldProps}
+                            />
+                        )}
+                    </Field>
+                )
+            }}
+        />)
+});
+
+export const RichViewerField = forwardRef<ReactQuill, RichInputFieldProps>(({ name, rules, required, ...rest }, reactQuillRef) => {
+    const { form: { control } } = useFormContext();
+
+    const { ...fieldProps }: FieldProps = rest;
+    const { ...reactQuillProps }: ReactQuillProps = rest;
+    const { ...infoLabelProps }: InfoLabelProps = rest;
+
+    const classes = useRichTextEditorStyles();
+    return (
+        <Controller
+            name={name}
+            control={control}
+            rules={rules}
+            render={({ field, fieldState }) => {
+                const { value, ref } = field;
+
+                return (
+                    <Field
+                        {...fieldProps}
+                        label={{
+                            children: (_: unknown, props: LabelProps) => (
+                                <InfoLabel {...props} {...infoLabelProps} />
+                            )
+                        } as unknown as InfoLabelProps}
+                        validationState={fieldState.invalid ? "error" : undefined}
+                        validationMessage={fieldState.error?.message}
+                        required={required}
+                    >
+                        {(fieldProps) => (
+                            <ReactQuill
+                                {...reactQuillProps}
+                                ref={reactQuillRef || ref}
+                                value={value}
+                                theme="snow" 
+                                modules={no_modules}
+                                className={fieldState.invalid ? classes.error : classes.regular}
+                                {...fieldProps}
+                                readOnly={true}
                             />
                         )}
                     </Field>

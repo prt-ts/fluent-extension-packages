@@ -1,9 +1,8 @@
 {
   "name": "@prt-ts/fluent-theme",
-  "version": "9.46.7-build.1.0",
-  "type": "commonjs",
+  "version": "9.46.8-build.2.0", 
   "peerDependencies": {
-    "@fluentui/react-components": ">=9.46.7",
+    "@fluentui/react-components": ">=9.46.8",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
   },
@@ -12,5 +11,6 @@
   "bugs": {
     "url": "https://github.com/prt-ts/fluent-extension-packages.git"
   },
-  "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme"
+  "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme",
+  "types": "./index.cjs.d.ts"
 }

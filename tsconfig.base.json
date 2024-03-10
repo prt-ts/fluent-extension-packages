@@ -18,7 +18,7 @@
       "@prt-ts/debounce": ["packages/debounce/src/index.ts"],
       "@prt-ts/export-helpers": ["packages/export-helpers/src/index.ts"],
       "@prt-ts/fluent-common-features": [
-        "packages/fluent-common-features/src/index.tsx"
+        "packages/fluent-common-features/src/index.ts"
       ],
       "@prt-ts/fluent-formik": ["packages/fluent-formik/src/index.ts"],
       "@prt-ts/fluent-react-hook-form": [
@@ -34,6 +34,7 @@
         "packages/react-control-flow/src/index.ts"
       ],
       "@prt-ts/spfx-common": ["packages/spfx-common/src/index.js"],
+      "@prt-ts/spfx-core": ["packages/spfx-core/src/index.ts"],
       "@prt-ts/utilities": ["packages/utilities/src/index.ts"]
     }
   },

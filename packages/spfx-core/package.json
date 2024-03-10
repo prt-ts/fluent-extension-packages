@@ -1,0 +1,20 @@
+{
+  "name": "@prt-ts/spfx-core",
+  "version": "1.18.2-build-alpha.5.0",
+
+  "dependencies": {
+    "@pnp/core": ">3.0.0",
+    "@pnp/graph": ">3.0.0",
+    "@pnp/logging": ">3.0.0",
+    "@pnp/sp": ">3.0.0",
+    "@microsoft/sp-list-subscription": ">=1.17.0"
+  },
+  "peerDependencies": {
+    "@microsoft/sp-webpart-base": ">=1.17.0",
+    "@microsoft/sp-core-library": ">=1.17.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "./index.cjs.d.ts"
+}

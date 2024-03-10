@@ -1,4 +1,8 @@
 export {
+  AppFeatureProvider
+} from "./root"
+
+export {
   AlertProvider,
   useAlert
 } from "./features/alert";
