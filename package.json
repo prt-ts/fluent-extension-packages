@@ -20,6 +20,7 @@
     "@fluentui/react-timepicker-compat": "0.2.2",
     "@hookform/devtools": "^4.3.1",
     "@hookform/resolvers": "^3.3.1",
+    "@microsoft/applicationinsights-web": "^3.1.0",
     "@microsoft/sp-core-library": "^1.18.2",
     "@microsoft/sp-list-subscription": "^1.18.2",
     "@microsoft/sp-webpart-base": "^1.18.2",
