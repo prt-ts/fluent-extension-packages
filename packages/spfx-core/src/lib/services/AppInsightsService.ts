@@ -14,7 +14,7 @@ export const AppInsightService = () => {
             if (appInsights) {
                 const additionalProperties = {
                     ...(customProperties || {}),
-                    user: JSON.stringify(currentUser)
+                    user: currentUser
                 }
                 appInsights.trackEvent(event, additionalProperties);
             }
@@ -35,7 +35,7 @@ export const AppInsightService = () => {
             if (appInsights) {
                 const additionalProperties = {
                     ...(customProperties || {}),
-                    user: JSON.stringify(currentUser)
+                    user: currentUser
                 }
                 appInsights.trackException(error, additionalProperties);
             }
@@ -57,7 +57,7 @@ export const AppInsightService = () => {
                     ...(pageView || {}),
                     properties: {
                         ...(pageView?.properties || {}),
-                        user: JSON.stringify(currentUser)
+                        user: currentUser
                     }
                 }
                 appInsights.trackPageView(customPageView);
@@ -78,7 +78,7 @@ export const AppInsightService = () => {
             if (appInsights) {
                 const additionalProperties = {
                     ...(customProperties || {}),
-                    user: JSON.stringify(currentUser)
+                    user: currentUser
                 }
                 appInsights.trackTrace(trace, additionalProperties);
             }
@@ -100,7 +100,7 @@ export const AppInsightService = () => {
                     ...(dependency || {}),
                     properties: {
                         ...(dependency?.properties || {}),
-                        user: JSON.stringify(currentUser)
+                        user: currentUser
                     },
                 }
                 appInsights.trackDependencyData(additionalDependency);
@@ -124,7 +124,7 @@ export const AppInsightService = () => {
                     ...(pageView || {}),
                     properties: {
                         ...(pageView?.properties || {}),
-                        user: JSON.stringify(currentUser)
+                        user: currentUser
                     }
                 }
                 appInsights.trackPageViewPerformance(customPageView);
