@@ -32,8 +32,7 @@
       "@prt-ts/pdf-json-helpers": ["packages/pdf-json-helper/src/index.ts"],
       "@prt-ts/react-control-flow": [
         "packages/react-control-flow/src/index.ts"
-      ],
-      "@prt-ts/spfx-common": ["packages/spfx-common/src/index.js"],
+      ], 
       "@prt-ts/spfx-core": ["packages/spfx-core/src/index.ts"],
       "@prt-ts/utilities": ["packages/utilities/src/index.ts"]
     }
