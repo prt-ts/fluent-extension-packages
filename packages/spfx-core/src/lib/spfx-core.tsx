@@ -23,4 +23,5 @@ export * from "./hooks";
 export * from "./filters";
 
 // export types
+export * from "./types";
 export * from "./debug";
