@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/spfx-core",
-  "version": "1.18.2-build-4.0",
+  "version": "1.18.2-build-5.0",
 
   "dependencies": {
     "@pnp/core": ">3.0.0",
@@ -9,14 +9,7 @@
     "@pnp/sp": ">3.0.0",
     "@microsoft/sp-list-subscription": "1.18.2",
     "@microsoft/applicationinsights-web": ">3.0.0",
-    "socket.io-client": "4.5.4",
-
-    "@prt-ts/debounce": "*", 
-    "@prt-ts/fluent-common-features": "*",
-    "@prt-ts/fluent-react-hook-form": "*",
-    "@prt-ts/fluent-react-table-v2": "*",
-    "@prt-ts/fluent-theme": "*",
-    "@prt-ts/react-control-flow": "*"
+    "socket.io-client": "4.5.4"
   },
   "peerDependencies": {
     "@microsoft/sp-webpart-base": "1.18.2",
