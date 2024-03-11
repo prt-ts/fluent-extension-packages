@@ -1,6 +1,6 @@
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { getGraphFi, getSP } from "../pnp";
-import { EmailConfig, EmailSettingType } from "../email"; 
+import { EmailConfig, EmailSettingType } from "../email";
 import { AppSettings } from "./AppSettings";
 import { UserInfo } from "../types";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
@@ -44,11 +44,11 @@ export default class AppContext {
         return this._appInsights;
     }
 
-    public get settings(): AppSettings | null  {        
+    public get settings(): AppSettings | null {
         return this._settings;
     }
 
-    public get currentUser(): UserInfo | null { 
+    public get currentUser(): UserInfo | null {
         return this._currentUser;
     }
 
@@ -56,7 +56,7 @@ export default class AppContext {
         return this._domReact;
     }
 
-    public initializeAppContext = async (context: WebPartContext, domElement?: HTMLElement,  siteURL?: string) => {
+    public initializeAppContext = async (context: WebPartContext, domElement?: HTMLElement, siteURL?: string) => {
         this._context = context;
 
         // initialize domRect
@@ -98,21 +98,21 @@ export default class AppContext {
     public initializeAppInsights = async (connectionString: string) => {
         this._appInsights = new ApplicationInsights({
             config: {
-              connectionString: connectionString,
-              /* ...Other Configuration Options... */
+                connectionString: connectionString,
+                /* ...Other Configuration Options... */
             },
-          });
-    
-          await this._appInsights.loadAppInsights();
-          await this._appInsights.addTelemetryInitializer((envelope) => {
+        });
 
-            if(!envelope.tags) return;
+        await this._appInsights.loadAppInsights();
+        await this._appInsights.addTelemetryInitializer((envelope) => {
+
+            if (!envelope.tags) return;
 
             envelope.tags["siteName"] = this.context.pageContext.web.title;
             envelope.tags["userName"] = this.currentUser?.loginName || "";
             envelope.tags["userEmail"] = this.currentUser?.email || "";
             envelope.tags["userDisplayName"] = this.currentUser?.name || "";
-          });
-          this._appInsights.trackPageView();
+        });
+        await this._appInsights.trackPageView();
     }
 }
