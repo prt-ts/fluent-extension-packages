@@ -1,4 +1,4 @@
-import { Button } from '@fluentui/react-components';
+import { Button, mergeClasses } from '@fluentui/react-components';
 import { Cell, Row, flexRender } from '@tanstack/react-table'; 
 import { GroupCollapsedIcon, GroupExpandedIcon } from '../icon-components/GridIcons';
 import { useTableBodyStyles } from './useTableBodyStyles';
@@ -13,7 +13,8 @@ type TableCellProps<TItem extends object> = {
 }
 
 export function TableCell<TItem extends object>({ cell, row } : TableCellProps<TItem>){
-    const styles = useTableBodyStyles();
+    const styles = useTableBodyStyles(); 
+    const isSelected = row.getIsSelected();  
 
     const { isDragging, transition, setNodeRef, transform } = useSortable({
         id: cell.column.id,
@@ -21,8 +22,7 @@ export function TableCell<TItem extends object>({ cell, row } : TableCellProps<T
 
     const tdStyle : CSSProperties = {
         width: cell.column.getSize(),
-        opacity: isDragging ? "0.8" : "1", 
-        backgroundColor: isDragging ? "blue" : undefined,
+        opacity: isDragging ? "0.8" : "1",  
         transform: CSS.Translate.toString(transform),
         // transition: 'width transform 0.2s ease-in-out', 
         zIndex: isDragging ? 1 : 0,
@@ -30,15 +30,18 @@ export function TableCell<TItem extends object>({ cell, row } : TableCellProps<T
     };
 
     if (cell.getIsPlaceholder()) {
-        return <td key={cell.id} style={{ ...tdStyle, ...getCommonPinningStyles(cell.column, false) }} className={styles.tBodyCell}  ref={setNodeRef}/>;
+        return <td key={cell.id} 
+                style={{ ...tdStyle, ...getCommonPinningStyles(cell.column, false, isSelected) }} 
+                className={mergeClasses(styles.tBodyCell)}  
+                ref={setNodeRef}/>;
     }
 
     if (cell.getIsGrouped()) {
         return (
             <td
                 key={cell.id}
-                style={{ ...tdStyle, ...getCommonPinningStyles(cell.column, false) }}
-                className={styles.tBodyCell}
+                style={{ ...tdStyle, ...getCommonPinningStyles(cell.column, false, isSelected) }}
+                className={mergeClasses(styles.tBodyCell)}  
                 ref={setNodeRef}
             >
                 <Button
@@ -66,8 +69,8 @@ export function TableCell<TItem extends object>({ cell, row } : TableCellProps<T
         return (
             <td
                 key={cell.id}
-                style={{ ...tdStyle, ...getCommonPinningStyles(cell.column, false) }}
-                className={styles.tBodyCell}
+                style={{ ...tdStyle, ...getCommonPinningStyles(cell.column, false, isSelected) }}
+                className={mergeClasses(styles.tBodyCell)}  
                 ref={setNodeRef}
             >
                 <strong>
@@ -85,7 +88,7 @@ export function TableCell<TItem extends object>({ cell, row } : TableCellProps<T
         <td
             key={cell.id}
             style={{ ...tdStyle, ...getCommonPinningStyles(cell.column, false) }}
-            className={styles.tBodyCell}
+            className={mergeClasses(styles.tBodyCell)}  
             ref={setNodeRef}
         >
             {flexRender(cell.column.columnDef.cell, cell.getContext())}

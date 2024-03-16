@@ -37,10 +37,14 @@ export const useTableBodyStyles = makeStyles({
     },
 
     tBodyCell: {
-        backgroundColor: "transparent",
+        // backgroundColor: "transparent",
         ...shorthands.padding("2px", "4px"),
         minHeight: "35px",
         height: "35px",
     },
+
+    tBodyPinnedCell: {
+        backgroundColor : tokens.colorNeutralBackground1Hover
+    }
 
 });
