@@ -174,7 +174,7 @@ export function TableExample() {
           id: 'State',
           header: 'State',
           aggregatedCell: () => null,
-          filterFn: 'arrIncludesSome',
+          filterFn: 'arrIncludesAll',
         }),
         columnHelper.accessor('address.zipCode', {
           id: 'Zip Code',

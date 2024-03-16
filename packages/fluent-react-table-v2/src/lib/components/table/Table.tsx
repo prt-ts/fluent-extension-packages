@@ -27,6 +27,7 @@ export const TableContainer = <TItem extends object>(
   const tableContainerRef = React.useRef<HTMLDivElement>(null);
 
   const { rows } = table.getRowModel();
+  
   const rowVirtualizer = useVirtual({
     parentRef: tableContainerRef,
     size: rows.length,
