@@ -1,7 +1,8 @@
+import { tokens } from "@fluentui/react-components"
 import { Column } from "@tanstack/react-table"
 import { CSSProperties } from "react"
 
-export const getCommonPinningStyles = <TItem extends object>(column: Column<TItem, unknown>): CSSProperties => {
+export const getCommonPinningStyles = <TItem extends object>(column: Column<TItem, unknown>, isHeader : boolean): CSSProperties => {
     const isPinned = column.getIsPinned()
     const isLastLeftPinnedColumn =
       isPinned === 'left' && column.getIsLastColumn('left')
@@ -19,6 +20,7 @@ export const getCommonPinningStyles = <TItem extends object>(column: Column<TIte
       opacity: isPinned ? 0.95 : 1,
       position: isPinned ? 'sticky' : 'relative',
       width: column.getSize(),
-      zIndex: isPinned ? 1 : 0,
+      zIndex: isPinned ? isHeader ? 99 : 1 : 0,
+      backgroundColor: isPinned ? tokens.colorNeutralStrokeSubtle : undefined
     }
   }

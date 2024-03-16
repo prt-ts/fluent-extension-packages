@@ -5,6 +5,7 @@ import { useTableBodyStyles } from './useTableBodyStyles';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities'
 import { CSSProperties } from 'react';
+import { getCommonPinningStyles } from '../../helpers/StylesHelper';
 
 type TableCellProps<TItem extends object> = {
     cell: Cell<TItem, unknown>;
@@ -21,22 +22,22 @@ export function TableCell<TItem extends object>({ cell, row } : TableCellProps<T
     const tdStyle : CSSProperties = {
         width: cell.column.getSize(),
         opacity: isDragging ? "0.8" : "1",
-        position: 'relative',
+        position: isDragging ? 'relative' : "sticky",
         transform: CSS.Translate.toString(transform),
-        // transition: 'width transform 0.2s ease-in-out', 
-        zIndex: isDragging ? "1" : "0",
-        transition
+        transition: 'width transform 0.2s ease-in-out', 
+        zIndex: isDragging ? 100 : 99,
+        // transition
     };
 
     if (cell.getIsPlaceholder()) {
-        return <td key={cell.id} style={tdStyle} className={styles.tBodyCell}  ref={setNodeRef}/>;
+        return <td key={cell.id} style={{ ...tdStyle, ...getCommonPinningStyles(cell.column, false) }} className={styles.tBodyCell}  ref={setNodeRef}/>;
     }
 
     if (cell.getIsGrouped()) {
         return (
             <td
                 key={cell.id}
-                style={tdStyle}
+                style={{ ...tdStyle, ...getCommonPinningStyles(cell.column, false) }}
                 className={styles.tBodyCell}
                 ref={setNodeRef}
             >
@@ -65,7 +66,7 @@ export function TableCell<TItem extends object>({ cell, row } : TableCellProps<T
         return (
             <td
                 key={cell.id}
-                style={tdStyle}
+                style={{ ...tdStyle, ...getCommonPinningStyles(cell.column, false) }}
                 className={styles.tBodyCell}
                 ref={setNodeRef}
             >
@@ -83,7 +84,7 @@ export function TableCell<TItem extends object>({ cell, row } : TableCellProps<T
     return (
         <td
             key={cell.id}
-            style={tdStyle}
+            style={{ ...tdStyle, ...getCommonPinningStyles(cell.column, false) }}
             className={styles.tBodyCell}
             ref={setNodeRef}
         >
