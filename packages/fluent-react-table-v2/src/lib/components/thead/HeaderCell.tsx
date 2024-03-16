@@ -1,12 +1,9 @@
 
 import {
-  Column,
-  ColumnOrderState,
   Header,
   Table,
   flexRender,
 } from "@tanstack/react-table";
-import { useDrag, useDrop } from "react-dnd";
 import {
   Button,
   Menu,
@@ -39,6 +36,10 @@ import {
 } from "@fluentui/react-icons";
 import { Filter } from "../filters";
 import { useTableHeaderStyles } from "./useTableHeaderStyles";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from '@dnd-kit/utilities';
+import { CSSProperties } from "react";
+
 const SortAscIcon = bundleIcon(ArrowSortDown20Filled, ArrowSortDown20Regular);
 const SortDescIcon = bundleIcon(ArrowSortUp20Filled, ArrowSortUp20Regular);
 
@@ -50,19 +51,6 @@ type HeaderCellProps<TItem extends object> = {
   totalNumberOfHeaderDepth: number;
 };
 
-const reorderColumn = (
-  draggedColumnId: string,
-  targetColumnId: string,
-  columnOrder: string[]
-): ColumnOrderState => {
-  columnOrder.splice(
-    columnOrder.indexOf(targetColumnId),
-    0,
-    columnOrder.splice(columnOrder.indexOf(draggedColumnId), 1)[0] as string
-  );
-  return [...columnOrder];
-};
-
 export function HeaderCell<TItem extends object>({
   header,
   table,
@@ -70,51 +58,49 @@ export function HeaderCell<TItem extends object>({
   headerDepth,
   totalNumberOfHeaderDepth,
 }: HeaderCellProps<TItem>) {
-  const { getState, setColumnOrder } = table;
-  const { columnOrder } = getState();
   const { column } = header;
 
-  const [{ isOver }, dropRef] = useDrop({
-    accept: "column",
-    drop: (draggedColumn: Column<object>) => {
-      const newColumnOrder = reorderColumn(
-        draggedColumn.id,
-        column.id,
-        columnOrder
-      );
-      setColumnOrder(newColumnOrder);
-    },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-    }),
+  const {
+    isDragging,
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({
+    id: column.id,
+    resizeObserverConfig: {}
   });
 
-  const [{ isDragging }, dragRef, previewRef] = useDrag({
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-    item: () => column,
-    type: "column",
-  });
+  console.log(column.id)
+
+  const dndStyle: CSSProperties = {
+    width: header.column.getSize(),
+    opacity: isDragging ? 0.8 : 1,
+    position: 'relative',
+    transform: CSS.Translate.toString(transform), // translate instead of transform to avoid squishing
+    // transition: 'width transform 0.2s ease-in-out',
+    whiteSpace: 'nowrap',
+    zIndex: isDragging ? 1 : 0,
+    transition
+  };
 
   const styles = useTableHeaderStyles();
-
-  const canDragDrop = headerDepth === totalNumberOfHeaderDepth && !header.isPlaceholder;
   const isLeafHeaders = headerDepth === totalNumberOfHeaderDepth;
 
   if (header.isPlaceholder) {
     return (
       <th colSpan={header.colSpan} className={styles.tHeadCell}>
         {header.column.getCanResize() && (
-        <div
-          onMouseDown={header.getResizeHandler()}
-          onTouchStart={header.getResizeHandler()}
-          className={mergeClasses(
-            styles.resizer,
-            column.getIsResizing() && styles.resizerActive
-          )}
-        />
-      )}
+          <div
+            onMouseDown={header.getResizeHandler()}
+            onTouchStart={header.getResizeHandler()}
+            className={mergeClasses(
+              styles.resizer,
+              column.getIsResizing() && styles.resizerActive
+            )}
+          />
+        )}
       </th>
     );
   }
@@ -126,20 +112,19 @@ export function HeaderCell<TItem extends object>({
         styles.tHeadCell,
         isLeafHeaders || header.isPlaceholder ? undefined
           : styles.tHeadNonLeafCell,
-        isDragging && styles.tHeadCellDragging,
-        isOver && isLeafHeaders && styles.tHeadCellOver
+        isDragging && styles.tHeadCellDragging
       )}
+      style={dndStyle}
     >
-      <div className={styles.tHeadCellDraggable} ref={canDragDrop ? dropRef : undefined}>
+      <div className={styles.tHeadCellDraggable} ref={setNodeRef} {...attributes} {...listeners}>
         <div
           className={
             isLeafHeaders
               ? styles.tLeafHeadCellContent
               : styles.tNonLeafHeadCellContent
           }
-          ref={canDragDrop ? dragRef : undefined}
         >
-          <div ref={canDragDrop ? previewRef : undefined}>
+          <div>
             {header.isPlaceholder ? null : (
               <Button
                 style={{

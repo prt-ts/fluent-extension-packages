@@ -43,7 +43,7 @@ export const TableContainer = <TItem extends object>(
 
   return (
     <div ref={tableContainerRef} className={styles.tableContainer}>
-      <table className={styles.table} aria-label="Data Grid"> 
+      <table className={styles.table} aria-label="Data Grid" style={{ width: table.getTotalSize()}}> 
         <TableHeader 
           table={table} 
           rowSelectionMode={rowSelectionMode} 

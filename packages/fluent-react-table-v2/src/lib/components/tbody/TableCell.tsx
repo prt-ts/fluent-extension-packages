@@ -2,6 +2,9 @@ import { Button } from '@fluentui/react-components';
 import { Cell, Row, flexRender } from '@tanstack/react-table'; 
 import { GroupCollapsedIcon, GroupExpandedIcon } from '../icon-components/GridIcons';
 import { useTableBodyStyles } from './useTableBodyStyles';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities'
+import { CSSProperties } from 'react';
 
 type TableCellProps<TItem extends object> = {
     cell: Cell<TItem, unknown>;
@@ -11,12 +14,22 @@ type TableCellProps<TItem extends object> = {
 export function TableCell<TItem extends object>({ cell, row } : TableCellProps<TItem>){
     const styles = useTableBodyStyles();
 
-    const tdStyle = {
+    const { isDragging, transition, setNodeRef, transform } = useSortable({
+        id: cell.column.id,
+      })
+
+    const tdStyle : CSSProperties = {
         width: cell.column.getSize(),
+        opacity: isDragging ? "0.8" : "1",
+        position: 'relative',
+        transform: CSS.Translate.toString(transform),
+        // transition: 'width transform 0.2s ease-in-out', 
+        zIndex: isDragging ? "1" : "0",
+        transition
     };
 
     if (cell.getIsPlaceholder()) {
-        return <td key={cell.id} style={tdStyle} className={styles.tBodyCell} />;
+        return <td key={cell.id} style={tdStyle} className={styles.tBodyCell}  ref={setNodeRef}/>;
     }
 
     if (cell.getIsGrouped()) {
@@ -25,6 +38,7 @@ export function TableCell<TItem extends object>({ cell, row } : TableCellProps<T
                 key={cell.id}
                 style={tdStyle}
                 className={styles.tBodyCell}
+                ref={setNodeRef}
             >
                 <Button
                     onClick={row.getToggleExpandedHandler()}
@@ -53,6 +67,7 @@ export function TableCell<TItem extends object>({ cell, row } : TableCellProps<T
                 key={cell.id}
                 style={tdStyle}
                 className={styles.tBodyCell}
+                ref={setNodeRef}
             >
                 <strong>
                     {flexRender(
@@ -70,6 +85,7 @@ export function TableCell<TItem extends object>({ cell, row } : TableCellProps<T
             key={cell.id}
             style={tdStyle}
             className={styles.tBodyCell}
+            ref={setNodeRef}
         >
             {flexRender(cell.column.columnDef.cell, cell.getContext())}
         </td>
