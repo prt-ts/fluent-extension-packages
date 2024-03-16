@@ -207,9 +207,9 @@ export const UserService = () => {
         try {
             const mappedUser = {
                 id: user.Id || user.ID,
-                name: user.DisplayName,
+                name: user.Title,
                 email: user.EMail,
-                loginName: user.Username,
+                loginName: user.UserName,
                 userType: "User",
             } as UserInfo;
 
