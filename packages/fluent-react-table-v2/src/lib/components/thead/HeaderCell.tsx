@@ -72,8 +72,6 @@ export function HeaderCell<TItem extends object>({
     resizeObserverConfig: {}
   });
 
-  console.log(column.id)
-
   const dndStyle: CSSProperties = {
     width: header.column.getSize(),
     opacity: isDragging ? 0.8 : 1,
