@@ -106,6 +106,11 @@ export type TableProps<TItem extends object> = {
     views?: TableView[];
 
     /**
+     * Max height of the table
+     */
+    tableHeight?: string;
+
+    /**
      * Callback when a table view is saved
      */
     onTableViewSave?: (tableView: TableView) => void;

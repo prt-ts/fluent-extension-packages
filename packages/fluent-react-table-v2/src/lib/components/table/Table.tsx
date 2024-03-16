@@ -16,6 +16,7 @@ type TableContainerProps<TItem extends object> = {
   noFilterMatchPage?: React.ReactNode;
   isLoading: boolean;
   data: TItem[];
+  tableHeight: string;
 };
 
 export const TableContainer = <TItem extends object>(
@@ -43,8 +44,8 @@ export const TableContainer = <TItem extends object>(
     !isLoading && props?.data?.length > 0 && virtualRows.length === 0;
 
   return (
-    <div ref={tableContainerRef} className={styles.tableContainer}>
-      <table className={styles.table} aria-label="Data Grid" style={{ width: table.getTotalSize()}}> 
+    <div ref={tableContainerRef} className={styles.tableContainer} style={{height : props.tableHeight || "650px"}}>
+      <table className={styles.table} aria-label="Data Grid" style={{ width: table.getTotalSize(), minWidth : "100%"}}> 
         <TableHeader 
           table={table} 
           rowSelectionMode={rowSelectionMode} 
@@ -60,7 +61,7 @@ export const TableContainer = <TItem extends object>(
           !isLoading &&
           !noItems &&
           !noSearchResult && (
-            <tfoot className={styles.tFoot}>
+            <tfoot className={styles.tFoot} style={{zIndex: 99}}>
               <tr>
                 <td className="p-1">
                   <Checkbox

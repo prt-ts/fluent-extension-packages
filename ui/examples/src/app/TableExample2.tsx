@@ -317,6 +317,7 @@ export function TableExample2() {
             prev.filter((view) => view.id !== tableView.id)
           );
         }}
+        tableHeight='700px'
       />
     </div>
   );

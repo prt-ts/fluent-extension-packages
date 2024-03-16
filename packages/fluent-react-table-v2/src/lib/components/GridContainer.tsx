@@ -83,6 +83,7 @@ export function AdvancedTable<TItem extends object>(
             rowSelectionMode={props.rowSelectionMode}
             noFilterMatchPage={props.noFilterMatchPage}
             noItemPage={props.noItemPage}
+            tableHeight={props.tableHeight || "650px"}
           />
           <FilterDrawer
             drawerState={drawerState}
