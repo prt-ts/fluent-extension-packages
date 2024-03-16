@@ -62,25 +62,24 @@ export function HeaderCell<TItem extends object>({
   const { column } = header;
 
   const {
-    isDragging,
+    isDragging, 
     attributes,
     listeners,
     setNodeRef,
     transform,
     transition,
   } = useSortable({
-    id: column.id,
-    resizeObserverConfig: {}
+    id: column.id
   });
 
   const dndStyle: CSSProperties = {
     width: header.column.getSize(),
-    opacity: isDragging ? 0.8 : 1,
-    position: 'relative',
+    opacity: isDragging ? 0.8 : 1, 
+    // position: isDragging ? 'relative' : "sticky",
     transform: CSS.Translate.toString(transform), // translate instead of transform to avoid squishing
     // transition: 'width transform 0.2s ease-in-out',
     whiteSpace: 'wrap',
-    zIndex: isDragging ? 1 : 0,
+    zIndex: isDragging ? 100 : 99, 
     transition
   };
 
@@ -89,7 +88,10 @@ export function HeaderCell<TItem extends object>({
 
   if (header.isPlaceholder) {
     return (
-      <th colSpan={header.colSpan} className={styles.tHeadCell} style={{ ...getCommonPinningStyles(column, true) }}>
+      <th colSpan={header.colSpan} 
+        className={styles.tHeadCell} 
+        style={{ ...dndStyle, ...getCommonPinningStyles(column, true) }}
+        ref={setNodeRef}>
         {header.column.getCanResize() && (
           <div
             onMouseDown={header.getResizeHandler()}
@@ -114,8 +116,9 @@ export function HeaderCell<TItem extends object>({
         isDragging && styles.tHeadCellDragging
       )} 
       style={{ ...dndStyle, ...getCommonPinningStyles(column, true) }}
+      ref={setNodeRef}
     >
-      <div className={styles.tHeadCellDraggable} ref={setNodeRef} {...attributes} {...listeners}>
+      <div className={styles.tHeadCellDraggable} {...attributes} {...listeners}>
         <div
           className={
             isLeafHeaders

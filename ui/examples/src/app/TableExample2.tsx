@@ -29,8 +29,9 @@ import {
   MenuItem,
 } from "@fluentui/react-components";
 import { tableViews as views } from './data/tableView';
+import { ColumnPinningState } from '@tanstack/react-table';
 
-export function TableExample() {
+export function TableExample2() {
   const navigate = useNavigate();
   const columnHelper = createColumnHelper<Person>();
   const tableRef = createRef<TableRef<Person>>();
@@ -130,7 +131,7 @@ export function TableExample() {
     }),
     columnHelper.accessor('age', {
       id: 'Age',
-      header: () => 'Age (Additional text for Long header)',
+      header: () => 'Age',
       cell: (info) => info.renderValue(),
       filterFn: 'includesString',
       aggregationFn: 'mean',
@@ -150,226 +151,57 @@ export function TableExample() {
       header: 'Profile Progress',
       aggregatedCell: () => null,
     }),
-    columnHelper.group({
-      id: 'address',
-      header: 'Address',
-      columns: [
-         columnHelper.group({
-          id: 'Address Line 1',
-          header: 'Address Line 1',
-          columns: [
-            columnHelper.accessor('address.street', {
-              id: 'Street',
-              header: 'Street',
-              aggregatedCell: () => null,
-            }),
-            columnHelper.accessor('address.city', {
-              id: 'City',
-              header: 'City',
-              aggregatedCell: () => null,
-            }),
-          ]
-        }),
-
-        columnHelper.accessor('address.state', {
-          id: 'State',
-          header: 'State',
-          aggregatedCell: () => null,
-          filterFn: 'arrIncludesAll',
-        }),
-        columnHelper.accessor('address.zipCode', {
-          id: 'Zip Code',
-          header: 'Zip Code',
-          aggregatedCell: () => null,
-          enableColumnFilter: false,
-          enableGlobalFilter: false,
-          enableGrouping: false,
-          enableHiding: false,
-          enablePinning: false,
-          enableSorting: false,
-        }),
-        columnHelper.accessor('address.country', {
-          id: 'Country',
-          header: 'Country',
-          aggregatedCell: () => null,
-          filterFn: 'arrIncludes',
-        }),
-      ],
+    columnHelper.accessor('address.street', {
+      id: 'Street',
+      header: 'Street',
+      aggregatedCell: () => null,
     }),
-    columnHelper.group({
-      id: 'additionalInfo',
-      header: 'Additional Info',
-      columns: [
-        columnHelper.accessor('status', {
-          id: 'Status',
-          header: 'Status',
-          aggregatedCell: () => null,
-          filterFn: 'arrIncludesSome',
-        }),
-        columnHelper.accessor(({createdAt}) => createdAt, {
-          id: 'Created At',
-          header: 'Created At',
-          cell: (info) =>
-            info.renderValue()
-              ? new Date(info.renderValue() as Date)?.toLocaleDateString()
-              : '',
-          aggregatedCell: () => null,
-          filterFn: 'inDateRange',
-        }) as ColumnDef<Person>,
-      ],
+    columnHelper.accessor('address.city', {
+      id: 'City',
+      header: 'City',
+      aggregatedCell: () => null,
     }),
+    columnHelper.accessor('address.state', {
+      id: 'State',
+      header: 'State',
+      aggregatedCell: () => null,
+      filterFn: 'arrIncludesAll',
+    }),
+    columnHelper.accessor('address.zipCode', {
+      id: 'Zip Code',
+      header: 'Zip Code',
+      aggregatedCell: () => null,
+      enableColumnFilter: false,
+      enableGlobalFilter: false,
+      enableGrouping: false,
+      enableHiding: false,
+      enablePinning: false,
+      enableSorting: false,
+    }),
+    columnHelper.accessor('address.country', {
+      id: 'Country',
+      header: 'Country',
+      aggregatedCell: () => null,
+      filterFn: 'arrIncludes',
+    }), 
+    columnHelper.accessor('status', {
+      id: 'Status',
+      header: 'Status',
+      aggregatedCell: () => null,
+      filterFn: 'arrIncludesSome',
+    }),
+    columnHelper.accessor(({createdAt}) => createdAt, {
+      id: 'Created At',
+      header: 'Created At',
+      cell: (info) =>
+        info.renderValue()
+          ? new Date(info.renderValue() as Date)?.toLocaleDateString()
+          : '',
+      aggregatedCell: () => null,
+      filterFn: 'inDateRange',
+    }) as ColumnDef<Person>,
   ] as ColumnDef<Person>[];
 
-  // const columns: ColumnDef<Person>[] = [
-  //   {
-  //     id: 'id',
-  //     accessorKey: 'id',
-  //     header: () => 'ID',
-  //     cell: ({ row }) => {
-  //       return (
-  //         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-  //           <Button
-  //             icon={<EditRegular />}
-  //             aria-label="Edit"
-  //             size="small"
-  //             onClick={async () => {
-  //               const tableState = tableRef.current?.getTableState();
-  //               localStorage.setItem('table1_edit_temp', JSON.stringify(tableState));
-  //               navigate(`/dummy-edit/${row.getValue('id')}/edit`);
-  //             }}
-  //           />
-  //           <Button
-  //             icon={<DeleteRegular />}
-  //             aria-label="Delete"
-  //             size="small"
-  //             onClick={() => {
-  //               const confirm = window.confirm(
-  //                 'Are you sure you want to delete this row?'
-  //               );
-  //               if (confirm) {
-  //                 alert('Deleted');
-  //               }
-  //             }}
-  //           />
-  //           <strong>{row.getValue('id')}</strong>
-  //         </div>
-  //       );
-  //     },
-  //     aggregatedCell: () => null,
-
-  //     filterFn: 'arrIncludesSome',
-  //     enableGrouping: false,
-  //     enableHiding: false,
-  //   },
-  //   {
-  //     id: 'firstName',
-  //     accessorKey: 'firstName',
-  //     header: () => 'First Name',
-  //     cell: (info) => info.getValue(),
-  //   },
-  //   {
-  //     id: 'lastName',
-  //     accessorKey: 'lastName',
-  //     cell: (info) => <i>{info.getValue() as string}</i>,
-  //     header: () => <span>Last Name</span>,
-  //     aggregatedCell: () => null,
-  //   },
-  //   {
-  //     id: 'age',
-  //     accessorKey: 'age',
-  //     header: () => 'Age (Additional text for Long header)',
-  //     cell: (info) => info.renderValue(),
-  //     filterFn: 'includesString',
-  //     aggregationFn: 'mean',
-  //     size: 200,
-  //     maxSize: 800,
-  //     enableGrouping: false,
-  //   },
-  //   {
-  //     id: 'visits',
-  //     accessorKey: 'visits',
-  //     header: () => <span>Visits</span>,
-  //     filterFn: 'inNumberRange',
-  //     enableHiding: false,
-  //   },
-  //   {
-  //     id: 'progress',
-  //     accessorKey: 'progress',
-  //     header: 'Profile Progress',
-  //     aggregatedCell: () => null,
-  //   },
-  //   {
-  //     id: 'address',
-  //     header: 'Address',
-  //     columns: [
-  //       {
-  //         id: 'street',
-  //         accessorFn: (row) => row.address.street,
-  //         header: 'Street',
-  //         aggregatedCell: () => null,
-  //       },
-  //       {
-  //         id: 'city',
-  //         accessorFn: (row) => row.address.city,
-  //         header: 'City',
-  //         aggregatedCell: () => null,
-  //       },
-  //       {
-  //         id: 'state',
-  //         accessorFn: (row) => row.address.state,
-  //         header: 'State',
-  //         aggregatedCell: () => null,
-  //         filterFn: 'arrIncludesSome',
-  //       },
-  //       {
-  //         id: 'zipCode',
-  //         accessorFn: (row) => row.address.zipCode,
-  //         header: 'Zip Code',
-  //         aggregatedCell: () => null,
-  //         enableColumnFilter: false,
-  //         enableGlobalFilter: false,
-  //         enableGrouping: false,
-  //         enableHiding: false,
-  //         enablePinning: false,
-  //         enableSorting: false,
-  //       },
-  //       {
-  //         id: 'country',
-  //         accessorFn: (row) => row.address.country,
-  //         header: 'Country',
-  //         aggregatedCell: () => null,
-  //         filterFn: 'arrIncludes',
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 'additionalInfo',
-  //     header: 'Additional Info',
-  //     columns: [
-  //       {
-  //         id: 'status',
-  //         accessorFn: (row) => row.status,
-  //         header: 'Status',
-  //         aggregatedCell: () => null,
-  //         filterFn: 'arrIncludesSome',
-  //       },
-  //       {
-  //         id: 'createdAt',
-  //         accessorFn: (row) => row.createdAt,
-  //         aggregatedCell: () => null,
-  //         header: 'Created At',
-  //         filterFn: 'dateRange' as any,
-  //         cell: (info) =>
-  //           info.renderValue()
-  //             ? new Date(info.renderValue() as Date)?.toLocaleDateString()
-  //             : '',
-  //       }
-  //     ]
-  //   }
-  // ];
-
-
-  // get data from server
   useEffect(
     () => {
       const timeout = setTimeout(() => {
@@ -409,6 +241,12 @@ export function TableExample() {
     [data]
   );
 
+  const defaultPinnedColumns : ColumnPinningState = React.useMemo(() => {
+    return {
+      left: ["ID"],
+      right: ["Status"]
+    } as ColumnPinningState
+  }, [])
 
 
   return (
@@ -453,6 +291,7 @@ export function TableExample() {
           progress: false,
           firstName: false,
         }}
+        columnPinningState={defaultPinnedColumns}
         // sortingState={[
         //   { id: "id", desc: false }
         // ]}

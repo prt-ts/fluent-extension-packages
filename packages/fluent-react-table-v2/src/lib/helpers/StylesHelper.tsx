@@ -21,6 +21,6 @@ export const getCommonPinningStyles = <TItem extends object>(column: Column<TIte
       position: isPinned ? 'sticky' : 'relative',
       width: column.getSize(),
       zIndex: isPinned ? isHeader ? 99 : 1 : 0,
-      backgroundColor: isPinned ? tokens.colorNeutralStrokeSubtle : undefined
+      backgroundColor: isPinned ? (isHeader ? tokens.colorNeutralStrokeSubtle : tokens.colorNeutralBackground1Hover) : undefined,
     }
   }

@@ -12,6 +12,7 @@ import { SignUpForm } from './examples/SignUpForm/SignUpForm';
 import Features from './examples/FeatureComp/Features';
 import DummyEditPage from './DummyEditPage';
 import Controls from './examples/Control/Controls';
+import { TableExample2 } from './TableExample2';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
         }
       />
       <Route path="/page-2" element={<TableExample />} />
+      <Route path="/table-2" element={<TableExample2 />} />
       <Route
         path="/dummy-edit/:id/:mode"
         element={<DummyEditPage />}
@@ -76,6 +78,9 @@ export function App() {
           </li>
           <li>
             <Link href="/page-2">Table</Link>
+          </li>
+          <li>
+            <Link href="/table-2">Table 2</Link>
           </li>
           <li>
             <Link href="/page-3">Error Boundary</Link>

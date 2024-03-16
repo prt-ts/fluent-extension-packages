@@ -21,12 +21,12 @@ export function TableCell<TItem extends object>({ cell, row } : TableCellProps<T
 
     const tdStyle : CSSProperties = {
         width: cell.column.getSize(),
-        opacity: isDragging ? "0.8" : "1",
-        position: isDragging ? 'relative' : "sticky",
+        opacity: isDragging ? "0.8" : "1", 
+        backgroundColor: isDragging ? "blue" : undefined,
         transform: CSS.Translate.toString(transform),
-        transition: 'width transform 0.2s ease-in-out', 
-        zIndex: isDragging ? 100 : 99,
-        // transition
+        // transition: 'width transform 0.2s ease-in-out', 
+        zIndex: isDragging ? 1 : 0,
+        transition
     };
 
     if (cell.getIsPlaceholder()) {
