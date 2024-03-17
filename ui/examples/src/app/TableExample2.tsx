@@ -335,7 +335,7 @@ export function TableExample2() {
 
   return (
     <div>
-      <div style={{
+      {/* <div style={{
         display: 'flex',
         gap: '10px',
       }}>
@@ -358,7 +358,7 @@ export function TableExample2() {
           <Radio value={'single'} label="Single" />
           <Radio value={'multiple'} label="Multiple" />
         </RadioGroup>
-      </Field>
+      </Field> */}
       <Table
         autoResetPageIndex={autoResetPageIndex}
         onUpdateData={onUpdateDate}
@@ -404,7 +404,7 @@ export function TableExample2() {
             prev.filter((view) => view.id !== tableView.id)
           );
         }}
-        tableHeight='700px'
+        tableHeight='790px'
       />
     </div>
   );
