@@ -8,6 +8,7 @@ import {
   PreviousRegular,
 } from "@fluentui/react-icons";
 import { useMemo } from "react";
+import { For, Show } from "@prt-ts/react-control-flow";
 
 type PaginationProps<TItem extends RowData> = {
   table: Table<TItem>
@@ -39,8 +40,8 @@ export const Pagination = <TItem extends RowData>(
     if (start < 1) {
       start = 1;
       end = totalNumberOfPage > DEFAULT_NUMBER_OF_PAGE_BTN
-          ? DEFAULT_NUMBER_OF_PAGE_BTN
-          : totalNumberOfPage;
+        ? DEFAULT_NUMBER_OF_PAGE_BTN
+        : totalNumberOfPage;
     } else if (end > totalNumberOfPage) {
       const possibleStart = totalNumberOfPage - DEFAULT_NUMBER_OF_PAGE_BTN + 1;
       start = possibleStart < 1 ? 1 : possibleStart;
@@ -50,6 +51,7 @@ export const Pagination = <TItem extends RowData>(
       end - start >= 0 ? range(start, end) : [];
     return currentPageOptions?.length ? [...currentPageOptions] : [1];
   }, [totalNumberOfPage, currentPage]);
+
   return (
     <div className={styles.paginationContainer}>
       <div className={styles.wrapper}>
@@ -66,11 +68,15 @@ export const Pagination = <TItem extends RowData>(
             className={styles.pageSelectionDropdown}
             aria-label={"Select Page Size"}
           >
-            {pageSizeOptions?.map((option) => (
-              <Option key={option} value={`${option}`}>
-                {`${option}`}
-              </Option>
-            ))}
+            <Show when={pageSelectionOptions?.length > 0}>
+              <For each={pageSizeOptions}>
+                {(option) => (
+                  <Option key={option} value={`${option}`}>
+                    {`${option}`}
+                  </Option>
+                )}
+              </For>
+            </Show>
           </Dropdown>
         </div>
         <div className={styles.pageBtnContainer}>
@@ -91,10 +97,9 @@ export const Pagination = <TItem extends RowData>(
                 value={`${table.getState().pagination.pageIndex + 1}`}
                 onChange={(e, data) => {
                   const page = data.value ? Number(e.target.value) - 1 : 0;
-                  if(page >= 0 && page < table.getPageCount())
-                  {
+                  if (page >= 0 && page < table.getPageCount()) {
                     table.setPageIndex(page);
-                  } 
+                  }
                 }}
                 className={styles.pageSizeInput}
                 aria-label="Page Number"
@@ -121,19 +126,21 @@ export const Pagination = <TItem extends RowData>(
             icon={<ArrowPreviousFilled />}
             aria-label="Go to previous page"
           />
-          {pageSelectionOptions?.map((option, index) => (
-            <Button
-              shape="circular"
-              key={index}
-              appearance={option - 1 === currentPage ? "primary" : undefined}
-              onClick={() => table.setPageIndex(option - 1)}
-              aria-label={`Show Page ${option}`}
-              size="small"
-              className={styles.pageBtn} 
-            >
-              {option}
-            </Button>
-          ))}
+          <For each={pageSelectionOptions}>
+            {(option, index) => (
+              <Button
+                shape="circular"
+                key={index}
+                appearance={option - 1 === currentPage ? "primary" : undefined}
+                onClick={() => table.setPageIndex(option - 1)}
+                aria-label={`Show Page ${option}`}
+                size="small"
+                className={styles.pageBtn}
+              >
+                {option}
+              </Button>
+            )}
+          </For>
           <Button
             size="small"
             className={styles.pageBtn}

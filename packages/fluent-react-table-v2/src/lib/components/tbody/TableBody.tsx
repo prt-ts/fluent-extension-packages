@@ -3,7 +3,7 @@ import { useTableBodyStyles } from './useTableBodyStyles';
 import { PinnedRow, TableRow } from './TableRow';
 import { useVirtual } from 'react-virtual';
 import { Checkbox } from '@fluentui/react-components';
-import { Show } from "@prt-ts/react-control-flow";
+import { For, Show } from "@prt-ts/react-control-flow";
 
 type TableBodyProps<TItem extends RowData> = {
     table: Table<TItem>;
@@ -16,15 +16,15 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
     const { table, tableContainerRef } = props;
     const rowSelectionMode = table.options.meta?.rowSelectionMode;
 
-    let rows : Row<TItem>[] = [];
+    let rows: Row<TItem>[] = [];
     let topRows: Row<TItem>[] = [];
-    let bottomRows : Row<TItem>[] = [];
+    let bottomRows: Row<TItem>[] = [];
 
     try {
         rows = table.getCenterRows();
         topRows = table.getTopRows();
         bottomRows = table.getBottomRows();
-        
+
     } catch (error) {
         rows = [];
         topRows = [];
@@ -53,11 +53,11 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                         top: 0,
                         zIndex: 99
                     }}>
-                    {(topRows || []).map((row) => {
-                        return (
+                    <For each={topRows}>
+                        {(row, index) => (
                             <PinnedRow key={row.id} row={row} rowSelectionMode={rowSelectionMode} bottomRowLength={bottomRows?.length} />
-                        );
-                    })}
+                        )}
+                    </For>
                 </thead>
             </Show>
             <tbody className={styles.tBody}>
@@ -67,12 +67,15 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                         <td style={{ height: `${paddingTop}px` }} />
                     </tr>
                 )}
-                {virtualRows.map((virtualRow) => {
-                    const row = rows[virtualRow.index];
-                    return (
-                        <TableRow key={row.id} row={row} rowSelectionMode={rowSelectionMode} />
-                    );
-                })}
+                
+                <For each={virtualRows || []}>
+                    {(virtualRow) => {
+                        const row = rows[virtualRow.index];
+                        return (
+                            <TableRow key={row.id} row={row} rowSelectionMode={rowSelectionMode} />
+                        );
+                    }}
+                </For>
 
                 {/* placeholder for virtualization */}
                 {paddingBottom > 0 && (
@@ -88,7 +91,6 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                     bottom: 0,
                     zIndex: 99
                 }}>
-
                     <tr style={{ backgroundColor: "white" }}>
                         <td className="p-1">
                             <Checkbox
@@ -111,17 +113,16 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
             </Show>
 
             <Show when={bottomRows?.length > 0}>
-                <tfoot
-                    style={{
-                        position: "sticky",
-                        bottom: 0,
-                        zIndex: 99
-                    }}>
-                    {(bottomRows || []).map((row) => {
-                        return (
+                <tfoot style={{
+                    position: "sticky",
+                    bottom: 0,
+                    zIndex: 99
+                }}>
+                    <For each={bottomRows}>
+                        {(row) => (
                             <PinnedRow key={row.id} row={row} rowSelectionMode={rowSelectionMode} bottomRowLength={bottomRows?.length} />
-                        );
-                    })}
+                        )}
+                    </For>
                 </tfoot>
             </Show>
         </>
