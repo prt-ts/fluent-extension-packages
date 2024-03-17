@@ -363,6 +363,7 @@ export function TableExample2() {
         autoResetPageIndex={autoResetPageIndex}
         onUpdateData={onUpdateDate}
         ref={tableRef}
+        dataPrimaryKye="id"
         data={data}
         // defaultColumn={defaultColumn}
         columns={columns}

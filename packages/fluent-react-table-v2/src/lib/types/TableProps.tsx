@@ -12,7 +12,7 @@ export type TableProps<TItem extends RowData> = {
     /**
      * Table data.
      */
-    dataPrimaryKye?: string;
+    dataPrimaryKye?: keyof TItem;
     data: TItem[];
 
     /**
