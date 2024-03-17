@@ -40,7 +40,7 @@ import { useTableHeaderStyles } from "./useTableHeaderStyles";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from '@dnd-kit/utilities';
 import { CSSProperties } from "react";
-import { getCommonPinningStyles } from "../../helpers/StylesHelper";
+import { getHeaderCellPinningStyles } from "../../helpers/StylesHelper";
 
 const SortAscIcon = bundleIcon(ArrowSortDown20Filled, ArrowSortDown20Regular);
 const SortDescIcon = bundleIcon(ArrowSortUp20Filled, ArrowSortUp20Regular);
@@ -91,7 +91,7 @@ export function HeaderCell<TItem extends RowData>({
     return (
       <th colSpan={header.colSpan} 
         className={styles.tHeadCell} 
-        style={{ ...dndStyle, ...getCommonPinningStyles(column, true) }}
+        style={{ ...dndStyle, ...getHeaderCellPinningStyles(column) }}
         ref={setNodeRef}>
         {header.column.getCanResize() && (
           <div
@@ -116,7 +116,7 @@ export function HeaderCell<TItem extends RowData>({
           : styles.tHeadNonLeafCell,
         isDragging && styles.tHeadCellDragging
       )} 
-      style={{ ...dndStyle, ...getCommonPinningStyles(column, true) }}
+      style={{ ...dndStyle, ...getHeaderCellPinningStyles(column) }}
       ref={setNodeRef}
     >
       <div className={styles.tHeadCellDraggable} {...attributes} {...listeners}>

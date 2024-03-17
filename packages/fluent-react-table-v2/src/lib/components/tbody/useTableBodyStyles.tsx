@@ -37,14 +37,31 @@ export const useTableBodyStyles = makeStyles({
     },
 
     tBodyCell: {
-        // backgroundColor: "transparent",
+        backgroundColor: "transparent",
         ...shorthands.padding("2px", "4px"),
         minHeight: "35px",
         height: "35px",
     },
 
+    tBodyRowPinnedCell: {
+        backgroundColor: tokens.colorPaletteYellowBackground2,
+        ":hover": {
+            backgroundColor: tokens.colorPaletteMarigoldBackground2,
+        }
+    },
+
     tBodyPinnedCell: {
-        backgroundColor : tokens.colorNeutralBackground1Hover
-    }
+        backgroundColor: tokens.colorNeutralBackground3,
+        ":hover": {
+            backgroundColor: tokens.colorNeutralBackground3Hover,
+        }
+    },
+
+    tBodySelectedCell: {
+        backgroundColor: tokens.colorBrandBackground2,
+        ":hover": {
+            backgroundColor: tokens.colorBrandBackground2Hover,
+        }
+    },
 
 });
