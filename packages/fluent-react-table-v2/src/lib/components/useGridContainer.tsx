@@ -7,6 +7,7 @@ import {
   ExpandedState,
   GroupingState,
   PaginationState,
+  RowPinningState,
   RowSelectionState,
   SortingState,
   TableState,
@@ -71,6 +72,12 @@ export const useGridContainer = <TItem extends object>(
   );
   const [columnSizing, setColumnSizing] = React.useState<ColumnSizingState>({}); 
 
+  const [rowPinning, setRowPinning] = React.useState<RowPinningState>(
+    props.rowPinningState ?? {
+      top: [],
+      bottom: [],
+    })
+
   const table = useReactTable<TItem>({
     defaultColumn,
     columns: columns,
@@ -95,6 +102,7 @@ export const useGridContainer = <TItem extends object>(
       columnVisibility,
       columnPinning,
       columnSizing,
+      rowPinning
     },
     columnResizeMode: 'onChange',
     enableRowSelection: rowSelectionMode !== undefined,
@@ -104,7 +112,8 @@ export const useGridContainer = <TItem extends object>(
     enableColumnFilters: true,
     filterFromLeafRows: true,
     autoResetExpanded: false,
-    autoResetPageIndex,
+    autoResetPageIndex: autoResetPageIndex,
+    keepPinnedRows: true,
     onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,
     onSortingChange: setSorting,
@@ -116,6 +125,7 @@ export const useGridContainer = <TItem extends object>(
     onColumnVisibilityChange: setColumnVisibility,
     onColumnPinningChange: setColumnPinning,
     onColumnSizingChange: setColumnSizing,
+    onRowPinningChange: setRowPinning,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),

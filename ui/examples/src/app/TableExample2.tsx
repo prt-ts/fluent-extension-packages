@@ -130,11 +130,44 @@ export function TableExample2() {
   }
 
 
-  const columns = [
+  const columns = React.useMemo(() => [
+    columnHelper.accessor('id', {
+      id: 'Pin',
+      header: () => 'Pin',
+      cell: ({ row }) =>
+        row.getIsPinned() ? (
+          <button
+            onClick={() => row.pin(false, true, false)}
+          >
+            ❌
+          </button>
+        ) : (
+          <div style={{ display: 'flex', gap: '4px' }}>
+            <button
+              onClick={() =>
+                row.pin('top', true, false)
+              }
+            >
+              ⬆️
+            </button>
+            <button
+              onClick={() =>
+                row.pin('bottom', true, true)
+              }
+            >
+              ⬇️
+            </button>
+          </div>
+        ),
+      aggregatedCell: () => null,
+      filterFn: 'arrIncludesSome',
+      enableGrouping: false,
+      enableHiding: false,
+    }),
     columnHelper.accessor('id', {
       id: 'ID',
       header: () => 'ID',
-      cell: ({ getValue }) => {
+      cell: ({ getValue, table: { getState } }) => {
         return (
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             <Button
@@ -142,7 +175,7 @@ export function TableExample2() {
               aria-label="Edit"
               size="small"
               onClick={async () => {
-                const tableState = tableRef.current?.getTableState();
+                const tableState = getState();
                 localStorage.setItem('table1_edit_temp', JSON.stringify(tableState));
                 navigate(`/dummy-edit/${getValue()}/edit`);
               }}
@@ -250,7 +283,8 @@ export function TableExample2() {
       aggregatedCell: () => null,
       filterFn: 'inDateRange',
     }) as ColumnDef<Person>,
-  ] as ColumnDef<Person>[];
+  ] as ColumnDef<Person>[]
+  , [])
 
   useEffect(
     () => {
