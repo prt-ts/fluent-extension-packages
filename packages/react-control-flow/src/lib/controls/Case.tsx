@@ -6,6 +6,4 @@ type CaseProps = {
     value?: ConditionClause | ConditionClause[]; 
 }
 
-export const Case = ({ children }: CaseProps): JSX.Element | null => (
-    <> {children} </>
-);
+export const Case = ({ children }: CaseProps): ReactNode | null => children;
