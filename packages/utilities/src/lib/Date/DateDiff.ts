@@ -10,7 +10,7 @@
 export const getDateDiff = (
   date: Date,
   refDate: Date,
-  format: 'days' | 'months' | 'years' = 'years'
+  format: 'days' | 'months' | 'years' = 'days'
 ): number => {
   const diffTime = Math.abs(date.getTime() - refDate.getTime());
 
