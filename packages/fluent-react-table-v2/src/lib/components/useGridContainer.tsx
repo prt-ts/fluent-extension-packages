@@ -135,10 +135,11 @@ export const useGridContainer = <TItem extends RowData>(
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     meta: {
-      updateData: onUpdateData,
+      pageSizeOptions: props.pageSizeOptions || [10, 20, 50, 100, 1000],
       rowSelectionMode: props.rowSelectionMode,
       tableHeight: props.tableHeight || "650px",
 
+      updateData: onUpdateData,
       onTableViewDelete: props.onTableViewDelete,
       onTableViewSave: props.onTableViewSave
     }

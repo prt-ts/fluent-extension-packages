@@ -18,6 +18,7 @@ declare module '@tanstack/react-table' {
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
     rowSelectionMode: TableProps<TData>["rowSelectionMode"],
+    pageSizeOptions:  TableProps<TData>["pageSizeOptions"],
     tableHeight: string,
 
     updateData?: (rowIndex: number, columnId: string, value: unknown) => void;

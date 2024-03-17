@@ -10,8 +10,7 @@ import {
 import { useMemo } from "react";
 
 type PaginationProps<TItem extends RowData> = {
-  table: Table<TItem>;
-  pageSizeOptions?: number[];
+  table: Table<TItem>
 };
 
 const range = (from: number, to: number, step = 1): number[] =>
@@ -24,7 +23,8 @@ const DEFAULT_NUMBER_OF_PAGE_BTN = 5;
 export const Pagination = <TItem extends RowData>(
   props: PaginationProps<TItem>
 ) => {
-  const { table, pageSizeOptions = [10, 20, 50, 100, 1000] } = props;
+  const { table } = props;
+  const { pageSizeOptions } = table.options.meta || {}
   const pageSizeSelectionId = useId("page-size-selector");
   const styles = usePaginationStyle();
 

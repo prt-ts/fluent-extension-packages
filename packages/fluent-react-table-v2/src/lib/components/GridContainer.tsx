@@ -98,7 +98,7 @@ export function AdvancedTable<TItem extends RowData>(
             resetToGridDefaultView={resetToDefaultView} 
           />
         </div> 
-        <Pagination table={table} pageSizeOptions={props.pageSizeOptions} />
+        <Pagination table={table} />
       </SortableContext>
     </DndContext>
   );
