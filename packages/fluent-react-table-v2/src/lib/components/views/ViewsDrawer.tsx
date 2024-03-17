@@ -15,7 +15,7 @@ import {
   MenuItem,
 } from '@fluentui/react-components';
 import { Dismiss24Regular, ViewDesktop20Filled, ViewDesktop20Regular } from '@fluentui/react-icons';
-import { TableProps, TableView } from '../../types';
+import { TableView } from '../../types';
 import { RowData, Table, TableState } from '@tanstack/react-table';
 import { ClearFilterIcon } from '../icon-components/GridIcons';
 import { ViewSaveForm } from './ViewSaveForm';
@@ -59,16 +59,13 @@ type ViewsDrawerProps<TItem extends RowData> = {
   table: Table<TItem>;
   tableViews: TableView[];
   applyTableState: (tableView: TableState) => boolean;
-  resetToGridDefaultView: () => boolean; 
-  onTableViewSave?: TableProps<TItem>['onTableViewSave'];
-  onTableViewDelete?: TableProps<TItem>['onTableViewDelete'];
+  resetToGridDefaultView: () => boolean;
 };
 
 export const ViewsDrawer = <TItem extends RowData>(props: ViewsDrawerProps<TItem>) => {
 
-  const { table, drawerState, dispatch, tableViews, applyTableState, resetToGridDefaultView, onTableViewSave } = props;
-  const styles = useFilterDrawerStyles();
-
+  const { table, drawerState, dispatch, tableViews, applyTableState, resetToGridDefaultView } = props;
+  const { onTableViewDelete, onTableViewSave} = table.options.meta || {}
   const [checkedValues, setCheckedValues] = React.useState<
     Record<string, string[]>
   >({ font: ["calibri"] });
@@ -79,19 +76,7 @@ export const ViewsDrawer = <TItem extends RowData>(props: ViewsDrawerProps<TItem
     setCheckedValues((s) => ({ ...s, [name]: checkedItems }));
   };
 
-  // const resetAllFilters = React.useCallback(() => {
-  //   table.setGlobalFilter('');
-  //   table.resetColumnFilters();
-  // }, [table]);
-
-  // const resetAllGrouping = React.useCallback(() => {
-  //   table.resetGrouping();
-  // }, [table]);
-
-  // const clearAllSelection = React.useCallback(() => {
-  //   table.toggleAllRowsSelected(false);
-  // }, [table]);
-
+  const styles = useFilterDrawerStyles();
   return (
     <InlineDrawer position="end" open={drawerState.isViewsDrawerOpen} separator>
       <DrawerHeader>
@@ -143,12 +128,12 @@ export const ViewsDrawer = <TItem extends RowData>(props: ViewsDrawerProps<TItem
                   >
                     {view.viewName}
                   </MenuItemRadio>
-                  {props.onTableViewDelete && view?.isViewOwner && (
+                  {onTableViewDelete && view?.isViewOwner && (
                     <Button
                       appearance="subtle"
                       aria-label="Close"
                       icon={<Dismiss24Regular />}
-                      onClick={() => props.onTableViewDelete?.(view)}
+                      onClick={() => onTableViewDelete?.(view)}
                     />
                   )}
                 </div>

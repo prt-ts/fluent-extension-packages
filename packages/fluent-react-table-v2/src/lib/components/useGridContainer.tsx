@@ -169,7 +169,7 @@ export const useGridContainer = <TItem extends RowData>(
       columnVisibility: props.columnVisibility ?? {},
       columnPinning: props.columnPinningState ?? {},
       columnSizing: {},
-      rowPinning: {},
+      rowPinning: props.rowPinningState ?? {},
       columnSizingInfo: {
         "startOffset": null,
         "startSize": null,

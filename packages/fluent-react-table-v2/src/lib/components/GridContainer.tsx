@@ -95,9 +95,7 @@ export function AdvancedTable<TItem extends RowData>(
             dispatch={dispatch}
             tableViews={tableViews}
             applyTableState={applyTableState}
-            resetToGridDefaultView={resetToDefaultView}
-            onTableViewSave={props.onTableViewSave}
-            onTableViewDelete={props.onTableViewDelete}
+            resetToGridDefaultView={resetToDefaultView} 
           />
         </div> 
         <Pagination table={table} pageSizeOptions={props.pageSizeOptions} />

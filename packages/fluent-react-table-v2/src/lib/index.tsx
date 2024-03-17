@@ -1,5 +1,5 @@
 import { FilterFn, RowData } from "@tanstack/react-table";
-import { TableProps, TableView } from "./types";
+import { TableProps } from "./types";
 
 declare module '@tanstack/table-core' {
     interface FilterFns {
@@ -17,19 +17,12 @@ declare module '@tanstack/react-table' {
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
-    updateData?: (rowIndex: number, columnId: string, value: unknown) => void;
     rowSelectionMode: TableProps<TData>["rowSelectionMode"],
     tableHeight: string,
 
-     /**
-     * Callback when a table view is saved
-     */
-     onTableViewSave?: (tableView: TableView) => void;
-
-     /**
-      * Callback when a table view is deleted
-      */
-     onTableViewDelete?: (tableView: TableView) => void;
+    updateData?: (rowIndex: number, columnId: string, value: unknown) => void;
+    onTableViewSave?: TableProps<TData>["onTableViewSave"];
+    onTableViewDelete?: TableProps<TData>["onTableViewDelete"];
   }
 }
 
