@@ -60,7 +60,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ name,
                         {
                             autoCompleteOptions.length > 0 && (
                                 <datalist id={autoCompleteListId}>
-                                    {autoCompleteOptions.map(option => (
+                                    {autoCompleteOptions.map((option : string) => (
                                         <option key={option} value={option} />
                                     ))}
                                 </datalist>
