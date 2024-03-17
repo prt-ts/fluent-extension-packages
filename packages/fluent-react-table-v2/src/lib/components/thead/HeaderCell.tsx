@@ -1,12 +1,10 @@
 
 import {
-  Column,
-  ColumnOrderState,
   Header,
+  RowData,
   Table,
   flexRender,
 } from "@tanstack/react-table";
-import { useDrag, useDrop } from "react-dnd";
 import {
   Button,
   Menu,
@@ -36,13 +34,21 @@ import {
   ArrowStepInRightRegular,
   PinOffRegular,
   PinRegular,
+  PinFilled
 } from "@fluentui/react-icons";
 import { Filter } from "../filters";
 import { useTableHeaderStyles } from "./useTableHeaderStyles";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from '@dnd-kit/utilities';
+import { CSSProperties } from "react";
+import { getHeaderCellPinningStyles } from "../../helpers/StylesHelper";
+import { Show } from "@prt-ts/react-control-flow";
+
 const SortAscIcon = bundleIcon(ArrowSortDown20Filled, ArrowSortDown20Regular);
 const SortDescIcon = bundleIcon(ArrowSortUp20Filled, ArrowSortUp20Regular);
+const PinIcon = bundleIcon(PinFilled, PinRegular);
 
-type HeaderCellProps<TItem extends object> = {
+type HeaderCellProps<TItem extends RowData> = {
   header: Header<TItem, unknown>;
   table: Table<TItem>;
   hideMenu?: boolean;
@@ -50,97 +56,81 @@ type HeaderCellProps<TItem extends object> = {
   totalNumberOfHeaderDepth: number;
 };
 
-const reorderColumn = (
-  draggedColumnId: string,
-  targetColumnId: string,
-  columnOrder: string[]
-): ColumnOrderState => {
-  columnOrder.splice(
-    columnOrder.indexOf(targetColumnId),
-    0,
-    columnOrder.splice(columnOrder.indexOf(draggedColumnId), 1)[0] as string
-  );
-  return [...columnOrder];
-};
-
-export function HeaderCell<TItem extends object>({
+export function HeaderCell<TItem extends RowData>({
   header,
   table,
   hideMenu,
   headerDepth,
   totalNumberOfHeaderDepth,
 }: HeaderCellProps<TItem>) {
-  const { getState, setColumnOrder } = table;
-  const { columnOrder } = getState();
   const { column } = header;
 
-  const [{ isOver }, dropRef] = useDrop({
-    accept: "column",
-    drop: (draggedColumn: Column<object>) => {
-      const newColumnOrder = reorderColumn(
-        draggedColumn.id,
-        column.id,
-        columnOrder
-      );
-      setColumnOrder(newColumnOrder);
-    },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-    }),
+  const {
+    isDragging,
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({
+    id: column.id
   });
 
-  const [{ isDragging }, dragRef, previewRef] = useDrag({
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-    item: () => column,
-    type: "column",
-  });
+  const dndStyle: CSSProperties = {
+    width: header.column.getSize(),
+    opacity: isDragging ? 0.8 : 1,
+    // position: isDragging ? 'relative' : "sticky",
+    transform: CSS.Translate.toString(transform), // translate instead of transform to avoid squishing
+    // transition: 'width transform 0.2s ease-in-out',
+    whiteSpace: 'wrap',
+    zIndex: isDragging ? 100 : 99,
+    transition
+  };
 
   const styles = useTableHeaderStyles();
-
-  const canDragDrop = headerDepth === totalNumberOfHeaderDepth && !header.isPlaceholder;
   const isLeafHeaders = headerDepth === totalNumberOfHeaderDepth;
-
+  
   if (header.isPlaceholder) {
-    return (
-      <th colSpan={header.colSpan} className={styles.tHeadCell}>
-        {header.column.getCanResize() && (
-        <div
-          onMouseDown={header.getResizeHandler()}
-          onTouchStart={header.getResizeHandler()}
-          className={mergeClasses(
-            styles.resizer,
-            column.getIsResizing() && styles.resizerActive
-          )}
-        />
-      )}
+    return ( 
+      <th colSpan={header.colSpan} 
+        className={styles.tHeadCell}
+        style={{ ...dndStyle, ...getHeaderCellPinningStyles(column) }}
+        ref={setNodeRef}> 
+        <Show when={header.column.getCanResize()}>
+          <div
+            onMouseDown={header.getResizeHandler()}
+            onTouchStart={header.getResizeHandler()}
+            className={mergeClasses(
+              styles.resizer,
+              column.getIsResizing() && styles.resizerActive
+            )}
+          /> 
+        </Show>
       </th>
     );
   }
 
   return (
     <th
-      colSpan={header.colSpan}
+      colSpan={header.colSpan} 
       className={mergeClasses(
         styles.tHeadCell,
-        isLeafHeaders || header.isPlaceholder ? undefined
-          : styles.tHeadNonLeafCell,
-        isDragging && styles.tHeadCellDragging,
-        isOver && isLeafHeaders && styles.tHeadCellOver
+        isLeafHeaders && styles.tHeadNonLeafCell,
+        isDragging && styles.tHeadCellDragging
       )}
+      style={{ ...dndStyle, ...getHeaderCellPinningStyles(column) }}
+      ref={setNodeRef}
     >
-      <div className={styles.tHeadCellDraggable} ref={canDragDrop ? dropRef : undefined}>
+      <div className={styles.tHeadCellDraggable} {...attributes} {...listeners}>
         <div
           className={
             isLeafHeaders
               ? styles.tLeafHeadCellContent
               : styles.tNonLeafHeadCellContent
           }
-          ref={canDragDrop ? dragRef : undefined}
         >
-          <div ref={canDragDrop ? previewRef : undefined}>
-            {header.isPlaceholder ? null : (
+          <div>
+            <Show when={!header.isPlaceholder}>
               <Button
                 style={{
                   display: 'flex',
@@ -185,25 +175,25 @@ export function HeaderCell<TItem extends object>({
                 </strong>
 
                 {/* indicator for grouping */}
-                {header.column.getIsGrouped() && <GroupListRegular />}
+                <Show when={header.column.getIsGrouped()}>
+                  <strong><GroupListRegular /></strong>
+                </Show>
                 {/* indicator for filtering */}
-                {header.column.getIsFiltered() && (
-                  <strong>
-                    <FilterFilled />
-                  </strong>
-                )}
-
-                {header.column.getIsPinned() && <PinRegular />}
-
-                {/* {header.column.columnDef.id && header.column.getCanResize() && <Button ref={dragRef}>🟰</Button>} */}
+                <Show when={header.column.getIsFiltered()} >
+                  <strong><FilterFilled /></strong>
+                </Show>
+                {/* indicator for pinning */}
+                <Show when={header.column.getIsPinned()}>
+                  <strong><PinRegular /></strong>
+                </Show>
               </Button>
-            )}
+            </Show>
           </div>
           <HeaderMenu header={header} table={table} hideMenu={hideMenu} />
         </div>
       </div>
 
-      {header.column.getCanResize() && (
+      <Show when={header.column.getCanResize()}>
         <div
           onMouseDown={header.getResizeHandler()}
           onTouchStart={header.getResizeHandler()}
@@ -211,19 +201,22 @@ export function HeaderCell<TItem extends object>({
             styles.resizer,
             column.getIsResizing() && styles.resizerActive
           )}
-        />
-      )}
+        /> 
+      </Show>
+      <Show when={!isLeafHeaders}>
+        <div className={styles.tHeadNonLeafCellFakeBorder}></div>
+      </Show>
     </th>
   );
-};
+}
 
-type HeaderMenuProps<TItem extends object> = {
+type HeaderMenuProps<TItem extends RowData> = {
   header: Header<TItem, unknown>;
   table: Table<TItem>;
   hideMenu?: boolean;
 };
 
-function HeaderMenu<TItem extends object>(props: HeaderMenuProps<TItem>): JSX.Element {
+function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.Element {
 
   const { header, table, hideMenu } = props;
   const styles = useTableHeaderStyles();
@@ -247,30 +240,21 @@ function HeaderMenu<TItem extends object>(props: HeaderMenuProps<TItem>): JSX.El
 
       <MenuPopover className={styles.tHeadMenuPopover}>
         <MenuList>
-          {header.column.getCanSort() && (
+          <Show when={header.column.getCanSort()}>
             <MenuGroup key={'sort-group'}>
-              <MenuGroupHeader>
-                Sort by{' '}
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-              </MenuGroupHeader>
-              {
-                <MenuItem
-                  onClick={(e) => {
-                    const isControlKeySelected = e.ctrlKey;
-                    header.column?.toggleSorting(
-                      false,
-                      isControlKeySelected
-                    );
-                  }}
-                  icon={<TextSortAscendingFilled />}
-                  disabled={header.column.getIsSorted() === 'asc'}
-                >
-                  Sort A to Z
-                </MenuItem>
-              }
+              <MenuItem
+                onClick={(e) => {
+                  const isControlKeySelected = e.ctrlKey;
+                  header.column?.toggleSorting(
+                    false,
+                    isControlKeySelected
+                  );
+                }}
+                icon={<TextSortAscendingFilled />}
+                disabled={header.column.getIsSorted() === 'asc'}
+              >
+                Sort A to Z
+              </MenuItem>
               <MenuItem
                 onClick={(e) => {
                   const isControlKeySelected = e.ctrlKey;
@@ -286,17 +270,10 @@ function HeaderMenu<TItem extends object>(props: HeaderMenuProps<TItem>): JSX.El
               </MenuItem>
               <MenuDivider />
             </MenuGroup>
-          )}
+          </Show>
 
-          {header.column.getCanGroup() && (
+          <Show when={header.column.getCanGroup()}>
             <MenuGroup key={'grouping-group'}>
-              <MenuGroupHeader>
-                Group by{' '}
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-              </MenuGroupHeader>
               {!header.column.getIsGrouped() && (
                 <MenuItem
                   onClick={() =>
@@ -327,54 +304,54 @@ function HeaderMenu<TItem extends object>(props: HeaderMenuProps<TItem>): JSX.El
               )}
               <MenuDivider />
             </MenuGroup>
-          )}
+          </Show>
 
-          {header.column.getCanSort() && (
-            <MenuGroup key={'pin columns'}>
-              <MenuGroupHeader>
-                Pin Column{' '}
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-              </MenuGroupHeader>
-              {
-                <MenuItem
-                  onClick={() => {
-                    header.column?.pin('left');
-                  }}
-                  icon={<ArrowStepInLeftRegular />}
-                  disabled={header.column.getIsPinned() === 'left'}
-                >
-                  To Left
-                </MenuItem>
-              }
-              <MenuItem
-                onClick={() => {
-                  header.column?.pin('right');
-                }}
-                icon={<ArrowStepInRightRegular />}
-                disabled={header.column.getIsPinned() === 'right'}
-              >
-                To Right
-              </MenuItem>
-              {['left', 'right'].includes(
-                header.column.getIsPinned() as string
-              ) && (
+          <Show when={header.column.getCanPin()}>
+            <Menu>
+              <MenuTrigger disableButtonEnhancement>
+                <MenuItem icon={<PinIcon />}>Pin Column</MenuItem>
+              </MenuTrigger>
+
+              <MenuPopover>
+                <MenuList>
+
+                  <Show when={['left', 'right'].includes(
+                    header.column.getIsPinned() as string
+                  )}>
+                    <MenuItem
+                      onClick={() => {
+                        header.column?.pin(false);
+                      }}
+                      icon={<PinOffRegular />}
+                    >
+                      No Pin
+                    </MenuItem>
+                  </Show>
                   <MenuItem
                     onClick={() => {
-                      header.column?.pin(false);
+                      header.column?.pin('left');
                     }}
-                    icon={<PinOffRegular />}
+                    icon={<ArrowStepInLeftRegular />}
+                    disabled={header.column.getIsPinned() === 'left'}
                   >
-                    Unpin Column
+                    Pin Left
                   </MenuItem>
-                )}
-              <MenuDivider />
-            </MenuGroup>
-          )}
+                  <MenuItem
+                    onClick={() => {
+                      header.column?.pin('right');
+                    }}
+                    icon={<ArrowStepInRightRegular />}
+                    disabled={header.column.getIsPinned() === 'right'}
+                  >
+                    Pin Right
+                  </MenuItem>
+                </MenuList>
+              </MenuPopover>
+            </Menu>
+            <MenuDivider />
+          </Show>
 
-          {header.column.getCanFilter() && (
+          <Show when={header.column.getCanFilter()}>
             <MenuGroup key={'filter-group'}>
               <MenuGroupHeader>
                 Filter by{' '}
@@ -385,7 +362,7 @@ function HeaderMenu<TItem extends object>(props: HeaderMenuProps<TItem>): JSX.El
               </MenuGroupHeader>
               <Filter column={header.column} table={table} />
             </MenuGroup>
-          )}
+          </Show>
         </MenuList>
       </MenuPopover>
     </Menu>);

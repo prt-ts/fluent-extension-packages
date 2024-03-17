@@ -1,5 +1,4 @@
 
 /* eslint-disable */
-export type AppSettings<TEnv = {}, TProps = {}> = {
-    env: TEnv;
-} & TProps
+export interface AppSettings {    
+}  

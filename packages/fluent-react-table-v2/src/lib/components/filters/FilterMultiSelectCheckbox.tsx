@@ -4,9 +4,9 @@ import {
   makeStyles,
   shorthands,
 } from '@fluentui/react-components';
-import { Column, Table } from '@tanstack/react-table';
+import { Column, RowData, Table } from '@tanstack/react-table';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import * as React from 'react';
-import { useVirtual } from 'react-virtual';
 
 const useCheckboxFilterStyles = makeStyles({
   searchInput: {
@@ -16,8 +16,6 @@ const useCheckboxFilterStyles = makeStyles({
     marginRight: '10px',
   },
   searchContainer: {
-    display: 'flex',
-    flexDirection: 'column',
     maxHeight: '300px',
     width: '100%',
     ...shorthands.overflow('auto', 'auto'),
@@ -46,7 +44,7 @@ const useCheckboxFilterStyles = makeStyles({
   },
 });
 
-export const FilterMultiSelectCheckbox = <TItem extends object>({
+export const FilterMultiSelectCheckbox = <TItem extends RowData>({
   column,
   table,
 }: {
@@ -63,8 +61,8 @@ export const FilterMultiSelectCheckbox = <TItem extends object>({
       const uniqueSortedOptions =
         typeof firstValue === 'number' || !isNaN(firstValue as number)
           ? Array.from(column.getFacetedUniqueValues().keys()).sort(
-              (a, b) => Number(a) - Number(b)
-            )
+            (a, b) => Number(a) - Number(b)
+          )
           : Array.from(column.getFacetedUniqueValues().keys()).sort();
       setFilterOptions(uniqueSortedOptions);
     },
@@ -83,26 +81,22 @@ export const FilterMultiSelectCheckbox = <TItem extends object>({
     );
   }, [localColumnFilterValue, filterOptions]);
 
-  const filterContainer = React.useRef<HTMLDivElement>(null);
-  const rowVirtualizer = useVirtual({
-    parentRef: filterContainer,
-    size: filterOptionsFiltered.length,
-    overscan: 15,
+  const parentRef = React.useRef<HTMLDivElement>(null);
+  const virtualizer = useVirtualizer({
+    count: filterOptionsFiltered?.length || 0,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 30,
+    overscan: 5,
   });
-  const { virtualItems: virtualRows, totalSize } = rowVirtualizer;
 
-  const paddingTop = virtualRows.length > 0 ? virtualRows?.[0]?.start || 0 : 0;
-  const paddingBottom =
-    virtualRows.length > 0
-      ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0)
-      : 0;
+  const virtualItems = virtualizer.getVirtualItems();
 
   const allOptionChecked =
     columnFilterValue?.length > 0 &&
-    columnFilterValue?.length !== filterOptions?.length
+      columnFilterValue?.length !== filterOptions?.length
       ? 'mixed'
       : columnFilterValue?.length === filterOptions?.length &&
-        filterOptions?.length > 0;
+      filterOptions?.length > 0;
 
   const styles = useCheckboxFilterStyles();
 
@@ -116,53 +110,53 @@ export const FilterMultiSelectCheckbox = <TItem extends object>({
         size="small"
         className={styles.searchInput}
       />
-      <div
-        key={'filter-multi-select-checkbox'}
-        ref={filterContainer}
-        className={styles.searchContainer}
-      >
-        {paddingTop > 0 && (
-          <span style={{ paddingTop: `${paddingTop}px` }}></span>
-        )}
-        <Checkbox
-          key={`toggle-all-${column.id}`}
-          checked={allOptionChecked}
-          onChange={() => {
-            if (columnFilterValue?.length > 0) {
-              column.setFilterValue(undefined);
-              return;
-            }
-            column.setFilterValue([
-              ...(filterOptions?.map((x) => `${x}`) || []),
-            ]);
-          }}
-          label={'(Toggle All)'}
-        />
-        {virtualRows.map((row) => {
-          const value = `${filterOptionsFiltered[row.index]}`;
-          return (
-            <Checkbox
-              key={`${column.id}-${row.index}`}
-              checked={columnFilterValue?.includes(value) ?? false}
-              onChange={() => {
-                if (columnFilterValue?.includes(value)) {
-                  column.setFilterValue((old: string[]) =>
-                    old?.filter((v) => v !== value)
-                  );
-                  return;
-                }
-                column.setFilterValue((old: string[]) => [
-                  ...(old || []),
-                  value,
-                ]);
-              }}
-              label={value}
-            />
-          );
-        })}
-        {paddingBottom > 0 && (
-          <span style={{ paddingBottom: `${paddingBottom}px` }}></span>
-        )}
+      <div ref={parentRef} className={styles.searchContainer}>
+        <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
+
+          <Checkbox
+            key={`toggle-all-${column.id}`}
+            checked={allOptionChecked}
+            onChange={() => {
+              if (columnFilterValue?.length > 0) {
+                column.setFilterValue(undefined);
+                return;
+              }
+              column.setFilterValue([
+                ...(filterOptions?.map((x) => `${x}`) || []),
+              ]);
+            }}
+            label={'(Toggle All)'}
+          />
+          {(virtualItems || []).map((row, index) => {
+            const value = `${filterOptionsFiltered[row.index]}`;
+            return (
+              <div
+                key={`${column.id}-${row.index}`}
+                style={{
+                  height: `${row.size}px`,
+                  transform: `translateY(${row.start - index * row.size}px)`,
+                }}>
+                <Checkbox
+
+                  checked={columnFilterValue?.includes(value) ?? false}
+                  onChange={() => {
+                    if (columnFilterValue?.includes(value)) {
+                      column.setFilterValue((old: string[]) =>
+                        old?.filter((v) => v !== value)
+                      );
+                      return;
+                    }
+                    column.setFilterValue((old: string[]) => [
+                      ...(old || []),
+                      value,
+                    ]);
+                  }}
+                  label={value}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

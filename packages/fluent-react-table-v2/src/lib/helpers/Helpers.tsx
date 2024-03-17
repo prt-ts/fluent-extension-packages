@@ -1,7 +1,7 @@
-import { Column } from "@tanstack/react-table";
+import { Column, RowData } from "@tanstack/react-table";
 
 
-export const getLeafColumns = <TItem extends object>(
+export const getLeafColumns = <TItem extends RowData>(
     columns: Column<TItem>[]
   ): Column<TItem>[] => {
     if (!columns || !columns.length) {

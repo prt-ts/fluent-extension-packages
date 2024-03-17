@@ -5,3 +5,11 @@ export {
     OptionType,
     ChoiceFieldService
 } from "./ChoiceFieldService";
+
+export {
+    ErrorService
+} from "./ErrorService";
+
+export {
+    AppInsightService
+} from "./AppInsightsService";

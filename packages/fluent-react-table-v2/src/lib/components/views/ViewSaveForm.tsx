@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { TableProps, TableView } from "../../types";
 import { Button, Caption1Stronger, Checkbox, Divider, Field, Input, MenuItemRadio, MenuList } from '@fluentui/react-components';
-import { TableState } from '@tanstack/react-table';
+import { RowData, TableState } from '@tanstack/react-table';
 import { Save20Filled } from '@fluentui/react-icons';
 
-type ViewSaveFormProps<TItem extends object> = {
+type ViewSaveFormProps<TItem extends RowData> = {
     mode: 'create' | 'edit';
     onSave: TableProps<TItem>['onTableViewSave']
     getTableState: () => TableState;
 };
-export const ViewSaveForm = <TItem extends object>(props: ViewSaveFormProps<TItem>) => {
+export const ViewSaveForm = <TItem extends RowData>(props: ViewSaveFormProps<TItem>) => {
 
     const [errorMessage, setErrorMessage] = React.useState<string>('');
     const [isFormOpen, setIsFormOpen] = React.useState<boolean>(false);

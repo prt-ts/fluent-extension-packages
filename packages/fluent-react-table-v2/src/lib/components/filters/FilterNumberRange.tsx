@@ -1,8 +1,8 @@
 import { Field, Input, InputProps, makeStyles } from '@fluentui/react-components';
-import { Column, Table } from '@tanstack/react-table';
+import { Column, RowData, Table } from '@tanstack/react-table';
 import React from 'react';
 
-type FilterNumberRangeProps<TItem extends object> = {
+type FilterNumberRangeProps<TItem extends RowData> = {
   column: Column<TItem, unknown>;
   table: Table<TItem>;
 };
@@ -23,7 +23,7 @@ const useNumberRangeFilterStyles = makeStyles({
   }
 });
 
-export const FilterNumberRange = <TItem extends object>(
+export const FilterNumberRange = <TItem extends RowData>(
   props: FilterNumberRangeProps<TItem>
 ) => {
   const { column } = props;

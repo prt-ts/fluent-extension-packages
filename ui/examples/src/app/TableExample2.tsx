@@ -1,6 +1,7 @@
+import * as React from "react";
 import { createRef, useEffect, useState } from 'react';
 import { Person, makeData } from './data/data';
-import { Button, Field, Radio, RadioGroup } from '@fluentui/react-components';
+import { Button, Field, Input, Radio, RadioGroup } from '@fluentui/react-components';
 import { EditRegular, DeleteRegular } from '@fluentui/react-icons';
 import {
   ColumnDef,
@@ -9,9 +10,9 @@ import {
   TableState,
   TableView,
   createColumnHelper,
+  useSkipper,
 } from '@prt-ts/fluent-react-table-v2';
-import { useNavigate } from 'react-router-dom';
-import * as React from "react";
+import { useNavigate } from 'react-router-dom'; 
 import {
   FontIncrease24Regular,
   FontDecrease24Regular,
@@ -29,8 +30,14 @@ import {
   MenuItem,
 } from "@fluentui/react-components";
 import { tableViews as views } from './data/tableView';
+import { ColumnPinningState } from '@tanstack/react-table';
 
-export function TableExample() {
+const ColumnIdAccessMapping = {
+  "First Name" : "firstName",
+  "Last Name" : "lastName" 
+}
+
+export function TableExample2() {
   const navigate = useNavigate();
   const columnHelper = createColumnHelper<Person>();
   const tableRef = createRef<TableRef<Person>>();
@@ -54,6 +61,34 @@ export function TableExample() {
     console.log(tableState);
   };
 
+  // Give our default column cell renderer editing superpowers!
+  const defaultColumn: Partial<ColumnDef<Person>> = {
+    cell: ({ getValue, row: { index }, column: { id }, table }) => {
+      const initialValue = getValue()
+      // We need to keep and update the state of the cell normally
+      const [value, setValue] = React.useState(initialValue)
+
+      // When the input is blurred, we'll call our table meta's updateData function
+      const onBlur = () => {
+        table.options.meta?.updateData(index, id, value)
+      }
+
+      // If the initialValue is changed external, sync it up with our state
+      React.useEffect(() => {
+        setValue(initialValue)
+      }, [initialValue])
+
+      return (
+        <Input
+          value={value as string}
+          onChange={(e, data) => setValue(data.value)}
+          onBlur={onBlur}
+          appearance="filled-lighter"
+        />
+      )
+    },
+  }
+
   const saveCurrentTableState = () => {
     const tableState = tableRef.current?.getTableState();
     localStorage.setItem('view1', JSON.stringify(tableState));
@@ -75,13 +110,64 @@ export function TableExample() {
     console.log(tableState);
   };
 
+  const [autoResetPageIndex, skipAutoResetPageIndex] = useSkipper();
+  const onUpdateDate = (rowIndex, columnId, value) => {
+    // Skip page index reset until after next rerender
+    console.log(rowIndex, columnId, value)
+    skipAutoResetPageIndex()
+    setData(old =>
+      ([...old]).map((row, index) => {
+        if (index === rowIndex) {
+          const accessor = ColumnIdAccessMapping[columnId] ?? columnId
+          return {
+            ...old[rowIndex]!,
+            [accessor]: value,
+          }
+        }
+        return row
+      })
+    )
+  }
 
 
-  const columns = [
+  const columns = React.useMemo(() => [
+    columnHelper.accessor('id', {
+      id: 'Pin',
+      header: () => 'Pin',
+      cell: ({ row }) =>
+        row.getIsPinned() ? (
+          <button
+            onClick={() => row.pin(false, true, false)}
+          >
+            ❌
+          </button>
+        ) : (
+          <div style={{ display: 'flex', gap: '4px' }}>
+            <button
+              onClick={() =>
+                row.pin('top', true, false)
+              }
+            >
+              ⬆️
+            </button>
+            <button
+              onClick={() =>
+                row.pin('bottom', true, true)
+              }
+            >
+              ⬇️
+            </button>
+          </div>
+        ),
+      aggregatedCell: () => null,
+      filterFn: 'arrIncludesSome',
+      enableGrouping: false,
+      enableHiding: false,
+    }),
     columnHelper.accessor('id', {
       id: 'ID',
       header: () => 'ID',
-      cell: ({ getValue }) => {
+      cell: ({ getValue, table: { getState } }) => {
         return (
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             <Button
@@ -89,7 +175,7 @@ export function TableExample() {
               aria-label="Edit"
               size="small"
               onClick={async () => {
-                const tableState = tableRef.current?.getTableState();
+                const tableState = getState();
                 localStorage.setItem('table1_edit_temp', JSON.stringify(tableState));
                 navigate(`/dummy-edit/${getValue()}/edit`);
               }}
@@ -119,18 +205,16 @@ export function TableExample() {
     columnHelper.accessor('firstName', {
       id: 'First Name',
       header: () => 'First Name',
-      cell: (info) => info.getValue(),
       filterFnDefinition: () => 'firstName',
     }),
     columnHelper.accessor((row) => row.lastName, {
-      id: 'Last Name',
-      cell: (info) => <i>{info.getValue()}</i>,
+      id: 'Last Name', 
       header: () => <span>Last Name</span>,
       aggregatedCell: () => null,
     }),
     columnHelper.accessor('age', {
       id: 'Age',
-      header: () => 'Age (Additional text for Long header)',
+      header: () => 'Age',
       cell: (info) => info.renderValue(),
       filterFn: 'includesString',
       aggregationFn: 'mean',
@@ -150,226 +234,58 @@ export function TableExample() {
       header: 'Profile Progress',
       aggregatedCell: () => null,
     }),
-    columnHelper.group({
-      id: 'address',
-      header: 'Address',
-      columns: [
-         columnHelper.group({
-          id: 'Address Line 1',
-          header: 'Address Line 1',
-          columns: [
-            columnHelper.accessor('address.street', {
-              id: 'Street',
-              header: 'Street',
-              aggregatedCell: () => null,
-            }),
-            columnHelper.accessor('address.city', {
-              id: 'City',
-              header: 'City',
-              aggregatedCell: () => null,
-            }),
-          ]
-        }),
-
-        columnHelper.accessor('address.state', {
-          id: 'State',
-          header: 'State',
-          aggregatedCell: () => null,
-          filterFn: 'arrIncludesAll',
-        }),
-        columnHelper.accessor('address.zipCode', {
-          id: 'Zip Code',
-          header: 'Zip Code',
-          aggregatedCell: () => null,
-          enableColumnFilter: false,
-          enableGlobalFilter: false,
-          enableGrouping: false,
-          enableHiding: false,
-          enablePinning: false,
-          enableSorting: false,
-        }),
-        columnHelper.accessor('address.country', {
-          id: 'Country',
-          header: 'Country',
-          aggregatedCell: () => null,
-          filterFn: 'arrIncludes',
-        }),
-      ],
+    columnHelper.accessor('address.street', {
+      id: 'Street',
+      header: 'Street',
+      aggregatedCell: () => null,
     }),
-    columnHelper.group({
-      id: 'additionalInfo',
-      header: 'Additional Info',
-      columns: [
-        columnHelper.accessor('status', {
-          id: 'Status',
-          header: 'Status',
-          aggregatedCell: () => null,
-          filterFn: 'arrIncludesSome',
-        }),
-        columnHelper.accessor(({createdAt}) => createdAt, {
-          id: 'Created At',
-          header: 'Created At',
-          cell: (info) =>
-            info.renderValue()
-              ? new Date(info.renderValue() as Date)?.toLocaleDateString()
-              : '',
-          aggregatedCell: () => null,
-          filterFn: 'inDateRange',
-        }) as ColumnDef<Person>,
-      ],
+    columnHelper.accessor('address.city', {
+      id: 'City',
+      header: 'City',
+      aggregatedCell: () => null,
     }),
-  ] as ColumnDef<Person>[];
+    columnHelper.accessor('address.state', {
+      id: 'State',
+      header: 'State',
+      aggregatedCell: () => null,
+      filterFn: 'arrIncludesAll',
+    }),
+    columnHelper.accessor('address.zipCode', {
+      id: 'Zip Code',
+      header: 'Zip Code',
+      aggregatedCell: () => null,
+      enableColumnFilter: false,
+      enableGlobalFilter: false,
+      enableGrouping: false,
+      enableHiding: false,
+      enablePinning: false,
+      enableSorting: false,
+    }),
+    columnHelper.accessor('address.country', {
+      id: 'Country',
+      header: 'Country',
+      aggregatedCell: () => null,
+      filterFn: 'arrIncludes',
+    }), 
+    columnHelper.accessor('status', {
+      id: 'Status',
+      header: 'Status',
+      aggregatedCell: () => null,
+      filterFn: 'arrIncludesSome',
+    }),
+    columnHelper.accessor(({createdAt}) => createdAt, {
+      id: 'Created At',
+      header: 'Created At',
+      cell: (info) =>
+        info.renderValue()
+          ? new Date(info.renderValue() as Date)?.toLocaleDateString()
+          : '',
+      aggregatedCell: () => null,
+      filterFn: 'inDateRange',
+    }) as ColumnDef<Person>,
+  ] as ColumnDef<Person>[]
+  , [])
 
-  // const columns: ColumnDef<Person>[] = [
-  //   {
-  //     id: 'id',
-  //     accessorKey: 'id',
-  //     header: () => 'ID',
-  //     cell: ({ row }) => {
-  //       return (
-  //         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-  //           <Button
-  //             icon={<EditRegular />}
-  //             aria-label="Edit"
-  //             size="small"
-  //             onClick={async () => {
-  //               const tableState = tableRef.current?.getTableState();
-  //               localStorage.setItem('table1_edit_temp', JSON.stringify(tableState));
-  //               navigate(`/dummy-edit/${row.getValue('id')}/edit`);
-  //             }}
-  //           />
-  //           <Button
-  //             icon={<DeleteRegular />}
-  //             aria-label="Delete"
-  //             size="small"
-  //             onClick={() => {
-  //               const confirm = window.confirm(
-  //                 'Are you sure you want to delete this row?'
-  //               );
-  //               if (confirm) {
-  //                 alert('Deleted');
-  //               }
-  //             }}
-  //           />
-  //           <strong>{row.getValue('id')}</strong>
-  //         </div>
-  //       );
-  //     },
-  //     aggregatedCell: () => null,
-
-  //     filterFn: 'arrIncludesSome',
-  //     enableGrouping: false,
-  //     enableHiding: false,
-  //   },
-  //   {
-  //     id: 'firstName',
-  //     accessorKey: 'firstName',
-  //     header: () => 'First Name',
-  //     cell: (info) => info.getValue(),
-  //   },
-  //   {
-  //     id: 'lastName',
-  //     accessorKey: 'lastName',
-  //     cell: (info) => <i>{info.getValue() as string}</i>,
-  //     header: () => <span>Last Name</span>,
-  //     aggregatedCell: () => null,
-  //   },
-  //   {
-  //     id: 'age',
-  //     accessorKey: 'age',
-  //     header: () => 'Age (Additional text for Long header)',
-  //     cell: (info) => info.renderValue(),
-  //     filterFn: 'includesString',
-  //     aggregationFn: 'mean',
-  //     size: 200,
-  //     maxSize: 800,
-  //     enableGrouping: false,
-  //   },
-  //   {
-  //     id: 'visits',
-  //     accessorKey: 'visits',
-  //     header: () => <span>Visits</span>,
-  //     filterFn: 'inNumberRange',
-  //     enableHiding: false,
-  //   },
-  //   {
-  //     id: 'progress',
-  //     accessorKey: 'progress',
-  //     header: 'Profile Progress',
-  //     aggregatedCell: () => null,
-  //   },
-  //   {
-  //     id: 'address',
-  //     header: 'Address',
-  //     columns: [
-  //       {
-  //         id: 'street',
-  //         accessorFn: (row) => row.address.street,
-  //         header: 'Street',
-  //         aggregatedCell: () => null,
-  //       },
-  //       {
-  //         id: 'city',
-  //         accessorFn: (row) => row.address.city,
-  //         header: 'City',
-  //         aggregatedCell: () => null,
-  //       },
-  //       {
-  //         id: 'state',
-  //         accessorFn: (row) => row.address.state,
-  //         header: 'State',
-  //         aggregatedCell: () => null,
-  //         filterFn: 'arrIncludesSome',
-  //       },
-  //       {
-  //         id: 'zipCode',
-  //         accessorFn: (row) => row.address.zipCode,
-  //         header: 'Zip Code',
-  //         aggregatedCell: () => null,
-  //         enableColumnFilter: false,
-  //         enableGlobalFilter: false,
-  //         enableGrouping: false,
-  //         enableHiding: false,
-  //         enablePinning: false,
-  //         enableSorting: false,
-  //       },
-  //       {
-  //         id: 'country',
-  //         accessorFn: (row) => row.address.country,
-  //         header: 'Country',
-  //         aggregatedCell: () => null,
-  //         filterFn: 'arrIncludes',
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 'additionalInfo',
-  //     header: 'Additional Info',
-  //     columns: [
-  //       {
-  //         id: 'status',
-  //         accessorFn: (row) => row.status,
-  //         header: 'Status',
-  //         aggregatedCell: () => null,
-  //         filterFn: 'arrIncludesSome',
-  //       },
-  //       {
-  //         id: 'createdAt',
-  //         accessorFn: (row) => row.createdAt,
-  //         aggregatedCell: () => null,
-  //         header: 'Created At',
-  //         filterFn: 'dateRange' as any,
-  //         cell: (info) =>
-  //           info.renderValue()
-  //             ? new Date(info.renderValue() as Date)?.toLocaleDateString()
-  //             : '',
-  //       }
-  //     ]
-  //   }
-  // ];
-
-
-  // get data from server
   useEffect(
     () => {
       const timeout = setTimeout(() => {
@@ -409,11 +325,17 @@ export function TableExample() {
     [data]
   );
 
+  const defaultPinnedColumns : ColumnPinningState = React.useMemo(() => {
+    return {
+      left: ["ID"],
+      right: ["Status"]
+    } as ColumnPinningState
+  }, [])
 
 
   return (
     <div>
-      <div style={{
+      {/* <div style={{
         display: 'flex',
         gap: '10px',
       }}>
@@ -436,11 +358,14 @@ export function TableExample() {
           <Radio value={'single'} label="Single" />
           <Radio value={'multiple'} label="Multiple" />
         </RadioGroup>
-      </Field>
+      </Field> */}
       <Table
+        autoResetPageIndex={autoResetPageIndex}
+        onUpdateData={onUpdateDate}
         ref={tableRef}
+        dataPrimaryKye="id"
         data={data}
-        dataPrimaryKye='id'
+        // defaultColumn={defaultColumn}
         columns={columns}
         pageSize={100}
         pageSizeOptions={[10, 20, 100, 1000, 10000]}
@@ -454,6 +379,7 @@ export function TableExample() {
           progress: false,
           firstName: false,
         }}
+        columnPinningState={defaultPinnedColumns}
         // sortingState={[
         //   { id: "id", desc: false }
         // ]}
@@ -479,7 +405,7 @@ export function TableExample() {
             prev.filter((view) => view.id !== tableView.id)
           );
         }}
-        disableTableHeader={true}
+        tableHeight='790px'
       />
     </div>
   );
@@ -548,3 +474,5 @@ export const TopToolbar: React.FC<{
       </Toolbar></>
   );
 }
+
+

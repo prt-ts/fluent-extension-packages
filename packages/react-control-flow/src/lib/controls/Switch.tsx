@@ -9,7 +9,7 @@ type SwitchProps = {
     fallback?: JSX.Element | ReactNode | null | undefined;
 }
 
-export const Switch = (props: SwitchProps): JSX.Element | null => {
+export const Switch = (props: SwitchProps): ReactNode | null => {
     const { when, children, fallback =  null} = props;
 
     const cases = React.Children.toArray(children).filter(
@@ -22,9 +22,9 @@ export const Switch = (props: SwitchProps): JSX.Element | null => {
     });
 
     if (!successCase) {
-        return <> {fallback} </>;
+        return fallback;
     }
 
-    return <> {successCase} </>;
+    return successCase;
 };
 

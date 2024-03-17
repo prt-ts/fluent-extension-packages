@@ -1,17 +1,17 @@
 import { Checkbox } from '@fluentui/react-components';
-import { Header, HeaderGroup, Table } from '@tanstack/react-table';
+import { Header, HeaderGroup, RowData, Table } from '@tanstack/react-table';
 import { TableProps } from '../../types';
 import { HeaderCell } from './HeaderCell';
 import { useTableHeaderStyles } from './useTableHeaderStyles';
 
-type HeaderRowProps<TItem extends object> = {
+type HeaderRowProps<TItem extends RowData> = {
     table: Table<TItem>;
     rowSelectionMode?: TableProps<TItem>['rowSelectionMode'];
     headerGroup: HeaderGroup<TItem>,
     headerGroupsLength: number;
 }
 
-export function HeaderRow<TItem extends object>(props: HeaderRowProps<TItem>) {
+export function HeaderRow<TItem extends RowData>(props: HeaderRowProps<TItem>) {
     const styles = useTableHeaderStyles();
 
     const { table, headerGroup, rowSelectionMode, headerGroupsLength } = props;
@@ -59,4 +59,4 @@ export function HeaderRow<TItem extends object>(props: HeaderRowProps<TItem>) {
             })}
         </tr>
     );
-};
+}

@@ -1,16 +1,18 @@
 import * as React from "react";
-import { ColumnDef, ColumnFiltersState, ColumnOrderState, ColumnPinningState, ExpandedState, GroupingState, RowSelectionState, SortingState, VisibilityState } from "@tanstack/react-table";
+import { ColumnDef, ColumnFiltersState, ColumnOrderState, ColumnPinningState, ExpandedState, GroupingState, RowData, RowPinningState, RowSelectionState, SortingState, VisibilityState } from "@tanstack/react-table";
 import { TableView } from "./TableView";
 
-export type TableProps<TItem extends object> = {
+export type TableProps<TItem extends RowData> = {
     /**
      * Table Columns definitions.
      */
+    defaultColumn?: Partial<ColumnDef<TItem>>
     columns: ColumnDef<TItem>[];
 
     /**
      * Table data.
      */
+    dataPrimaryKye?: keyof TItem;
     data: TItem[];
 
     /**
@@ -89,6 +91,11 @@ export type TableProps<TItem extends object> = {
     columnOrderState?: ColumnOrderState;
 
     /**
+     * Row pinning state
+     */
+    rowPinningState?: RowPinningState;
+
+    /**
     * Component visible if the no item match the filter condition
     * @default defaultNoItemComponent
     */
@@ -106,6 +113,14 @@ export type TableProps<TItem extends object> = {
     views?: TableView[];
 
     /**
+     * Max height of the table
+     */
+    tableHeight?: string;
+
+    autoResetPageIndex?: boolean; 
+    onUpdateData?: (rowIndex: number, columnId: string, value: unknown) => void
+
+    /**
      * Callback when a table view is saved
      */
     onTableViewSave?: (tableView: TableView) => void;
@@ -114,4 +129,9 @@ export type TableProps<TItem extends object> = {
      * Callback when a table view is deleted
      */
     onTableViewDelete?: (tableView: TableView) => void;
+
+    /**
+     * disable table header
+     */
+    disableTableHeader?: boolean;
 };

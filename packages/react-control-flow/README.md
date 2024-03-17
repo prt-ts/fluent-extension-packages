@@ -51,7 +51,7 @@ return (
 ```
 
 ```tsx
-type ForProps<TItem extends object> = {
+type ForProps<TItem extends RowData> = {
   each: TItem[] | undefined | null;
   children: (item: TItem, index: number) => JSX.Element;
   emptyState?: ReactNode | string | null;

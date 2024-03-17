@@ -2,7 +2,7 @@
 import { IWebEnsureUserResult } from "@pnp/sp/site-users";
 import { IPagedResult } from "@pnp/graph";
 import { getGraphFi, getSP } from "../pnp";
-import { UserInfo } from "../user";
+import { UserInfo } from "../types";
 
 export type ObjectType = "user" | "group" | "both"; 
 
@@ -207,9 +207,9 @@ export const UserService = () => {
         try {
             const mappedUser = {
                 id: user.Id || user.ID,
-                name: user.DisplayName,
+                name: user.Title,
                 email: user.EMail,
-                loginName: user.Username,
+                loginName: user.UserName,
                 userType: "User",
             } as UserInfo;
 

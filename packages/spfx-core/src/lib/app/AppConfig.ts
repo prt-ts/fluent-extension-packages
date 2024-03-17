@@ -1,8 +1,9 @@
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { getGraphFi, getSP } from "../pnp";
-import { EmailConfig, EmailSettingType } from "../email"; 
+import { EmailConfig, EmailSettingType } from "../email";
 import { AppSettings } from "./AppSettings";
-import { UserInfo } from "../user";
+import { UserInfo } from "../types";
+import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 
 export default class AppContext {
     private static instance: AppContext;
@@ -10,12 +11,16 @@ export default class AppContext {
     private _context: WebPartContext | null;
     private _settings: AppSettings | null;
     private _currentUser: UserInfo | null;
+    private _appInsights: ApplicationInsights | null;
+    private _domReact: DOMRect | null;
 
     private constructor() {
         // initialize default values
         this._context = null;
         this._settings = null;
         this._currentUser = null;
+        this._appInsights = null;
+        this._domReact = null;
     }
 
     public static getInstance(): AppContext {
@@ -32,16 +37,31 @@ export default class AppContext {
         return this._context;
     }
 
-    public get settings(): AppSettings | null  {        
+    public get appInsights(): ApplicationInsights {
+        if (!this._appInsights) {
+            throw new Error("AppInsights is not initialized");
+        }
+        return this._appInsights;
+    }
+
+    public get settings(): AppSettings | null {
         return this._settings;
     }
 
-    public get currentUser(): UserInfo | null { 
+    public get currentUser(): UserInfo | null {
         return this._currentUser;
     }
 
-    public initializeAppContext = async (context: WebPartContext, siteURL?: string) => {
+    public get domRect(): DOMRect | null {
+        return this._domReact;
+    }
+
+    public initializeAppContext = async (context: WebPartContext, domElement?: HTMLElement, siteURL?: string) => {
         this._context = context;
+
+        // initialize domRect
+        const element = domElement || document.body;
+        this._domReact = element?.getBoundingClientRect();
 
         // initialize user
         const user = context.pageContext.user;
@@ -64,15 +84,35 @@ export default class AppContext {
         return this;
     }
 
-    public initializeEmailConfig = async (config: EmailSettingType) => {
+    public initializeEmailConfig = (config: EmailSettingType) => {
         const emailConfig = EmailConfig.getInstance();
         emailConfig.initializeConfig(config);
         return this;
     }
 
-    public initializeAppSettings = async <TEnv, TProps>(settings: AppSettings<TEnv, TProps>) => {
-        this._settings = settings as AppSettings;
+    public initializeAppSettings = (settings: AppSettings) => {
+        this._settings = settings;
         return this;
     }
 
+    public initializeAppInsights = async (connectionString: string) => {
+        this._appInsights = new ApplicationInsights({
+            config: {
+                connectionString: connectionString,
+                /* ...Other Configuration Options... */
+            },
+        });
+
+        await this._appInsights.loadAppInsights();
+        await this._appInsights.addTelemetryInitializer((envelope) => {
+
+            if (!envelope.tags) return;
+
+            envelope.tags["siteName"] = this.context.pageContext.web.title;
+            envelope.tags["userName"] = this.currentUser?.loginName || "";
+            envelope.tags["userEmail"] = this.currentUser?.email || "";
+            envelope.tags["userDisplayName"] = this.currentUser?.name || "";
+        });
+        await this._appInsights.trackPageView();
+    }
 }

@@ -1,89 +1,63 @@
 import * as React from 'react';
 import { useTableStaticStyles } from './useTableStaticStyles';
-import { Table } from '@tanstack/react-table';
-import { useVirtual } from 'react-virtual';
-import { TableHeader } from '../thead';
-import { Checkbox } from '@fluentui/react-components';
+import { RowData, Table } from '@tanstack/react-table'; 
+import { TableHeader } from '../thead'; 
 import { Loading } from '../loading';
 import { NoItemGrid } from '../no-item';
 import { NoSearchResult } from '../no-search-result';
 import { TableBody } from '../tbody';
+import { Case, Switch } from '@prt-ts/react-control-flow';
 
-type TableContainerProps<TItem extends object> = {
-  rowSelectionMode?: 'single' | 'multiple';
+type TableContainerProps<TItem extends RowData> = { 
   table: Table<TItem>;
   noItemPage?: React.ReactNode;
   noFilterMatchPage?: React.ReactNode;
   isLoading: boolean;
-  data: TItem[];
+  data: TItem[]; 
 };
 
-export const TableContainer = <TItem extends object>(
+export const TableContainer = <TItem extends RowData>(
   props: TableContainerProps<TItem>
 ) => {
   const styles = useTableStaticStyles();
-  const { table, rowSelectionMode } = props;
-
-  const tableContainerRef = React.useRef<HTMLDivElement>(null);
-
-  const { rows } = table.getRowModel();
-  const rowVirtualizer = useVirtual({
-    parentRef: tableContainerRef,
-    size: rows.length,
-    overscan: 5,
-  });
-  const { virtualItems: virtualRows, totalSize } = rowVirtualizer;  
+  const { table } = props; 
+  const { tableHeight, rowSelectionMode} = table.options.meta || {};
+  const tableContainerRef = React.useRef<HTMLDivElement>(null); 
+  const { rows: { length: itemLength } } = table.getRowModel();
   const headerGroups = table.getHeaderGroups();
 
   // utilities
-  const isLoading = props.isLoading && virtualRows.length === 0;
+  const isLoading = props.isLoading && itemLength === 0;
   const noItems = !isLoading && props.data?.length === 0;
-  const noSearchResult =
-    !isLoading && props?.data?.length > 0 && virtualRows.length === 0;
+  const noSearchResult = !isLoading && props?.data?.length > 0 && itemLength === 0; 
+  
 
   return (
-    <div ref={tableContainerRef} className={styles.tableContainer}>
-      <table className={styles.table} aria-label="Data Grid"> 
-        <TableHeader 
-          table={table} 
-          rowSelectionMode={rowSelectionMode} 
+    <div ref={tableContainerRef}
+      className={styles.tableContainer}
+      style={{ height: tableHeight}}
+    >
+      <table className={styles.table} aria-label="Data Grid" style={{ width: table.getTotalSize(), minWidth: "100%" }}>
+        <TableHeader
+          table={table}
+          rowSelectionMode={rowSelectionMode}
           headerGroups={headerGroups} />
 
-        <TableBody 
-          rows={rows} 
-          virtualRows={virtualRows} 
-          rowSelectionMode={rowSelectionMode} 
-          totalSize={totalSize} />
-
-        {rowSelectionMode === 'multiple' &&
-          !isLoading &&
-          !noItems &&
-          !noSearchResult && (
-            <tfoot className={styles.tFoot}>
-              <tr>
-                <td className="p-1">
-                  <Checkbox
-                    checked={
-                      table.getIsSomePageRowsSelected()
-                        ? 'mixed'
-                        : table.getIsAllPageRowsSelected()
-                    }
-                    onChange={table.getToggleAllPageRowsSelectedHandler()}
-                    aria-label="Select All Current Page Rows"
-                    title={'Select All Current Page Rows'}
-                  />
-                </td>
-                <td colSpan={20}>
-                  {table.getIsAllPageRowsSelected() ? 'Unselect' : 'Select'} All
-                  Current Page Rows ({table.getRowModel().rows.length})
-                </td>
-              </tr>
-            </tfoot>
-          )}
+        <TableBody
+          table={table}
+          tableContainerRef={tableContainerRef} />
       </table>
-      {isLoading && <Loading />}
-      {noItems && <NoItemGrid message={props.noItemPage} />}
-      {noSearchResult && <NoSearchResult message={props.noFilterMatchPage} />}
+      <Switch when={true}>
+        <Case value={isLoading}>
+          <Loading />
+        </Case>
+        <Case value={noItems}>
+          <NoItemGrid message={props.noItemPage} />
+        </Case>
+        <Case value={noSearchResult}>
+          <NoSearchResult message={props.noFilterMatchPage} />
+        </Case>
+      </Switch>
     </div>
   );
 };

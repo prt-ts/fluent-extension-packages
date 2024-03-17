@@ -7,6 +7,8 @@ import {
   ExpandedState,
   GroupingState,
   PaginationState,
+  RowData,
+  RowPinningState,
   RowSelectionState,
   SortingState,
   TableState,
@@ -20,18 +22,17 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from '@tanstack/react-table';
-import { TableProps } from '..';
-import { TableRef, TableView } from '../types';
+} from '@tanstack/react-table'; 
+import { TableProps, TableRef, TableView } from '../types';
 import * as React from 'react';
 import { arrIncludesSome, date, dateRange } from '../helpers/FilterHelpers';
-import { getLeafColumns } from '../helpers/Helpers';
+import { getLeafColumns } from '../helpers/Helpers'; 
 
-export const useGridContainer = <TItem extends object>(
+export const useGridContainer = <TItem extends RowData>(
   props: TableProps<TItem>,
   ref: React.ForwardedRef<TableRef<TItem>>
 ) => {
-  const { columns, data, rowSelectionMode } = props;
+  const { defaultColumn, columns, data, rowSelectionMode, autoResetPageIndex, onUpdateData } = props;
 
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageSize: props.pageSize || 10,
@@ -60,7 +61,7 @@ export const useGridContainer = <TItem extends object>(
       return props.columnOrderState;
     }
 
-    const leafColumns = getLeafColumns(columns as unknown as Column<TItem>[]);
+    const leafColumns = getLeafColumns(columns as Column<TItem>[]);
     return leafColumns.map((col: Column<TItem>) => col.id as string);
   });
   const [expanded, setExpanded] = React.useState<ExpandedState>(
@@ -69,9 +70,16 @@ export const useGridContainer = <TItem extends object>(
   const [columnPinning, setColumnPinning] = React.useState<ColumnPinningState>(
     props.columnPinningState ?? {}
   );
-  const [columnSizing, setColumnSizing] = React.useState<ColumnSizingState>({});
- 
+  const [columnSizing, setColumnSizing] = React.useState<ColumnSizingState>({}); 
+
+  const [rowPinning, setRowPinning] = React.useState<RowPinningState>(
+    props.rowPinningState ?? {
+      top: [],
+      bottom: [],
+    })
+
   const table = useReactTable<TItem>({
+    defaultColumn,
     columns: columns,
     data,
     filterFns: {
@@ -94,6 +102,11 @@ export const useGridContainer = <TItem extends object>(
       columnVisibility,
       columnPinning,
       columnSizing,
+      rowPinning
+    },
+    getRowId(originalRow, index, parent) {
+      const keyProps = props.dataPrimaryKye || 'id' as keyof TItem;
+      return (originalRow[keyProps] as string) || `${index}`;
     },
     columnResizeMode: 'onChange',
     enableRowSelection: rowSelectionMode !== undefined,
@@ -103,6 +116,8 @@ export const useGridContainer = <TItem extends object>(
     enableColumnFilters: true,
     filterFromLeafRows: true,
     autoResetExpanded: false,
+    autoResetPageIndex: autoResetPageIndex,
+    keepPinnedRows: true,
     onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,
     onSortingChange: setSorting,
@@ -114,6 +129,7 @@ export const useGridContainer = <TItem extends object>(
     onColumnVisibilityChange: setColumnVisibility,
     onColumnPinningChange: setColumnPinning,
     onColumnSizingChange: setColumnSizing,
+    onRowPinningChange: setRowPinning,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -122,6 +138,15 @@ export const useGridContainer = <TItem extends object>(
     getExpandedRowModel: getExpandedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
+    meta: {
+      pageSizeOptions: props.pageSizeOptions || [10, 20, 50, 100, 1000],
+      rowSelectionMode: props.rowSelectionMode,
+      tableHeight: props.tableHeight || "650px",
+
+      updateData: onUpdateData,
+      onTableViewDelete: props.onTableViewDelete,
+      onTableViewSave: props.onTableViewSave
+    }
   });
 
   const tableViews = React.useMemo<TableView[]>(() => props.views ?? [], [props.views]);
@@ -149,7 +174,7 @@ export const useGridContainer = <TItem extends object>(
       columnVisibility: props.columnVisibility ?? {},
       columnPinning: props.columnPinningState ?? {},
       columnSizing: {},
-      rowPinning: {},
+      rowPinning: props.rowPinningState ?? {},
       columnSizingInfo: {
         "startOffset": null,
         "startSize": null,
@@ -177,12 +202,15 @@ export const useGridContainer = <TItem extends object>(
       setColumnVisibility(tableState.columnVisibility ?? {});
       setColumnPinning(tableState.columnPinning ?? {});
       setColumnSizing(tableState.columnSizing ?? {});
-      
+       
       setTimeout(() => {
         setPagination(tableState.pagination ?? {
           pageSize: props.pageSize || 10,
           pageIndex: 0,
         });
+
+        setRowPinning(tableState.rowPinning);
+        
       }, 10);
       return true;
     }

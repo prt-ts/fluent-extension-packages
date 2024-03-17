@@ -3,11 +3,11 @@ import {
   PopoverTrigger,
   Button,
   PopoverSurface,
-  MenuGroupHeader,
-  Checkbox,
+  MenuGroupHeader, 
   Divider,
   Input,
   Tooltip,
+  Switch,
 } from '@fluentui/react-components';
 import * as React from 'react';
 import {
@@ -15,7 +15,7 @@ import {
   ToggleSelectColumnIcon,
 } from '../icon-components/GridIcons';
 import { useGridHeaderStyles } from './useGridHeaderStyles';
-import { Table, TableState } from '@tanstack/react-table';
+import { RowData, Table, TableState } from '@tanstack/react-table';
 import {
   Album24Regular,
   FilterDismissFilled,
@@ -24,7 +24,7 @@ import {
 import { Search24Regular } from '@fluentui/react-icons';
 import { ActionType, DrawerTableState } from '../reducer';
 
-type GridHeaderProps<TItem extends object> = {
+type GridHeaderProps<TItem extends RowData> = {
   table: Table<TItem>;
   gridTitle: JSX.Element | React.ReactNode;
   headerMenu?: JSX.Element | React.ReactNode;
@@ -37,7 +37,7 @@ type GridHeaderProps<TItem extends object> = {
   dispatch: React.Dispatch<ActionType<string>>
 };
 
-export const GridHeader = <TItem extends object>(
+export const GridHeader = <TItem extends RowData>(
   props: GridHeaderProps<TItem>
 ) => {
   const { table, gridTitle, globalFilter, setGlobalFilter, dispatch, drawerState } = props;
@@ -59,7 +59,7 @@ export const GridHeader = <TItem extends object>(
             </Tooltip>
           </PopoverTrigger>
 
-          <PopoverSurface>
+          <PopoverSurface className={styles.popoverSurface}>
             <div className={styles.tableTopHeaderColumnTogglePopover}>
               <MenuGroupHeader>Group Columns</MenuGroupHeader>
               {table.getAllLeafColumns().map((column) => {
@@ -67,7 +67,7 @@ export const GridHeader = <TItem extends object>(
                 if (column.id === 'id') return null;
 
                 return (
-                  <Checkbox
+                  <Switch 
                     key={column.id}
                     checked={column.getIsGrouped()}
                     onChange={column.getToggleGroupingHandler()}
@@ -89,10 +89,10 @@ export const GridHeader = <TItem extends object>(
             </Tooltip>
           </PopoverTrigger>
 
-          <PopoverSurface>
+          <PopoverSurface className={styles.popoverSurface}>
             <div className={styles.tableTopHeaderColumnTogglePopover}>
               <MenuGroupHeader>Toggle Columns</MenuGroupHeader>
-              <Checkbox
+              <Switch
                 checked={table.getIsAllColumnsVisible()}
                 onChange={table.getToggleAllColumnsVisibilityHandler()}
                 label={'Toggle All'}
@@ -102,7 +102,7 @@ export const GridHeader = <TItem extends object>(
                 if (column.id === 'select') return null;
 
                 return (
-                  <Checkbox
+                  <Switch
                     key={column.id}
                     checked={column.getIsVisible()}
                     onChange={column.getToggleVisibilityHandler()}

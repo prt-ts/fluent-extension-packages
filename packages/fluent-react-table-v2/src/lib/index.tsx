@@ -1,4 +1,5 @@
-import { FilterFn } from "@tanstack/react-table";
+import { FilterFn, RowData } from "@tanstack/react-table";
+import { TableProps } from "./types";
 
 declare module '@tanstack/table-core' {
     interface FilterFns {
@@ -14,7 +15,19 @@ declare module '@tanstack/react-table' {
   }
 }
 
-export { Table } from "./components";
+declare module '@tanstack/react-table' {
+  interface TableMeta<TData extends RowData> {
+    rowSelectionMode: TableProps<TData>["rowSelectionMode"],
+    pageSizeOptions:  TableProps<TData>["pageSizeOptions"],
+    tableHeight: string,
+
+    updateData?: (rowIndex: number, columnId: string, value: unknown) => void;
+    onTableViewSave?: TableProps<TData>["onTableViewSave"];
+    onTableViewDelete?: TableProps<TData>["onTableViewDelete"];
+  }
+}
+
+export { Table, useSkipper } from "./components"; 
 
 export type { TableProps, TableRef, TableView } from "./types";
 export type { TableState, ColumnDef } from '@tanstack/react-table';

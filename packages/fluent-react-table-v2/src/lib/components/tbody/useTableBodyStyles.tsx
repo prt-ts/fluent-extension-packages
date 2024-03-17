@@ -43,4 +43,25 @@ export const useTableBodyStyles = makeStyles({
         height: "35px",
     },
 
+    tBodyRowPinnedCell: {
+        backgroundColor: tokens.colorPaletteYellowBackground2,
+        ":hover": {
+            backgroundColor: tokens.colorPaletteMarigoldBackground2,
+        }
+    },
+
+    tBodyPinnedCell: {
+        backgroundColor: tokens.colorNeutralBackground3,
+        ":hover": {
+            backgroundColor: tokens.colorNeutralBackground3Hover,
+        }
+    },
+
+    tBodySelectedCell: {
+        backgroundColor: tokens.colorBrandBackground2,
+        ":hover": {
+            backgroundColor: tokens.colorBrandBackground2Hover,
+        }
+    },
+
 });
