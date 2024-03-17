@@ -129,4 +129,9 @@ export type TableProps<TItem extends RowData> = {
      * Callback when a table view is deleted
      */
     onTableViewDelete?: (tableView: TableView) => void;
+
+    /**
+     * disable table header
+     */
+    disableTableHeader?: boolean;
 };

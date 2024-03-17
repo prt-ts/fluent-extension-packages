@@ -12,7 +12,7 @@ export const useTableHeaderStyles = makeStyles({
         boxShadow: tokens.shadow2,
     },
     tHeadRow: {
-        backgroundColor: tokens.colorNeutralStroke2, 
+        backgroundColor: tokens.colorNeutralCardBackground, 
     },
     tHeadCell: {
         zIndex: 99,
@@ -24,7 +24,15 @@ export const useTableHeaderStyles = makeStyles({
     },
 
     tHeadNonLeafCell: {
-        ...shorthands.borderBottom('1px', 'solid', tokens.colorNeutralBackground1),
+        ...shorthands.borderBottom(0),
+    },
+
+    tHeadNonLeafCellFakeBorder: {
+        width: '100%',
+        height: '1px',
+        position: "sticky",
+        bottom: 0,
+        ...shorthands.borderBottom('1px', 'solid', tokens.colorNeutralBackground2Pressed),
     },
 
     tHeadCellDraggable: {
@@ -35,11 +43,12 @@ export const useTableHeaderStyles = makeStyles({
     tHeadCellDragging: {
         opacity: 0.5,
         cursor: 'grabbing',
+        
     },
 
     tHeadCellOver: {
         backgroundColor: tokens.colorNeutralStroke1,
-        ...shorthands.border(tokens.strokeWidthThin, 'dashed', tokens.colorBrandBackground2Pressed),
+        ...shorthands.border(tokens.strokeWidthThin, 'dashed', tokens.colorNeutralBackground2Pressed),
     },
 
     tLeafHeadCellContent: {
@@ -84,9 +93,9 @@ export const useTableHeaderStyles = makeStyles({
     },
 
     resizer: {
-        ...shorthands.borderRight('1px', 'solid', tokens.colorNeutralBackground1),
+        ...shorthands.borderRight('1px', 'solid', tokens.colorNeutralBackground2Pressed),
 
-        width: '8px',
+        width: '2px',
         position: 'absolute',
         top: 0,
         right: 0,
@@ -95,13 +104,13 @@ export const useTableHeaderStyles = makeStyles({
         resize: 'horizontal',
 
         ':hover': {
-            borderRightWidth: '4px',
+            borderRightWidth: '2px',
             borderRightColor: tokens.colorNeutralBackground2Pressed,
         },
     },
 
     resizerActive: {
-        borderRightWidth: '4px',
-        borderRightColor: tokens.colorNeutralBackground2Pressed,
+        borderRightWidth: '2px',
+        borderRightColor: tokens.colorNeutralBackground2Selected,
     },
 });

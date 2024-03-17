@@ -12,6 +12,7 @@ import { DndContext, DragEndEvent, KeyboardSensor, MouseSensor, PointerSensor, T
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from "@dnd-kit/sortable";
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers'
 import { RowData } from "@tanstack/react-table";
+import { Show } from "@prt-ts/react-control-flow";
 
 export function AdvancedTable<TItem extends RowData>(
   props: TableProps<TItem>,
@@ -66,16 +67,18 @@ export function AdvancedTable<TItem extends RowData>(
       onDragEnd={handleDragEnd}
       sensors={sensors}>
       <SortableContext items={columnOrder} strategy={horizontalListSortingStrategy} >
-        <GridHeader
-          table={table}
-          gridTitle={props.gridTitle}
-          headerMenu={headerMenu}
-          globalFilter={globalFilter}
-          setGlobalFilter={setGlobalFilter}
-          applyTableState={applyTableState}
-          drawerState={drawerState}
-          dispatch={dispatch}
-        />
+        <Show when={!props.disableTableHeader}>
+          <GridHeader
+            table={table}
+            gridTitle={props.gridTitle}
+            headerMenu={headerMenu}
+            globalFilter={globalFilter}
+            setGlobalFilter={setGlobalFilter}
+            applyTableState={applyTableState}
+            drawerState={drawerState}
+            dispatch={dispatch}
+          />
+        </Show>
         <div style={{ display: 'flex' }}>
           <TableContainer
             table={table}

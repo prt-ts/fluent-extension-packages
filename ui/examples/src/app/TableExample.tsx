@@ -440,7 +440,7 @@ export function TableExample() {
       <Table
         ref={tableRef}
         data={data}
-        dataPrimaryKye='firstName'
+        dataPrimaryKye='id'
         columns={columns}
         pageSize={100}
         pageSizeOptions={[10, 20, 100, 1000, 10000]}
@@ -479,6 +479,7 @@ export function TableExample() {
             prev.filter((view) => view.id !== tableView.id)
           );
         }}
+        disableTableHeader={true}
       />
     </div>
   );

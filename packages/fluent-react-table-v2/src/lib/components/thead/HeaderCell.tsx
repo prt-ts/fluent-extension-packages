@@ -89,14 +89,14 @@ export function HeaderCell<TItem extends RowData>({
 
   const styles = useTableHeaderStyles();
   const isLeafHeaders = headerDepth === totalNumberOfHeaderDepth;
-
+  
   if (header.isPlaceholder) {
-    return (
-      <th colSpan={header.colSpan}
+    return ( 
+      <th colSpan={header.colSpan} 
         className={styles.tHeadCell}
         style={{ ...dndStyle, ...getHeaderCellPinningStyles(column) }}
-        ref={setNodeRef}>
-        {header.column.getCanResize() && (
+        ref={setNodeRef}> 
+        <Show when={header.column.getCanResize()}>
           <div
             onMouseDown={header.getResizeHandler()}
             onTouchStart={header.getResizeHandler()}
@@ -104,19 +104,18 @@ export function HeaderCell<TItem extends RowData>({
               styles.resizer,
               column.getIsResizing() && styles.resizerActive
             )}
-          />
-        )}
+          /> 
+        </Show>
       </th>
     );
   }
 
   return (
     <th
-      colSpan={header.colSpan}
+      colSpan={header.colSpan} 
       className={mergeClasses(
         styles.tHeadCell,
-        isLeafHeaders || header.isPlaceholder ? undefined
-          : styles.tHeadNonLeafCell,
+        isLeafHeaders && styles.tHeadNonLeafCell,
         isDragging && styles.tHeadCellDragging
       )}
       style={{ ...dndStyle, ...getHeaderCellPinningStyles(column) }}
@@ -131,7 +130,7 @@ export function HeaderCell<TItem extends RowData>({
           }
         >
           <div>
-            {header.isPlaceholder ? null : (
+            <Show when={!header.isPlaceholder}>
               <Button
                 style={{
                   display: 'flex',
@@ -176,25 +175,25 @@ export function HeaderCell<TItem extends RowData>({
                 </strong>
 
                 {/* indicator for grouping */}
-                {header.column.getIsGrouped() && <GroupListRegular />}
+                <Show when={header.column.getIsGrouped()}>
+                  <strong><GroupListRegular /></strong>
+                </Show>
                 {/* indicator for filtering */}
-                {header.column.getIsFiltered() && (
-                  <strong>
-                    <FilterFilled />
-                  </strong>
-                )}
-
-                {header.column.getIsPinned() && <PinRegular />}
-
-                {/* {header.column.columnDef.id && header.column.getCanResize() && <Button ref={dragRef}>🟰</Button>} */}
+                <Show when={header.column.getIsFiltered()} >
+                  <strong><FilterFilled /></strong>
+                </Show>
+                {/* indicator for pinning */}
+                <Show when={header.column.getIsPinned()}>
+                  <strong><PinRegular /></strong>
+                </Show>
               </Button>
-            )}
+            </Show>
           </div>
           <HeaderMenu header={header} table={table} hideMenu={hideMenu} />
         </div>
       </div>
 
-      {header.column.getCanResize() && (
+      <Show when={header.column.getCanResize()}>
         <div
           onMouseDown={header.getResizeHandler()}
           onTouchStart={header.getResizeHandler()}
@@ -202,8 +201,11 @@ export function HeaderCell<TItem extends RowData>({
             styles.resizer,
             column.getIsResizing() && styles.resizerActive
           )}
-        />
-      )}
+        /> 
+      </Show>
+      <Show when={!isLeafHeaders}>
+        <div className={styles.tHeadNonLeafCellFakeBorder}></div>
+      </Show>
     </th>
   );
 }
@@ -342,7 +344,7 @@ function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.E
                     disabled={header.column.getIsPinned() === 'right'}
                   >
                     Pin Right
-                  </MenuItem> 
+                  </MenuItem>
                 </MenuList>
               </MenuPopover>
             </Menu>
