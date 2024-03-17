@@ -105,7 +105,7 @@ export const FilterDrawer = <TItem extends RowData>({
               if (!canFilter) return null;
 
               return (
-                <Show when={header.column.getCanFilter()}>
+                <Show when={header.column.getCanFilter()} key={header.column.id}>
                   <AccordionItem value={header.column.id} key={header.column.id}>
                     <AccordionHeader expandIconPosition='end'>
                       <Caption1Stronger>

@@ -198,12 +198,13 @@ export const useGridContainer = <TItem extends RowData>(
       setColumnVisibility(tableState.columnVisibility ?? {});
       setColumnPinning(tableState.columnPinning ?? {});
       setColumnSizing(tableState.columnSizing ?? {});
-      
+       
       setTimeout(() => {
         setPagination(tableState.pagination ?? {
           pageSize: props.pageSize || 10,
           pageIndex: 0,
         });
+        
       }, 10);
       return true;
     }
