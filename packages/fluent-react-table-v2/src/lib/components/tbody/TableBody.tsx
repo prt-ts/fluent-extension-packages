@@ -34,7 +34,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
     const rowVirtualizer = useVirtual({
         parentRef: tableContainerRef,
         size: rows.length,
-        overscan: 5,
+        overscan:10,
     });
     const { virtualItems: virtualRows, totalSize } = rowVirtualizer;
 
