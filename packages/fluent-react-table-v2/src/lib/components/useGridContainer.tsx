@@ -25,13 +25,13 @@ import { TableProps } from '..';
 import { TableRef, TableView } from '../types';
 import * as React from 'react';
 import { arrIncludesSome, date, dateRange } from '../helpers/FilterHelpers';
-import { getLeafColumns } from '../helpers/Helpers';
+import { getLeafColumns } from '../helpers/Helpers'; 
 
 export const useGridContainer = <TItem extends object>(
   props: TableProps<TItem>,
   ref: React.ForwardedRef<TableRef<TItem>>
 ) => {
-  const { columns, data, rowSelectionMode } = props;
+  const { defaultColumn, columns, data, rowSelectionMode, autoResetPageIndex, onUpdateData } = props;
 
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageSize: props.pageSize || 10,
@@ -69,9 +69,10 @@ export const useGridContainer = <TItem extends object>(
   const [columnPinning, setColumnPinning] = React.useState<ColumnPinningState>(
     props.columnPinningState ?? {}
   );
-  const [columnSizing, setColumnSizing] = React.useState<ColumnSizingState>({});
- 
+  const [columnSizing, setColumnSizing] = React.useState<ColumnSizingState>({}); 
+
   const table = useReactTable<TItem>({
+    defaultColumn,
     columns: columns,
     data,
     filterFns: {
@@ -103,6 +104,7 @@ export const useGridContainer = <TItem extends object>(
     enableColumnFilters: true,
     filterFromLeafRows: true,
     autoResetExpanded: false,
+    autoResetPageIndex,
     onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,
     onSortingChange: setSorting,
@@ -122,6 +124,9 @@ export const useGridContainer = <TItem extends object>(
     getExpandedRowModel: getExpandedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
+    meta: {
+      updateData: onUpdateData
+    }
   });
 
   const tableViews = React.useMemo<TableView[]>(() => props.views ?? [], [props.views]);

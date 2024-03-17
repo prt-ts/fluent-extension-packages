@@ -1,6 +1,7 @@
+import * as React from "react";
 import { createRef, useEffect, useState } from 'react';
 import { Person, makeData } from './data/data';
-import { Button, Field, Radio, RadioGroup } from '@fluentui/react-components';
+import { Button, Field, Input, Radio, RadioGroup } from '@fluentui/react-components';
 import { EditRegular, DeleteRegular } from '@fluentui/react-icons';
 import {
   ColumnDef,
@@ -9,9 +10,9 @@ import {
   TableState,
   TableView,
   createColumnHelper,
+  useSkipper,
 } from '@prt-ts/fluent-react-table-v2';
-import { useNavigate } from 'react-router-dom';
-import * as React from "react";
+import { useNavigate } from 'react-router-dom'; 
 import {
   FontIncrease24Regular,
   FontDecrease24Regular,
@@ -30,6 +31,11 @@ import {
 } from "@fluentui/react-components";
 import { tableViews as views } from './data/tableView';
 import { ColumnPinningState } from '@tanstack/react-table';
+
+const ColumnIdAccessMapping = {
+  "First Name" : "firstName",
+  "Last Name" : "lastName" 
+}
 
 export function TableExample2() {
   const navigate = useNavigate();
@@ -55,6 +61,34 @@ export function TableExample2() {
     console.log(tableState);
   };
 
+  // Give our default column cell renderer editing superpowers!
+  const defaultColumn: Partial<ColumnDef<Person>> = {
+    cell: ({ getValue, row: { index }, column: { id }, table }) => {
+      const initialValue = getValue()
+      // We need to keep and update the state of the cell normally
+      const [value, setValue] = React.useState(initialValue)
+
+      // When the input is blurred, we'll call our table meta's updateData function
+      const onBlur = () => {
+        table.options.meta?.updateData(index, id, value)
+      }
+
+      // If the initialValue is changed external, sync it up with our state
+      React.useEffect(() => {
+        setValue(initialValue)
+      }, [initialValue])
+
+      return (
+        <Input
+          value={value as string}
+          onChange={(e, data) => setValue(data.value)}
+          onBlur={onBlur}
+          appearance="filled-lighter"
+        />
+      )
+    },
+  }
+
   const saveCurrentTableState = () => {
     const tableState = tableRef.current?.getTableState();
     localStorage.setItem('view1', JSON.stringify(tableState));
@@ -76,6 +110,24 @@ export function TableExample2() {
     console.log(tableState);
   };
 
+  const [autoResetPageIndex, skipAutoResetPageIndex] = useSkipper();
+  const onUpdateDate = (rowIndex, columnId, value) => {
+    // Skip page index reset until after next rerender
+    console.log(rowIndex, columnId, value)
+    skipAutoResetPageIndex()
+    setData(old =>
+      ([...old]).map((row, index) => {
+        if (index === rowIndex) {
+          const accessor = ColumnIdAccessMapping[columnId] ?? columnId
+          return {
+            ...old[rowIndex]!,
+            [accessor]: value,
+          }
+        }
+        return row
+      })
+    )
+  }
 
 
   const columns = [
@@ -120,12 +172,10 @@ export function TableExample2() {
     columnHelper.accessor('firstName', {
       id: 'First Name',
       header: () => 'First Name',
-      cell: (info) => info.getValue(),
       filterFnDefinition: () => 'firstName',
     }),
     columnHelper.accessor((row) => row.lastName, {
-      id: 'Last Name',
-      cell: (info) => <i>{info.getValue()}</i>,
+      id: 'Last Name', 
       header: () => <span>Last Name</span>,
       aggregatedCell: () => null,
     }),
@@ -276,8 +326,11 @@ export function TableExample2() {
         </RadioGroup>
       </Field>
       <Table
+        autoResetPageIndex={autoResetPageIndex}
+        onUpdateData={onUpdateDate}
         ref={tableRef}
         data={data}
+        // defaultColumn={defaultColumn}
         columns={columns}
         pageSize={100}
         pageSizeOptions={[10, 20, 100, 1000, 10000]}
@@ -386,3 +439,5 @@ export const TopToolbar: React.FC<{
       </Toolbar></>
   );
 }
+
+

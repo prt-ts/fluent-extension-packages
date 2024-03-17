@@ -6,6 +6,7 @@ export type TableProps<TItem extends object> = {
     /**
      * Table Columns definitions.
      */
+    defaultColumn?: Partial<ColumnDef<TItem>>
     columns: ColumnDef<TItem>[];
 
     /**
@@ -109,6 +110,9 @@ export type TableProps<TItem extends object> = {
      * Max height of the table
      */
     tableHeight?: string;
+
+    autoResetPageIndex?: boolean; 
+    onUpdateData?: (rowIndex: number, columnId: string, value: unknown) => void
 
     /**
      * Callback when a table view is saved

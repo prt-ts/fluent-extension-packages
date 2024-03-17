@@ -16,7 +16,7 @@ export const AppRoot: React.FC = () => {
   const [theme, setTheme] = React.useState(teamsLightTheme);
 
   React.useEffect(() => {
-    getTheme('#751d1f').then(setTheme).catch(console.error);
+    getTheme('#751d1f', false, 0.8).then(setTheme).catch(console.error);
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import { FilterFn } from "@tanstack/react-table";
+import { FilterFn, RowData } from "@tanstack/react-table";
 
 declare module '@tanstack/table-core' {
     interface FilterFns {
@@ -14,7 +14,13 @@ declare module '@tanstack/react-table' {
   }
 }
 
-export { Table } from "./components";
+declare module '@tanstack/react-table' {
+  interface TableMeta<TData extends RowData> {
+    updateData?: (rowIndex: number, columnId: string, value: unknown) => void
+  }
+}
+
+export { Table, useSkipper } from "./components"; 
 
 export type { TableProps, TableRef, TableView } from "./types";
 export type { TableState, ColumnDef } from '@tanstack/react-table';
