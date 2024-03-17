@@ -1,3 +1,4 @@
+import { tokens } from "@fluentui/react-components"
 import { Column, RowData } from "@tanstack/react-table"
 import { CSSProperties } from "react"
 
@@ -20,6 +21,7 @@ export const getHeaderCellPinningStyles = <TItem extends RowData>(column: Column
     position: isPinned ? 'sticky' : 'relative',
     width: column.getSize(),
     zIndex: isPinned ? 99 : 1,
+    backgroundColor: tokens.colorNeutralBackground2Pressed,
 
   }
   return styles;
