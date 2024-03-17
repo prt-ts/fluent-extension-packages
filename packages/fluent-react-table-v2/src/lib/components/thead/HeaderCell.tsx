@@ -1,6 +1,7 @@
 
 import {
   Header,
+  RowData,
   Table,
   flexRender,
 } from "@tanstack/react-table";
@@ -44,7 +45,7 @@ import { getCommonPinningStyles } from "../../helpers/StylesHelper";
 const SortAscIcon = bundleIcon(ArrowSortDown20Filled, ArrowSortDown20Regular);
 const SortDescIcon = bundleIcon(ArrowSortUp20Filled, ArrowSortUp20Regular);
 
-type HeaderCellProps<TItem extends object> = {
+type HeaderCellProps<TItem extends RowData> = {
   header: Header<TItem, unknown>;
   table: Table<TItem>;
   hideMenu?: boolean;
@@ -52,7 +53,7 @@ type HeaderCellProps<TItem extends object> = {
   totalNumberOfHeaderDepth: number;
 };
 
-export function HeaderCell<TItem extends object>({
+export function HeaderCell<TItem extends RowData>({
   header,
   table,
   hideMenu,
@@ -204,13 +205,13 @@ export function HeaderCell<TItem extends object>({
   );
 }
 
-type HeaderMenuProps<TItem extends object> = {
+type HeaderMenuProps<TItem extends RowData> = {
   header: Header<TItem, unknown>;
   table: Table<TItem>;
   hideMenu?: boolean;
 };
 
-function HeaderMenu<TItem extends object>(props: HeaderMenuProps<TItem>): JSX.Element {
+function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.Element {
 
   const { header, table, hideMenu } = props;
   const styles = useTableHeaderStyles();

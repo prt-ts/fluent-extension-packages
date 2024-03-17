@@ -1,8 +1,8 @@
 import * as React from "react";
-import { ColumnDef, ColumnFiltersState, ColumnOrderState, ColumnPinningState, ExpandedState, GroupingState, RowPinningState, RowSelectionState, SortingState, VisibilityState } from "@tanstack/react-table";
+import { ColumnDef, ColumnFiltersState, ColumnOrderState, ColumnPinningState, ExpandedState, GroupingState, RowData, RowPinningState, RowSelectionState, SortingState, VisibilityState } from "@tanstack/react-table";
 import { TableView } from "./TableView";
 
-export type TableProps<TItem extends object> = {
+export type TableProps<TItem extends RowData> = {
     /**
      * Table Columns definitions.
      */

@@ -1,5 +1,5 @@
 import { Button, Dropdown, Input, Option, useId } from "@fluentui/react-components";
-import { Table } from "@tanstack/react-table";
+import { RowData, Table } from "@tanstack/react-table";
 import { usePaginationStyle } from "./usePaginationStyles";
 import {
   ArrowNextFilled,
@@ -9,7 +9,7 @@ import {
 } from "@fluentui/react-icons";
 import { useMemo } from "react";
 
-type PaginationProps<TItem extends object> = {
+type PaginationProps<TItem extends RowData> = {
   table: Table<TItem>;
   pageSizeOptions?: number[];
 };
@@ -21,7 +21,7 @@ const range = (from: number, to: number, step = 1): number[] =>
 
 const DEFAULT_NUMBER_OF_PAGE_BTN = 5;
 
-export const Pagination = <TItem extends object>(
+export const Pagination = <TItem extends RowData>(
   props: PaginationProps<TItem>
 ) => {
   const { table, pageSizeOptions = [10, 20, 50, 100, 1000] } = props;

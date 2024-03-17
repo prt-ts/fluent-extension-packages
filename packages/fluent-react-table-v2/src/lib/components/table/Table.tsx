@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useTableStaticStyles } from './useTableStaticStyles';
-import { Table } from '@tanstack/react-table';
-import { useVirtual } from 'react-virtual';
+import { RowData, Table } from '@tanstack/react-table'; 
 import { TableHeader } from '../thead'; 
 import { Loading } from '../loading';
 import { NoItemGrid } from '../no-item';
@@ -9,7 +8,7 @@ import { NoSearchResult } from '../no-search-result';
 import { TableBody } from '../tbody';
 import { Case, Switch } from '@prt-ts/react-control-flow';
 
-type TableContainerProps<TItem extends object> = {
+type TableContainerProps<TItem extends RowData> = {
   rowSelectionMode?: 'single' | 'multiple';
   table: Table<TItem>;
   noItemPage?: React.ReactNode;
@@ -19,25 +18,24 @@ type TableContainerProps<TItem extends object> = {
   tableHeight: string;
 };
 
-export const TableContainer = <TItem extends object>(
+export const TableContainer = <TItem extends RowData>(
   props: TableContainerProps<TItem>
 ) => {
   const styles = useTableStaticStyles();
   const { table, rowSelectionMode } = props; 
   const tableContainerRef = React.useRef<HTMLDivElement>(null); 
-  const {rows} = table.getRowModel(); 
+  const { rows: { length: itemLength } } = table.getRowModel();
   const headerGroups = table.getHeaderGroups();
 
   // utilities
-  const isLoading = props.isLoading && rows.length === 0;
+  const isLoading = props.isLoading && itemLength === 0;
   const noItems = !isLoading && props.data?.length === 0;
-  const noSearchResult =
-    !isLoading && props?.data?.length > 0 && rows.length === 0;
+  const noSearchResult = !isLoading && props?.data?.length > 0 && itemLength === 0;
 
   return (
     <div ref={tableContainerRef}
       className={styles.tableContainer}
-      style={{ height: props.tableHeight || "650px" }}
+      style={{ height: props.tableHeight}}
     >
       <table className={styles.table} aria-label="Data Grid" style={{ width: table.getTotalSize(), minWidth: "100%" }}>
         <TableHeader

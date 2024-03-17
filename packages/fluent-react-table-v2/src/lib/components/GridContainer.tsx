@@ -11,9 +11,9 @@ import { tableReducer } from "./reducer";
 import { DndContext, DragEndEvent, KeyboardSensor, MouseSensor, PointerSensor, TouchSensor, closestCenter, useSensor, useSensors } from "@dnd-kit/core";
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from "@dnd-kit/sortable";
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers'
+import { RowData } from "@tanstack/react-table";
 
-
-export function AdvancedTable<TItem extends object>(
+export function AdvancedTable<TItem extends RowData>(
   props: TableProps<TItem>,
   ref: React.ForwardedRef<TableRef<TItem>>
 ) {
@@ -60,7 +60,8 @@ export function AdvancedTable<TItem extends object>(
   )
 
   return (
-    <DndContext collisionDetection={closestCenter}
+    <DndContext 
+      collisionDetection={closestCenter}
       modifiers={[restrictToHorizontalAxis]}
       onDragEnd={handleDragEnd}
       sensors={sensors}>
@@ -78,7 +79,7 @@ export function AdvancedTable<TItem extends object>(
         <div style={{ display: 'flex' }}>
           <TableContainer
             table={table}
-            data={props.data}
+            data={props.data as any}
             isLoading={props.isLoading || false}
             rowSelectionMode={props.rowSelectionMode}
             noFilterMatchPage={props.noFilterMatchPage}
@@ -100,8 +101,7 @@ export function AdvancedTable<TItem extends object>(
             onTableViewSave={props.onTableViewSave}
             onTableViewDelete={props.onTableViewDelete}
           />
-        </div>
-
+        </div> 
         <Pagination table={table} pageSizeOptions={props.pageSizeOptions} />
       </SortableContext>
     </DndContext>
@@ -109,7 +109,7 @@ export function AdvancedTable<TItem extends object>(
 }
 
 export const ForwardedAdvancedTable = React.forwardRef(AdvancedTable) as <
-  TItem extends object
+  TItem extends RowData
 >(
   props: TableProps<TItem> & { ref?: React.ForwardedRef<TableRef<TItem>> }
 ) => React.ReactElement<

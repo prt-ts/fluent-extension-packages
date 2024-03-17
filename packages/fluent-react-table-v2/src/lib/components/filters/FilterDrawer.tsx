@@ -11,7 +11,7 @@ import {
   DrawerFooter, 
 } from '@fluentui/react-components';
 import { Dismiss24Regular } from '@fluentui/react-icons';
-import { Table, flexRender } from '@tanstack/react-table';
+import { RowData, Table, flexRender } from '@tanstack/react-table';
 import { Filter } from './Filter';
 import { ActionType, DrawerTableState } from '../reducer';
 import { ClearFilterIcon } from '../icon-components/GridIcons';
@@ -49,13 +49,13 @@ const useFilterDrawerStyles = makeStyles({
   },
 });
 
-type FilterDrawerProps<TItem extends object> = {
+type FilterDrawerProps<TItem extends RowData> = {
   drawerState: DrawerTableState,
   dispatch: React.Dispatch<ActionType<string>>
   table: Table<TItem>;
 };
 
-export const FilterDrawer = <TItem extends object>({
+export const FilterDrawer = <TItem extends RowData>({
   drawerState,
   dispatch,
   table

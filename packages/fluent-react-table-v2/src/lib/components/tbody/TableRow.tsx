@@ -1,17 +1,17 @@
 import { Checkbox, Radio } from '@fluentui/react-components';
-import { Row } from '@tanstack/react-table';
+import { Row, RowData } from '@tanstack/react-table';
 import { useTableBodyStyles } from './useTableBodyStyles';
 import { TableProps } from '../../types';
 import { TableCell } from './TableCell';
 import { Case, Switch } from '@prt-ts/react-control-flow';
 
-type TableRowProps<TItem extends object> = {
+type TableRowProps<TItem extends RowData> = {
   row: Row<TItem>;
   rowSelectionMode?: TableProps<TItem>['rowSelectionMode'];
   bottomRowLength?: number;
 }
 
-export function TableRow<TItem extends object>({ row, rowSelectionMode }: TableRowProps<TItem>) {
+export function TableRow<TItem extends RowData>({ row, rowSelectionMode }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
 
   return (
@@ -62,7 +62,7 @@ export function TableRow<TItem extends object>({ row, rowSelectionMode }: TableR
   );
 }
 
-export function PinnedRow<TItem extends object>({ row, rowSelectionMode, bottomRowLength }: TableRowProps<TItem>) {
+export function PinnedRow<TItem extends RowData>({ row, rowSelectionMode, bottomRowLength }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
   return (
     <tr

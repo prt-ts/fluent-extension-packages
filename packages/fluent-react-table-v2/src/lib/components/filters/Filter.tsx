@@ -1,4 +1,4 @@
-import { Column, Table } from '@tanstack/react-table';
+import { Column, RowData, Table } from '@tanstack/react-table';
 import { FilterMultiSelectCheckbox } from './FilterMultiSelectCheckbox';
 import { Field, Input, makeStyles } from '@fluentui/react-components';
 import { FilterSelectRadio } from './FilterSelectRadio';
@@ -22,7 +22,7 @@ const useFilterStyles = makeStyles({
   },
 });
 
-export const Filter = <TItem extends object>({
+export const Filter = <TItem extends RowData>({
   column,
   table,
 }: {

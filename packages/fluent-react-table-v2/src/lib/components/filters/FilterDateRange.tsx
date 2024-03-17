@@ -3,10 +3,10 @@ import {
   makeStyles,
 } from '@fluentui/react-components';
 import { DatePicker, DatePickerProps } from '@fluentui/react-datepicker-compat';
-import { Column, Table } from '@tanstack/react-table';
+import { Column, RowData, Table } from '@tanstack/react-table';
 import React from 'react';
 
-type FilterNumberRangeProps<TItem extends object> = {
+type FilterNumberRangeProps<TItem extends RowData> = {
   column: Column<TItem, unknown>;
   table: Table<TItem>;
 };
@@ -28,7 +28,7 @@ const useNumberRangeFilterStyles = makeStyles({
   },
 });
 
-export const FilterDateRange = <TItem extends object>(
+export const FilterDateRange = <TItem extends RowData>(
   props: FilterNumberRangeProps<TItem>
 ) => {
   const { column } = props;
@@ -42,7 +42,7 @@ export const FilterDateRange = <TItem extends object>(
     if(!date) {
       column.setFilterValue((old: [Date, Date]) => [undefined, old?.[1]]);
       return;
-    };
+    }
     column.setFilterValue((old: [Date, Date]) => [date, old?.[1]]);
   };
 
@@ -50,7 +50,7 @@ export const FilterDateRange = <TItem extends object>(
     if(!date) {
       column.setFilterValue((old: [Date, Date]) => [old?.[0], undefined]);
       return;
-    };
+    }
     column.setFilterValue((old: [Date, Date]) => [old?.[0], date]);
   };
 

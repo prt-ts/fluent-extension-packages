@@ -1,5 +1,5 @@
 import { Button, mergeClasses } from '@fluentui/react-components';
-import { Cell, Row, flexRender } from '@tanstack/react-table'; 
+import { Cell, Row, RowData, flexRender } from '@tanstack/react-table'; 
 import { GroupCollapsedIcon, GroupExpandedIcon } from '../icon-components/GridIcons';
 import { useTableBodyStyles } from './useTableBodyStyles';
 import { useSortable } from '@dnd-kit/sortable';
@@ -7,12 +7,12 @@ import { CSS } from '@dnd-kit/utilities'
 import { CSSProperties } from 'react';
 import { getCommonPinningStyles } from '../../helpers/StylesHelper';
 
-type TableCellProps<TItem extends object> = {
+type TableCellProps<TItem extends RowData> = {
     cell: Cell<TItem, unknown>;
     row: Row<TItem>;
 }
 
-export function TableCell<TItem extends object>({ cell, row } : TableCellProps<TItem>){
+export function TableCell<TItem extends RowData>({ cell, row } : TableCellProps<TItem>){
     const styles = useTableBodyStyles(); 
     const isSelected = row.getIsSelected();  
 

@@ -16,7 +16,7 @@ import {
 } from '@fluentui/react-components';
 import { Dismiss24Regular, ViewDesktop20Filled, ViewDesktop20Regular } from '@fluentui/react-icons';
 import { TableProps, TableView } from '../../types';
-import { Table, TableState } from '@tanstack/react-table';
+import { RowData, Table, TableState } from '@tanstack/react-table';
 import { ClearFilterIcon } from '../icon-components/GridIcons';
 import { ViewSaveForm } from './ViewSaveForm';
 import { ActionType, DrawerTableState } from '../reducer';
@@ -53,7 +53,7 @@ const useFilterDrawerStyles = makeStyles({
   },
 });
 
-type ViewsDrawerProps<TItem extends object> = {
+type ViewsDrawerProps<TItem extends RowData> = {
   drawerState: DrawerTableState,
   dispatch: React.Dispatch<ActionType<string>>
   table: Table<TItem>;
@@ -64,7 +64,7 @@ type ViewsDrawerProps<TItem extends object> = {
   onTableViewDelete?: TableProps<TItem>['onTableViewDelete'];
 };
 
-export const ViewsDrawer = <TItem extends object>(props: ViewsDrawerProps<TItem>) => {
+export const ViewsDrawer = <TItem extends RowData>(props: ViewsDrawerProps<TItem>) => {
 
   const { table, drawerState, dispatch, tableViews, applyTableState, resetToGridDefaultView, onTableViewSave } = props;
   const styles = useFilterDrawerStyles();

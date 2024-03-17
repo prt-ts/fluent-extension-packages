@@ -1,4 +1,4 @@
-import { Table } from '@tanstack/react-table';
+import { RowData, Table } from '@tanstack/react-table';
 import { useTableBodyStyles } from './useTableBodyStyles';
 import { TableProps } from '../../types';
 import { PinnedRow, TableRow } from './TableRow';
@@ -6,13 +6,13 @@ import { useVirtual } from 'react-virtual';
 import { Checkbox } from '@fluentui/react-components';
 import { Show } from "@prt-ts/react-control-flow";
 
-type TableBodyProps<TItem extends object> = {
+type TableBodyProps<TItem extends RowData> = {
     table: Table<TItem>;
     tableContainerRef: React.RefObject<HTMLDivElement>
     rowSelectionMode?: TableProps<TItem>['rowSelectionMode'];
 }
 
-export function TableBody<TItem extends object>(props: TableBodyProps<TItem>) {
+export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
     const styles = useTableBodyStyles();
 
     const { table, tableContainerRef } = props;

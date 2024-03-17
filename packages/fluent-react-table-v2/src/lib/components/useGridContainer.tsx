@@ -7,6 +7,7 @@ import {
   ExpandedState,
   GroupingState,
   PaginationState,
+  RowData,
   RowPinningState,
   RowSelectionState,
   SortingState,
@@ -21,14 +22,13 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from '@tanstack/react-table';
-import { TableProps } from '..';
-import { TableRef, TableView } from '../types';
+} from '@tanstack/react-table'; 
+import { TableProps, TableRef, TableView } from '../types';
 import * as React from 'react';
 import { arrIncludesSome, date, dateRange } from '../helpers/FilterHelpers';
 import { getLeafColumns } from '../helpers/Helpers'; 
 
-export const useGridContainer = <TItem extends object>(
+export const useGridContainer = <TItem extends RowData>(
   props: TableProps<TItem>,
   ref: React.ForwardedRef<TableRef<TItem>>
 ) => {
@@ -61,7 +61,7 @@ export const useGridContainer = <TItem extends object>(
       return props.columnOrderState;
     }
 
-    const leafColumns = getLeafColumns(columns as unknown as Column<TItem>[]);
+    const leafColumns = getLeafColumns(columns as Column<TItem>[]);
     return leafColumns.map((col: Column<TItem>) => col.id as string);
   });
   const [expanded, setExpanded] = React.useState<ExpandedState>(
@@ -135,7 +135,9 @@ export const useGridContainer = <TItem extends object>(
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     meta: {
-      updateData: onUpdateData
+      updateData: onUpdateData,
+      rowSelectionMode: props.rowSelectionMode,
+      tableHeight: props.tableHeight || "650px"
     }
   });
 

@@ -1,5 +1,5 @@
 import { Input, Radio, RadioGroup, makeStyles, shorthands } from "@fluentui/react-components";
-import { Column, Table } from "@tanstack/react-table";
+import { Column, RowData, Table } from "@tanstack/react-table";
 import { useVirtualizer } from '@tanstack/react-virtual';
 import * as React from "react"
 
@@ -38,7 +38,7 @@ const useRadioFilterStyles = makeStyles({
   },
 });
 
-export const FilterSelectRadio = <TItem extends object>({
+export const FilterSelectRadio = <TItem extends RowData>({
   column,
   table,
 }: {
