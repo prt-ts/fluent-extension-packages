@@ -62,9 +62,10 @@ export const UserService = () => {
                 const allGroupAndUser = [
                     ...(users?.value || [])?.map((user) => {
                         {
+                            const displayName = formatName(user.displayName);
                             return {
                                 id: user.id,
-                                name: user.displayName,
+                                name: displayName,
                                 email: user.mail,
                                 loginName: user.userPrincipalName,
                                 userType: "User",
@@ -225,6 +226,20 @@ export const UserService = () => {
         return users.map((user) => mapUserFromSPList(user));
     };
 
+    const formatName = (displayName: string, outputFormat: string = `{firstName} {lastName}`): string => {
+        try {
+            const name = displayName?.split(" (")?.[0];
+            const [firstName, lastName] = name?.split(", ");
+            return outputFormat
+                .replace("{firstName}", (firstName || ''))
+                .replace("{lastName}", (lastName || ''));
+
+        } catch (error) {
+            console.error(error);
+            return displayName;
+        }
+    }
+
     return {
         searchUsers,
         getCurrentUserGroups,
@@ -233,9 +248,9 @@ export const UserService = () => {
         getUserFromSecurityGroup,
         getUserFromListField,
 
-
         mapUserFromSPList,
         mapUsersFromSPList,
+        formatName
     };
 };
 
