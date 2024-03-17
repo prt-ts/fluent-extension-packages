@@ -137,7 +137,10 @@ export const useGridContainer = <TItem extends RowData>(
     meta: {
       updateData: onUpdateData,
       rowSelectionMode: props.rowSelectionMode,
-      tableHeight: props.tableHeight || "650px"
+      tableHeight: props.tableHeight || "650px",
+
+      onTableViewDelete: props.onTableViewDelete,
+      onTableViewSave: props.onTableViewSave
     }
   });
 

@@ -1,6 +1,5 @@
 import { RowData, Table } from '@tanstack/react-table';
-import { useTableBodyStyles } from './useTableBodyStyles';
-import { TableProps } from '../../types';
+import { useTableBodyStyles } from './useTableBodyStyles'; 
 import { PinnedRow, TableRow } from './TableRow';
 import { useVirtual } from 'react-virtual';
 import { Checkbox } from '@fluentui/react-components';
@@ -8,16 +7,15 @@ import { Show } from "@prt-ts/react-control-flow";
 
 type TableBodyProps<TItem extends RowData> = {
     table: Table<TItem>;
-    tableContainerRef: React.RefObject<HTMLDivElement>
-    rowSelectionMode?: TableProps<TItem>['rowSelectionMode'];
+    tableContainerRef: React.RefObject<HTMLDivElement> 
 }
 
 export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
     const styles = useTableBodyStyles();
 
     const { table, tableContainerRef } = props;
-
-    const { rowSelectionMode } = props;
+    const rowSelectionMode = table.options.meta?.rowSelectionMode;
+ 
     const rows = table.getCenterRows();
     const topRows = table.getTopRows();
     const bottomRows = table.getBottomRows();

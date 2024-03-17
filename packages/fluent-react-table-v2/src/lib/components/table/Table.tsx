@@ -8,21 +8,20 @@ import { NoSearchResult } from '../no-search-result';
 import { TableBody } from '../tbody';
 import { Case, Switch } from '@prt-ts/react-control-flow';
 
-type TableContainerProps<TItem extends RowData> = {
-  rowSelectionMode?: 'single' | 'multiple';
+type TableContainerProps<TItem extends RowData> = { 
   table: Table<TItem>;
   noItemPage?: React.ReactNode;
   noFilterMatchPage?: React.ReactNode;
   isLoading: boolean;
-  data: TItem[];
-  tableHeight: string;
+  data: TItem[]; 
 };
 
 export const TableContainer = <TItem extends RowData>(
   props: TableContainerProps<TItem>
 ) => {
   const styles = useTableStaticStyles();
-  const { table, rowSelectionMode } = props; 
+  const { table } = props; 
+  const { tableHeight, rowSelectionMode} = table.options.meta || {};
   const tableContainerRef = React.useRef<HTMLDivElement>(null); 
   const { rows: { length: itemLength } } = table.getRowModel();
   const headerGroups = table.getHeaderGroups();
@@ -30,12 +29,13 @@ export const TableContainer = <TItem extends RowData>(
   // utilities
   const isLoading = props.isLoading && itemLength === 0;
   const noItems = !isLoading && props.data?.length === 0;
-  const noSearchResult = !isLoading && props?.data?.length > 0 && itemLength === 0;
+  const noSearchResult = !isLoading && props?.data?.length > 0 && itemLength === 0; 
+  
 
   return (
     <div ref={tableContainerRef}
       className={styles.tableContainer}
-      style={{ height: props.tableHeight}}
+      style={{ height: tableHeight}}
     >
       <table className={styles.table} aria-label="Data Grid" style={{ width: table.getTotalSize(), minWidth: "100%" }}>
         <TableHeader
@@ -45,8 +45,7 @@ export const TableContainer = <TItem extends RowData>(
 
         <TableBody
           table={table}
-          tableContainerRef={tableContainerRef}
-          rowSelectionMode={rowSelectionMode} />
+          tableContainerRef={tableContainerRef} />
       </table>
       <Switch when={true}>
         <Case value={isLoading}>

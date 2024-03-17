@@ -79,12 +79,10 @@ export function AdvancedTable<TItem extends RowData>(
         <div style={{ display: 'flex' }}>
           <TableContainer
             table={table}
-            data={props.data as any}
-            isLoading={props.isLoading || false}
-            rowSelectionMode={props.rowSelectionMode}
+            data={props.data}
+            isLoading={props.isLoading || false} 
             noFilterMatchPage={props.noFilterMatchPage}
-            noItemPage={props.noItemPage}
-            tableHeight={props.tableHeight || "650px"}
+            noItemPage={props.noItemPage} 
           />
           <FilterDrawer
             drawerState={drawerState}
