@@ -1,4 +1,4 @@
-import { RowData, Table } from '@tanstack/react-table';
+import { Row, RowData, Table } from '@tanstack/react-table';
 import { useTableBodyStyles } from './useTableBodyStyles';
 import { PinnedRow, TableRow } from './TableRow';
 import { useVirtual } from 'react-virtual';
@@ -16,9 +16,20 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
     const { table, tableContainerRef } = props;
     const rowSelectionMode = table.options.meta?.rowSelectionMode;
 
-    const rows = table.getCenterRows();
-    const topRows = table.getTopRows();
-    const bottomRows = table.getBottomRows();
+    let rows : Row<TItem>[] = [];
+    let topRows: Row<TItem>[] = [];
+    let bottomRows : Row<TItem>[] = [];
+
+    try {
+        rows = table.getCenterRows();
+        topRows = table.getTopRows();
+        bottomRows = table.getBottomRows();
+        
+    } catch (error) {
+        rows = [];
+        topRows = [];
+        bottomRows = [];
+    }
 
     const rowVirtualizer = useVirtual({
         parentRef: tableContainerRef,

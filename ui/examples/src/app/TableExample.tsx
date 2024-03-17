@@ -440,6 +440,7 @@ export function TableExample() {
       <Table
         ref={tableRef}
         data={data}
+        dataPrimaryKye='firstName'
         columns={columns}
         pageSize={100}
         pageSizeOptions={[10, 20, 100, 1000, 10000]}

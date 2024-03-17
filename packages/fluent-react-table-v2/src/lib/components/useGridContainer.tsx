@@ -104,6 +104,9 @@ export const useGridContainer = <TItem extends RowData>(
       columnSizing,
       rowPinning
     },
+    getRowId(originalRow, index, parent) {
+      return (props.dataPrimaryKye ? (originalRow as any)[props.dataPrimaryKye] : (originalRow as any).id);
+    },
     columnResizeMode: 'onChange',
     enableRowSelection: rowSelectionMode !== undefined,
     enableMultiRowSelection: rowSelectionMode === 'multiple',
@@ -204,6 +207,8 @@ export const useGridContainer = <TItem extends RowData>(
           pageSize: props.pageSize || 10,
           pageIndex: 0,
         });
+
+        setRowPinning(tableState.rowPinning);
         
       }, 10);
       return true;
