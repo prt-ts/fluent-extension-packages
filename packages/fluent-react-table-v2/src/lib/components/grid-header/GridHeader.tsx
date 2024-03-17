@@ -3,11 +3,11 @@ import {
   PopoverTrigger,
   Button,
   PopoverSurface,
-  MenuGroupHeader,
-  Checkbox,
+  MenuGroupHeader, 
   Divider,
   Input,
   Tooltip,
+  Switch,
 } from '@fluentui/react-components';
 import * as React from 'react';
 import {
@@ -59,7 +59,7 @@ export const GridHeader = <TItem extends RowData>(
             </Tooltip>
           </PopoverTrigger>
 
-          <PopoverSurface>
+          <PopoverSurface className={styles.popoverSurface}>
             <div className={styles.tableTopHeaderColumnTogglePopover}>
               <MenuGroupHeader>Group Columns</MenuGroupHeader>
               {table.getAllLeafColumns().map((column) => {
@@ -67,7 +67,7 @@ export const GridHeader = <TItem extends RowData>(
                 if (column.id === 'id') return null;
 
                 return (
-                  <Checkbox
+                  <Switch 
                     key={column.id}
                     checked={column.getIsGrouped()}
                     onChange={column.getToggleGroupingHandler()}
@@ -89,10 +89,10 @@ export const GridHeader = <TItem extends RowData>(
             </Tooltip>
           </PopoverTrigger>
 
-          <PopoverSurface>
+          <PopoverSurface className={styles.popoverSurface}>
             <div className={styles.tableTopHeaderColumnTogglePopover}>
               <MenuGroupHeader>Toggle Columns</MenuGroupHeader>
-              <Checkbox
+              <Switch
                 checked={table.getIsAllColumnsVisible()}
                 onChange={table.getToggleAllColumnsVisibilityHandler()}
                 label={'Toggle All'}
@@ -102,7 +102,7 @@ export const GridHeader = <TItem extends RowData>(
                 if (column.id === 'select') return null;
 
                 return (
-                  <Checkbox
+                  <Switch
                     key={column.id}
                     checked={column.getIsVisible()}
                     onChange={column.getToggleVisibilityHandler()}
