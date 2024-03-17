@@ -1,5 +1,5 @@
 import { RowData, Table } from '@tanstack/react-table';
-import { useTableBodyStyles } from './useTableBodyStyles'; 
+import { useTableBodyStyles } from './useTableBodyStyles';
 import { PinnedRow, TableRow } from './TableRow';
 import { useVirtual } from 'react-virtual';
 import { Checkbox } from '@fluentui/react-components';
@@ -7,7 +7,7 @@ import { Show } from "@prt-ts/react-control-flow";
 
 type TableBodyProps<TItem extends RowData> = {
     table: Table<TItem>;
-    tableContainerRef: React.RefObject<HTMLDivElement> 
+    tableContainerRef: React.RefObject<HTMLDivElement>
 }
 
 export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
@@ -15,7 +15,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
 
     const { table, tableContainerRef } = props;
     const rowSelectionMode = table.options.meta?.rowSelectionMode;
- 
+
     const rows = table.getCenterRows();
     const topRows = table.getTopRows();
     const bottomRows = table.getBottomRows();
@@ -24,8 +24,8 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
         parentRef: tableContainerRef,
         size: rows.length,
         overscan: 5,
-      });
-      const { virtualItems: virtualRows, totalSize } = rowVirtualizer;
+    });
+    const { virtualItems: virtualRows, totalSize } = rowVirtualizer;
 
     const paddingTop = virtualRows.length > 0 ? virtualRows?.[0]?.start || 0 : 0;
     const paddingBottom =
@@ -78,7 +78,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                     zIndex: 99
                 }}>
 
-                    <tr style={{backgroundColor : "white"}}>
+                    <tr style={{ backgroundColor: "white" }}>
                         <td className="p-1">
                             <Checkbox
                                 checked={

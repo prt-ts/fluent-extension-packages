@@ -9,9 +9,10 @@ type TableRowProps<TItem extends RowData> = {
   row: Row<TItem>;
   rowSelectionMode?: TableProps<TItem>['rowSelectionMode'];
   bottomRowLength?: number;
+  style?: React.CSSProperties;
 }
 
-export function TableRow<TItem extends RowData>({ row, rowSelectionMode }: TableRowProps<TItem>) {
+export function TableRow<TItem extends RowData>({ row, rowSelectionMode, style }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
 
   return (
@@ -22,6 +23,7 @@ export function TableRow<TItem extends RowData>({ row, rowSelectionMode }: Table
           ? styles.tBodySelectedRow
           : styles.tBodyRow
       }
+      style={style}
     >
       <Switch when={rowSelectionMode}>
         <Case value='multiple'>
@@ -62,7 +64,7 @@ export function TableRow<TItem extends RowData>({ row, rowSelectionMode }: Table
   );
 }
 
-export function PinnedRow<TItem extends RowData>({ row, rowSelectionMode, bottomRowLength }: TableRowProps<TItem>) {
+export function PinnedRow<TItem extends RowData>({ row, rowSelectionMode, style, bottomRowLength }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
   return (
     <tr
@@ -83,7 +85,7 @@ export function PinnedRow<TItem extends RowData>({ row, rowSelectionMode, bottom
           row.getIsPinned() === 'bottom'
             ? `${((bottomRowLength || 0) - 1 - row.getPinnedIndex()) * 35
             }px`
-            : undefined,
+            : undefined
       }}
     >
       <Switch when={rowSelectionMode}>
