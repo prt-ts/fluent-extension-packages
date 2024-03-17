@@ -12,7 +12,7 @@ export const useTableHeaderStyles = makeStyles({
         boxShadow: tokens.shadow2,
     },
     tHeadRow: {
-        backgroundColor: tokens.colorNeutralCardBackground, 
+        backgroundColor: tokens.colorNeutralCardBackgroundSelected, 
     },
     tHeadCell: {
         zIndex: 99,
@@ -32,7 +32,7 @@ export const useTableHeaderStyles = makeStyles({
         height: '1px',
         position: "sticky",
         bottom: 0,
-        ...shorthands.borderBottom('1px', 'solid', tokens.colorNeutralBackground2Pressed),
+        ...shorthands.borderBottom('1px', 'solid', tokens.colorBrandBackgroundInverted),
     },
 
     tHeadCellDraggable: {
@@ -93,9 +93,9 @@ export const useTableHeaderStyles = makeStyles({
     },
 
     resizer: {
-        ...shorthands.borderRight('1px', 'solid', tokens.colorNeutralBackground2Pressed),
+        ...shorthands.borderRight('1px', 'solid', tokens.colorBrandBackgroundInverted),
 
-        width: '2px',
+        width: '8px',
         position: 'absolute',
         top: 0,
         right: 0,
@@ -105,12 +105,12 @@ export const useTableHeaderStyles = makeStyles({
 
         ':hover': {
             borderRightWidth: '2px',
-            borderRightColor: tokens.colorNeutralBackground2Pressed,
+            borderRightColor: tokens.colorBrandBackgroundInvertedHover,
         },
     },
 
     resizerActive: {
         borderRightWidth: '2px',
-        borderRightColor: tokens.colorNeutralBackground2Selected,
+        borderRightColor: tokens.colorBrandBackgroundInvertedPressed,
     },
 });
