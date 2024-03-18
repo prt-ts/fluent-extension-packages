@@ -16,6 +16,7 @@ import {
   MenuList,
   MenuPopover,
   MenuTrigger,
+  Tooltip,
   mergeClasses,
 } from "@fluentui/react-components";
 import {
@@ -38,7 +39,9 @@ import {
   TextClearFormattingFilled,
   EyeTrackingOffFilled,
   EyeTrackingOffRegular,
-  ArrowSortFilled
+  ArrowSortFilled,  
+  MoreVerticalFilled,
+  MoreVerticalRegular
 } from "@fluentui/react-icons";
 import { Filter } from "../filters";
 import { useTableHeaderStyles } from "./useTableHeaderStyles";
@@ -49,6 +52,7 @@ import { getHeaderCellPinningStyles } from "../../helpers/StylesHelper";
 import { Show } from "@prt-ts/react-control-flow";
 import { ClearFilterIcon } from "../icon-components/GridIcons";
 
+const MoreIcon = bundleIcon(MoreVerticalFilled, MoreVerticalRegular);
 const SortAscIcon = bundleIcon(ArrowSortDown20Filled, ArrowSortDown20Regular);
 const SortDescIcon = bundleIcon(ArrowSortUp20Filled, ArrowSortUp20Regular);
 const PinIcon = bundleIcon(PinFilled, PinRegular);
@@ -245,10 +249,13 @@ function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.E
   return (
     <Menu positioning={{align : "end"}}>
       <MenuTrigger disableButtonEnhancement>
-        <MenuButton
-          appearance="transparent"
-          aria-label="View Column Actions"
-        ></MenuButton>
+        <Tooltip relationship="label" content={<>More actions for {columnName}</>}>
+          <MenuButton
+            appearance="subtle"
+            aria-label="View Column Actions"
+            icon={<MoreIcon />}
+          ></MenuButton>
+        </Tooltip>
       </MenuTrigger>
 
       <MenuPopover className={styles.tHeadMenuPopover}>
