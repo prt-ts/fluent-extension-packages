@@ -88,24 +88,19 @@ export function HeaderCell<TItem extends RowData>({
   });
 
   const dndStyle: CSSProperties = {
-    width: header.column.getSize(),
-    opacity: isDragging ? 0.8 : 1,
-    // position: isDragging ? 'relative' : "sticky",
-    transform: CSS.Translate.toString(transform), // translate instead of transform to avoid squishing
-    // transition: 'width transform 0.2s ease-in-out',
-    whiteSpace: 'wrap',
-    zIndex: isDragging ? 100 : 99,
+    transform: CSS.Translate.toString(transform),
     transition
   };
 
   const styles = useTableHeaderStyles();
-  const isLeafHeaders = headerDepth === totalNumberOfHeaderDepth;
+  const isLeafHeaders = headerDepth === totalNumberOfHeaderDepth; 
+  const headerCellCombinedStyles = getHeaderCellPinningStyles(column, isDragging, dndStyle)
 
   if (header.isPlaceholder) {
     return (
       <th colSpan={header.colSpan}
         className={styles.tHeadCell}
-        style={{ ...dndStyle, ...getHeaderCellPinningStyles(column) }}
+        style={headerCellCombinedStyles}
         ref={setNodeRef}>
         <Show when={header.column.getCanResize()}>
           <div
@@ -134,7 +129,7 @@ export function HeaderCell<TItem extends RowData>({
         isLeafHeaders && styles.tHeadNonLeafCell,
         isDragging && styles.tHeadCellDragging
       )}
-      style={{ ...dndStyle, ...getHeaderCellPinningStyles(column) }}
+      style={headerCellCombinedStyles}
       ref={setNodeRef}
     >
       <div className={styles.tHeadCellDraggable} {...attributes} {...listeners}>
