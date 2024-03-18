@@ -208,7 +208,7 @@ export const UserService = () => {
         try {
             const mappedUser = {
                 id: user.Id || user.ID,
-                name: user.Title,
+                name: formatName(user.Title),
                 email: user.EMail,
                 loginName: user.UserName,
                 userType: "User",
@@ -229,7 +229,7 @@ export const UserService = () => {
     const formatName = (displayName: string, outputFormat: string = `{firstName} {lastName}`): string => {
         try {
             const name = displayName?.split(" (")?.[0];
-            const [firstName, lastName] = name?.split(", ");
+            const [lastName, firstName] = name?.split(", ");
             return outputFormat
                 .replace("{firstName}", (firstName || ''))
                 .replace("{lastName}", (lastName || ''));
