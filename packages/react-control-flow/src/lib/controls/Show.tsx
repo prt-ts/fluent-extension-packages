@@ -3,7 +3,7 @@ import { ConditionClause } from "../types/ConditionalClause";
 
 interface ShowProps {
     when: ConditionClause;
-    children: ReactNode | string | null;
+    children: JSX.Element | string | null;
     fallback?: JSX.Element | string | null;
 }
 export const Show = (props: ShowProps): ReactNode | null => {
