@@ -158,6 +158,21 @@ export const useGridContainer = <TItem extends RowData>(
 
       drawerState: drawerState,
       dispatchDrawerAction: dispatch,
+
+      // all the table state modifiers
+      setPagination,
+      setSorting,
+      setColumnFilters,
+      setGlobalFilter,
+      setGrouping,
+      setRowSelection,
+      setColumnVisibility,
+      setColumnOrder,
+      setExpanded,
+      setColumnPinning,
+      setColumnSizing,
+      setRowPinning
+
     }
   });
 
