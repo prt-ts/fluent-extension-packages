@@ -130,7 +130,7 @@ export function TableExample() {
     }),
     columnHelper.accessor('age', {
       id: 'Age',
-      header: () => 'Age (Additional text for Long header)',
+      header: () => 'Age',
       cell: (info) => info.renderValue(),
       filterFn: 'includesString',
       aggregationFn: 'mean',
@@ -480,6 +480,7 @@ export function TableExample() {
           );
         }}
         disableTableHeader={true}
+        tableHeight='750px'
       />
     </div>
   );

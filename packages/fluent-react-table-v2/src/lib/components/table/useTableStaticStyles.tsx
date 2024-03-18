@@ -19,7 +19,7 @@ export const useTableStaticStyles = makeStyles({
     },
 
     "::-webkit-scrollbar": {
-      width: "6px",
+      width: "8px",
       height: "4px",
       ...shorthands.borderRadius("50%"),
     },

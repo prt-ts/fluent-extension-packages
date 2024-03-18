@@ -7,7 +7,7 @@ import {
   Divider,
   Input,
   Tooltip,
-  Switch,
+  Checkbox,
 } from '@fluentui/react-components';
 import * as React from 'react';
 import {
@@ -67,7 +67,7 @@ export const GridHeader = <TItem extends RowData>(
                 if (column.id === 'id') return null;
 
                 return (
-                  <Switch 
+                  <Checkbox 
                     key={column.id}
                     checked={column.getIsGrouped()}
                     onChange={column.getToggleGroupingHandler()}
@@ -92,7 +92,7 @@ export const GridHeader = <TItem extends RowData>(
           <PopoverSurface className={styles.popoverSurface}>
             <div className={styles.tableTopHeaderColumnTogglePopover}>
               <MenuGroupHeader>Toggle Columns</MenuGroupHeader>
-              <Switch
+              <Checkbox
                 checked={table.getIsAllColumnsVisible()}
                 onChange={table.getToggleAllColumnsVisibilityHandler()}
                 label={'Toggle All'}
@@ -102,7 +102,7 @@ export const GridHeader = <TItem extends RowData>(
                 if (column.id === 'select') return null;
 
                 return (
-                  <Switch
+                  <Checkbox
                     key={column.id}
                     checked={column.getIsVisible()}
                     onChange={column.getToggleVisibilityHandler()}
