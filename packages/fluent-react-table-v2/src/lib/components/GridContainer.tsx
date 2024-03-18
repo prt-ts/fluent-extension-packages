@@ -6,8 +6,7 @@ import { GridHeader } from "./grid-header";
 import { useGridContainer } from "./useGridContainer";
 import { TableContainer } from "./table";
 import { FilterDrawer } from "./filters";
-import { ViewsDrawer } from "./views/ViewsDrawer";
-import { tableReducer } from "./reducer";
+import { ViewsDrawer } from "./views/ViewsDrawer"; 
 import { DndContext, DragEndEvent, KeyboardSensor, MouseSensor, PointerSensor, TouchSensor, closestCenter, useSensor, useSensors } from "@dnd-kit/core";
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from "@dnd-kit/sortable";
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers'
@@ -21,13 +20,6 @@ export function AdvancedTable<TItem extends RowData>(
   useStaticStyles();
   const { table, globalFilter, headerMenu, tableViews, setGlobalFilter, resetToDefaultView, applyTableState } = useGridContainer(props, ref);
 
-  const [drawerState, dispatch] = React.useReducer<typeof tableReducer<string>>(
-    tableReducer,
-    {
-      isFilterDrawerOpen: false,
-      isViewsDrawerOpen: false
-    }
-  );
   const { getState, setColumnOrder } = table;
   const { columnOrder } = getState()
 
@@ -74,9 +66,7 @@ export function AdvancedTable<TItem extends RowData>(
             headerMenu={headerMenu}
             globalFilter={globalFilter}
             setGlobalFilter={setGlobalFilter}
-            applyTableState={applyTableState}
-            drawerState={drawerState}
-            dispatch={dispatch}
+            applyTableState={applyTableState} 
           />
         </Show>
         <div style={{ display: 'flex' }}>
@@ -87,15 +77,11 @@ export function AdvancedTable<TItem extends RowData>(
             noFilterMatchPage={props.noFilterMatchPage}
             noItemPage={props.noItemPage} 
           />
-          <FilterDrawer
-            drawerState={drawerState}
-            dispatch={dispatch}
+          <FilterDrawer 
             table={table}
           />
           <ViewsDrawer
-            table={table}
-            drawerState={drawerState}
-            dispatch={dispatch}
+            table={table} 
             tableViews={tableViews}
             applyTableState={applyTableState}
             resetToGridDefaultView={resetToDefaultView} 

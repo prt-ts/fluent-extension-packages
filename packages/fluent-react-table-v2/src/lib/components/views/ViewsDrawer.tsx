@@ -19,7 +19,6 @@ import { TableView } from '../../types';
 import { RowData, Table, TableState } from '@tanstack/react-table';
 import { ClearFilterIcon } from '../icon-components/GridIcons';
 import { ViewSaveForm } from './ViewSaveForm';
-import { ActionType, DrawerTableState } from '../reducer';
 
 const useFilterDrawerStyles = makeStyles({
   drawerBody: {
@@ -54,8 +53,6 @@ const useFilterDrawerStyles = makeStyles({
 });
 
 type ViewsDrawerProps<TItem extends RowData> = {
-  drawerState: DrawerTableState,
-  dispatch: React.Dispatch<ActionType<string>>
   table: Table<TItem>;
   tableViews: TableView[];
   applyTableState: (tableView: TableState) => boolean;
@@ -64,7 +61,10 @@ type ViewsDrawerProps<TItem extends RowData> = {
 
 export const ViewsDrawer = <TItem extends RowData>(props: ViewsDrawerProps<TItem>) => {
 
-  const { table, drawerState, dispatch, tableViews, applyTableState, resetToGridDefaultView } = props;
+  const { table, tableViews, applyTableState, resetToGridDefaultView } = props;
+  /* eslint-disable @typescript-eslint/no-non-null-assertion */
+  const { dispatchDrawerAction, drawerState } = table.options.meta!;
+
   const { onTableViewDelete, onTableViewSave} = table.options.meta || {}
   const [checkedValues, setCheckedValues] = React.useState<
     Record<string, string[]>
@@ -86,7 +86,7 @@ export const ViewsDrawer = <TItem extends RowData>(props: ViewsDrawerProps<TItem
               appearance="subtle"
               aria-label="Close"
               icon={<Dismiss24Regular />}
-              onClick={() => dispatch({ type: "CLOSE_VIEW_DRAWER" })}
+              onClick={() => dispatchDrawerAction?.({ type: "CLOSE_VIEW_DRAWER" })}
             />
           }
         >

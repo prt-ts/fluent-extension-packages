@@ -27,12 +27,21 @@ import { TableProps, TableRef, TableView } from '../types';
 import * as React from 'react';
 import { arrIncludesSome, date, dateRange } from '../helpers/FilterHelpers';
 import { getLeafColumns } from '../helpers/Helpers'; 
+import { tableReducer } from './reducer';
 
 export const useGridContainer = <TItem extends RowData>(
   props: TableProps<TItem>,
   ref: React.ForwardedRef<TableRef<TItem>>
 ) => {
   const { defaultColumn, columns, data, rowSelectionMode, autoResetPageIndex, onUpdateData } = props;
+
+  const [drawerState, dispatch] = React.useReducer<typeof tableReducer<string>>(
+    tableReducer,
+    {
+      isFilterDrawerOpen: false,
+      isViewsDrawerOpen: false
+    }
+  );
 
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageSize: props.pageSize || 10,
@@ -145,7 +154,10 @@ export const useGridContainer = <TItem extends RowData>(
 
       updateData: onUpdateData,
       onTableViewDelete: props.onTableViewDelete,
-      onTableViewSave: props.onTableViewSave
+      onTableViewSave: props.onTableViewSave,
+
+      drawerState: drawerState,
+      dispatchDrawerAction: dispatch,
     }
   });
 

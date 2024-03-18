@@ -41,7 +41,8 @@ import {
   EyeTrackingOffRegular,
   ArrowSortFilled,  
   MoreVerticalFilled,
-  MoreVerticalRegular
+  MoreVerticalRegular,
+  FilterDismissFilled
 } from "@fluentui/react-icons";
 import { Filter } from "../filters";
 import { useTableHeaderStyles } from "./useTableHeaderStyles";
@@ -230,7 +231,9 @@ type HeaderMenuProps<TItem extends RowData> = {
 
 function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.Element {
 
-  const { header, table, hideMenu } = props;
+  const { header, table, hideMenu } = props; 
+   /* eslint-disable @typescript-eslint/no-non-null-assertion */
+   const { dispatchDrawerAction, drawerState } = table.options.meta!;
   const styles = useTableHeaderStyles();
 
   if (hideMenu || header.isPlaceholder) return (<> </>);
@@ -396,8 +399,7 @@ function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.E
                     >
                       Clear Filters
                     </MenuItem>
-                  </MenuTrigger>
-
+                  </MenuTrigger> 
                   <MenuPopover>
                     <MenuList>
                       <MenuItem
@@ -416,10 +418,25 @@ function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.E
                         icon={<ClearFilterIcon />}
                       >
                         Clear for All Columns
-                      </MenuItem>
+                      </MenuItem> 
                     </MenuList>
                   </MenuPopover>
                 </Menu>
+                <MenuItem 
+                  icon={drawerState?.isFilterDrawerOpen ? <FilterDismissFilled /> : <FilterFilled />}
+                  onClick={() => {
+                 
+                  if (drawerState.isFilterDrawerOpen) {
+                    dispatchDrawerAction?.({ type: "CLOSE_FILTER_DRAWER" });
+                  } else {
+                    dispatchDrawerAction?.({ type: "OPEN_FILTER_DRAWER" });
+                  }
+                }}>
+                  <Show when={drawerState?.isFilterDrawerOpen}
+                    fallback={<>Open Column Filter</>}>
+                    Close Column Filter
+                  </Show>
+                </MenuItem>
                 <MenuDivider />
                 <MenuGroupHeader>Filter by {columnName}</MenuGroupHeader>
                 <Filter column={header.column} table={table} />

@@ -1,5 +1,6 @@
 import { FilterFn, RowData } from "@tanstack/react-table";
 import { TableProps } from "./types";
+import { ActionType, DrawerTableState } from "./components/reducer";
 
 declare module '@tanstack/table-core' {
     interface FilterFns {
@@ -24,6 +25,9 @@ declare module '@tanstack/react-table' {
     updateData?: (rowIndex: number, columnId: string, value: unknown) => void;
     onTableViewSave?: TableProps<TData>["onTableViewSave"];
     onTableViewDelete?: TableProps<TData>["onTableViewDelete"];
+
+    drawerState: DrawerTableState;
+    dispatchDrawerAction: React.Dispatch<ActionType<string>>;
   }
 }
 
