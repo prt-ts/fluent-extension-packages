@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 type ForProps<TItem extends object | string |  number | boolean> = {
     each: TItem[] | undefined | null;
-    children: (item: TItem, index: number) => ReactNode;
+    children: (item: TItem, index: number) => ReactNode | JSX.Element | null;
     emptyState?: JSX.Element | string | null;
 }
 
