@@ -4,10 +4,8 @@ import { CSSProperties } from "react"
 
 export const getHeaderCellPinningStyles = <TItem extends RowData>(column: Column<TItem, unknown>, isDragging: boolean, additionalStyles : CSSProperties): CSSProperties => {
   const isPinned = column.getIsPinned()
-  const isLastLeftPinnedColumn =
-    isPinned === 'left' && column.getIsLastColumn('left')
-  const isFirstRightPinnedColumn =
-    isPinned === 'right' && column.getIsFirstColumn('right')
+  const isLastLeftPinnedColumn = isPinned === 'left' && column.getIsLastColumn('left')
+  const isFirstRightPinnedColumn = isPinned === 'right' && column.getIsFirstColumn('right')
 
   const styles: CSSProperties = {
     width : column.getSize(),
