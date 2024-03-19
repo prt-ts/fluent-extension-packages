@@ -18,20 +18,6 @@ export function TableCell<TItem extends RowData>({ cell, row }: TableCellProps<T
     const isSelected = row.getIsSelected();
     const isRowPinned = row.getIsPinned();
     const isCellPinned = cell.column.getIsPinned();
-
-    const { isDragging, transition, setNodeRef, transform } = useSortable({
-        id: cell.column.id,
-    })
-
-    const tdStyle: CSSProperties = {
-        width: cell.column.getSize(),
-        opacity: isDragging ? "0.8" : "1",
-        transform: CSS.Translate.toString(transform),
-        // transition: 'width transform 0.2s ease-in-out', 
-        zIndex: isDragging ? 1 : 0,
-        transition
-    };
-
     const cellClassNames = mergeClasses(
         styles.tBodyCell,
         isCellPinned && styles.tBodyPinnedCell,
@@ -39,7 +25,15 @@ export function TableCell<TItem extends RowData>({ cell, row }: TableCellProps<T
         isRowPinned && styles.tBodyRowPinnedCell,
     );
 
-    const styleStyles = { ...tdStyle, ...getBodyCellPinningStyles(cell.column) };
+    const { isDragging, transition, setNodeRef, transform } = useSortable({
+        id: cell.column.id,
+    })
+
+    const tdStyle: CSSProperties = { 
+        transform: CSS.Translate.toString(transform), 
+        transition
+    };
+    const styleStyles = getBodyCellPinningStyles(cell.column, isDragging, tdStyle);
 
     if (cell.getIsPlaceholder()) {
         return <td key={cell.id}

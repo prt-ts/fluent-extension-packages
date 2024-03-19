@@ -27,15 +27,13 @@ export const getHeaderCellPinningStyles = <TItem extends RowData>(column: Column
   return styles;
 }
 
-export const getBodyCellPinningStyles = <TItem extends RowData>(column: Column<TItem, unknown>): CSSProperties => {
-  const isPinned = column.getIsPinned();
-
-  const isLastLeftPinnedColumn =
-    isPinned === 'left' && column.getIsLastColumn('left')
-  const isFirstRightPinnedColumn =
-    isPinned === 'right' && column.getIsFirstColumn('right')
+export const getBodyCellPinningStyles = <TItem extends RowData>(column: Column<TItem, unknown>, isDragging: boolean, additionalStyles : CSSProperties): CSSProperties => {
+  const isPinned = column.getIsPinned(); 
+  const isLastLeftPinnedColumn = isPinned === 'left' && column.getIsLastColumn('left')
+  const isFirstRightPinnedColumn = isPinned === 'right' && column.getIsFirstColumn('right')
 
   const styles: CSSProperties = {
+    width: column.getSize(),
     boxShadow: isLastLeftPinnedColumn
       ? '-4px 0 4px -4px gray inset'
       : isFirstRightPinnedColumn
@@ -43,11 +41,11 @@ export const getBodyCellPinningStyles = <TItem extends RowData>(column: Column<T
         : undefined,
     left: isPinned === 'left' ? `${column.getStart('left')}px` : undefined,
     right: isPinned === 'right' ? `${column.getAfter('right')}px` : undefined,
-    opacity: isPinned ? 0.95 : 1,
     position: isPinned ? 'sticky' : 'relative',
-    width: column.getSize(),
-    zIndex: isPinned ? 1 : 0,
-
+    
+    opacity: isDragging ? 0.85: (isPinned ? 0.95 : 1),
+    zIndex: isDragging? 100 : (isPinned ? 1 : 0),
+    ...additionalStyles
   }
   return styles;
 }
