@@ -150,6 +150,7 @@ export const useGridContainer = <TItem extends RowData>(
     meta: {
       pageSizeOptions: props.pageSizeOptions || [10, 20, 50, 100, 1000],
       rowSelectionMode: props.rowSelectionMode,
+      isAutoExpandOnGroup: props.isAutoExpandOnGroup ?? false,
       tableHeight: props.tableHeight || "650px",
 
       updateData: onUpdateData,

@@ -417,6 +417,7 @@ export function TableExample2() {
           );
         }}
         tableHeight='790px'
+        isAutoExpandOnGroup={true}
       />
     </div>
   );

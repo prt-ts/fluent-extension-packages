@@ -21,6 +21,12 @@ export type TableProps<TItem extends RowData> = {
     isLoading?: boolean;
 
     /**
+     * While grouping isExpanded will use to make default expand state.
+     * @default false
+     */     
+    isAutoExpandOnGroup?: boolean;
+
+    /**
      * Grid title
      */
     gridTitle?: JSX.Element | React.ReactNode;

@@ -20,6 +20,7 @@ declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
     rowSelectionMode: TableProps<TData>["rowSelectionMode"],
     pageSizeOptions:  TableProps<TData>["pageSizeOptions"],
+    isAutoExpandOnGroup: TableProps<TData>["isAutoExpandOnGroup"],
     tableHeight: string,
 
     updateData?: (rowIndex: number, columnId: string, value: unknown) => void;
@@ -48,6 +49,13 @@ declare module '@tanstack/react-table' {
 export { Table, useSkipper } from "./components"; 
 
 export type { TableProps, TableRef, TableView } from "./types";
-export type { TableState, ColumnDef } from '@tanstack/react-table';
+export type { 
+  TableState, 
+  ColumnDef, 
+  Column as ColumnType,
+  Row as RowType, 
+  RowData as RowDataType,
+  Table as TableType 
+} from '@tanstack/react-table';
 
 export { createColumnHelper } from "@tanstack/react-table";

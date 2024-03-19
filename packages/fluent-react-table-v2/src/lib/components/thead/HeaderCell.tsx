@@ -41,7 +41,11 @@ import {
   ArrowSortFilled,  
   MoreVerticalFilled,
   MoreVerticalRegular,
-  FilterDismissFilled
+  FilterDismissFilled,
+  TextCollapseFilled,
+  TextExpandFilled,
+  TextExpandRegular,
+  TextCollapseRegular
 } from "@fluentui/react-icons"; 
 import { useTableHeaderStyles } from "./useTableHeaderStyles";
 import { useSortable } from "@dnd-kit/sortable";
@@ -56,6 +60,8 @@ const SortAscIcon = bundleIcon(ArrowSortDown20Filled, ArrowSortDown20Regular);
 const SortDescIcon = bundleIcon(ArrowSortUp20Filled, ArrowSortUp20Regular);
 const PinIcon = bundleIcon(PinFilled, PinRegular);
 const HideColumnIcon = bundleIcon(EyeTrackingOffFilled, EyeTrackingOffRegular);
+const GroupExpandIcon = bundleIcon(TextExpandFilled, TextExpandRegular);
+const GroupCollapseIcon = bundleIcon(TextCollapseFilled, TextCollapseRegular);
 
 type HeaderCellProps<TItem extends RowData> = {
   header: Header<TItem, unknown>;
@@ -301,24 +307,41 @@ function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.E
             <MenuGroup key={'grouping-group'}>
               {!header.column.getIsGrouped() && (
                 <MenuItem
-                  onClick={() =>
-                    header.column.getToggleGroupingHandler()()
-                  }
+                  onClick={() => {
+                    header.column.getToggleGroupingHandler()();
+
+                    const { isAutoExpandOnGroup } = table.options.meta!;
+                    if (isAutoExpandOnGroup) {
+                      table.toggleAllRowsExpanded(true);
+                    }
+                  }}
                   icon={<GroupFilled />}
                 >
                   Group Column (by {columnName})
                 </MenuItem>
               )}
-              {header.column.getIsGrouped() && (
+              <Show when={header.column.getIsGrouped()}>
                 <MenuItem
-                  onClick={() =>
-                    header.column.getToggleGroupingHandler()()
-                  }
+                  onClick={() => {
+                    header.column.getToggleGroupingHandler()(); 
+                  }}
                   icon={<GroupDismissFilled />}
                 >
                   Remove Grouping (on {columnName})
                 </MenuItem>
-              )}
+                <MenuItem
+                  onClick={() =>
+                    table.toggleAllRowsExpanded()
+                  }
+                  icon={table.getIsAllRowsExpanded() ? <GroupCollapseIcon /> : <GroupExpandIcon />}
+                >
+                  <Show 
+                    when={table.getIsAllRowsExpanded()} 
+                    fallback={<>Expand All Groups</>}>
+                    Collapse All Groups
+                  </Show>
+                </MenuItem>
+              </Show>
               <MenuDivider />
             </MenuGroup>
           </Show>
