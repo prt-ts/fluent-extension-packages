@@ -1,15 +1,15 @@
-import React from "react";
-import type { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { ConditionClause } from "../types/ConditionalClause";
 import { Case } from "./Case";
 
 type SwitchProps = {
     when?: ConditionClause;
-    children: ReactNode | JSX.Element;
-    fallback?: JSX.Element | ReactNode | null | undefined;
+    children: JSX.Element | ReactNode | null;
+    fallback?: JSX.Element | null;
 }
 
-export const Switch = (props: SwitchProps): ReactNode | null => {
+/*eslint-disable */
+export const Switch = (props: SwitchProps): JSX.Element | null => {
     const { when, children, fallback =  null} = props;
 
     const cases = React.Children.toArray(children).filter(
@@ -22,9 +22,9 @@ export const Switch = (props: SwitchProps): ReactNode | null => {
     });
 
     if (!successCase) {
-        return fallback;
+        return <>{fallback}</>;
     }
 
-    return successCase;
+    return <>{successCase}</>;
 };
 

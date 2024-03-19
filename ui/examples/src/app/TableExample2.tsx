@@ -2,7 +2,7 @@ import * as React from "react";
 import { createRef, useEffect, useState } from 'react';
 import { Person, makeData } from './data/data';
 import { Button, Field, Input, Radio, RadioGroup } from '@fluentui/react-components';
-import { EditRegular, DeleteRegular } from '@fluentui/react-icons';
+import { EditRegular, DeleteRegular, StarDismissRegular, StarRegular, SwipeUpFilled, SwipeDownFilled, PinOffRegular } from '@fluentui/react-icons';
 import {
   ColumnDef,
   Table,
@@ -12,7 +12,7 @@ import {
   createColumnHelper,
   useSkipper,
 } from '@prt-ts/fluent-react-table-v2';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import {
   FontIncrease24Regular,
   FontDecrease24Regular,
@@ -31,10 +31,11 @@ import {
 } from "@fluentui/react-components";
 import { tableViews as views } from './data/tableView';
 import { ColumnPinningState } from '@tanstack/react-table';
+import { Show } from "@prt-ts/react-control-flow";
 
 const ColumnIdAccessMapping = {
-  "First Name" : "firstName",
-  "Last Name" : "lastName" 
+  "First Name": "firstName",
+  "Last Name": "lastName"
 }
 
 export function TableExample2() {
@@ -132,44 +133,54 @@ export function TableExample2() {
 
   const columns = React.useMemo(() => [
     columnHelper.accessor('id', {
-      id: 'Pin',
-      header: () => 'Pin',
-      cell: ({ row }) =>
-        row.getIsPinned() ? (
-          <button
-            onClick={() => row.pin(false, true, false)}
-          >
-            ❌
-          </button>
-        ) : (
-          <div style={{ display: 'flex', gap: '4px' }}>
-            <button
-              onClick={() =>
-                row.pin('top', true, false)
-              }
-            >
-              ⬆️
-            </button>
-            <button
-              onClick={() =>
-                row.pin('bottom', true, true)
-              }
-            >
-              ⬇️
-            </button>
-          </div>
-        ),
-      aggregatedCell: () => null,
-      filterFn: 'arrIncludesSome',
-      enableGrouping: false,
-      enableHiding: false,
-    }),
-    columnHelper.accessor('id', {
       id: 'ID',
       header: () => 'ID',
-      cell: ({ getValue, table: { getState } }) => {
+      cell: ({ row, getValue, table: { getState } }) => {
+        const isPinned = row.getIsPinned();
         return (
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+
+            <Show when={isPinned}>
+
+              <Button
+                size="small"
+                shape="circular"
+                onClick={() => row.pin(false, true, false)}
+                icon={<PinOffRegular />}
+              />
+            </Show>
+            <Show when={!isPinned}>
+              <div>
+                <Menu>
+                  <MenuTrigger disableButtonEnhancement>
+                    <Button
+                      icon={<StarRegular />}
+                      shape="circular"
+                      size="small"
+                    />
+                  </MenuTrigger>
+
+                  <MenuPopover>
+                    <MenuList>
+                      <MenuItem
+                        icon={<SwipeUpFilled />}
+                        onClick={() =>
+                          row.pin('top', true, false)
+                        }>
+                        Top
+                      </MenuItem>
+                      <MenuItem
+                        icon={<SwipeDownFilled />}
+                        onClick={() =>
+                          row.pin('bottom', true, true)
+                        }>
+                        Bottom
+                      </MenuItem>
+                    </MenuList>
+                  </MenuPopover>
+                </Menu>
+              </div>
+            </Show>
             <Button
               icon={<EditRegular />}
               aria-label="Edit"
@@ -208,7 +219,7 @@ export function TableExample2() {
       filterFnDefinition: () => 'firstName',
     }),
     columnHelper.accessor((row) => row.lastName, {
-      id: 'Last Name', 
+      id: 'Last Name',
       header: () => <span>Last Name</span>,
       aggregatedCell: () => null,
     }),
@@ -219,7 +230,7 @@ export function TableExample2() {
       filterFn: 'includesString',
       aggregationFn: 'mean',
       minSize: 10,
-      size:300,
+      size: 300,
       maxSize: 800,
       enableGrouping: false,
     }),
@@ -266,14 +277,14 @@ export function TableExample2() {
       header: 'Country',
       aggregatedCell: () => null,
       filterFn: 'arrIncludes',
-    }), 
+    }),
     columnHelper.accessor('status', {
       id: 'Status',
       header: 'Status',
       aggregatedCell: () => null,
       filterFn: 'arrIncludesSome',
     }),
-    columnHelper.accessor(({createdAt}) => createdAt, {
+    columnHelper.accessor(({ createdAt }) => createdAt, {
       id: 'Created At',
       header: 'Created At',
       cell: (info) =>
@@ -284,7 +295,7 @@ export function TableExample2() {
       filterFn: 'inDateRange',
     }) as ColumnDef<Person>,
   ] as ColumnDef<Person>[]
-  , [])
+    , [])
 
   useEffect(
     () => {
@@ -325,7 +336,7 @@ export function TableExample2() {
     [data]
   );
 
-  const defaultPinnedColumns : ColumnPinningState = React.useMemo(() => {
+  const defaultPinnedColumns: ColumnPinningState = React.useMemo(() => {
     return {
       left: ["ID"],
       right: ["Status"]
@@ -406,6 +417,7 @@ export function TableExample2() {
           );
         }}
         tableHeight='790px'
+        isAutoExpandOnGroup={true}
       />
     </div>
   );

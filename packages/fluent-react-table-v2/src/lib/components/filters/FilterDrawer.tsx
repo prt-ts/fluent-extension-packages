@@ -18,8 +18,7 @@ import {
 } from "@fluentui/react-components";
 import { Dismiss24Regular } from '@fluentui/react-icons';
 import { RowData, Table, flexRender } from '@tanstack/react-table';
-import { Filter } from './Filter';
-import { ActionType, DrawerTableState } from '../reducer';
+import { Filter } from './Filter'; 
 import { ClearFilterIcon } from '../icon-components/GridIcons';
 import { Show } from '@prt-ts/react-control-flow';
 
@@ -56,15 +55,11 @@ const useFilterDrawerStyles = makeStyles({
   },
 });
 
-type FilterDrawerProps<TItem extends RowData> = {
-  drawerState: DrawerTableState,
-  dispatch: React.Dispatch<ActionType<string>>
+type FilterDrawerProps<TItem extends RowData> = { 
   table: Table<TItem>;
 };
 
-export const FilterDrawer = <TItem extends RowData>({
-  drawerState,
-  dispatch,
+export const FilterDrawer = <TItem extends RowData>({ 
   table
 }: FilterDrawerProps<TItem>) => {
 
@@ -76,8 +71,11 @@ export const FilterDrawer = <TItem extends RowData>({
     table.resetColumnFilters();
   }, [table]);
 
+   /* eslint-disable @typescript-eslint/no-non-null-assertion */
+   const { dispatchDrawerAction, drawerState } = table.options.meta!;
+
   return (
-    <InlineDrawer position="end" open={drawerState.isFilterDrawerOpen} separator>
+    <InlineDrawer position="end" open={drawerState?.isFilterDrawerOpen} separator>
       <DrawerHeader>
         <DrawerHeaderTitle
           action={
@@ -85,11 +83,11 @@ export const FilterDrawer = <TItem extends RowData>({
               appearance="subtle"
               aria-label="Close"
               icon={<Dismiss24Regular />}
-              onClick={() => dispatch({ type: "CLOSE_FILTER_DRAWER" })}
+              onClick={() => dispatchDrawerAction?.({ type: "CLOSE_FILTER_DRAWER" })}
             />
           }
         >
-          Advanced Filters
+          Column Filters
         </DrawerHeaderTitle>
       </DrawerHeader>
 

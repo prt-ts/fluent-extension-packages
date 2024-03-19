@@ -1,9 +1,10 @@
-import { Checkbox, Radio } from '@fluentui/react-components';
+import { Checkbox, Radio, tokens } from '@fluentui/react-components';
 import { Row, RowData } from '@tanstack/react-table';
 import { useTableBodyStyles } from './useTableBodyStyles';
 import { TableProps } from '../../types';
 import { TableCell } from './TableCell';
 import { Case, Switch } from '@prt-ts/react-control-flow';
+import { CSSProperties } from 'react';
 
 type TableRowProps<TItem extends RowData> = {
   row: Row<TItem>;
@@ -66,6 +67,15 @@ export function TableRow<TItem extends RowData>({ row, rowSelectionMode, style }
 
 export function PinnedRow<TItem extends RowData>({ row, rowSelectionMode, style, bottomRowLength }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
+
+  const pinnedRowRawStyle : CSSProperties = {
+    backgroundColor: tokens.colorPaletteYellowBackground2,
+    position: 'sticky',
+    top: row.getIsPinned() === 'top' ? `${row.getPinnedIndex() * 35 + 48}px` : undefined,
+    bottom: row.getIsPinned() === 'bottom' ? `${((bottomRowLength || 0) - 1 - row.getPinnedIndex()) * 35}px` : undefined,
+    ...style,
+  }
+
   return (
     <tr
       key={row.id}
@@ -74,19 +84,7 @@ export function PinnedRow<TItem extends RowData>({ row, rowSelectionMode, style,
           ? styles.tBodySelectedRow
           : styles.tBodyRow
       }
-      style={{
-        backgroundColor: 'goldenrod',
-        position: 'sticky',
-        top:
-          row.getIsPinned() === 'top'
-            ? `${row.getPinnedIndex() * 35 + 48}px`
-            : undefined,
-        bottom:
-          row.getIsPinned() === 'bottom'
-            ? `${((bottomRowLength || 0) - 1 - row.getPinnedIndex()) * 35
-            }px`
-            : undefined
-      }}
+      style={pinnedRowRawStyle}
     >
       <Switch when={rowSelectionMode}>
         <Case value='multiple'>

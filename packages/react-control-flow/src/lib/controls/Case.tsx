@@ -1,9 +1,10 @@
-import type { ReactNode } from "react";
+import { ReactNode } from "react";
 import { ConditionClause } from "../types/ConditionalClause";
 
 type CaseProps = {
-    children: ReactNode;
+    children: JSX.Element | ReactNode | null;
     value?: ConditionClause | ConditionClause[]; 
 }
 
-export const Case = ({ children }: CaseProps): ReactNode | null => children;
+/*eslint-disable */
+export const Case = ({ children }: CaseProps): JSX.Element | null => <>{children}</>;

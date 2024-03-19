@@ -1,7 +1,7 @@
-import { Input, Radio, RadioGroup, makeStyles, shorthands } from "@fluentui/react-components";
-import { Column, RowData, Table } from "@tanstack/react-table";
-import { useVirtualizer } from '@tanstack/react-virtual';
+import { Input, Radio, RadioGroup, makeStyles, shorthands } from "@fluentui/react-components"
+import { Column, Table } from "@tanstack/react-table"
 import * as React from "react"
+import { useVirtual } from "react-virtual"
 
 const useRadioFilterStyles = makeStyles({
   searchInput: {
@@ -11,6 +11,8 @@ const useRadioFilterStyles = makeStyles({
     marginRight: '10px',
   },
   searchContainer: {
+    display: 'flex',
+    flexDirection: 'column',
     maxHeight: '300px',
     width: '100%',
     ...shorthands.overflow('auto', 'auto'),
@@ -38,7 +40,7 @@ const useRadioFilterStyles = makeStyles({
   },
 });
 
-export const FilterSelectRadio = <TItem extends RowData>({
+export const FilterSelectRadio = <TItem extends object>({
   column,
   table,
 }: {
@@ -55,8 +57,8 @@ export const FilterSelectRadio = <TItem extends RowData>({
       const uniqueSortedOptions =
         typeof firstValue === 'number' || !isNaN(firstValue as number)
           ? Array.from(column.getFacetedUniqueValues().keys()).sort(
-            (a, b) => Number(a) - Number(b)
-          )
+              (a, b) => Number(a) - Number(b)
+            )
           : Array.from(column.getFacetedUniqueValues().keys()).sort();
       setFilterOptions(uniqueSortedOptions);
     },
@@ -75,15 +77,20 @@ export const FilterSelectRadio = <TItem extends RowData>({
     );
   }, [localColumnFilterValue, filterOptions]);
 
-  const parentRef = React.useRef<HTMLDivElement>(null);
-  const virtualizer = useVirtualizer({
-    count: filterOptionsFiltered?.length || 0,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 30,
-    overscan: 5,
-  });
+  const filterContainer = React.useRef<HTMLDivElement>(null);
 
-  const virtualItems = virtualizer.getVirtualItems();
+  const rowVirtualizer = useVirtual({
+    parentRef: filterContainer,
+    size: filterOptionsFiltered.length,
+    overscan: 15,
+  });
+  const { virtualItems: virtualRows, totalSize } = rowVirtualizer;
+
+  const paddingTop = virtualRows.length > 0 ? virtualRows?.[0]?.start || 0 : 0;
+  const paddingBottom =
+    virtualRows.length > 0
+      ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0)
+      : 0;
 
   const styles = useRadioFilterStyles();
   return (
@@ -95,34 +102,28 @@ export const FilterSelectRadio = <TItem extends RowData>({
         size="small"
         className={styles.searchInput}
       />
-      <div ref={parentRef} className={styles.searchContainer}>
-        <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
-          <RadioGroup
-            layout="vertical"
-            value={columnFilterValue?.[0] || ''}
-            onChange={(_, data) => {
-              if (data.value === '') {
-                column.setFilterValue([]);
-                return;
-              }
-              column.setFilterValue([data.value]);
-            }}
-          >
-            <Radio value={''} label={'None'} />
-            {(virtualItems || []).map((row, index) => {
-              const value = filterOptionsFiltered[row.index];
-              return (
-                <div
-                  key={`${column.id}-${row.index}`}
-                  style={{
-                    height: `${row.size}px`,
-                    transform: `translateY(${row.start - index * row.size}px)`,
-                  }}>
-                  <Radio key={value} value={value} label={value} />
-                </div>);
-            })}
-          </RadioGroup>
-        </div>
+      <div ref={filterContainer} className={styles.searchContainer}>
+        {paddingTop > 0 && <div style={{ paddingTop: `${paddingTop}px` }} />}
+        <RadioGroup
+          layout="vertical"
+          value={columnFilterValue?.[0] || ''}
+          onChange={(_, data) => {
+            if (data.value === '') {
+              column.setFilterValue([]);
+              return;
+            }
+            column.setFilterValue([data.value]);
+          }}
+        >
+          <Radio value={''} label={'None'} />
+          {virtualRows.map((row) => {
+            const value = filterOptionsFiltered[row.index];
+            return <Radio key={value} value={value} label={value} />;
+          })}
+        </RadioGroup>
+        {paddingBottom > 0 && (
+          <div style={{ paddingBottom: `${paddingBottom}px` }}></div>
+        )}
       </div>
     </div>
   );

@@ -10,12 +10,12 @@ import {
   Menu,
   MenuButton,
   MenuDivider,
-  MenuGroup,
-  MenuGroupHeader,
+  MenuGroup, 
   MenuItem,
   MenuList,
   MenuPopover,
   MenuTrigger,
+  Tooltip,
   mergeClasses,
 } from "@fluentui/react-components";
 import {
@@ -34,19 +34,34 @@ import {
   ArrowStepInRightRegular,
   PinOffRegular,
   PinRegular,
-  PinFilled
-} from "@fluentui/react-icons";
-import { Filter } from "../filters";
+  PinFilled,
+  TextClearFormattingFilled,
+  EyeTrackingOffFilled,
+  EyeTrackingOffRegular,
+  ArrowSortFilled,  
+  MoreVerticalFilled,
+  MoreVerticalRegular,
+  FilterDismissFilled,
+  TextCollapseFilled,
+  TextExpandFilled,
+  TextExpandRegular,
+  TextCollapseRegular
+} from "@fluentui/react-icons"; 
 import { useTableHeaderStyles } from "./useTableHeaderStyles";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from '@dnd-kit/utilities';
 import { CSSProperties } from "react";
 import { getHeaderCellPinningStyles } from "../../helpers/StylesHelper";
 import { Show } from "@prt-ts/react-control-flow";
+import { ClearFilterIcon } from "../icon-components/GridIcons";
 
+const MoreIcon = bundleIcon(MoreVerticalFilled, MoreVerticalRegular);
 const SortAscIcon = bundleIcon(ArrowSortDown20Filled, ArrowSortDown20Regular);
 const SortDescIcon = bundleIcon(ArrowSortUp20Filled, ArrowSortUp20Regular);
 const PinIcon = bundleIcon(PinFilled, PinRegular);
+const HideColumnIcon = bundleIcon(EyeTrackingOffFilled, EyeTrackingOffRegular);
+const GroupExpandIcon = bundleIcon(TextExpandFilled, TextExpandRegular);
+const GroupCollapseIcon = bundleIcon(TextCollapseFilled, TextCollapseRegular);
 
 type HeaderCellProps<TItem extends RowData> = {
   header: Header<TItem, unknown>;
@@ -77,25 +92,20 @@ export function HeaderCell<TItem extends RowData>({
   });
 
   const dndStyle: CSSProperties = {
-    width: header.column.getSize(),
-    opacity: isDragging ? 0.8 : 1,
-    // position: isDragging ? 'relative' : "sticky",
-    transform: CSS.Translate.toString(transform), // translate instead of transform to avoid squishing
-    // transition: 'width transform 0.2s ease-in-out',
-    whiteSpace: 'wrap',
-    zIndex: isDragging ? 100 : 99,
+    transform: CSS.Translate.toString(transform),
     transition
   };
 
   const styles = useTableHeaderStyles();
-  const isLeafHeaders = headerDepth === totalNumberOfHeaderDepth;
-  
+  const isLeafHeaders = headerDepth === totalNumberOfHeaderDepth; 
+  const headerCellCombinedStyles = getHeaderCellPinningStyles(column, isDragging, dndStyle)
+
   if (header.isPlaceholder) {
-    return ( 
-      <th colSpan={header.colSpan} 
+    return (
+      <th colSpan={header.colSpan}
         className={styles.tHeadCell}
-        style={{ ...dndStyle, ...getHeaderCellPinningStyles(column) }}
-        ref={setNodeRef}> 
+        style={headerCellCombinedStyles}
+        ref={setNodeRef}>
         <Show when={header.column.getCanResize()}>
           <div
             onMouseDown={header.getResizeHandler()}
@@ -104,21 +114,26 @@ export function HeaderCell<TItem extends RowData>({
               styles.resizer,
               column.getIsResizing() && styles.resizerActive
             )}
-          /> 
+          />
         </Show>
       </th>
     );
   }
 
+  const columnName = flexRender(
+    header.column.columnDef.header,
+    header.getContext()
+  );
+
   return (
     <th
-      colSpan={header.colSpan} 
+      colSpan={header.colSpan}
       className={mergeClasses(
         styles.tHeadCell,
         isLeafHeaders && styles.tHeadNonLeafCell,
         isDragging && styles.tHeadCellDragging
       )}
-      style={{ ...dndStyle, ...getHeaderCellPinningStyles(column) }}
+      style={headerCellCombinedStyles}
       ref={setNodeRef}
     >
       <div className={styles.tHeadCellDraggable} {...attributes} {...listeners}>
@@ -168,10 +183,7 @@ export function HeaderCell<TItem extends RowData>({
                 iconPosition="after"
               >
                 <strong>
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
+                  {columnName}
                 </strong>
 
                 {/* indicator for grouping */}
@@ -201,7 +213,7 @@ export function HeaderCell<TItem extends RowData>({
             styles.resizer,
             column.getIsResizing() && styles.resizerActive
           )}
-        /> 
+        />
       </Show>
       <Show when={!isLeafHeaders}>
         <div className={styles.tHeadNonLeafCellFakeBorder}></div>
@@ -218,7 +230,9 @@ type HeaderMenuProps<TItem extends RowData> = {
 
 function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.Element {
 
-  const { header, table, hideMenu } = props;
+  const { header, table, hideMenu } = props; 
+   /* eslint-disable @typescript-eslint/no-non-null-assertion */
+   const { dispatchDrawerAction, drawerState } = table.options.meta!;
   const styles = useTableHeaderStyles();
 
   if (hideMenu || header.isPlaceholder) return (<> </>);
@@ -229,19 +243,36 @@ function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.E
 
   if (!canHavePopOver) return (<> </>);
 
+  const columnName = flexRender(
+    header.column.columnDef.header,
+    header.getContext()
+  );
+
   return (
-    <Menu>
+    <Menu positioning={{align : "end"}}>
       <MenuTrigger disableButtonEnhancement>
-        <MenuButton
-          appearance="transparent"
-          aria-label="View Column Actions"
-        ></MenuButton>
+        <Tooltip relationship="label" content={<>More actions for {columnName}</>}>
+          <MenuButton
+            appearance="subtle"
+            aria-label="View Column Actions"
+            icon={<MoreIcon />}
+          ></MenuButton>
+        </Tooltip>
       </MenuTrigger>
 
       <MenuPopover className={styles.tHeadMenuPopover}>
         <MenuList>
           <Show when={header.column.getCanSort()}>
             <MenuGroup key={'sort-group'}>
+            <MenuItem
+                onClick={(e) => { 
+                  header.column?.clearSorting();
+                }}
+                icon={<ArrowSortFilled />}
+                disabled={!header.column.getIsSorted()}
+              >
+                Clear Sorting
+              </MenuItem>
               <MenuItem
                 onClick={(e) => {
                   const isControlKeySelected = e.ctrlKey;
@@ -276,32 +307,41 @@ function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.E
             <MenuGroup key={'grouping-group'}>
               {!header.column.getIsGrouped() && (
                 <MenuItem
-                  onClick={() =>
-                    header.column.getToggleGroupingHandler()()
-                  }
+                  onClick={() => {
+                    header.column.getToggleGroupingHandler()();
+
+                    const { isAutoExpandOnGroup } = table.options.meta!;
+                    if (isAutoExpandOnGroup) {
+                      table.toggleAllRowsExpanded(true);
+                    }
+                  }}
                   icon={<GroupFilled />}
                 >
-                  Group by{' '}
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
+                  Group Column (by {columnName})
                 </MenuItem>
               )}
-              {header.column.getIsGrouped() && (
+              <Show when={header.column.getIsGrouped()}>
                 <MenuItem
-                  onClick={() =>
-                    header.column.getToggleGroupingHandler()()
-                  }
+                  onClick={() => {
+                    header.column.getToggleGroupingHandler()(); 
+                  }}
                   icon={<GroupDismissFilled />}
                 >
-                  Remove Grouping on{' '}
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
+                  Remove Grouping (on {columnName})
                 </MenuItem>
-              )}
+                <MenuItem
+                  onClick={() =>
+                    table.toggleAllRowsExpanded()
+                  }
+                  icon={table.getIsAllRowsExpanded() ? <GroupCollapseIcon /> : <GroupExpandIcon />}
+                >
+                  <Show 
+                    when={table.getIsAllRowsExpanded()} 
+                    fallback={<>Expand All Groups</>}>
+                    Collapse All Groups
+                  </Show>
+                </MenuItem>
+              </Show>
               <MenuDivider />
             </MenuGroup>
           </Show>
@@ -309,24 +349,22 @@ function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.E
           <Show when={header.column.getCanPin()}>
             <Menu>
               <MenuTrigger disableButtonEnhancement>
-                <MenuItem icon={<PinIcon />}>Pin Column</MenuItem>
+                <MenuItem icon={<PinIcon />}>Pin Column ({columnName})</MenuItem>
               </MenuTrigger>
 
               <MenuPopover>
                 <MenuList>
-
-                  <Show when={['left', 'right'].includes(
-                    header.column.getIsPinned() as string
-                  )}>
-                    <MenuItem
-                      onClick={() => {
-                        header.column?.pin(false);
-                      }}
-                      icon={<PinOffRegular />}
-                    >
-                      No Pin
-                    </MenuItem>
-                  </Show>
+                  <MenuItem
+                    onClick={() => {
+                      header.column?.pin(false);
+                    }}
+                    icon={<PinOffRegular />}
+                    disabled={!(['left', 'right'].includes(
+                      header.column.getIsPinned() as string
+                    ))}
+                  >
+                    No Pin
+                  </MenuItem>
                   <MenuItem
                     onClick={() => {
                       header.column?.pin('left');
@@ -347,20 +385,79 @@ function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.E
                   </MenuItem>
                 </MenuList>
               </MenuPopover>
-            </Menu>
-            <MenuDivider />
+            </Menu> 
           </Show>
 
+          <Show when={header.column.getCanHide()}>
+            <Menu>
+              <MenuList>
+                <MenuItem
+                  onClick={header.column.getToggleVisibilityHandler()}
+                  disabled={!header.column.getCanHide()}
+                  icon={<HideColumnIcon />}
+                >
+                  Hide Column ({columnName})
+                </MenuItem>
+              </MenuList>
+              <MenuDivider />
+            </Menu>
+          </Show>
+          
+
           <Show when={header.column.getCanFilter()}>
+            <MenuDivider />
             <MenuGroup key={'filter-group'}>
-              <MenuGroupHeader>
-                Filter by{' '}
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-              </MenuGroupHeader>
-              <Filter column={header.column} table={table} />
+              <MenuList>
+
+                <Menu>
+                  <MenuTrigger disableButtonEnhancement>
+                    <MenuItem
+                      icon={<ClearFilterIcon />}
+                    >
+                      Clear Filters
+                    </MenuItem>
+                  </MenuTrigger> 
+                  <MenuPopover>
+                    <MenuList>
+                      <MenuItem
+                        onClick={() => {
+                          header.column.setFilterValue(undefined);
+                        }}
+                        icon={<TextClearFormattingFilled />}
+                        disabled={!header.column.getIsFiltered()}
+                      >
+                        Clear for {columnName}
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => { 
+                          table.resetColumnFilters();
+                        }}
+                        icon={<ClearFilterIcon />}
+                      >
+                        Clear for All Columns
+                      </MenuItem> 
+                    </MenuList>
+                  </MenuPopover>
+                </Menu>
+                <MenuItem 
+                  icon={drawerState?.isFilterDrawerOpen ? <FilterDismissFilled /> : <FilterFilled />}
+                  onClick={() => {
+                 
+                  if (drawerState.isFilterDrawerOpen) {
+                    dispatchDrawerAction?.({ type: "CLOSE_FILTER_DRAWER" });
+                  } else {
+                    dispatchDrawerAction?.({ type: "OPEN_FILTER_DRAWER" });
+                  }
+                }}>
+                  <Show when={drawerState?.isFilterDrawerOpen}
+                    fallback={<>Open Column Filter</>}>
+                    Close Column Filter
+                  </Show>
+                </MenuItem>
+                {/* <MenuDivider /> */}
+                {/* <MenuGroupHeader>Filter by {columnName}</MenuGroupHeader> */}
+                {/* <Filter column={header.column} table={table} /> */}
+              </MenuList>
             </MenuGroup>
           </Show>
         </MenuList>

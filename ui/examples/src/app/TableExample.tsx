@@ -49,6 +49,38 @@ export function TableExample() {
     console.log(selectedRow);
   };
 
+  const addRowPin = () => {
+    const table = tableRef.current?.table;
+
+    if(!table) return;
+
+    const { setRowPinning } = table.options.meta;
+
+    if (!setRowPinning) return;
+
+    setRowPinning({
+      bottom: ["99"],
+      top: ["1", "3", "5"]
+    });
+  }
+
+  const removeRowPin = () => {
+    const table = tableRef.current?.table;
+
+    if(!table) return;
+
+    const { setRowPinning } = table.options.meta;
+
+    if (!setRowPinning) return;
+
+    setRowPinning({
+      bottom: [],
+      top: []
+    });
+  }
+
+
+
   const logTableState = () => {
     const tableState = tableRef.current?.getTableState();
     console.log(tableState);
@@ -130,7 +162,7 @@ export function TableExample() {
     }),
     columnHelper.accessor('age', {
       id: 'Age',
-      header: () => 'Age (Additional text for Long header)',
+      header: () => 'Age',
       cell: (info) => info.renderValue(),
       filterFn: 'includesString',
       aggregationFn: 'mean',
@@ -420,6 +452,8 @@ export function TableExample() {
       <Button onClick={logSelectedRows}>Log Selected Rows</Button>
       <Button onClick={logTableState}>Get Table State</Button>
       <Button onClick={saveCurrentTableState}>Save Current View</Button>
+      <Button onClick={addRowPin}>Add Row Pin</Button>
+      <Button onClick={removeRowPin}>Remove Row Pin</Button>
       <Button onClick={applyLastSavedTableState}>
         Apply Last Saved Table State
       </Button>
@@ -480,6 +514,7 @@ export function TableExample() {
           );
         }}
         disableTableHeader={true}
+        tableHeight='750px'
       />
     </div>
   );

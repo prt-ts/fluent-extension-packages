@@ -7,7 +7,7 @@ import {
   Divider,
   Input,
   Tooltip,
-  Switch,
+  Checkbox,
 } from '@fluentui/react-components';
 import * as React from 'react';
 import {
@@ -31,16 +31,15 @@ type GridHeaderProps<TItem extends RowData> = {
   globalFilter: string;
   setGlobalFilter: (value: string) => void;
 
-  applyTableState: (tableState: TableState) => boolean 
-
-  drawerState: DrawerTableState,
-  dispatch: React.Dispatch<ActionType<string>>
+  applyTableState: (tableState: TableState) => boolean  
 };
 
 export const GridHeader = <TItem extends RowData>(
   props: GridHeaderProps<TItem>
 ) => {
-  const { table, gridTitle, globalFilter, setGlobalFilter, dispatch, drawerState } = props;
+  const { table, gridTitle, globalFilter, setGlobalFilter } = props;
+  /* eslint-disable @typescript-eslint/no-non-null-assertion */
+  const { dispatchDrawerAction, drawerState } = table.options.meta!;
   const styles = useGridHeaderStyles();
 
   return (
@@ -67,7 +66,7 @@ export const GridHeader = <TItem extends RowData>(
                 if (column.id === 'id') return null;
 
                 return (
-                  <Switch 
+                  <Checkbox 
                     key={column.id}
                     checked={column.getIsGrouped()}
                     onChange={column.getToggleGroupingHandler()}
@@ -92,7 +91,7 @@ export const GridHeader = <TItem extends RowData>(
           <PopoverSurface className={styles.popoverSurface}>
             <div className={styles.tableTopHeaderColumnTogglePopover}>
               <MenuGroupHeader>Toggle Columns</MenuGroupHeader>
-              <Switch
+              <Checkbox
                 checked={table.getIsAllColumnsVisible()}
                 onChange={table.getToggleAllColumnsVisibilityHandler()}
                 label={'Toggle All'}
@@ -102,7 +101,7 @@ export const GridHeader = <TItem extends RowData>(
                 if (column.id === 'select') return null;
 
                 return (
-                  <Switch
+                  <Checkbox
                     key={column.id}
                     checked={column.getIsVisible()}
                     onChange={column.getToggleVisibilityHandler()}
@@ -117,7 +116,7 @@ export const GridHeader = <TItem extends RowData>(
         <Tooltip content={'Table Views Management'} relationship="label">
           <Button 
             onClick={() => {
-              dispatch({ type: "TOGGLE_VIEW_DRAWER" });
+              dispatchDrawerAction?.({ type: "TOGGLE_VIEW_DRAWER" });
             }}
             icon={<Album24Regular />}
             aria-label="View Menu"
@@ -128,8 +127,8 @@ export const GridHeader = <TItem extends RowData>(
           onChange={(value) => setGlobalFilter(String(value))}
           className="p-2 font-lg shadow border border-block"
           placeholder="Search all columns..."
-          drawerState={drawerState}
-          dispatch={dispatch}
+          dispatch={dispatchDrawerAction}
+          drawerState={drawerState} 
         />
       </div>
     </div>
@@ -177,15 +176,15 @@ function DebouncedInput({
       style={{ width: '300px' }}
       contentAfter={
         <Tooltip
-          content={drawerState.isFilterDrawerOpen ? 'Close Filter Window' : 'Open Advance Filter'}
+          content={drawerState?.isFilterDrawerOpen ? 'Close Filter Window' : 'Open Advance Filter'}
           relationship="label"
         >
           <Button
             appearance="subtle"
-            icon={drawerState.isFilterDrawerOpen ? <FilterDismissFilled /> : <FilterFilled />}
+            icon={drawerState?.isFilterDrawerOpen ? <FilterDismissFilled /> : <FilterFilled />}
             aria-label="View Menu"
             onClick={() => { 
-              dispatch({ type: "TOGGLE_FILTER_DRAWER" });
+              dispatch?.({ type: "TOGGLE_FILTER_DRAWER" });
             }}
           />
         </Tooltip>

@@ -3,13 +3,14 @@ import { ConditionClause } from "../types/ConditionalClause";
 
 interface ShowProps {
     when: ConditionClause;
-    children: ReactNode | string | null;
-    fallback?: JSX.Element | string | null;
+    children: JSX.Element | ReactNode | null;
+    fallback?: JSX.Element | ReactNode | null;
 }
-export const Show = (props: ShowProps): ReactNode | null => {
+/* eslint-disable */
+export const Show = (props: ShowProps): JSX.Element | null => {
     const { when = false, children = null, fallback = null } = props;
     if (!when) {
-        return fallback;
+        return <>{fallback}</>;
     }
-    return children;
+    return <>{children}</>;
 };

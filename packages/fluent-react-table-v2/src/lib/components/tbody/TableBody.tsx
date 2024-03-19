@@ -51,7 +51,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                     style={{
                         position: "sticky",
                         top: 0,
-                        zIndex: 99
+                        zIndex: 9
                     }}>
                     <For each={topRows}>
                         {(row, index) => (
@@ -89,7 +89,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                 <tfoot style={{
                     position: "sticky",
                     bottom: 0,
-                    zIndex: 99
+                    zIndex: 9
                 }}>
                     <tr style={{ backgroundColor: "white" }}>
                         <td className="p-1">
@@ -116,7 +116,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                 <tfoot style={{
                     position: "sticky",
                     bottom: 0,
-                    zIndex: 99
+                    zIndex: 9
                 }}>
                     <For each={bottomRows}>
                         {(row) => (
