@@ -15,7 +15,7 @@ export const useTableHeaderStyles = makeStyles({
         backgroundColor: tokens.colorNeutralCardBackgroundSelected, 
     },
     tHeadCell: {
-        zIndex: 99,
+        zIndex: 9,
         position: 'relative',
         fontSize: tokens.fontSizeBase300,
         fontWeight: tokens.fontWeightBold,

@@ -19,7 +19,7 @@ export const getHeaderCellPinningStyles = <TItem extends RowData>(column: Column
     opacity: isDragging? 0.8: (isPinned ? 0.95 : 1),
     position: isPinned ? 'sticky' : 'relative',
     
-    zIndex: isDragging ? 100 : (isPinned ? 99 : 1),
+    zIndex: isDragging ? 10 : (isPinned ? 9 : 1),
     backgroundColor: tokens.colorNeutralCardBackgroundSelected,
     whiteSpace: 'wrap',
     ...additionalStyles
@@ -44,7 +44,7 @@ export const getBodyCellPinningStyles = <TItem extends RowData>(column: Column<T
     position: isPinned ? 'sticky' : 'relative',
     
     opacity: isDragging ? 0.85: (isPinned ? 0.95 : 1),
-    zIndex: isDragging? 100 : (isPinned ? 1 : 0),
+    zIndex: isDragging? 2 : (isPinned ? 1 : 0),
     ...additionalStyles
   }
   return styles;
