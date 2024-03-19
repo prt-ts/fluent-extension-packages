@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/export-helpers",
-  "version": "2.0.2", 
+  "version": "4.0.0",
   "dependencies": {
     "file-saver": ">=2.0.0",
     "xlsx": ">=0.18.0",
