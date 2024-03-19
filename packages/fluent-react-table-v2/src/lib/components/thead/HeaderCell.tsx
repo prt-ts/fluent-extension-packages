@@ -10,8 +10,7 @@ import {
   Menu,
   MenuButton,
   MenuDivider,
-  MenuGroup,
-  MenuGroupHeader,
+  MenuGroup, 
   MenuItem,
   MenuList,
   MenuPopover,
@@ -43,8 +42,7 @@ import {
   MoreVerticalFilled,
   MoreVerticalRegular,
   FilterDismissFilled
-} from "@fluentui/react-icons";
-import { Filter } from "../filters";
+} from "@fluentui/react-icons"; 
 import { useTableHeaderStyles } from "./useTableHeaderStyles";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from '@dnd-kit/utilities';
@@ -364,8 +362,7 @@ function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.E
                   </MenuItem>
                 </MenuList>
               </MenuPopover>
-            </Menu>
-            <MenuDivider />
+            </Menu> 
           </Show>
 
           <Show when={header.column.getCanHide()}>
@@ -382,8 +379,10 @@ function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.E
               <MenuDivider />
             </Menu>
           </Show>
+          
 
           <Show when={header.column.getCanFilter()}>
+            <MenuDivider />
             <MenuGroup key={'filter-group'}>
               <MenuList>
 
@@ -432,9 +431,9 @@ function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.E
                     Close Column Filter
                   </Show>
                 </MenuItem>
-                <MenuDivider />
-                <MenuGroupHeader>Filter by {columnName}</MenuGroupHeader>
-                <Filter column={header.column} table={table} />
+                {/* <MenuDivider /> */}
+                {/* <MenuGroupHeader>Filter by {columnName}</MenuGroupHeader> */}
+                {/* <Filter column={header.column} table={table} /> */}
               </MenuList>
             </MenuGroup>
           </Show>

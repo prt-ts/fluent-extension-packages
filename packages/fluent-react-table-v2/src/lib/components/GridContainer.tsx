@@ -38,7 +38,7 @@ export function AdvancedTable<TItem extends RowData>(
 
   const pointerSensor = useSensor(PointerSensor, {
     activationConstraint: {
-      distance: 0.01
+      distance: 0.0001
     }
   })
   const mouseSensor = useSensor(MouseSensor)
