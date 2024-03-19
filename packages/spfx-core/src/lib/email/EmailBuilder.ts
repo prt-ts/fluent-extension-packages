@@ -84,7 +84,7 @@ export class EmailBuilder implements IEmailProperties {
             if (!this) throw "Email Configuration is not created.";
             if (!this.To) throw "Email Receiver is not added.";
 
-            const { from, isEnabled, notificationDelegateEmails } = EmailSettings.getInstance();
+            const { from, isEnabled, notificationDelegateEmails, notificationBCCEmails } = EmailSettings.getInstance();
             const isDebugging = isDebugMode();
             if (!isEnabled || isDebugging) {
 
@@ -104,6 +104,10 @@ export class EmailBuilder implements IEmailProperties {
             // set from email if is available in settings
             if (from?.length > 0) {
                 this.From = from;
+            }
+
+            if(notificationBCCEmails?.length > 0) {
+                this.BCC = notificationBCCEmails;
             }
 
             // get sp configuration

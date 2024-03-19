@@ -6,11 +6,13 @@ export default class EmailConfig {
     _from: string;
     _isEnabled: boolean;
     _notificationDelegateEmails: string[];
+    _notificationBCCEmails: string[];
 
     private constructor() {
         this._from = "";
         this._isEnabled = true;
         this._notificationDelegateEmails = [];
+        this._notificationBCCEmails = [];
     }
     
     public static getInstance(): EmailConfig {
@@ -32,9 +34,14 @@ export default class EmailConfig {
         return this._notificationDelegateEmails;
     }
 
+    public get notificationBCCEmails(): string[] {
+        return this._notificationBCCEmails;
+    }
+
     public initializeConfig = (config: EmailSettingType) => {
-        this._from = config.from;
+        this._from = config.from || "";
         this._isEnabled = config.isEnabled;
         this._notificationDelegateEmails = config.notificationDelegateEmails || [];
+        this._notificationBCCEmails = config.notificationBCCEmails || [];
     } 
 } 
