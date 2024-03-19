@@ -2,6 +2,9 @@ import { ColumnFiltersState, ColumnOrderState, ColumnPinningState, ColumnSizingS
 import { TableProps } from "./types";
 import { ActionType, DrawerTableState } from "./components/reducer";
 
+export { disableAllShorthand } from "./helpers/Shorthands";
+export { Table, useSkipper } from "./components"; 
+
 declare module '@tanstack/table-core' {
     interface FilterFns {
         arrIncludesSome: FilterFn<unknown>
@@ -46,8 +49,6 @@ declare module '@tanstack/react-table' {
   }
 }
 
-export { Table, useSkipper } from "./components"; 
-
 export type { TableProps, TableRef, TableView } from "./types";
 export type { 
   TableState, 
@@ -59,3 +60,4 @@ export type {
 } from '@tanstack/react-table';
 
 export { createColumnHelper } from "@tanstack/react-table";
+
