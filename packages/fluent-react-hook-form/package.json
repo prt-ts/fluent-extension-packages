@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-react-hook-form",
-  "version": "9.46.8-build.4.0",
+  "version": "11.0.0",
   "description": "Fluent React Hook Form is a component library for React that provides a set of components to build forms using react-hook-form and Fluent UI",
   "dependencies": {
     "react-hook-form": ">=7.0.0",

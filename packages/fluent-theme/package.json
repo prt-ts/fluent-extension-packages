@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-theme",
-  "version": "9.46.8-build.2.0", 
+  "version": "11.0.0",
   "peerDependencies": {
     "@fluentui/react-components": ">=9.46.8",
     "react": ">=17.0.0",

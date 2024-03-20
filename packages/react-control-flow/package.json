@@ -1,7 +1,7 @@
 {
   "name": "@prt-ts/react-control-flow",
-  "version": "1.0.5",
-  "description": "React Control Flow", 
+  "version": "3.0.0",
+  "description": "React Control Flow",
   "peerDependencies": {
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
