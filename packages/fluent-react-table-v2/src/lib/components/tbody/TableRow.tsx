@@ -11,11 +11,13 @@ type TableRowProps<TItem extends RowData> = {
   rowSelectionMode?: TableProps<TItem>['rowSelectionMode'];
   bottomRowLength?: number;
   style?: React.CSSProperties;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  tabAttributes: any;
 }
 
-export function TableRow<TItem extends RowData>({ row, rowSelectionMode, style }: TableRowProps<TItem>) {
+export function TableRow<TItem extends RowData>({ row, rowSelectionMode, style, tabAttributes }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
-
+ 
   return (
     <tr
       key={row.id}
@@ -25,6 +27,8 @@ export function TableRow<TItem extends RowData>({ row, rowSelectionMode, style }
           : styles.tBodyRow
       }
       style={style}
+      {...tabAttributes}
+      tabIndex={0}
     >
       <Switch when={rowSelectionMode}>
         <Case value='multiple'>
@@ -65,7 +69,7 @@ export function TableRow<TItem extends RowData>({ row, rowSelectionMode, style }
   );
 }
 
-export function PinnedRow<TItem extends RowData>({ row, rowSelectionMode, style, bottomRowLength }: TableRowProps<TItem>) {
+export function PinnedRow<TItem extends RowData>({ row, rowSelectionMode, style, bottomRowLength, tabAttributes }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
 
   const pinnedRowRawStyle : CSSProperties = {
@@ -85,6 +89,8 @@ export function PinnedRow<TItem extends RowData>({ row, rowSelectionMode, style,
           : styles.tBodyRow
       }
       style={pinnedRowRawStyle}
+      {...tabAttributes}
+      tabIndex={0}
     >
       <Switch when={rowSelectionMode}>
         <Case value='multiple'>

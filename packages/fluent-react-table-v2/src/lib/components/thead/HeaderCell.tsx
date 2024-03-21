@@ -69,6 +69,9 @@ type HeaderCellProps<TItem extends RowData> = {
   hideMenu?: boolean;
   headerDepth: number;
   totalNumberOfHeaderDepth: number;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  tabAttributes: any;
 };
 
 export function HeaderCell<TItem extends RowData>({
@@ -77,6 +80,7 @@ export function HeaderCell<TItem extends RowData>({
   hideMenu,
   headerDepth,
   totalNumberOfHeaderDepth,
+  tabAttributes
 }: HeaderCellProps<TItem>) {
   const { column } = header;
 
@@ -105,7 +109,8 @@ export function HeaderCell<TItem extends RowData>({
       <th colSpan={header.colSpan}
         className={styles.tHeadCell}
         style={headerCellCombinedStyles}
-        ref={setNodeRef}>
+        ref={setNodeRef} 
+        >
         <Show when={header.column.getCanResize()}>
           <div
             onMouseDown={header.getResizeHandler()}
@@ -135,6 +140,8 @@ export function HeaderCell<TItem extends RowData>({
       )}
       style={headerCellCombinedStyles}
       ref={setNodeRef}
+      {...tabAttributes}
+      tabIndex={0}
     >
       <div className={styles.tHeadCellDraggable} {...attributes} {...listeners}>
         <div
