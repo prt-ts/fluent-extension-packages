@@ -20,6 +20,8 @@ import {
   RichViewer,
   Rating,
   RatingDisplay,
+  CheckboxGroup,
+  RadioGroup,
 } from '@prt-ts/fluent-react-hook-form';
 import { Fragment, useCallback, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
@@ -110,17 +112,37 @@ export const ReactHookForm = () => {
       <Button onClick={addMore}>Add Dynamic Values</Button>
       <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
       <Form form={testForm} onSubmit={onSubmit}>
-        <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={ "marigold"}/>
-        <RatingDisplay name={'rating'} label={'Rating Display'} compact color={ "marigold" }/>
-        <Input 
-        name={'firstName'} 
-        label={'First Name'} 
-        required={true} 
-        appearance={isView ? "underline" : undefined} 
-        disabled={isView} 
-        readOnly={isView} 
-        autoCompleteOptions={['one', 'two', 'three']}
-        autoComplete='false'/>
+        <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={"marigold"} />
+        <RatingDisplay name={'rating'} label={'Rating Display'} compact color={"marigold"} />
+        <CheckboxGroup
+          name={'checkboxGroup'}
+          label={'Checkbox Group'}
+          layout='horizontal'
+          options={[
+            { label: 'Option 1', value: 'option1' },
+            { label: 'Option 2', value: 'option2', checkboxProps: { disabled: true }},
+            { label: 'Option 3', value: 'option3' },
+          ]} />
+
+        <RadioGroup
+          name={'radioGroup'}
+          label={'Radio Group'}
+          layout='horizontal'
+          options={[
+            { label: 'Option 1', value: 'option1' },
+            { label: 'Option 2', value: 'option2', radioProps: { disabled: true} },
+            { label: 'Option 3', value: 'option3' },
+          ]} />
+
+        <Input
+          name={'firstName'}
+          label={'First Name'}
+          required={true}
+          appearance={isView ? "underline" : undefined}
+          disabled={isView}
+          readOnly={isView}
+          autoCompleteOptions={['one', 'two', 'three']}
+          autoComplete='false' />
         <CurrencyInput
           name={'currencyValue'}
           label={'Currency'}
@@ -219,7 +241,7 @@ export const ReactHookForm = () => {
             ))}
           </TableBody>
         </Table> */}
-        <table style={{width: "100%"}}>
+        <table style={{ width: "100%" }}>
           <thead>
             <tr>
               <th>Selected</th>
@@ -284,7 +306,7 @@ export const ReactHookForm = () => {
               </Fragment>
             ))}
           </tbody>
-          </table>
+        </table>
         <DatePicker
           allowTextInput
           name={'datePickerValue'}

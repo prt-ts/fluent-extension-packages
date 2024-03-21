@@ -6,7 +6,10 @@ export { DatePickerField as DatePicker } from './DatePickerField';
 export { TimePickerField as TimePicker } from './TimePickerField';
 export { CalendarField as Calendar } from './CalendarField';
 export { SwitchField as Switch } from './SwitchField';
-export { CheckboxField as Checkbox, } from './CheckboxField';
+export { 
+  CheckboxField as Checkbox, 
+  CheckboxGroupField as CheckboxGroup,
+} from './CheckboxField';
 export { SliderField as Slider } from './SliderField';
 export { TextareaField as Textarea } from './TextareaField';
 export { SpinButtonField as SpinButton } from './SpinButtonField';
@@ -50,7 +53,11 @@ export type {
   DayOfWeek,
 } from './CalendarField';
 export type { SwitchFieldProps as SwitchProps } from './SwitchField';
-export type { CheckboxFieldProps as CheckboxProps } from './CheckboxField';
+export type { 
+  CheckboxFieldProps as CheckboxProps,
+  CheckboxGroupFieldProps as CheckboxGroupProps,
+  CheckboxOption, 
+} from './CheckboxField';
 export type { SliderFieldProps as SliderProps } from './SliderField';
 export type { TextareaFieldProps as TextareaProps } from './TextareaField';
 export type { SpinButtonFieldProps as SpinButtonProps } from './SpinButtonField';

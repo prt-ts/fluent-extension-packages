@@ -19,7 +19,7 @@ export type RadioChoiceOption = {
   label: string;
   value: string;
 
-  optionProps?: Partial<RadioProps> | undefined;
+  radioProps?: Partial<RadioProps> | undefined;
 };
 
 export type RadioGroupFieldProps = FieldProps & RadioGroupProps & InfoLabelProps & { name: string, rules?: ControllerProps['rules'], options: RadioChoiceOption[]}
@@ -43,7 +43,7 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
         rules={rules}
         render={({ field, fieldState }) => {
           const { onChange, onBlur, value, ref } = field;
-
+          
           const handleOnChange: RadioGroupProps['onChange'] = (
             ev: React.FormEvent<HTMLDivElement>,
             data: RadioGroupOnChangeData
@@ -92,7 +92,7 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
                       key={`${option.value}-${index}`}
                       value={option.value}
                       label={option.label}
-                      {...option.optionProps}
+                      {...option.radioProps}
                     />
                   )
                 )}
