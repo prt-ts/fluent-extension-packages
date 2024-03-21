@@ -4,7 +4,7 @@ import {
   makeStyles,
   shorthands,
 } from '@fluentui/react-components';
-import { Column, Table } from '@tanstack/react-table';
+import { Column, RowData, Table } from '@tanstack/react-table';
 import * as React from 'react';
 import { useVirtual } from 'react-virtual';
 
@@ -46,7 +46,7 @@ const useCheckboxFilterStyles = makeStyles({
   },
 });
 
-export const FilterMultiSelectCheckbox = <TItem extends object>({
+export const FilterMultiSelectCheckbox = <TItem extends RowData>({
   column,
   table,
 }: {
