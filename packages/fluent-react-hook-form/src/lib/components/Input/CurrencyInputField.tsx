@@ -103,6 +103,7 @@ export const CurrencyInputField = forwardRef<HTMLInputElement, InputFieldProps>(
                 name={name}
                 onChange={handleOnChange}
                 onBlur={handleOnBlur}
+                onFocus={(event) => event.target.select()}
                 value={value || ''}
                 required={false}
               />
