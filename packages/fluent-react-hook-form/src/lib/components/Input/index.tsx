@@ -18,6 +18,10 @@ export { DropdownField as Dropdown } from './DropdownField';
 export { RadioGroupField as RadioGroup } from './RadioGroupField';
 
 export { FileInputField as FileInput } from './FileInputField';
+export { 
+  RatingField as Rating,
+  RatingDisplayField as RatingDisplay,
+} from './RatingField';
 
 // export helper functions
 export { formatCurrency } from './CurrencyInputField';
@@ -51,4 +55,8 @@ export type { SliderFieldProps as SliderProps } from './SliderField';
 export type { TextareaFieldProps as TextareaProps } from './TextareaField';
 export type { SpinButtonFieldProps as SpinButtonProps } from './SpinButtonField';
 export type { RichInputFieldProps as RichInputProps } from './RichInputField';
+export type { 
+  RatingFieldProps as RatingProps,
+  RatingDisplayFieldProps as RatingDisplayProps,
+} from './RatingField';
 

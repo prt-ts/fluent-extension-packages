@@ -30,6 +30,7 @@ const getDefaultValue = () => {
     return new Promise<IFormInput>((resolve) => {
         setTimeout(() => {
             resolve({
+                rating: 3,
                 firstName: 'Pradeep',
                 lastName: 'Thapaliya',
                 iceCreamType: { label: 'Chocolate', value: 'chocolate' },

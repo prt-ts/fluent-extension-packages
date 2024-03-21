@@ -18,6 +18,8 @@ import {
   TimePicker,
   useForm,
   RichViewer,
+  Rating,
+  RatingDisplay,
 } from '@prt-ts/fluent-react-hook-form';
 import { Fragment, useCallback, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
@@ -28,6 +30,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
 
 const schema = yup.object({
+  rating: yup.number().required('Rating is required'),
   firstName: yup
     .string()
     .required('First Name is required')
@@ -107,6 +110,8 @@ export const ReactHookForm = () => {
       <Button onClick={addMore}>Add Dynamic Values</Button>
       <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
       <Form form={testForm} onSubmit={onSubmit}>
+        <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={ "marigold"}/>
+        <RatingDisplay name={'rating'} label={'Rating Display'} compact color={ "marigold" }/>
         <Input 
         name={'firstName'} 
         label={'First Name'} 
