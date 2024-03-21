@@ -1,6 +1,6 @@
 
 import {
-  Button,
+  Button, InfoLabel, Link,
 } from '@fluentui/react-components';
 import {
   Form,
@@ -129,7 +129,15 @@ export const ReactHookForm = () => {
           label={'Radio Group'}
           layout='horizontal'
           options={[
-            { label: 'Option 1', value: 'option1' },
+            {
+              label: (<InfoLabel info={"Some Info"}>
+                <Link href='www.example.com'>go to example </Link>
+              </InfoLabel>),
+              value: 'option1',
+              meta: {
+                info: "Some Info"
+              }
+            },
             { label: 'Option 2', value: 'option2', radioProps: { disabled: true} },
             { label: 'Option 3', value: 'option3' },
           ]} />

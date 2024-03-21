@@ -1,5 +1,5 @@
-import { Field, FieldProps, Checkbox, CheckboxOnChangeData, CheckboxProps, LabelProps, InfoLabel, InfoLabelProps, makeStyles, mergeClasses, shorthands, tokens, useId } from "@fluentui/react-components";
-import { forwardRef } from "react";
+import { Field, FieldProps, Checkbox, CheckboxOnChangeData, CheckboxProps, LabelProps, InfoLabel, InfoLabelProps, makeStyles, mergeClasses, shorthands, tokens, useArrowNavigationGroup } from "@fluentui/react-components";
+import { ReactNode, forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
 
@@ -63,7 +63,12 @@ export const CheckboxField = forwardRef<HTMLInputElement, CheckboxFieldProps>(({
         />)
 })
 
-export type CheckboxOption = { label: string, value: string, checkboxProps?: CheckboxProps }
+export type CheckboxOption = { 
+    label: ReactNode, 
+    value: string, 
+    checkboxProps?: CheckboxProps,
+    meta?: Record<string, unknown>
+}
 
 export type CheckboxGroupFieldProps = FieldProps & InfoLabelProps & {
     name: string,
@@ -92,8 +97,9 @@ export const CheckboxGroupField = forwardRef<HTMLDivElement, CheckboxGroupFieldP
     const { ...fieldProps }: FieldProps = rest;
     const { ...infoLabelProps }: InfoLabelProps = rest;
 
-    const labelId = useId('checkbox-input');
+    const attributes = useArrowNavigationGroup({ axis: layout, circular: true, memorizeCurrent: true, });
     const styles = useCheckboxGroupStyles();
+
     return (
         <Controller
             name={name}
@@ -128,19 +134,20 @@ export const CheckboxGroupField = forwardRef<HTMLDivElement, CheckboxGroupFieldP
                         validationMessage={fieldState.error?.message}
                         required={required}
                     >
-                        <div ref={ref} className={mergeClasses(styles.root, styles[layout])}>
+                        <div {...attributes} ref={ref} className={mergeClasses(styles.root, styles[layout])}>
                             {
                                 (options || []).map((option) => {
-                                    const { checkboxProps } = option;
+                                    const { checkboxProps, ...optionRest } = option;
                                     return (
                                         <Checkbox
                                             {...checkboxProps}
                                             key={option.value}
-                                            id={`${labelId}-${name}-${option.value}`}
-                                            onChange={(e, data) => handleOnChange(e, data, option)}
+                                            id={`${name}-${option.value}`}
+                                            onChange={(e, data) => handleOnChange(e, data, optionRest)}
                                             onBlur={handleOnBlur}
                                             checked={(selectedValues || []).includes(option.value)}
-                                            label={option.label}
+                                            /* eslint-disable-next-line*/
+                                            label={<>{option.label}</>}
                                             required={false}
                                         />
                                     )
