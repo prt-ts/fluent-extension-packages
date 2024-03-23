@@ -50,11 +50,11 @@ export const getBodyCellPinningStyles = <TItem extends RowData>(column: Column<T
   return styles;
 }
 
-export const getRowPinningStyles = <TItem extends RowData>(row: Row<TItem>, bottomRowLength: number, additionalStyles : CSSProperties): CSSProperties => {
+export const getRowPinningStyles = <TItem extends RowData>(row: Row<TItem>, bottomRowLength: number, headerGroupLength: number, additionalStyles : CSSProperties): CSSProperties => {
   const styles: CSSProperties = {
     backgroundColor: tokens.colorPaletteYellowBackground2,
     position: 'sticky',
-    top: row.getIsPinned() === 'top' ? `${row.getPinnedIndex() * 35 + 48}px` : undefined,
+    top: row.getIsPinned() === 'top' ? `${row.getPinnedIndex() * 35 + (39 * headerGroupLength)}px` : undefined,
     bottom: row.getIsPinned() === 'bottom' ? `${((bottomRowLength || 0) - 1 - row.getPinnedIndex()) * 35}px` : undefined,
     ...additionalStyles
   }

@@ -59,7 +59,8 @@ function TableRowRaw<TItem extends RowData>({ row, table, style, tabAttributes }
 
 function PinnedRowRaw<TItem extends RowData>({ row, table, style, bottomRowLength, tabAttributes }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
-  const pinnedRowRawStyle = getRowPinningStyles(row, bottomRowLength || 0, style || {});
+  const headerGroupLength = table.getHeaderGroups().length;
+  const pinnedRowRawStyle = getRowPinningStyles(row, bottomRowLength || 0, headerGroupLength, style || {});
   const { rowSelectionMode, tableSettings } = table.options.meta ?? {};
 
   return (
