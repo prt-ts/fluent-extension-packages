@@ -92,6 +92,7 @@ export type FileInputFieldProps = FieldProps &
     savedFiles?: FileInfo[];
     onRemoveSavedFile?: (file: FileInfo) => void;
     rules?: ControllerProps['rules'];
+    maxFilePreviewWindowHeight?: string;
   };
 
 export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
@@ -106,6 +107,7 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
       accept,
       rules,
       multiple = true,
+      maxFilePreviewWindowHeight = '200px',
       ...rest
     },
     inputRef
@@ -137,13 +139,9 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
     React.useEffect(() => {
       if (acceptedFiles?.length) {
         const currentFiles = getValues(name) as File[];
-        console.log('currentFiles', currentFiles);
-        console.log('acceptedFiles', acceptedFiles);
         const files = currentFiles?.length
           ? [...acceptedFiles, ...(currentFiles as File[])]
           : acceptedFiles;
-
-        console.log('files', arrayUniqueByKey(files, 'name'));
         setValue(name, arrayUniqueByKey(files, 'name'));
       }
     }, [acceptedFiles, setValue, getValues, name]);
@@ -203,6 +201,10 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
                   </p>
                 </div>
                 {showFileList && (
+                  <div style={{
+                    maxHeight: maxFilePreviewWindowHeight,
+                    overflow: 'auto',
+                  }}>
                   <Table aria-label="All Documents" size="extra-small">
                     <TableBody>
                       {(value as File[])?.map((file: File, index: number) => (
@@ -264,6 +266,7 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
                       ))}
                     </TableBody>
                   </Table>
+                  </div>
                 )}
               </div>
             </Field>

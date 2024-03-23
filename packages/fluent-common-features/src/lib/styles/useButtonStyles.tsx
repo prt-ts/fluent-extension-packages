@@ -13,8 +13,7 @@ export const useButtonStyles = makeStyles({
             backgroundColor: tokens.colorPaletteGreenForeground2,
             color: tokens.colorNeutralForegroundOnBrand,
         }
-    },
-
+    }, 
     danger: {
         backgroundColor: tokens.colorPaletteRedBackground3,
         color: tokens.colorNeutralForegroundOnBrand,

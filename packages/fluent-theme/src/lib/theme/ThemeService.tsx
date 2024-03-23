@@ -11,8 +11,7 @@ export const ThemeService = () => {
 
   async function getTheme(primaryColor: string, isInverted: boolean = false, scale : number = 1): Promise<Theme> {
     return new Promise<Theme>(async (resolve, reject) => {
-      try {
-        console.log(primaryColor, isInverted, scale)
+      try { 
         const brandVariants = createCustomTheme({
           keyColor: primaryColor,
           hueTorsion: 0,

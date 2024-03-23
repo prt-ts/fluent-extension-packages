@@ -22,8 +22,7 @@ export const formatCurrency = (
   currency = 'USD',
   minimumFractionDigits = 2
 ) : string => {
-  try {
-    console.log('value', value);
+  try { 
     const numberOnlyFromValue = `${value || ''}`
       ?.replace(/,/g, '')
       ?.replace(/^[^-0-9]*/g, '');

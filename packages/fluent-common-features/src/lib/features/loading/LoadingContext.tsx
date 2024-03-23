@@ -56,5 +56,9 @@ export const LoadingProvider: React.FunctionComponent<{ children }> = ({
 };
 
 export const useLoadingContext = () => {
-  return useContext(LoadingContext);
+  const context = useContext(LoadingContext);
+  if (!context) {
+    throw new Error('useLoadingContext must be used within a LoadingProvider');
+  }
+  return context;
 };

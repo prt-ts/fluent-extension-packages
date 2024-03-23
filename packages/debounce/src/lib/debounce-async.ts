@@ -42,7 +42,7 @@ export function debounceAsync<T, TFuncParams extends any[]>(
         );
       });
     } catch (e) {
-      console.log(e);
+      console.error(e);
       return;
     }
   };

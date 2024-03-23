@@ -7,10 +7,8 @@ import {
   Spinner,
   DialogContent,
   makeStyles,
-  tokens,
-  Portal,
-  ProgressBar,
-  DialogTrigger,
+  tokens, 
+  ProgressBar, 
 } from '@fluentui/react-components';
 import { useLoadingContext } from './LoadingContext';
 
