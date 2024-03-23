@@ -7,7 +7,7 @@ export type OptionType = {
 };
 
 export const ChoiceFieldService = () => {
-  (async () => {})();
+  (async () => { })();
 
   const getChoiceFieldOptions = async (
     listName: string,
@@ -39,6 +39,8 @@ export const ChoiceFieldService = () => {
     config: {
       valueField: string;
       labelField: string;
+      additionalFields?: string[];
+      expandListColumns?: string[];
       filterContext?: string;
     }
   ): Promise<OptionType[]> => {
@@ -48,11 +50,17 @@ export const ChoiceFieldService = () => {
         const listItems = await sp.web.lists
           .getByTitle(listName)
           .items.filter(config.filterContext || "")
-          .select([config.valueField, config.labelField]?.join(", "))();
+          .expand(...(config.additionalFields || []))
+          .select([config.valueField, config.labelField, ...(config.expandListColumns || [])]?.join(", "))();
+
         const options = listItems.map((choice) => {
           return {
             value: choice[config.valueField],
             label: choice[config.labelField],
+
+            meta: {
+              ...choice
+            }
           };
         });
         resolve(options);
