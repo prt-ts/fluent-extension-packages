@@ -63,9 +63,9 @@ export const CheckboxField = forwardRef<HTMLInputElement, CheckboxFieldProps>(({
         />)
 })
 
-export type CheckboxOption = { 
+export type CheckboxChoiceOption = { 
     label: ReactNode, 
-    value: string, 
+    value: string | number | boolean, 
     checkboxProps?: CheckboxProps,
     meta?: Record<string, unknown>
 }
@@ -74,7 +74,7 @@ export type CheckboxGroupFieldProps = FieldProps & InfoLabelProps & {
     name: string,
     layout?: 'horizontal' | 'vertical'
     rules?: ControllerProps['rules']
-    options: CheckboxOption[]
+    options: CheckboxChoiceOption[]
 }
 
 export const useCheckboxGroupStyles = makeStyles({
@@ -107,9 +107,9 @@ export const CheckboxGroupField = forwardRef<HTMLDivElement, CheckboxGroupFieldP
             rules={rules}
             render={({ field, fieldState }) => {
                 const { onChange, onBlur, value, ref } = field;
-                const selectedValues = (value || [])?.map((v: CheckboxOption) => v.value);
+                const selectedValues = (value || [])?.map((v: CheckboxChoiceOption) => v.value);
 
-                const handleOnChange = (ev: React.ChangeEvent<HTMLInputElement>, data: CheckboxOnChangeData, option: CheckboxOption) => {
+                const handleOnChange = (ev: React.ChangeEvent<HTMLInputElement>, data: CheckboxOnChangeData, option: CheckboxChoiceOption) => {
                     if (data.checked) {
                         // if checked, add to selected values
                         onChange([...(value || []), option]);
@@ -141,7 +141,7 @@ export const CheckboxGroupField = forwardRef<HTMLDivElement, CheckboxGroupFieldP
                                     return (
                                         <Checkbox
                                             {...checkboxProps}
-                                            key={option.value}
+                                            key={`${name}-${option.value}`}
                                             id={`${name}-${option.value}`}
                                             onChange={(e, data) => handleOnChange(e, data, optionRest)}
                                             onBlur={handleOnBlur}

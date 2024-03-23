@@ -56,7 +56,7 @@ export type { SwitchFieldProps as SwitchProps } from './SwitchField';
 export type { 
   CheckboxFieldProps as CheckboxProps,
   CheckboxGroupFieldProps as CheckboxGroupProps,
-  CheckboxOption, 
+  CheckboxChoiceOption, 
 } from './CheckboxField';
 export type { SliderFieldProps as SliderProps } from './SliderField';
 export type { TextareaFieldProps as TextareaProps } from './TextareaField';

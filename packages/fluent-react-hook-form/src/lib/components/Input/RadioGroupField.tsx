@@ -17,10 +17,8 @@ import { Controller, ControllerProps } from "react-hook-form";
 
 export type RadioChoiceOption = {
   label: ReactNode;
-  value: string;
-
-  radioProps?: Partial<RadioProps> | undefined;
-
+  value: string | number | boolean; 
+  radioProps?: Partial<RadioProps> | undefined; 
   meta?: Record<string, unknown>
 };
 
@@ -91,7 +89,7 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
                   (option: RadioChoiceOption, index: number) => (
                     <Radio
                       key={`${option.value}-${index}`}
-                      value={option.value}
+                      value={option.value as string}
                       /*eslint-disable-next-line*/
                       label={<>{option.label}</>}
                       {...option.radioProps}
