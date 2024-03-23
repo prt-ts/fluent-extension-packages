@@ -1,10 +1,12 @@
-import { Checkbox, Radio, tokens } from '@fluentui/react-components';
+import { Checkbox, Radio } from '@fluentui/react-components';
 import { Row, RowData } from '@tanstack/react-table';
 import { useTableBodyStyles } from './useTableBodyStyles';
 import { TableProps } from '../../types';
 import { TableCell } from './TableCell';
 import { Case, Switch } from '@prt-ts/react-control-flow';
-import { CSSProperties, memo } from 'react';
+import { memo } from 'react';
+import { SelectRowCheckbox, SelectRowRadio } from '../extensions';
+import { getRowPinningStyles } from '../../helpers/StylesHelper';
 
 type TableRowProps<TItem extends RowData> = {
   row: Row<TItem>;
@@ -17,7 +19,7 @@ type TableRowProps<TItem extends RowData> = {
 
 function TableRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, tabAttributes }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
- 
+
   return (
     <tr
       key={row.id}
@@ -71,14 +73,7 @@ function TableRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, tabA
 
 function PinnedRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, bottomRowLength, tabAttributes }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
-
-  const pinnedRowRawStyle : CSSProperties = {
-    backgroundColor: tokens.colorPaletteYellowBackground2,
-    position: 'sticky',
-    top: row.getIsPinned() === 'top' ? `${row.getPinnedIndex() * 35 + 48}px` : undefined,
-    bottom: row.getIsPinned() === 'bottom' ? `${((bottomRowLength || 0) - 1 - row.getPinnedIndex()) * 35}px` : undefined,
-    ...style,
-  }
+  const pinnedRowRawStyle = getRowPinningStyles(row, bottomRowLength || 0, style || {});
 
   return (
     <tr
@@ -98,16 +93,7 @@ function PinnedRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, bot
             className={styles.tBodyCell}
             aria-label="Select Row Column"
           >
-            <Checkbox
-              checked={
-                row.getIsSomeSelected()
-                  ? 'mixed'
-                  : row.getIsSelected() || row.getIsAllSubRowsSelected()
-              }
-              disabled={!row.getCanSelect()}
-              onChange={row.getToggleSelectedHandler()}
-              aria-label="Select Row"
-            />
+            <SelectRowCheckbox row={row} />
           </td>
         </Case>
         <Case value={'single'}>
@@ -115,12 +101,7 @@ function PinnedRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, bot
             className={styles.tBodyCell}
             aria-label="Select Row Column"
           >
-            <Radio
-              checked={row.getIsSelected()}
-              disabled={!row.getCanSelect()}
-              onChange={row.getToggleSelectedHandler()}
-              aria-label="Select Row"
-            />
+            <SelectRowRadio row={row} />
           </td>
         </Case>
       </Switch>
@@ -131,7 +112,7 @@ function PinnedRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, bot
       })}
     </tr>
   )
-} 
+}
 
 export const TableRow = TableRowRaw;
 export const PinnedRow = memo(PinnedRowRaw) as typeof PinnedRowRaw;

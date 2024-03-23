@@ -6,6 +6,7 @@ import { EditRegular, DeleteRegular, StarDismissRegular, StarRegular, SwipeUpFil
 import {
   ColumnDef,
   PinRowAction,
+  SelectRowCheckbox,
   Table,
   TableRef,
   TableState,
@@ -31,7 +32,7 @@ import {
   MenuItem,
 } from "@fluentui/react-components";
 import { tableViews as views } from './data/tableView';
-import { ColumnPinningState } from '@tanstack/react-table'; 
+import { ColumnPinningState } from '@tanstack/react-table';
 
 const ColumnIdAccessMapping = {
   "First Name": "firstName",
@@ -137,7 +138,8 @@ export function TableExample2() {
       header: () => 'ID',
       cell: ({ row, getValue, table: { getState } }) => {
         return (
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}> 
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <SelectRowCheckbox row={row} />
             <PinRowAction row={row} />
             <Button
               icon={<EditRegular />}
