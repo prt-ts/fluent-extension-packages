@@ -50,6 +50,7 @@ export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps
                         required={required}
                     >
                         <DatePicker
+                            allowTextInput
                             {...datePickerProps}
                             ref={inputRef || ref}
                             name={name}
