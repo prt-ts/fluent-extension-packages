@@ -5,6 +5,7 @@ import { Button, Field, Input, Radio, RadioGroup } from '@fluentui/react-compone
 import { EditRegular, DeleteRegular, StarDismissRegular, StarRegular, SwipeUpFilled, SwipeDownFilled, PinOffRegular } from '@fluentui/react-icons';
 import {
   ColumnDef,
+  PinRowAction,
   Table,
   TableRef,
   TableState,
@@ -30,8 +31,7 @@ import {
   MenuItem,
 } from "@fluentui/react-components";
 import { tableViews as views } from './data/tableView';
-import { ColumnPinningState } from '@tanstack/react-table';
-import { Show } from "@prt-ts/react-control-flow";
+import { ColumnPinningState } from '@tanstack/react-table'; 
 
 const ColumnIdAccessMapping = {
   "First Name": "firstName",
@@ -136,51 +136,9 @@ export function TableExample2() {
       id: 'ID',
       header: () => 'ID',
       cell: ({ row, getValue, table: { getState } }) => {
-        const isPinned = row.getIsPinned();
         return (
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-
-            <Show when={isPinned}>
-
-              <Button
-                size="small"
-                shape="circular"
-                onClick={() => row.pin(false, true, false)}
-                icon={<PinOffRegular />}
-              />
-            </Show>
-            <Show when={!isPinned}>
-              <div>
-                <Menu>
-                  <MenuTrigger disableButtonEnhancement>
-                    <Button
-                      icon={<StarRegular />}
-                      shape="circular"
-                      size="small"
-                    />
-                  </MenuTrigger>
-
-                  <MenuPopover>
-                    <MenuList>
-                      <MenuItem
-                        icon={<SwipeUpFilled />}
-                        onClick={() =>
-                          row.pin('top', true, false)
-                        }>
-                        Top
-                      </MenuItem>
-                      <MenuItem
-                        icon={<SwipeDownFilled />}
-                        onClick={() =>
-                          row.pin('bottom', true, true)
-                        }>
-                        Bottom
-                      </MenuItem>
-                    </MenuList>
-                  </MenuPopover>
-                </Menu>
-              </div>
-            </Show>
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}> 
+            <PinRowAction row={row} />
             <Button
               icon={<EditRegular />}
               aria-label="Edit"

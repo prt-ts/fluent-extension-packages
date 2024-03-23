@@ -5,6 +5,8 @@ import { ActionType, DrawerTableState } from "./components/reducer";
 export { disableAllShorthand } from "./helpers/Shorthands";
 export { Table, useSkipper } from "./components"; 
 
+export * from "./components/extensions";
+
 declare module '@tanstack/table-core' {
     interface FilterFns {
         arrIncludesSome: FilterFn<unknown>
