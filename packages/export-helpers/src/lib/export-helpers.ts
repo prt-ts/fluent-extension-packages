@@ -1,9 +1,5 @@
 /* eslint-disable */
 import { saveAs } from 'file-saver';
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-
-(window as any).pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const fileInfo = {
   excel: {
@@ -70,11 +66,17 @@ export function exportToPdfDocument(
   fileName: string = 'document',
   printMode: 'print' | 'open' | 'download' = 'print'
 ) {
-  if (printMode == 'print') {
-    pdfMake.createPdf(docDefinition).print();
-  } else if (printMode == 'download') {
-    pdfMake.createPdf(docDefinition).download(fileName);
-  } else {
-    pdfMake.createPdf(docDefinition).open();
-  }
+  // import pdfMake and download the fonts
+  import('pdfmake/build/pdfmake').then((pdfMake) => {
+    import('pdfmake/build/vfs_fonts').then((vfsFonts) => {
+      pdfMake.vfs = vfsFonts.pdfMake.vfs;
+      if (printMode == 'print') {
+        pdfMake.createPdf(docDefinition).print();
+      } else if (printMode == 'download') {
+        pdfMake.createPdf(docDefinition).download(fileName);
+      } else {
+        pdfMake.createPdf(docDefinition).open();
+      }
+    });
+  });  
 };
