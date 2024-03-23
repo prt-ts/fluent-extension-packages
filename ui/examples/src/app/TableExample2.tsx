@@ -33,6 +33,7 @@ import {
 } from "@fluentui/react-components";
 import { tableViews as views } from './data/tableView';
 import { ColumnPinningState } from '@tanstack/react-table';
+import { enableExtensions } from "@pnp/core";
 
 const ColumnIdAccessMapping = {
   "First Name": "firstName",
@@ -378,6 +379,9 @@ export function TableExample2() {
         }}
         tableHeight='790px'
         isAutoExpandOnGroup={true}
+        tableSettings={{
+          enableManualSelection: true,
+        }}
       />
     </div>
   );

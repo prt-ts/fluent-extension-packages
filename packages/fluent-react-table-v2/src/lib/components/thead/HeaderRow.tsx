@@ -1,13 +1,11 @@
 import { Checkbox, useFocusableGroup } from '@fluentui/react-components';
 import { Header, HeaderGroup, RowData, Table } from '@tanstack/react-table';
-import { TableProps } from '../../types';
 import { HeaderCell } from './HeaderCell';
 import { useTableHeaderStyles } from './useTableHeaderStyles';
-import { For, Show } from '@prt-ts/react-control-flow';
+import { Case, For, Show, Switch } from '@prt-ts/react-control-flow';
 
 type HeaderRowProps<TItem extends RowData> = {
     table: Table<TItem>;
-    rowSelectionMode?: TableProps<TItem>['rowSelectionMode'];
     headerGroup: HeaderGroup<TItem>,
     headerGroupsLength: number;
 }
@@ -15,38 +13,45 @@ type HeaderRowProps<TItem extends RowData> = {
 export function HeaderRow<TItem extends RowData>(props: HeaderRowProps<TItem>) {
     const styles = useTableHeaderStyles();
 
-    const { table, headerGroup, rowSelectionMode, headerGroupsLength } = props;
+    const { table, headerGroup, headerGroupsLength } = props;
+    const { rowSelectionMode, tableSettings } = table.options.meta ?? {};
     const headerCellTabAttributes = useFocusableGroup({ tabBehavior: "limited" });
 
     return (
         <tr key={headerGroup.id} className={styles.tHeadRow}>
-            <Show when={rowSelectionMode === 'multiple'}>
-                <th
-                    style={{ width: '1rem' }}
-                    aria-label="Select All Row Column" 
-                >
-                    {headerGroup.depth === headerGroupsLength - 1 && (
-                        <Checkbox
-                            checked={
-                                table.getIsSomeRowsSelected()
-                                    ? 'mixed'
-                                    : table.getIsAllRowsSelected()
-                            }
-                            onChange={table.getToggleAllRowsSelectedHandler()}
-                            aria-label="Select All Rows"
-                            title={'Select All Rows'}
-                        />
-                    )}
-                </th>
+            <Show when={!tableSettings?.enableManualSelection}>
+                <Switch when={rowSelectionMode}>
+                    <Case value="multiple">
+                        <th
+                            style={{ width: '1rem' }}
+                            aria-label="Select All Row Column"
+                        >
+                            {headerGroup.depth === headerGroupsLength - 1 && (
+                                <Checkbox
+                                    checked={
+                                        table.getIsSomeRowsSelected()
+                                            ? 'mixed'
+                                            : table.getIsAllRowsSelected()
+                                    }
+                                    onChange={table.getToggleAllRowsSelectedHandler()}
+                                    aria-label="Select All Rows"
+                                    title={'Select All Rows'}
+                                />
+                            )}
+                        </th>
+                    </Case>
+                    <Case value="single">
+                        <th
+                            style={{ width: '1rem' }}
+                            aria-label="Select All Row Column"
+                        >
+                            {' '}
+                        </th>
+                    </Case>
+                </Switch>
             </Show>
-            <Show when={rowSelectionMode === 'single'}>
-                <th
-                    style={{ width: '1rem' }}
-                    aria-label="Select All Row Column"  
-                >
-                    {' '}
-                </th>
-            </Show>
+
+
             <For each={headerGroup.headers}>
                 {
                     (header, index) => {
@@ -63,7 +68,7 @@ export function HeaderRow<TItem extends RowData>(props: HeaderRowProps<TItem>) {
                         );
                     }
                 }
-            </For> 
+            </For>
         </tr>
     );
 }

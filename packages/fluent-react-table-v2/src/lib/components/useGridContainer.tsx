@@ -172,8 +172,9 @@ export const useGridContainer = <TItem extends RowData>(
       setExpanded,
       setColumnPinning,
       setColumnSizing,
-      setRowPinning
+      setRowPinning,
 
+      tableSettings: props.tableSettings ?? {},
     }
   });
 

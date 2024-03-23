@@ -14,7 +14,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
     const styles = useTableBodyStyles();
 
     const { table, tableContainerRef } = props;
-    const rowSelectionMode = table.options.meta?.rowSelectionMode;
+    const { rowSelectionMode } = table.options.meta ?? {};
 
     let rows: Row<TItem>[] = [];
     let topRows: Row<TItem>[] = [];
@@ -56,7 +56,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                     }}>
                     <For each={topRows}>
                         {(row, index) => (
-                            <PinnedRow key={`${row.id}_${index}`} row={row} rowSelectionMode={rowSelectionMode} bottomRowLength={bottomRows?.length} tabAttributes={tabAttributes} />
+                            <PinnedRow key={`${row.id}_${index}`} row={row} table={table} bottomRowLength={bottomRows?.length} tabAttributes={tabAttributes} />
                         )}
                     </For>
                 </thead>
@@ -73,7 +73,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                     {(virtualRow) => {
                         const row = rows[virtualRow.index];
                         return (
-                            <TableRow key={row.id} row={row} rowSelectionMode={rowSelectionMode} tabAttributes={tabAttributes} />
+                            <TableRow key={row.id} row={row} table={table} tabAttributes={tabAttributes} />
                         );
                     }}
                 </For>
@@ -121,7 +121,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                 }}>
                     <For each={bottomRows}>
                         {(row) => (
-                            <PinnedRow key={row.id} row={row} rowSelectionMode={rowSelectionMode} bottomRowLength={bottomRows?.length} tabAttributes={tabAttributes} />
+                            <PinnedRow key={row.id} row={row} table={table} bottomRowLength={bottomRows?.length} tabAttributes={tabAttributes} />
                         )}
                     </For>
                 </tfoot>

@@ -1,24 +1,22 @@
-import { Checkbox, Radio } from '@fluentui/react-components';
-import { Row, RowData } from '@tanstack/react-table';
+import { Row, RowData, Table } from '@tanstack/react-table';
 import { useTableBodyStyles } from './useTableBodyStyles';
-import { TableProps } from '../../types';
 import { TableCell } from './TableCell';
-import { Case, Switch } from '@prt-ts/react-control-flow';
-import { memo } from 'react';
+import { Case, Show, Switch } from '@prt-ts/react-control-flow'; 
 import { SelectRowCheckbox, SelectRowRadio } from '../extensions';
 import { getRowPinningStyles } from '../../helpers/StylesHelper';
 
 type TableRowProps<TItem extends RowData> = {
+  table: Table<TItem>;
   row: Row<TItem>;
-  rowSelectionMode?: TableProps<TItem>['rowSelectionMode'];
   bottomRowLength?: number;
   style?: React.CSSProperties;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tabAttributes: any;
 }
 
-function TableRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, tabAttributes }: TableRowProps<TItem>) {
+function TableRowRaw<TItem extends RowData>({ row, table, style, tabAttributes }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
+  const { rowSelectionMode, tableSettings } = table.options.meta ?? {};
 
   return (
     <tr
@@ -32,38 +30,26 @@ function TableRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, tabA
       {...tabAttributes}
       tabIndex={0}
     >
-      <Switch when={rowSelectionMode}>
-        <Case value='multiple'>
-          <td
-            className={styles.tBodyCell}
-            aria-label="Select Row Column"
-          >
-            <Checkbox
-              checked={
-                row.getIsSomeSelected()
-                  ? 'mixed'
-                  : row.getIsSelected() || row.getIsAllSubRowsSelected()
-              }
-              disabled={!row.getCanSelect()}
-              onChange={row.getToggleSelectedHandler()}
+      <Show when={!tableSettings?.enableManualSelection}>
+        <Switch when={rowSelectionMode}>
+          <Case value='multiple'>
+            <td
+              className={styles.tBodyCell}
               aria-label="Select Row"
-            />
-          </td>
-        </Case>
-        <Case value={'single'}>
-          <td
-            className={styles.tBodyCell}
-            aria-label="Select Row Column"
-          >
-            <Radio
-              checked={row.getIsSelected()}
-              disabled={!row.getCanSelect()}
-              onChange={row.getToggleSelectedHandler()}
+            >
+              <SelectRowCheckbox row={row} />
+            </td>
+          </Case>
+          <Case value={'single'}>
+            <td
+              className={styles.tBodyCell}
               aria-label="Select Row"
-            />
-          </td>
-        </Case>
-      </Switch>
+            >
+              <SelectRowRadio row={row} />
+            </td>
+          </Case>
+        </Switch>
+      </Show>
       {row.getVisibleCells().map((cell) => (
         <TableCell key={cell.id} cell={cell} row={row} />
       ))}
@@ -71,9 +57,10 @@ function TableRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, tabA
   );
 }
 
-function PinnedRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, bottomRowLength, tabAttributes }: TableRowProps<TItem>) {
+function PinnedRowRaw<TItem extends RowData>({ row, table, style, bottomRowLength, tabAttributes }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
   const pinnedRowRawStyle = getRowPinningStyles(row, bottomRowLength || 0, style || {});
+  const { rowSelectionMode, tableSettings } = table.options.meta ?? {};
 
   return (
     <tr
@@ -87,24 +74,26 @@ function PinnedRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, bot
       {...tabAttributes}
       tabIndex={0}
     >
-      <Switch when={rowSelectionMode}>
-        <Case value='multiple'>
-          <td
-            className={styles.tBodyCell}
-            aria-label="Select Row Column"
-          >
-            <SelectRowCheckbox row={row} />
-          </td>
-        </Case>
-        <Case value={'single'}>
-          <td
-            className={styles.tBodyCell}
-            aria-label="Select Row Column"
-          >
-            <SelectRowRadio row={row} />
-          </td>
-        </Case>
-      </Switch>
+      <Show when={!tableSettings?.enableManualSelection}>
+        <Switch when={rowSelectionMode}>
+          <Case value='multiple'>
+            <td
+              className={styles.tBodyCell}
+              aria-label="Select Row Column"
+            >
+              <SelectRowCheckbox row={row} />
+            </td>
+          </Case>
+          <Case value={'single'}>
+            <td
+              className={styles.tBodyCell}
+              aria-label="Select Row Column"
+            >
+              <SelectRowRadio row={row} />
+            </td>
+          </Case>
+        </Switch>
+      </Show>
       {row.getVisibleCells().map(cell => {
         return (
           <TableCell key={cell.id} cell={cell} row={row} />
@@ -115,4 +104,4 @@ function PinnedRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, bot
 }
 
 export const TableRow = TableRowRaw;
-export const PinnedRow = memo(PinnedRowRaw) as typeof PinnedRowRaw;
+export const PinnedRow = PinnedRowRaw;

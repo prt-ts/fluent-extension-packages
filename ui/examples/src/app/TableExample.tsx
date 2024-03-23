@@ -4,6 +4,7 @@ import { Button, Field, Radio, RadioGroup } from '@fluentui/react-components';
 import { EditRegular, DeleteRegular } from '@fluentui/react-icons';
 import {
   ColumnDef,
+  SelectRowCheckbox,
   Table,
   TableRef,
   TableState,
@@ -113,9 +114,10 @@ export function TableExample() {
     columnHelper.accessor('id', {
       id: 'ID',
       header: () => 'ID',
-      cell: ({ getValue }) => {
+      cell: ({ getValue, row }) => {
         return (
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <SelectRowCheckbox row={row} />
             <Button
               icon={<EditRegular />}
               aria-label="Edit"
@@ -515,6 +517,9 @@ export function TableExample() {
         }}
         disableTableHeader={true}
         tableHeight='750px'
+        tableSettings={{
+          enableManualSelection: true,
+        }}
       />
     </div>
   );
