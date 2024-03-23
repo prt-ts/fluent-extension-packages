@@ -36,3 +36,5 @@ export {
 export {
   useButtonStyles
 } from "./styles";
+
+export * from "./icons";
