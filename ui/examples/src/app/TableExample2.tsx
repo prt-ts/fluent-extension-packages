@@ -32,8 +32,7 @@ import {
   MenuItem,
 } from "@fluentui/react-components";
 import { tableViews as views } from './data/tableView';
-import { ColumnPinningState } from '@tanstack/react-table';
-import { enableExtensions } from "@pnp/core";
+import { ColumnPinningState } from '@tanstack/react-table'; 
 
 const ColumnIdAccessMapping = {
   "First Name": "firstName",
@@ -123,7 +122,7 @@ export function TableExample2() {
         if (index === rowIndex) {
           const accessor = ColumnIdAccessMapping[columnId] ?? columnId
           return {
-            ...old[rowIndex]!,
+            ...old[rowIndex],
             [accessor]: value,
           }
         }
@@ -137,6 +136,7 @@ export function TableExample2() {
     columnHelper.accessor('id', {
       id: 'ID',
       header: () => 'ID',
+      aggregatedCell: ({row}) => <SelectRowCheckbox row={row} />,
       cell: ({ row, getValue, table: { getState } }) => {
         return (
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
@@ -168,8 +168,7 @@ export function TableExample2() {
             <strong>{getValue()}</strong>
           </div>
         );
-      },
-      aggregatedCell: () => null,
+      }, 
       filterFn: 'arrIncludesSome',
       enableGrouping: false,
       enableHiding: false,
@@ -256,7 +255,7 @@ export function TableExample2() {
       filterFn: 'inDateRange',
     }) as ColumnDef<Person>,
   ] as ColumnDef<Person>[]
-    , [])
+,[])
 
   useEffect(
     () => {
