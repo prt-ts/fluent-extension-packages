@@ -65,24 +65,17 @@ const GroupCollapseIcon = bundleIcon(TextCollapseFilled, TextCollapseRegular);
 
 type HeaderCellProps<TItem extends RowData> = {
   header: Header<TItem, unknown>;
-  table: Table<TItem>;
-  hideMenu?: boolean;
-  headerDepth: number;
-  totalNumberOfHeaderDepth: number;
-
+  table: Table<TItem>; 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tabAttributes: any;
 };
 
 export function HeaderCell<TItem extends RowData>({
   header,
-  table,
-  hideMenu,
-  headerDepth,
-  totalNumberOfHeaderDepth,
+  table, 
   tabAttributes
 }: HeaderCellProps<TItem>) {
-  const { column } = header;
+  const { column, id } = header;   
 
   const {
     isDragging,
@@ -101,7 +94,7 @@ export function HeaderCell<TItem extends RowData>({
   };
 
   const styles = useTableHeaderStyles();
-  const isLeafHeaders = headerDepth === totalNumberOfHeaderDepth; 
+  const isLeafHeaders = `${id}`?.split('_')?.length === 1;  
   const headerCellCombinedStyles = getHeaderCellPinningStyles(column, isDragging, dndStyle)
 
   if (header.isPlaceholder) {
@@ -208,7 +201,7 @@ export function HeaderCell<TItem extends RowData>({
               </Button>
             </Show>
           </div>
-          <HeaderMenu header={header} table={table} hideMenu={hideMenu} />
+          <HeaderMenu header={header} table={table} hideMenu={!isLeafHeaders} />
         </div>
       </div>
 

@@ -17,6 +17,8 @@ export function HeaderRow<TItem extends RowData>(props: HeaderRowProps<TItem>) {
     const { rowSelectionMode, tableSettings } = table.options.meta ?? {};
     const headerCellTabAttributes = useFocusableGroup({ tabBehavior: "limited" });
 
+    const isLeafHeaders = headerGroup.depth === headerGroupsLength - 1;
+
     return (
         <tr key={headerGroup.id} className={styles.tHeadRow}>
             <Show when={!tableSettings?.enableManualSelection}>
@@ -24,9 +26,9 @@ export function HeaderRow<TItem extends RowData>(props: HeaderRowProps<TItem>) {
                     <Case value="multiple">
                         <th
                             style={{ width: '1rem' }}
-                            aria-label="Select All Row Column"
+                            aria-label="Select All Row"
                         >
-                            {headerGroup.depth === headerGroupsLength - 1 && (
+                            <Show when={isLeafHeaders}>
                                 <Checkbox
                                     checked={
                                         table.getIsSomeRowsSelected()
@@ -37,7 +39,7 @@ export function HeaderRow<TItem extends RowData>(props: HeaderRowProps<TItem>) {
                                     aria-label="Select All Rows"
                                     title={'Select All Rows'}
                                 />
-                            )}
+                            </Show>
                         </th>
                     </Case>
                     <Case value="single">
@@ -59,10 +61,7 @@ export function HeaderRow<TItem extends RowData>(props: HeaderRowProps<TItem>) {
                             <HeaderCell
                                 key={`${header.id}_${index}`}
                                 header={header as unknown as Header<TItem, unknown>}
-                                table={table as unknown as Table<TItem>}
-                                hideMenu={headerGroup.depth !== headerGroupsLength - 1}
-                                headerDepth={headerGroup.depth}
-                                totalNumberOfHeaderDepth={headerGroupsLength - 1}
+                                table={table as unknown as Table<TItem>} 
                                 tabAttributes={headerCellTabAttributes}
                             />
                         );
