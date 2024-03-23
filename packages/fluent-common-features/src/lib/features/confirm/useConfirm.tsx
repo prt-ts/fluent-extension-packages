@@ -1,10 +1,7 @@
 /* eslint-disable */
-import * as React from 'react';
-import {
-  ConfirmStateType,
-  contextDefaultValue
-} from './ConfirmContext';
+import * as React from 'react'; 
 import { useConfirmContext } from './useConfirmContext';
+import { ConfirmStateType, contextDefaultValue } from './Types';
 
 export const useConfirm = () => {
   const { setIsOpen, setContextDetails } = useConfirmContext();

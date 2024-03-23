@@ -1,6 +1,7 @@
 /* eslint-disable */
-import * as React from 'react';
-import { LoadingState, useLoadingContext } from './LoadingContext';
+import * as React from 'react'; 
+import { useLoadingContext } from './useLoadingContext';
+import { LoadingState } from './Types';
 
 export const useLoading = () => {
   (async () => {})();

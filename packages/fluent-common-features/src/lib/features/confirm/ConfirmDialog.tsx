@@ -12,9 +12,9 @@ import {
   makeStyles,
   ButtonProps, 
   shorthands,
-} from '@fluentui/react-components';
-import { contextDefaultValue } from './ConfirmContext';
+} from '@fluentui/react-components'; 
 import { useConfirmContext } from './useConfirmContext';
+import { contextDefaultValue } from './Types';
 
 const useStyle = makeStyles({
   dialogSurface: {

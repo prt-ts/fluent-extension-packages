@@ -9,8 +9,8 @@ import {
   makeStyles,
   tokens, 
   ProgressBar, 
-} from '@fluentui/react-components';
-import { useLoadingContext } from './LoadingContext';
+} from '@fluentui/react-components'; 
+import { useLoadingContext } from './useLoadingContext';
 
 const useLoadingStyles = makeStyles({
   modalSurface: {
