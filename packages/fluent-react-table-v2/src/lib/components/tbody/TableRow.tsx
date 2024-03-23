@@ -4,7 +4,7 @@ import { useTableBodyStyles } from './useTableBodyStyles';
 import { TableProps } from '../../types';
 import { TableCell } from './TableCell';
 import { Case, Switch } from '@prt-ts/react-control-flow';
-import { CSSProperties } from 'react';
+import { CSSProperties, memo } from 'react';
 
 type TableRowProps<TItem extends RowData> = {
   row: Row<TItem>;
@@ -15,7 +15,7 @@ type TableRowProps<TItem extends RowData> = {
   tabAttributes: any;
 }
 
-export function TableRow<TItem extends RowData>({ row, rowSelectionMode, style, tabAttributes }: TableRowProps<TItem>) {
+function TableRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, tabAttributes }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
  
   return (
@@ -69,7 +69,7 @@ export function TableRow<TItem extends RowData>({ row, rowSelectionMode, style, 
   );
 }
 
-export function PinnedRow<TItem extends RowData>({ row, rowSelectionMode, style, bottomRowLength, tabAttributes }: TableRowProps<TItem>) {
+function PinnedRowRaw<TItem extends RowData>({ row, rowSelectionMode, style, bottomRowLength, tabAttributes }: TableRowProps<TItem>) {
   const styles = useTableBodyStyles();
 
   const pinnedRowRawStyle : CSSProperties = {
@@ -131,4 +131,7 @@ export function PinnedRow<TItem extends RowData>({ row, rowSelectionMode, style,
       })}
     </tr>
   )
-}
+} 
+
+export const TableRow = TableRowRaw;
+export const PinnedRow = memo(PinnedRowRaw) as typeof PinnedRowRaw;

@@ -56,7 +56,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                     }}>
                     <For each={topRows}>
                         {(row, index) => (
-                            <PinnedRow key={row.id} row={row} rowSelectionMode={rowSelectionMode} bottomRowLength={bottomRows?.length} tabAttributes={tabAttributes} />
+                            <PinnedRow key={`${row.id}_${index}`} row={row} rowSelectionMode={rowSelectionMode} bottomRowLength={bottomRows?.length} tabAttributes={tabAttributes} />
                         )}
                     </For>
                 </thead>

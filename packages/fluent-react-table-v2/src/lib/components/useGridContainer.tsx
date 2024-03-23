@@ -114,7 +114,7 @@ export const useGridContainer = <TItem extends RowData>(
       rowPinning
     },
     getRowId(originalRow, index, parent) {
-      const keyProps = props.dataPrimaryKye || 'id' as keyof TItem;
+      const keyProps = props.dataPrimaryKye as keyof TItem;
       return (originalRow[keyProps] as string) || `${index}`;
     },
     columnResizeMode: 'onChange',

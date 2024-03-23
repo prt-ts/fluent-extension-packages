@@ -49,10 +49,10 @@ export function HeaderRow<TItem extends RowData>(props: HeaderRowProps<TItem>) {
             </Show>
             <For each={headerGroup.headers}>
                 {
-                    (header) => {
+                    (header, index) => {
                         return (
                             <HeaderCell
-                                key={header.id}
+                                key={`${header.id}_${index}`}
                                 header={header as unknown as Header<TItem, unknown>}
                                 table={table as unknown as Table<TItem>}
                                 hideMenu={headerGroup.depth !== headerGroupsLength - 1}
