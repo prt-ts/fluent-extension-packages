@@ -4,6 +4,7 @@ import { Button, Field, Radio, RadioGroup } from '@fluentui/react-components';
 import { EditRegular, DeleteRegular } from '@fluentui/react-icons';
 import {
   ColumnDef,
+  PinRowAction,
   SelectRowCheckbox,
   Table,
   TableRef,
@@ -106,9 +107,7 @@ export function TableExample() {
     const tableState = JSON.parse(localStorageString) as TableState;
     tableRef.current?.applyTableState(tableState);
     console.log(tableState);
-  };
-
-
+  }; 
 
   const columns = [
     columnHelper.accessor('id', {
@@ -117,7 +116,8 @@ export function TableExample() {
       cell: ({ getValue, row }) => {
         return (
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-            <SelectRowCheckbox row={row} />
+            {/* <SelectRowCheckbox row={row} /> */}
+            <PinRowAction row={row} />
             <Button
               icon={<EditRegular />}
               aria-label="Edit"
@@ -517,9 +517,9 @@ export function TableExample() {
         }}
         disableTableHeader={true}
         tableHeight='750px'
-        tableSettings={{
-          enableManualSelection: true,
-        }}
+        // tableSettings={{
+        //   enableManualSelection: true,
+        // }}
       />
     </div>
   );
