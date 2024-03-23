@@ -7,7 +7,7 @@ import {
     useSkipper,
 } from '@prt-ts/fluent-react-table-v2';
 import { Person, makeData } from "../data/data";
-import {GridDropdownCell, GridInputCell} from "./FormElement";
+import {GridDatePickerCell, GridDropdownCell, GridInputCell} from "./FormElement";
 import { Form, useForm } from "@prt-ts/fluent-react-hook-form";
 
 const defaultColumn: Partial<ColumnDef<Person>> = {
@@ -65,6 +65,19 @@ export function EditableGrid() {
                 aggregatedCell: () => null,
                 filterFn: 'arrIncludesSome',
             }),
+            columnHelper.accessor(({ createdAt }) => createdAt, {
+                id: 'Created At',
+                header: 'Created At',
+                cell: ({ getValue, row, column, table }) => {
+                    const value = getValue() ? new Date(getValue())?.toLocaleDateString() : null;
+                    const rowId = +row.id;
+                    const columnId = column.id; 
+                     
+                    return <GridDatePickerCell name={`${rowId}.${columnId}`} value={value} table={table} rowId={rowId} columnId={columnId} />
+                },
+                aggregatedCell: () => null,
+                filterFn: 'inDateRange',
+              })
         ] as ColumnDef<Person>[]
     }, []);
 

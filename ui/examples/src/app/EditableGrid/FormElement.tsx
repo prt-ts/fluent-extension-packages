@@ -4,6 +4,7 @@ import { TableType } from '@prt-ts/fluent-react-table-v2';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { Person } from '../data/data';
+import { DatePicker, DatePickerProps } from '@fluentui/react-datepicker-compat';
 
 interface FormElementProps {
     name: string;
@@ -79,6 +80,67 @@ export const GridInputCell: React.FC<FormElementProps> = ({ name, value, rowId, 
                         required={false}
                         appearance='filled-lighter'
                         className={styles.cell}
+                    />
+                )
+            }}
+        />)
+};
+
+export const GridDatePickerCell: React.FC<FormElementProps> = ({ name, value, rowId, columnId, table }) => {
+    const {
+        form: { control }
+    } = useFormContext();
+
+    const [isEditMode, setIsEditMode] = React.useState(false);
+    const inputRef = React.useRef<HTMLInputElement>(null);
+
+    const switchToEditMode = () => {
+        setIsEditMode(true);
+        setTimeout(() => {
+            inputRef.current?.focus();
+        }, 100);
+    }
+
+    const styles = useInputStyles();
+
+    if (!isEditMode) {
+        return (<div
+            className={styles.placeholderDiv}
+            tabIndex={0}
+            onFocus={switchToEditMode}
+            onSelect={switchToEditMode}
+            onClick={switchToEditMode}>{value}
+        </div>)
+    }
+
+    return (
+        <Controller
+            key={name}
+            name={name}
+            control={control}
+            render={({ field, fieldState }) => {
+                const { onChange, onBlur, value, ref } = field;
+
+                const handleOnChange: DatePickerProps["onSelectDate"] = (date: Date | null | undefined) => {
+                    onChange(date || "");
+                    table.options.meta?.updateData(+rowId, columnId, value);
+                    setIsEditMode(false);
+                }
+
+                const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
+                    onBlur();
+                    table.options.meta?.updateData(+rowId, columnId, value);
+                    setIsEditMode(false);
+                }
+
+                return (
+                    <DatePicker
+                        ref={inputRef || ref}
+                        name={name}
+                        onSelectDate={handleOnChange}
+                        onBlur={handleOnBlur}
+                        value={value || ""}
+                        required={false}
                     />
                 )
             }}
