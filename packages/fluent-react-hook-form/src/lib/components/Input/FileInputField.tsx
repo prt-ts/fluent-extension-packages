@@ -57,10 +57,10 @@ const useStyles = makeStyles({
     ...shorthands.borderBottom(tokens.strokeWidthThick, 'solid', tokens.colorCompoundBrandStrokePressed),
   },
   acceptStyle: {
-    'border-color': '#2196f3',
+    ...shorthands.border(tokens.strokeWidthThin, 'solid', tokens.colorPaletteGreenBorder2),
   },
   rejectStyle: {
-    'border-color': '#ff1744',
+    ...shorthands.border(tokens.strokeWidthThin, 'solid', tokens.colorPaletteRedBorder2),
   },
 
   small: {
