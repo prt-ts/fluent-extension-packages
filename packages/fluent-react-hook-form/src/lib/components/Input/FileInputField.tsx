@@ -20,7 +20,7 @@ import {
   useFocusableGroup,
 } from '@fluentui/react-components';
 import { Accept, useDropzone } from 'react-dropzone';
-import type { DropzoneProps} from "react-dropzone"
+import type { DropzoneProps } from "react-dropzone"
 import { forwardRef } from 'react';
 import { useFormContext } from '../Form';
 import { Controller, ControllerProps } from 'react-hook-form';
@@ -41,7 +41,7 @@ const useStyles = makeStyles({
     // Use 2px gap below the label (per the design system)
     rowGap: '2px',
   },
-  baseStyle: { 
+  baseStyle: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -50,10 +50,10 @@ const useStyles = makeStyles({
     ...shorthands.borderRadius(tokens.borderRadiusMedium),
     ...shorthands.borderBottom(tokens.strokeWidthThin, 'solid', tokens.colorNeutralStrokeAccessible),
     backgroundColor: tokens.colorNeutralBackground3,
-    color: tokens.colorNeutralForeground3, 
-    cursor: 'pointer', 
+    color: tokens.colorNeutralForeground3,
+    cursor: 'pointer',
   },
-  focusedStyle: { 
+  focusedStyle: {
     ...shorthands.borderBottom(tokens.strokeWidthThick, 'solid', tokens.colorCompoundBrandStrokePressed),
   },
   acceptStyle: {
@@ -63,13 +63,13 @@ const useStyles = makeStyles({
     'border-color': '#ff1744',
   },
 
-  small : {
+  small: {
     minHeight: '18px',
   },
-  medium : {
+  medium: {
     minHeight: '24px',
   },
-  large : {
+  large: {
     minHeight: '32px',
   },
 });
@@ -88,7 +88,7 @@ export type FileInfo = {
 export type FileInputFieldProps = FieldProps &
   DropzoneProps &
   InfoLabelProps & {
-    name: string; 
+    name: string;
     accept?: Accept;
     multiple?: boolean;
     savedFiles?: FileInfo[];
@@ -127,12 +127,13 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
 
     const {
       acceptedFiles,
+      fileRejections,
       getRootProps,
       getInputProps,
       isFocused,
       isDragAccept,
       isDragReject,
-    } = useDropzone({ 
+    } = useDropzone({
       disabled,
       accept,
       multiple: multiple,
@@ -145,7 +146,7 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
         const currentFiles = getValues(name) as File[];
         const files = currentFiles?.length && multiple
           ? [...acceptedFiles, ...(currentFiles as File[])]
-          : acceptedFiles;     
+          : acceptedFiles;
 
         setValue(name, arrayUniqueByKey(files, 'name'), {
           shouldValidate: true,
@@ -154,7 +155,7 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
       }
     }, [acceptedFiles, multiple, setValue, getValues, name]);
 
-    const focusGroupAttributes = useFocusableGroup({ tabBehavior: "limited" }); 
+    const focusGroupAttributes = useFocusableGroup({ tabBehavior: "limited" });
 
     return (
       <Controller
@@ -164,126 +165,131 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
         render={({ field, fieldState }) => {
           const { onChange, value, ref } = field;
 
-          const filepickerstyle = mergeClasses(
-            styles.baseStyle,
-            isFocused ? styles.focusedStyle : '',
-            isDragAccept ? styles.acceptStyle : '',
-            fieldState.invalid ? styles.rejectStyle : '',
-            isDragReject ? styles.rejectStyle : '',
-            styles[size]          
-          );
-
           const unSavedFilesLength = (value as File[])?.length || 0;
           const showFileList = unSavedFilesLength > 0 || (savedFiles && savedFiles?.length > 0);
-          
+
+          const validationMessage = (fieldState.error?.message || fileRejections?.[0]?.errors?.[0]?.message || '');
+          const validationState = (fieldState.invalid || validationMessage?.length) ? 'error' : undefined;
+
+          const filepickerstyle = mergeClasses(
+            styles.baseStyle,
+            isFocused && validationState !== "error" ? styles.focusedStyle : '',
+            isDragAccept ? styles.acceptStyle : '',
+            validationState === "error" ? styles.rejectStyle : '',
+            isDragReject ? styles.rejectStyle : '',
+            styles[size]
+          );
+
           return (
-            <Field
-              {...fieldProps}
-              label={
-                {
-                  children: (_: unknown, props: LabelProps) => (
-                    <InfoLabel {...props} {...infoLabelProps} />
-                  ),
-                } as unknown as InfoLabelProps
-              }
-              validationState={fieldState.invalid ? 'error' : undefined}
-              validationMessage={fieldState.error?.message}
-              required={required}
-            >
-              {(fieldProps) => (
+            <>
+              <Field
+                {...fieldProps}
+                label={
+                  {
+                    children: (_: unknown, props: LabelProps) => (
+                      <InfoLabel {...props} {...infoLabelProps} />
+                    ),
+                  } as unknown as InfoLabelProps
+                }
+                validationState={validationState}
+                validationMessage={validationMessage}
+                required={required}
+              >
+                {(fieldProps) => (
                   <div className={styles.root}>
-                  <div {...getRootProps({ filepickerstyle })}>
-                    <input ref={inputRef || ref} {...fieldProps} {...getInputProps()} />
-                    <p
-                      className={filepickerstyle}
-                      style={{
-                        margin: 0,
-                        display: 'flex',
-                        flexDirection: 'row',
-                        padding: '5px',
-                      }}
-                    >
-                      <Attach20Filled />
-                      {unSavedFilesLength > 0 &&
-                        `${unSavedFilesLength} Unsaved file(s). Drag 'n' Drop or click to add more...`}
-                      {unSavedFilesLength < 1 &&
-                        (placeholder && placeholder?.length > 0
-                          ? placeholder
-                          : "Drag 'n' Drop or click to attach files")}
-                    </p>
+                    <div {...getRootProps({ filepickerstyle })}>
+                      <input ref={inputRef || ref} {...fieldProps} {...getInputProps()} />
+                      <p
+                        className={filepickerstyle}
+                        style={{
+                          margin: 0,
+                          display: 'flex',
+                          flexDirection: 'row',
+                          padding: '5px',
+                        }}
+                      >
+                        <Attach20Filled />
+                        {unSavedFilesLength > 0 &&
+                          `${unSavedFilesLength} Unsaved file(s). Drag 'n' Drop or click to add more...`}
+                        {unSavedFilesLength < 1 &&
+                          (placeholder && placeholder?.length > 0
+                            ? placeholder
+                            : "Drag 'n' Drop or click to attach files")}
+                      </p>
+                    </div>
                   </div>
-                  {showFileList && (
-                    <div style={{
-                      maxHeight: maxFilePreviewWindowHeight,
-                      overflow: 'auto',
-                      padding: "5px 0px",
-                    }}>
-                    <Table aria-label="All Documents" size="extra-small">
-                      <TableBody {...focusGroupAttributes} tabIndex={0}>
-                        {(value as File[])?.map((file: File, index: number) => (
-                          <TableRow key={index}>
-                            <TableCell>
-                              <TableCellLayout
-                                media={<DocumentDismissRegular />}
-                                description={`${file.size} bytes`}
-                                appearance="primary"
-                              >
-                                {file.name}
-                              </TableCellLayout>
-                              <TableCellActions>
+                )}
+              </Field>
+              {showFileList && (
+                <div style={{
+                  maxHeight: maxFilePreviewWindowHeight,
+                  overflow: 'auto',
+                  padding: "5px 0px",
+                }}>
+                  <Table aria-label="All Documents" size="extra-small">
+                    <TableBody {...focusGroupAttributes} tabIndex={0}>
+                      {(value as File[])?.map((file: File, index: number) => (
+                        <TableRow key={index}>
+                          <TableCell>
+                            <TableCellLayout
+                              media={<DocumentDismissRegular />}
+                              description={`${file.size} bytes`}
+                              appearance="primary"
+                            >
+                              {file.name}
+                            </TableCellLayout>
+                            <TableCellActions>
+                              <Button
+                                icon={<DeleteRegular />}
+                                appearance="subtle"
+                                onClick={() => {
+                                  const files = value
+                                    ? (value as File[]).filter(
+                                      (f: File) => f.name !== file.name
+                                    )
+                                    : [];
+                                  onChange(files);
+                                }}
+                              />
+                            </TableCellActions>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+
+                      {savedFiles?.map((file: FileInfo, index: number) => (
+                        <TableRow key={index}>
+                          <TableCell>
+                            <TableCellLayout
+                              media={<DocumentCheckmarkRegular />}
+                              appearance="primary"
+                            >
+                              {file.name}
+                            </TableCellLayout>
+                            <TableCellActions>
+                              <Button
+                                icon={<ArrowDownloadFilled />}
+                                appearance="subtle"
+                                onClick={() => {
+                                  window.open(file.path);
+                                }}
+                              />
+
+                              {onRemoveSavedFile && (
                                 <Button
                                   icon={<DeleteRegular />}
                                   appearance="subtle"
-                                  onClick={() => {
-                                    const files = value
-                                      ? (value as File[]).filter(
-                                          (f: File) => f.name !== file.name
-                                        )
-                                      : [];
-                                    onChange(files);
-                                  }}
+                                  onClick={() => onRemoveSavedFile?.(file)}
                                 />
-                              </TableCellActions>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-  
-                        {savedFiles?.map((file: FileInfo, index: number) => (
-                          <TableRow key={index}>
-                            <TableCell>
-                              <TableCellLayout
-                                media={<DocumentCheckmarkRegular />}
-                                appearance="primary"
-                              >
-                                {file.name}
-                              </TableCellLayout>
-                              <TableCellActions>
-                                <Button
-                                  icon={<ArrowDownloadFilled />}
-                                  appearance="subtle"
-                                  onClick={() => {
-                                    window.open(file.path);
-                                  }}
-                                />
-  
-                                {onRemoveSavedFile && (
-                                  <Button
-                                    icon={<DeleteRegular />}
-                                    appearance="subtle"
-                                    onClick={() => onRemoveSavedFile?.(file)}
-                                  />
-                                )}
-                              </TableCellActions>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                    </div>
-                  )}
+                              )}
+                            </TableCellActions>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </div>
-                )}
-            </Field>
+              )}
+            </>
           );
         }}
       />

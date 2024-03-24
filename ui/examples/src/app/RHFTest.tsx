@@ -419,7 +419,8 @@ export const ReactHookForm = () => {
           name={'attachments'}
           label={<strong>Attachments</strong>}
           multiple={true}
-          // maxFiles={3}
+          maxFiles={3}
+          // maxSize={5}
           savedFiles={[
             {
               name: 'file1',
