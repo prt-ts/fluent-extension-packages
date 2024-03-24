@@ -1,6 +1,6 @@
 
 import {
-  Button,
+  Button, InfoLabel, Link,
 } from '@fluentui/react-components';
 import {
   Form,
@@ -18,6 +18,10 @@ import {
   TimePicker,
   useForm,
   RichViewer,
+  Rating,
+  RatingDisplay,
+  CheckboxGroup,
+  RadioGroup,
 } from '@prt-ts/fluent-react-hook-form';
 import { Fragment, useCallback, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
@@ -28,6 +32,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
 
 const schema = yup.object({
+  rating: yup.number().required('Rating is required'),
   firstName: yup
     .string()
     .required('First Name is required')
@@ -53,6 +58,7 @@ const schema = yup.object({
   // slider: yup.number().required('Slider is required'),
   // textarea: yup.string().required('Textarea is required'),
   // SpinButton: yup.number().required('Spin Button is required'),
+  attachments: yup.array().min(1, 'Attachments is required'),
 });
 
 export type IFormInput = yup.InferType<typeof schema>;
@@ -107,15 +113,45 @@ export const ReactHookForm = () => {
       <Button onClick={addMore}>Add Dynamic Values</Button>
       <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
       <Form form={testForm} onSubmit={onSubmit}>
-        <Input 
-        name={'firstName'} 
-        label={'First Name'} 
-        required={true} 
-        appearance={isView ? "underline" : undefined} 
-        disabled={isView} 
-        readOnly={isView} 
-        autoCompleteOptions={['one', 'two', 'three']}
-        autoComplete='false'/>
+        <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={"marigold"} />
+        <RatingDisplay name={'rating'} label={'Rating Display'} compact color={"marigold"} />
+        <CheckboxGroup
+          name={'checkboxGroup'}
+          label={'Checkbox Group'}
+          layout='horizontal'
+          options={[
+            { label: 'Option 1', value: 'option1' },
+            { label: 'Option 2', value: 'option2', checkboxProps: { disabled: true }},
+            { label: 'Option 3', value: 'option3' },
+          ]} />
+
+        <RadioGroup
+          name={'radioGroup'}
+          label={'Radio Group'}
+          layout='horizontal'
+          options={[
+            {
+              label: (<InfoLabel info={"Some Info"}>
+                <Link href='www.example.com'>go to example </Link>
+              </InfoLabel>),
+              value: 'option1',
+              meta: {
+                info: "Some Info"
+              }
+            },
+            { label: 'Option 2', value: 'option2', radioProps: { disabled: true} },
+            { label: 'Option 3', value: 'option3' },
+          ]} />
+
+        <Input
+          name={'firstName'}
+          label={'First Name'}
+          required={true}
+          appearance={isView ? "underline" : undefined}
+          disabled={isView}
+          readOnly={isView}
+          autoCompleteOptions={['one', 'two', 'three']}
+          autoComplete='false' />
         <CurrencyInput
           name={'currencyValue'}
           label={'Currency'}
@@ -214,7 +250,7 @@ export const ReactHookForm = () => {
             ))}
           </TableBody>
         </Table> */}
-        <table style={{width: "100%"}}>
+        <table style={{ width: "100%" }}>
           <thead>
             <tr>
               <th>Selected</th>
@@ -279,7 +315,7 @@ export const ReactHookForm = () => {
               </Fragment>
             ))}
           </tbody>
-          </table>
+        </table>
         <DatePicker
           allowTextInput
           name={'datePickerValue'}
@@ -381,7 +417,10 @@ export const ReactHookForm = () => {
 
         <FileInput
           name={'attachments'}
-          label={'Attachments'}
+          label={<strong>Attachments</strong>}
+          multiple={true}
+          maxFiles={3}
+          // maxSize={5}
           savedFiles={[
             {
               name: 'file1',

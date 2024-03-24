@@ -1,12 +1,11 @@
-import { Checkbox } from '@fluentui/react-components';
+import { Checkbox, useFocusableGroup } from '@fluentui/react-components';
 import { Header, HeaderGroup, RowData, Table } from '@tanstack/react-table';
-import { TableProps } from '../../types';
 import { HeaderCell } from './HeaderCell';
 import { useTableHeaderStyles } from './useTableHeaderStyles';
+import { Case, For, Show, Switch } from '@prt-ts/react-control-flow';
 
 type HeaderRowProps<TItem extends RowData> = {
     table: Table<TItem>;
-    rowSelectionMode?: TableProps<TItem>['rowSelectionMode'];
     headerGroup: HeaderGroup<TItem>,
     headerGroupsLength: number;
 }
@@ -14,49 +13,61 @@ type HeaderRowProps<TItem extends RowData> = {
 export function HeaderRow<TItem extends RowData>(props: HeaderRowProps<TItem>) {
     const styles = useTableHeaderStyles();
 
-    const { table, headerGroup, rowSelectionMode, headerGroupsLength } = props;
+    const { table, headerGroup, headerGroupsLength } = props;
+    const { rowSelectionMode, tableSettings } = table.options.meta ?? {};
+    const headerCellTabAttributes = useFocusableGroup({ tabBehavior: "limited" });
+
+    const isLeafHeaders = headerGroup.depth === headerGroupsLength - 1;
 
     return (
         <tr key={headerGroup.id} className={styles.tHeadRow}>
-            {rowSelectionMode === 'multiple' && (
-                <th
-                    style={{ width: '1rem' }}
-                    aria-label="Select All Row Column"
-                >
-                    {headerGroup.depth === headerGroupsLength - 1 && (
-                        <Checkbox
-                            checked={
-                                table.getIsSomeRowsSelected()
-                                    ? 'mixed'
-                                    : table.getIsAllRowsSelected()
-                            }
-                            onChange={table.getToggleAllRowsSelectedHandler()}
-                            aria-label="Select All Rows"
-                            title={'Select All Rows'}
-                        />
-                    )}
-                </th>
-            )}
-            {rowSelectionMode === 'single' && (
-                <th
-                    style={{ width: '1rem' }}
-                    aria-label="Select All Row Column"
-                >
-                    {' '}
-                </th>
-            )}
-            {headerGroup.headers.map((header) => {
-                return (
-                    <HeaderCell
-                        key={header.id}
-                        header={header as unknown as Header<TItem, unknown>}
-                        table={table as unknown as Table<TItem>}
-                        hideMenu={headerGroup.depth !== headerGroupsLength - 1}
-                        headerDepth={headerGroup.depth}
-                        totalNumberOfHeaderDepth={headerGroupsLength - 1}
-                    />
-                );
-            })}
+            <Show when={!tableSettings?.enableManualSelection}>
+                <Switch when={rowSelectionMode}>
+                    <Case value="multiple">
+                        <th
+                            style={{ width: '1rem' }}
+                            aria-label="Select All Row"
+                        >
+                            <Show when={isLeafHeaders}>
+                                <Checkbox
+                                    checked={
+                                        table.getIsSomeRowsSelected()
+                                            ? 'mixed'
+                                            : table.getIsAllRowsSelected()
+                                    }
+                                    onChange={table.getToggleAllRowsSelectedHandler()}
+                                    aria-label="Select All Rows"
+                                    title={'Select All Rows'}
+                                />
+                            </Show>
+                        </th>
+                    </Case>
+                    <Case value="single">
+                        <th
+                            style={{ width: '1rem' }}
+                            aria-label="Select All Row Column"
+                        >
+                            {' '}
+                        </th>
+                    </Case>
+                </Switch>
+            </Show>
+
+
+            <For each={headerGroup.headers}>
+                {
+                    (header, index) => {
+                        return (
+                            <HeaderCell
+                                key={`${header.id}_${index}`}
+                                header={header as unknown as Header<TItem, unknown>}
+                                table={table as unknown as Table<TItem>} 
+                                tabAttributes={headerCellTabAttributes}
+                            />
+                        );
+                    }
+                }
+            </For>
         </tr>
     );
 }

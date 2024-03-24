@@ -1,9 +1,11 @@
 import { ColumnFiltersState, ColumnOrderState, ColumnPinningState, ColumnSizingState, ExpandedState, FilterFn, GroupingState, PaginationState, RowData, RowPinningState, RowSelectionState, SortingState, VisibilityState } from "@tanstack/react-table";
-import { TableProps } from "./types";
+import { TableProps, TableSettings } from "./types";
 import { ActionType, DrawerTableState } from "./components/reducer";
 
 export { disableAllShorthand } from "./helpers/Shorthands";
 export { Table, useSkipper } from "./components"; 
+
+export * from "./components/extensions";
 
 declare module '@tanstack/table-core' {
     interface FilterFns {
@@ -46,6 +48,8 @@ declare module '@tanstack/react-table' {
     setColumnPinning: React.Dispatch<React.SetStateAction<ColumnPinningState>>;
     setColumnSizing: React.Dispatch<React.SetStateAction<ColumnSizingState>>;
     setRowPinning: React.Dispatch<React.SetStateAction<RowPinningState>>
+
+    tableSettings: TableSettings;
   }
 }
 

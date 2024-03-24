@@ -11,7 +11,7 @@ export const ErrorFallback: React.FC<{
 
   return (
     <div role="alert">
-      <Card className={styles.card}>
+      <Card className={styles.card} appearance='subtle'>
         <CardHeader
           image={<CloudError48Filled className={styles.headerImage}  />}
           header={<Text weight="semibold" className={styles.text}>Runtime Error!!!</Text>}
@@ -39,10 +39,10 @@ const useStyles = makeStyles({
 
   headerImage: {
     ...shorthands.borderRadius('4px'),
-    maxWidth: '44px',
-    maxHeight: '44px',
-    width: '44px',
-    height: '44px',
+    maxWidth: '80px',
+    maxHeight: '80px',
+    width: '80px',
+    height: '80px',
     color: tokens.colorPaletteRedForeground1,
   },
 
@@ -53,10 +53,13 @@ const useStyles = makeStyles({
 
   caption: {
     color: tokens.colorPaletteRedForeground3,
+    fontSize: tokens.fontSizeBase500,
   },
 
   text: {
     ...shorthands.margin(0),
+    fontSize: tokens.fontSizeHero700,
     color: tokens.colorPaletteRedForeground1,
   },
 });
+

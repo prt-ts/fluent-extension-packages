@@ -13,7 +13,8 @@ export const UserService = () => {
         usernameOrEmailOrName: string,
         excludedUsers: UserInfo[] = [],
         objectType: ObjectType = "user",
-        filterString: string = ""
+        filterString: string = "",
+        allowFormat: boolean = true
     ): Promise<UserInfo[]> {
         return new Promise<UserInfo[]>(async (resolve, reject) => {
             try {
@@ -62,7 +63,7 @@ export const UserService = () => {
                 const allGroupAndUser = [
                     ...(users?.value || [])?.map((user) => {
                         {
-                            const displayName = formatName(user.displayName);
+                            const displayName = allowFormat ? formatName(user.displayName): user.displayName;
                             return {
                                 id: user.id,
                                 name: displayName,
@@ -97,7 +98,7 @@ export const UserService = () => {
                 reject(error);
             }
         });
-    }
+    };
 
     const getCurrentUserGroups = async (): Promise<any> => {
         return new Promise<any>(async (resolve, reject) => {
@@ -181,17 +182,22 @@ export const UserService = () => {
         });
     };
 
-    const getUserFromListField = async (listName: string, fieldName: string): Promise<UserInfo[]> => {
+    const getUserFromListField = async (listName: string, fieldName: string, itemId: number): Promise<UserInfo[]> => {
         return new Promise<UserInfo[]>(async (resolve, reject) => {
             try {
                 const sp = await getSP();
-                const users = await sp.web.lists.getById(listName)
-                    .items 
+                const users = await sp.web.lists.getByTitle(listName)
+                    .items.getById(itemId)
                     .expand(fieldName)
-                    .select(`${fieldName}/Id,${fieldName}/Title,${fieldName}/EMail,${fieldName}/Username`)();
-                    
+                    .select(
+                        `${fieldName}/Id`,
+                        `${fieldName}/Title`,
+                        `${fieldName}/EMail`, 
+                        `${fieldName}/Username`
+                    )();
 
-                if(!users) {
+
+                if (!users) {
                     resolve([]);
                 }
 
@@ -204,11 +210,11 @@ export const UserService = () => {
         });
     }
 
-    const mapUserFromSPList = (user: any): UserInfo | null => {
+    const mapUserFromSPList = (user: any, allowFormat: boolean = true): UserInfo | null => {
         try {
             const mappedUser = {
                 id: user.Id || user.ID,
-                name: formatName(user.Title),
+                name: allowFormat? formatName(user.Title) : user.Title,
                 email: user.EMail,
                 loginName: user.UserName,
                 userType: "User",

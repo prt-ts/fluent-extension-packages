@@ -22,8 +22,7 @@ export const formatCurrency = (
   currency = 'USD',
   minimumFractionDigits = 2
 ) : string => {
-  try {
-    console.log('value', value);
+  try { 
     const numberOnlyFromValue = `${value || ''}`
       ?.replace(/,/g, '')
       ?.replace(/^[^-0-9]*/g, '');
@@ -103,6 +102,7 @@ export const CurrencyInputField = forwardRef<HTMLInputElement, InputFieldProps>(
                 name={name}
                 onChange={handleOnChange}
                 onBlur={handleOnBlur}
+                onFocus={(event) => event.target.select()}
                 value={value || ''}
                 required={false}
               />

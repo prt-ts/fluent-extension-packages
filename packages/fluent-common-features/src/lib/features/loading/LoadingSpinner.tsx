@@ -7,12 +7,10 @@ import {
   Spinner,
   DialogContent,
   makeStyles,
-  tokens,
-  Portal,
-  ProgressBar,
-  DialogTrigger,
-} from '@fluentui/react-components';
-import { useLoadingContext } from './LoadingContext';
+  tokens, 
+  ProgressBar, 
+} from '@fluentui/react-components'; 
+import { useLoadingContext } from './useLoadingContext';
 
 const useLoadingStyles = makeStyles({
   modalSurface: {

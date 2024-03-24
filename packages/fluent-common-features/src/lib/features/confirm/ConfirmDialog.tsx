@@ -10,12 +10,11 @@ import {
   DialogActions,
   Button,
   makeStyles,
-  ButtonProps,
-  Divider,
+  ButtonProps, 
   shorthands,
-} from '@fluentui/react-components';
-import { contextDefaultValue } from './ConfirmContext';
+} from '@fluentui/react-components'; 
 import { useConfirmContext } from './useConfirmContext';
+import { contextDefaultValue } from './Types';
 
 const useStyle = makeStyles({
   dialogSurface: {
@@ -39,10 +38,7 @@ const useStyle = makeStyles({
   },
 });
 
-export const ConfirmDialog: React.FC = () => {
-
-  console.log('ConfirmDialog');
-
+export const ConfirmDialog: React.FC = () => { 
   const { isOpen, setIsOpen, getContextDetails } = useConfirmContext();
 
   const {

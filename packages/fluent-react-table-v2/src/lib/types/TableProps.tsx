@@ -140,4 +140,15 @@ export type TableProps<TItem extends RowData> = {
      * disable table header
      */
     disableTableHeader?: boolean;
+
+    tableSettings?: TableSettings;
 };
+
+
+export type TableSettings = {
+
+    /**
+     * Enable manual selection of table view
+     */
+    enableManualSelection?: boolean;
+}

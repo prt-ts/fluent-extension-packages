@@ -1,6 +1,10 @@
 export {
   ConfirmProvider
-} from "./ConfirmContext";
+} from "./Provider";
+
+export {
+  useConfirmContext
+} from "./useConfirmContext";
 
 export {
   useConfirm

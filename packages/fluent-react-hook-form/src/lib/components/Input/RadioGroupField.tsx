@@ -11,15 +11,15 @@ import {
   InfoLabel,
   InfoLabelProps,
 } from '@fluentui/react-components';
-import { forwardRef } from "react";
+import { ReactNode, forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
 
 export type RadioChoiceOption = {
-  label: string;
-  value: string;
-
-  optionProps?: Partial<RadioProps> | undefined;
+  label: ReactNode;
+  value: string | number | boolean; 
+  radioProps?: Partial<RadioProps> | undefined; 
+  meta?: Record<string, unknown>
 };
 
 export type RadioGroupFieldProps = FieldProps & RadioGroupProps & InfoLabelProps & { name: string, rules?: ControllerProps['rules'], options: RadioChoiceOption[]}
@@ -43,15 +43,14 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
         rules={rules}
         render={({ field, fieldState }) => {
           const { onChange, onBlur, value, ref } = field;
-
+          
           const handleOnChange: RadioGroupProps['onChange'] = (
             ev: React.FormEvent<HTMLDivElement>,
             data: RadioGroupOnChangeData
-          ) => {
-            console.log('RadioGroupField: handleOnChange: data.value:', data.value);
+          ) => { 
             const selectedOption = options?.find(
               (option) => option.value === data.value
-            );
+            );          
             onChange(selectedOption);
             radioGroupProps.onChange?.(ev, data);
           };
@@ -90,9 +89,10 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
                   (option: RadioChoiceOption, index: number) => (
                     <Radio
                       key={`${option.value}-${index}`}
-                      value={option.value}
-                      label={option.label}
-                      {...option.optionProps}
+                      value={option.value as string}
+                      /*eslint-disable-next-line*/
+                      label={<>{option.label}</>}
+                      {...option.radioProps}
                     />
                   )
                 )}

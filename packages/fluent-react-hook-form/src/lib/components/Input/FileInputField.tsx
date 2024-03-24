@@ -16,9 +16,11 @@ import {
   mergeClasses,
   InfoLabel,
   InfoLabelProps,
+  shorthands,
+  useFocusableGroup,
 } from '@fluentui/react-components';
 import { Accept, useDropzone } from 'react-dropzone';
-import type { DropzoneProps} from "react-dropzone"
+import type { DropzoneProps } from "react-dropzone"
 import { forwardRef } from 'react';
 import { useFormContext } from '../Form';
 import { Controller, ControllerProps } from 'react-hook-form';
@@ -38,37 +40,39 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     // Use 2px gap below the label (per the design system)
     rowGap: '2px',
-
-    // add 4px margin to the top of the field
-    marginTop: '4px',
   },
   baseStyle: {
-    // "flex": 1,
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'left',
-    // padding: "15px",
-    'border-width': '1px',
-    'border-radius': tokens.borderRadiusMedium,
-    'border-color': tokens.colorPaletteBeigeBorderActive,
-    'border-style': 'dashed',
+    alignItems: 'center',
+    justifyContent: 'left',
+    ...shorthands.border(tokens.strokeWidthThin, 'solid', tokens.colorNeutralStroke1),
+    ...shorthands.borderRadius(tokens.borderRadiusMedium),
+    ...shorthands.borderBottom(tokens.strokeWidthThin, 'solid', tokens.colorNeutralStrokeAccessible),
     backgroundColor: tokens.colorNeutralBackground3,
-    color: '#bdbdbd',
-    // "outline": "none" as any,
-    // "transition": "border .24s ease-in-out" as any,
+    color: tokens.colorNeutralForeground3,
     cursor: 'pointer',
   },
   focusedStyle: {
-    'border-color': '#2196f3',
+    ...shorthands.borderBottom(tokens.strokeWidthThick, 'solid', tokens.colorCompoundBrandStrokePressed),
   },
   acceptStyle: {
-    'border-color': '#00e676',
+    ...shorthands.border(tokens.strokeWidthThin, 'solid', tokens.colorPaletteGreenBorder2),
   },
   rejectStyle: {
-    'border-color': '#ff1744',
+    ...shorthands.border(tokens.strokeWidthThin, 'solid', tokens.colorPaletteRedBorder2),
+  },
+
+  small: {
+    minHeight: '18px',
+  },
+  medium: {
+    minHeight: '24px',
+  },
+  large: {
+    minHeight: '32px',
   },
 });
-
 
 const arrayUniqueByKey = (items: File[], key: keyof File) => [
   ...new Map(items.map((item) => [item[key], item])).values(),
@@ -81,17 +85,16 @@ export type FileInfo = {
   type?: string;
 };
 
-
 export type FileInputFieldProps = FieldProps &
   DropzoneProps &
   InfoLabelProps & {
     name: string;
-    label?: string;
     accept?: Accept;
     multiple?: boolean;
     savedFiles?: FileInfo[];
     onRemoveSavedFile?: (file: FileInfo) => void;
     rules?: ControllerProps['rules'];
+    maxFilePreviewWindowHeight?: string;
   };
 
 export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
@@ -106,6 +109,8 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
       accept,
       rules,
       multiple = true,
+      maxFilePreviewWindowHeight = '200px',
+      size = 'medium',
       ...rest
     },
     inputRef
@@ -122,6 +127,7 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
 
     const {
       acceptedFiles,
+      fileRejections,
       getRootProps,
       getInputProps,
       isFocused,
@@ -130,6 +136,7 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
     } = useDropzone({
       disabled,
       accept,
+      multiple: multiple,
       ...dropzoneProps,
     });
 
@@ -137,16 +144,18 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
     React.useEffect(() => {
       if (acceptedFiles?.length) {
         const currentFiles = getValues(name) as File[];
-        console.log('currentFiles', currentFiles);
-        console.log('acceptedFiles', acceptedFiles);
-        const files = currentFiles?.length
+        const files = currentFiles?.length && multiple
           ? [...acceptedFiles, ...(currentFiles as File[])]
           : acceptedFiles;
 
-        console.log('files', arrayUniqueByKey(files, 'name'));
-        setValue(name, arrayUniqueByKey(files, 'name'));
+        setValue(name, arrayUniqueByKey(files, 'name'), {
+          shouldValidate: true,
+          shouldDirty: true,
+        });
       }
-    }, [acceptedFiles, setValue, getValues, name]);
+    }, [acceptedFiles, multiple, setValue, getValues, name]);
+
+    const focusGroupAttributes = useFocusableGroup({ tabBehavior: "limited" });
 
     return (
       <Controller
@@ -156,55 +165,69 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
         render={({ field, fieldState }) => {
           const { onChange, value, ref } = field;
 
-          const filepickerstyle = mergeClasses(
-            styles.baseStyle,
-            isFocused ? styles.focusedStyle : '',
-            isDragAccept ? styles.acceptStyle : '',
-            fieldState.invalid ? styles.rejectStyle : '',
-            isDragReject ? styles.rejectStyle : ''
-          );
-
           const unSavedFilesLength = (value as File[])?.length || 0;
           const showFileList = unSavedFilesLength > 0 || (savedFiles && savedFiles?.length > 0);
 
+          const validationMessage = (fieldState.error?.message || fileRejections?.[0]?.errors?.[0]?.message || '');
+          const validationState = (fieldState.invalid || validationMessage?.length) ? 'error' : undefined;
+
+          const filepickerstyle = mergeClasses(
+            styles.baseStyle,
+            isFocused && validationState !== "error" ? styles.focusedStyle : '',
+            isDragAccept ? styles.acceptStyle : '',
+            validationState === "error" ? styles.rejectStyle : '',
+            isDragReject ? styles.rejectStyle : '',
+            styles[size]
+          );
+
           return (
-            <Field
-              {...fieldProps}
-              label={
-                {
-                  children: (_: unknown, props: LabelProps) => (
-                    <InfoLabel {...props} {...infoLabelProps} />
-                  ),
-                } as unknown as InfoLabelProps
-              }
-              validationState={fieldState.invalid ? 'error' : undefined}
-              validationMessage={fieldState.error?.message}
-              required={required}
-            >
-              <div>
-                <div {...getRootProps({ filepickerstyle })}>
-                  <input ref={inputRef || ref} {...getInputProps()} />
-                  <p
-                    className={filepickerstyle}
-                    style={{
-                      margin: 0,
-                      display: 'flex',
-                      flexDirection: 'row',
-                      padding: '5px',
-                    }}
-                  >
-                    <Attach20Filled />
-                    {unSavedFilesLength > 0 &&
-                      `${unSavedFilesLength} Unsaved File(s). Drag 'n' Drop to Add More`}
-                    {unSavedFilesLength < 1 &&
-                      (placeholder && placeholder?.length > 0
-                        ? placeholder
-                        : "Drag 'n' drop files here, or click to select files")}
-                  </p>
-                </div>
-                {showFileList && (
+            <>
+              <Field
+                {...fieldProps}
+                label={
+                  {
+                    children: (_: unknown, props: LabelProps) => (
+                      <InfoLabel {...props} {...infoLabelProps} />
+                    ),
+                  } as unknown as InfoLabelProps
+                }
+                validationState={validationState}
+                validationMessage={validationMessage}
+                required={required}
+              >
+                {(fieldProps) => (
+                  <div className={styles.root}>
+                    <div {...getRootProps({ filepickerstyle })}>
+                      <input ref={inputRef || ref} {...fieldProps} {...getInputProps()} />
+                      <p
+                        className={filepickerstyle}
+                        style={{
+                          margin: 0,
+                          display: 'flex',
+                          flexDirection: 'row',
+                          padding: '5px',
+                        }}
+                      >
+                        <Attach20Filled />
+                        {unSavedFilesLength > 0 &&
+                          `${unSavedFilesLength} Unsaved file(s). Drag 'n' Drop or click to add more...`}
+                        {unSavedFilesLength < 1 &&
+                          (placeholder && placeholder?.length > 0
+                            ? placeholder
+                            : "Drag 'n' Drop or click to attach files")}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </Field>
+              {showFileList && (
+                <div style={{
+                  maxHeight: maxFilePreviewWindowHeight,
+                  overflow: 'auto',
+                  padding: "5px 0px",
+                }}>
                   <Table aria-label="All Documents" size="extra-small">
-                    <TableBody>
+                    <TableBody {...focusGroupAttributes} tabIndex={0}>
                       {(value as File[])?.map((file: File, index: number) => (
                         <TableRow key={index}>
                           <TableCell>
@@ -222,8 +245,8 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
                                 onClick={() => {
                                   const files = value
                                     ? (value as File[]).filter(
-                                        (f: File) => f.name !== file.name
-                                      )
+                                      (f: File) => f.name !== file.name
+                                    )
                                     : [];
                                   onChange(files);
                                 }}
@@ -264,9 +287,9 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
                       ))}
                     </TableBody>
                   </Table>
-                )}
-              </div>
-            </Field>
+                </div>
+              )}
+            </>
           );
         }}
       />

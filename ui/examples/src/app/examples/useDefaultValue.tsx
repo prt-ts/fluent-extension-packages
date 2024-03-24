@@ -8,6 +8,7 @@ export const defaultValues: IFormInput = {
   lastName: '',
   iceCreamType: { label: '', value: '' },
   arrayItem: [],
+  attachments: [],
 //   datePickerValue: new Date(),
 //   isIceCreamLiked: false,
 //   yesNoQuestionCheckbox: false,
@@ -30,6 +31,7 @@ const getDefaultValue = () => {
     return new Promise<IFormInput>((resolve) => {
         setTimeout(() => {
             resolve({
+                rating: 3,
                 firstName: 'Pradeep',
                 lastName: 'Thapaliya',
                 iceCreamType: { label: 'Chocolate', value: 'chocolate' },

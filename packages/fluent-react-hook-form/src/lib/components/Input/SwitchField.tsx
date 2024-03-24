@@ -42,13 +42,7 @@ export const SwitchField = forwardRef<HTMLInputElement, SwitchFieldProps>(({ nam
                 const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
                     onBlur();
                     switchProps.onBlur?.(ev);
-                }
-
-                const handleOnReset : SwitchProps["onReset"] = (e) => {
-
-                    console.log("handleOnReset");
-                    console.log(e);
-                }
+                } 
 
                 return (
                   <Field
@@ -68,8 +62,7 @@ export const SwitchField = forwardRef<HTMLInputElement, SwitchFieldProps>(({ nam
                       {...switchProps}
                       ref={SwitchRef || ref}
                       name={name}
-                      onChange={handleOnChange}
-                      onReset={handleOnReset}
+                      onChange={handleOnChange} 
                       onBlur={handleOnBlur}
                       checked={!!value}
                       label={value ? rest.checkedLabel : rest.uncheckedLabel}

@@ -8,6 +8,7 @@ import {
   Input,
   Tooltip,
   Checkbox,
+  useArrowNavigationGroup,
 } from '@fluentui/react-components';
 import * as React from 'react';
 import {
@@ -38,6 +39,8 @@ export const GridHeader = <TItem extends RowData>(
   props: GridHeaderProps<TItem>
 ) => {
   const { table, gridTitle, globalFilter, setGlobalFilter } = props;
+  const focusAttribute = useArrowNavigationGroup({ axis: "horizontal", circular: true });
+
   /* eslint-disable @typescript-eslint/no-non-null-assertion */
   const { dispatchDrawerAction, drawerState } = table.options.meta!;
   const styles = useGridHeaderStyles();
@@ -45,7 +48,7 @@ export const GridHeader = <TItem extends RowData>(
   return (
     <div className={styles.tableTopHeaderContainer}>
       <div className={styles.tableTopHeaderLeft}>{gridTitle}</div>
-      <div className={styles.tableTopHeaderRight}>
+      <div className={styles.tableTopHeaderRight} {...focusAttribute}>
         {props.headerMenu}
         {props.headerMenu && <Divider vertical />}
         <Popover withArrow>

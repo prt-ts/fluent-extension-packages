@@ -26,7 +26,7 @@ export const Filter = <TItem extends RowData>({
   column,
   table,
 }: {
-  column: Column<TItem, unknown>;
+  column: Column<TItem, RowData>;
   table: Table<TItem>;
 }) => {
   const filterFunctionName = column.columnDef.filterFn;

@@ -1,6 +1,7 @@
 /* eslint-disable */
-import * as React from 'react';
-import { LoadingState, useLoadingContext } from './LoadingContext';
+import * as React from 'react'; 
+import { useLoadingContext } from './useLoadingContext';
+import { LoadingState } from './Types';
 
 export const useLoading = () => {
   (async () => {})();
@@ -9,14 +10,13 @@ export const useLoading = () => {
 
   const showLoader = React.useCallback(
     (loadingText?: string) => {
-      try {
-        console.log('showLoader -> loadingText', loadingText);
+      try { 
         setLoadingState({
           loadingText: loadingText || 'Loading, Please Wait...',
         } as LoadingState);
         setIsLoading(true);
       } catch (error) {
-        console.log('showLoader -> error', error);
+        console.error('showLoader -> error', error);
         throw error;
       }
     },
@@ -25,10 +25,9 @@ export const useLoading = () => {
 
   const hideLoader = React.useCallback(() => {
     try {
-      console.log('hideLoader');
       setIsLoading(false);
     } catch (error) {
-      console.log('showLoader -> error', error);
+      console.error('showLoader -> error', error);
       throw error;
     }
   }, [setLoadingState, setIsLoading]);

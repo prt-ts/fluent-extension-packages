@@ -224,5 +224,11 @@ export const useAlert = () => {
     warning,
     update,
     progress,
+    alertSuccess: success,
+    alertError: error,
+    alertInfo: info,
+    alertWarning: warning,
+    alertUpdate: update,
+    alertProgress: progress,
   };
 };

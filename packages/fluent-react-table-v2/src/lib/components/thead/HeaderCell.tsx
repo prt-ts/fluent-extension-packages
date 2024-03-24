@@ -65,20 +65,17 @@ const GroupCollapseIcon = bundleIcon(TextCollapseFilled, TextCollapseRegular);
 
 type HeaderCellProps<TItem extends RowData> = {
   header: Header<TItem, unknown>;
-  table: Table<TItem>;
-  hideMenu?: boolean;
-  headerDepth: number;
-  totalNumberOfHeaderDepth: number;
+  table: Table<TItem>; 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  tabAttributes: any;
 };
 
 export function HeaderCell<TItem extends RowData>({
   header,
-  table,
-  hideMenu,
-  headerDepth,
-  totalNumberOfHeaderDepth,
+  table, 
+  tabAttributes
 }: HeaderCellProps<TItem>) {
-  const { column } = header;
+  const { column, id } = header;   
 
   const {
     isDragging,
@@ -88,7 +85,7 @@ export function HeaderCell<TItem extends RowData>({
     transform,
     transition,
   } = useSortable({
-    id: column.id
+    id: id
   });
 
   const dndStyle: CSSProperties = {
@@ -97,7 +94,7 @@ export function HeaderCell<TItem extends RowData>({
   };
 
   const styles = useTableHeaderStyles();
-  const isLeafHeaders = headerDepth === totalNumberOfHeaderDepth; 
+  const isLeafHeaders = `${id}`?.split('_')?.length === 1;  
   const headerCellCombinedStyles = getHeaderCellPinningStyles(column, isDragging, dndStyle)
 
   if (header.isPlaceholder) {
@@ -105,7 +102,10 @@ export function HeaderCell<TItem extends RowData>({
       <th colSpan={header.colSpan}
         className={styles.tHeadCell}
         style={headerCellCombinedStyles}
-        ref={setNodeRef}>
+        ref={setNodeRef} 
+        {...attributes} 
+        {...listeners}
+        >
         <Show when={header.column.getCanResize()}>
           <div
             onMouseDown={header.getResizeHandler()}
@@ -135,8 +135,10 @@ export function HeaderCell<TItem extends RowData>({
       )}
       style={headerCellCombinedStyles}
       ref={setNodeRef}
+      {...tabAttributes}
+      tabIndex={0}
     >
-      <div className={styles.tHeadCellDraggable} {...attributes} {...listeners}>
+      <div className={mergeClasses(styles.tHeadCellDraggable, isDragging && styles.tHeadCellDraggableDragging) } {...attributes} {...listeners}>
         <div
           className={
             isLeafHeaders
@@ -201,7 +203,9 @@ export function HeaderCell<TItem extends RowData>({
               </Button>
             </Show>
           </div>
-          <HeaderMenu header={header} table={table} hideMenu={hideMenu} />
+          <Show when={isLeafHeaders}>
+            <HeaderMenu header={header} table={table} />
+          </Show>
         </div>
       </div>
 
@@ -224,22 +228,17 @@ export function HeaderCell<TItem extends RowData>({
 
 type HeaderMenuProps<TItem extends RowData> = {
   header: Header<TItem, unknown>;
-  table: Table<TItem>;
-  hideMenu?: boolean;
+  table: Table<TItem>; 
 };
 
 function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.Element {
 
-  const { header, table, hideMenu } = props; 
+  const { header, table } = props; 
    /* eslint-disable @typescript-eslint/no-non-null-assertion */
    const { dispatchDrawerAction, drawerState } = table.options.meta!;
   const styles = useTableHeaderStyles();
 
-  if (hideMenu || header.isPlaceholder) return (<> </>);
-
-  const canHavePopOver = header.column.getCanSort() ||
-    header.column.getCanGroup() ||
-    header.column.getCanFilter();
+  const canHavePopOver = header.column.getCanSort() || header.column.getCanGroup() || header.column.getCanFilter();
 
   if (!canHavePopOver) return (<> </>);
 

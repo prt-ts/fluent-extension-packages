@@ -2,7 +2,7 @@ import { Row, RowData, Table } from '@tanstack/react-table';
 import { useTableBodyStyles } from './useTableBodyStyles';
 import { PinnedRow, TableRow } from './TableRow';
 import { useVirtual } from 'react-virtual';
-import { Checkbox } from '@fluentui/react-components';
+import { Checkbox, useFocusableGroup } from '@fluentui/react-components';
 import { For, Show } from "@prt-ts/react-control-flow";
 
 type TableBodyProps<TItem extends RowData> = {
@@ -14,7 +14,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
     const styles = useTableBodyStyles();
 
     const { table, tableContainerRef } = props;
-    const rowSelectionMode = table.options.meta?.rowSelectionMode;
+    const { rowSelectionMode } = table.options.meta ?? {};
 
     let rows: Row<TItem>[] = [];
     let topRows: Row<TItem>[] = [];
@@ -34,7 +34,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
     const rowVirtualizer = useVirtual({
         parentRef: tableContainerRef,
         size: rows.length,
-        overscan:10,
+        overscan: 10,
     });
     const { virtualItems: virtualRows, totalSize } = rowVirtualizer;
 
@@ -43,6 +43,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
         virtualRows.length > 0
             ? totalSize - (virtualRows?.[virtualRows.length - 1]?.end || 0)
             : 0;
+    const tabAttributes = useFocusableGroup({ tabBehavior: "limited" });
 
     return (
         <>
@@ -55,7 +56,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                     }}>
                     <For each={topRows}>
                         {(row, index) => (
-                            <PinnedRow key={row.id} row={row} rowSelectionMode={rowSelectionMode} bottomRowLength={bottomRows?.length} />
+                            <PinnedRow key={`${row.id}_${index}`} row={row} table={table} bottomRowLength={bottomRows?.length} tabAttributes={tabAttributes} />
                         )}
                     </For>
                 </thead>
@@ -67,12 +68,12 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                         <td style={{ height: `${paddingTop}px` }} />
                     </tr>
                 )}
-                
+
                 <For each={virtualRows || []}>
                     {(virtualRow) => {
                         const row = rows[virtualRow.index];
                         return (
-                            <TableRow key={row.id} row={row} rowSelectionMode={rowSelectionMode} />
+                            <TableRow key={row.id} row={row} table={table} tabAttributes={tabAttributes} />
                         );
                     }}
                 </For>
@@ -120,7 +121,7 @@ export function TableBody<TItem extends RowData>(props: TableBodyProps<TItem>) {
                 }}>
                     <For each={bottomRows}>
                         {(row) => (
-                            <PinnedRow key={row.id} row={row} rowSelectionMode={rowSelectionMode} bottomRowLength={bottomRows?.length} />
+                            <PinnedRow key={row.id} row={row} table={table} bottomRowLength={bottomRows?.length} tabAttributes={tabAttributes} />
                         )}
                     </For>
                 </tfoot>
