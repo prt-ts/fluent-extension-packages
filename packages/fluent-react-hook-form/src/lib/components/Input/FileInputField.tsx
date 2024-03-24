@@ -69,7 +69,6 @@ const useStyles = makeStyles({
   },
 });
 
-
 const arrayUniqueByKey = (items: File[], key: keyof File) => [
   ...new Map(items.map((item) => [item[key], item])).values(),
 ];
@@ -80,7 +79,6 @@ export type FileInfo = {
   size?: number;
   type?: string;
 };
-
 
 export type FileInputFieldProps = FieldProps &
   DropzoneProps &
@@ -204,6 +202,7 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
                   <div style={{
                     maxHeight: maxFilePreviewWindowHeight,
                     overflow: 'auto',
+                    padding: "5px 0px",
                   }}>
                   <Table aria-label="All Documents" size="extra-small">
                     <TableBody>
