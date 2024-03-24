@@ -40,6 +40,12 @@ export const useTableHeaderStyles = makeStyles({
         cursor: 'grab',
     },
 
+    tHeadCellDraggableDragging: {
+        ...shorthands.borderLeft(tokens.strokeWidthThin, 'solid', tokens.colorBrandBackgroundInverted),
+        ...shorthands.padding(tokens.spacingHorizontalXS, 0),
+        height: '100%',
+    },
+
     tHeadCellDragging: {
         opacity: 0.5,
         cursor: 'grabbing',

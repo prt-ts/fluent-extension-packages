@@ -85,7 +85,7 @@ export function HeaderCell<TItem extends RowData>({
     transform,
     transition,
   } = useSortable({
-    id: column.id
+    id: id
   });
 
   const dndStyle: CSSProperties = {
@@ -103,6 +103,8 @@ export function HeaderCell<TItem extends RowData>({
         className={styles.tHeadCell}
         style={headerCellCombinedStyles}
         ref={setNodeRef} 
+        {...attributes} 
+        {...listeners}
         >
         <Show when={header.column.getCanResize()}>
           <div
@@ -136,7 +138,7 @@ export function HeaderCell<TItem extends RowData>({
       {...tabAttributes}
       tabIndex={0}
     >
-      <div className={styles.tHeadCellDraggable} {...attributes} {...listeners}>
+      <div className={mergeClasses(styles.tHeadCellDraggable, isDragging && styles.tHeadCellDraggableDragging) } {...attributes} {...listeners}>
         <div
           className={
             isLeafHeaders
@@ -201,7 +203,9 @@ export function HeaderCell<TItem extends RowData>({
               </Button>
             </Show>
           </div>
-          <HeaderMenu header={header} table={table} hideMenu={!isLeafHeaders} />
+          <Show when={isLeafHeaders}>
+            <HeaderMenu header={header} table={table} />
+          </Show>
         </div>
       </div>
 
@@ -224,22 +228,17 @@ export function HeaderCell<TItem extends RowData>({
 
 type HeaderMenuProps<TItem extends RowData> = {
   header: Header<TItem, unknown>;
-  table: Table<TItem>;
-  hideMenu?: boolean;
+  table: Table<TItem>; 
 };
 
 function HeaderMenu<TItem extends RowData>(props: HeaderMenuProps<TItem>): JSX.Element {
 
-  const { header, table, hideMenu } = props; 
+  const { header, table } = props; 
    /* eslint-disable @typescript-eslint/no-non-null-assertion */
    const { dispatchDrawerAction, drawerState } = table.options.meta!;
   const styles = useTableHeaderStyles();
 
-  if (hideMenu || header.isPlaceholder) return (<> </>);
-
-  const canHavePopOver = header.column.getCanSort() ||
-    header.column.getCanGroup() ||
-    header.column.getCanFilter();
+  const canHavePopOver = header.column.getCanSort() || header.column.getCanGroup() || header.column.getCanFilter();
 
   if (!canHavePopOver) return (<> </>);
 
