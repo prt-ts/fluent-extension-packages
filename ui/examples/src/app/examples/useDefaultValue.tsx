@@ -8,6 +8,7 @@ export const defaultValues: IFormInput = {
   lastName: '',
   iceCreamType: { label: '', value: '' },
   arrayItem: [],
+  attachments: [],
 //   datePickerValue: new Date(),
 //   isIceCreamLiked: false,
 //   yesNoQuestionCheckbox: false,

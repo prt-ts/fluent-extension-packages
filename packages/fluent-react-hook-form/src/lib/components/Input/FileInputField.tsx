@@ -16,6 +16,8 @@ import {
   mergeClasses,
   InfoLabel,
   InfoLabelProps,
+  shorthands,
+  useFocusableGroup,
 } from '@fluentui/react-components';
 import { Accept, useDropzone } from 'react-dropzone';
 import type { DropzoneProps} from "react-dropzone"
@@ -38,34 +40,37 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     // Use 2px gap below the label (per the design system)
     rowGap: '2px',
-
-    // add 4px margin to the top of the field
-    marginTop: '4px',
   },
-  baseStyle: {
-    // "flex": 1,
+  baseStyle: { 
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'left',
-    // padding: "15px",
-    'border-width': '1px',
-    'border-radius': tokens.borderRadiusMedium,
-    'border-color': tokens.colorPaletteBeigeBorderActive,
-    'border-style': 'dashed',
+    alignItems: 'center',
+    justifyContent: 'left',
+    ...shorthands.border(tokens.strokeWidthThin, 'solid', tokens.colorNeutralStroke1),
+    ...shorthands.borderRadius(tokens.borderRadiusMedium),
+    ...shorthands.borderBottom(tokens.strokeWidthThin, 'solid', tokens.colorNeutralStrokeAccessible),
     backgroundColor: tokens.colorNeutralBackground3,
-    color: '#bdbdbd',
-    // "outline": "none" as any,
-    // "transition": "border .24s ease-in-out" as any,
-    cursor: 'pointer',
+    color: tokens.colorNeutralForeground3, 
+    cursor: 'pointer', 
   },
-  focusedStyle: {
-    'border-color': '#2196f3',
+  focusedStyle: { 
+    ...shorthands.borderBottom(tokens.strokeWidthThick, 'solid', tokens.colorCompoundBrandStrokePressed),
   },
   acceptStyle: {
-    'border-color': '#00e676',
+    'border-color': '#2196f3',
   },
   rejectStyle: {
     'border-color': '#ff1744',
+  },
+
+  small : {
+    minHeight: '18px',
+  },
+  medium : {
+    minHeight: '24px',
+  },
+  large : {
+    minHeight: '32px',
   },
 });
 
@@ -83,8 +88,7 @@ export type FileInfo = {
 export type FileInputFieldProps = FieldProps &
   DropzoneProps &
   InfoLabelProps & {
-    name: string;
-    label?: string;
+    name: string; 
     accept?: Accept;
     multiple?: boolean;
     savedFiles?: FileInfo[];
@@ -106,6 +110,7 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
       rules,
       multiple = true,
       maxFilePreviewWindowHeight = '200px',
+      size = 'medium',
       ...rest
     },
     inputRef
@@ -127,9 +132,10 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
       isFocused,
       isDragAccept,
       isDragReject,
-    } = useDropzone({
+    } = useDropzone({ 
       disabled,
       accept,
+      multiple: multiple,
       ...dropzoneProps,
     });
 
@@ -137,12 +143,18 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
     React.useEffect(() => {
       if (acceptedFiles?.length) {
         const currentFiles = getValues(name) as File[];
-        const files = currentFiles?.length
+        const files = currentFiles?.length && multiple
           ? [...acceptedFiles, ...(currentFiles as File[])]
-          : acceptedFiles;
-        setValue(name, arrayUniqueByKey(files, 'name'));
+          : acceptedFiles;     
+
+        setValue(name, arrayUniqueByKey(files, 'name'), {
+          shouldValidate: true,
+          shouldDirty: true,
+        });
       }
-    }, [acceptedFiles, setValue, getValues, name]);
+    }, [acceptedFiles, multiple, setValue, getValues, name]);
+
+    const focusGroupAttributes = useFocusableGroup({ tabBehavior: "limited" }); 
 
     return (
       <Controller
@@ -157,12 +169,13 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
             isFocused ? styles.focusedStyle : '',
             isDragAccept ? styles.acceptStyle : '',
             fieldState.invalid ? styles.rejectStyle : '',
-            isDragReject ? styles.rejectStyle : ''
+            isDragReject ? styles.rejectStyle : '',
+            styles[size]          
           );
 
           const unSavedFilesLength = (value as File[])?.length || 0;
           const showFileList = unSavedFilesLength > 0 || (savedFiles && savedFiles?.length > 0);
-
+          
           return (
             <Field
               {...fieldProps}
@@ -177,97 +190,99 @@ export const FileInputField = forwardRef<HTMLInputElement, FileInputFieldProps>(
               validationMessage={fieldState.error?.message}
               required={required}
             >
-              <div>
-                <div {...getRootProps({ filepickerstyle })}>
-                  <input ref={inputRef || ref} {...getInputProps()} />
-                  <p
-                    className={filepickerstyle}
-                    style={{
-                      margin: 0,
-                      display: 'flex',
-                      flexDirection: 'row',
-                      padding: '5px',
-                    }}
-                  >
-                    <Attach20Filled />
-                    {unSavedFilesLength > 0 &&
-                      `${unSavedFilesLength} Unsaved File(s). Drag 'n' Drop to Add More`}
-                    {unSavedFilesLength < 1 &&
-                      (placeholder && placeholder?.length > 0
-                        ? placeholder
-                        : "Drag 'n' drop files here, or click to select files")}
-                  </p>
-                </div>
-                {showFileList && (
-                  <div style={{
-                    maxHeight: maxFilePreviewWindowHeight,
-                    overflow: 'auto',
-                    padding: "5px 0px",
-                  }}>
-                  <Table aria-label="All Documents" size="extra-small">
-                    <TableBody>
-                      {(value as File[])?.map((file: File, index: number) => (
-                        <TableRow key={index}>
-                          <TableCell>
-                            <TableCellLayout
-                              media={<DocumentDismissRegular />}
-                              description={`${file.size} bytes`}
-                              appearance="primary"
-                            >
-                              {file.name}
-                            </TableCellLayout>
-                            <TableCellActions>
-                              <Button
-                                icon={<DeleteRegular />}
-                                appearance="subtle"
-                                onClick={() => {
-                                  const files = value
-                                    ? (value as File[]).filter(
-                                        (f: File) => f.name !== file.name
-                                      )
-                                    : [];
-                                  onChange(files);
-                                }}
-                              />
-                            </TableCellActions>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-
-                      {savedFiles?.map((file: FileInfo, index: number) => (
-                        <TableRow key={index}>
-                          <TableCell>
-                            <TableCellLayout
-                              media={<DocumentCheckmarkRegular />}
-                              appearance="primary"
-                            >
-                              {file.name}
-                            </TableCellLayout>
-                            <TableCellActions>
-                              <Button
-                                icon={<ArrowDownloadFilled />}
-                                appearance="subtle"
-                                onClick={() => {
-                                  window.open(file.path);
-                                }}
-                              />
-
-                              {onRemoveSavedFile && (
+              {(fieldProps) => (
+                  <div className={styles.root}>
+                  <div {...getRootProps({ filepickerstyle })}>
+                    <input ref={inputRef || ref} {...fieldProps} {...getInputProps()} />
+                    <p
+                      className={filepickerstyle}
+                      style={{
+                        margin: 0,
+                        display: 'flex',
+                        flexDirection: 'row',
+                        padding: '5px',
+                      }}
+                    >
+                      <Attach20Filled />
+                      {unSavedFilesLength > 0 &&
+                        `${unSavedFilesLength} Unsaved file(s). Drag 'n' Drop or click to add more...`}
+                      {unSavedFilesLength < 1 &&
+                        (placeholder && placeholder?.length > 0
+                          ? placeholder
+                          : "Drag 'n' Drop or click to attach files")}
+                    </p>
+                  </div>
+                  {showFileList && (
+                    <div style={{
+                      maxHeight: maxFilePreviewWindowHeight,
+                      overflow: 'auto',
+                      padding: "5px 0px",
+                    }}>
+                    <Table aria-label="All Documents" size="extra-small">
+                      <TableBody {...focusGroupAttributes} tabIndex={0}>
+                        {(value as File[])?.map((file: File, index: number) => (
+                          <TableRow key={index}>
+                            <TableCell>
+                              <TableCellLayout
+                                media={<DocumentDismissRegular />}
+                                description={`${file.size} bytes`}
+                                appearance="primary"
+                              >
+                                {file.name}
+                              </TableCellLayout>
+                              <TableCellActions>
                                 <Button
                                   icon={<DeleteRegular />}
                                   appearance="subtle"
-                                  onClick={() => onRemoveSavedFile?.(file)}
+                                  onClick={() => {
+                                    const files = value
+                                      ? (value as File[]).filter(
+                                          (f: File) => f.name !== file.name
+                                        )
+                                      : [];
+                                    onChange(files);
+                                  }}
                                 />
-                              )}
-                            </TableCellActions>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                  </div>
+                              </TableCellActions>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+  
+                        {savedFiles?.map((file: FileInfo, index: number) => (
+                          <TableRow key={index}>
+                            <TableCell>
+                              <TableCellLayout
+                                media={<DocumentCheckmarkRegular />}
+                                appearance="primary"
+                              >
+                                {file.name}
+                              </TableCellLayout>
+                              <TableCellActions>
+                                <Button
+                                  icon={<ArrowDownloadFilled />}
+                                  appearance="subtle"
+                                  onClick={() => {
+                                    window.open(file.path);
+                                  }}
+                                />
+  
+                                {onRemoveSavedFile && (
+                                  <Button
+                                    icon={<DeleteRegular />}
+                                    appearance="subtle"
+                                    onClick={() => onRemoveSavedFile?.(file)}
+                                  />
+                                )}
+                              </TableCellActions>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                    </div>
+                  )}
+                </div>
                 )}
-              </div>
             </Field>
           );
         }}

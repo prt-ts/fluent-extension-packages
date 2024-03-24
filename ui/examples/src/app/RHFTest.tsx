@@ -58,6 +58,7 @@ const schema = yup.object({
   // slider: yup.number().required('Slider is required'),
   // textarea: yup.string().required('Textarea is required'),
   // SpinButton: yup.number().required('Spin Button is required'),
+  attachments: yup.array().min(1, 'Attachments is required'),
 });
 
 export type IFormInput = yup.InferType<typeof schema>;
@@ -416,7 +417,9 @@ export const ReactHookForm = () => {
 
         <FileInput
           name={'attachments'}
-          label={'Attachments'}
+          label={<strong>Attachments</strong>}
+          multiple={true}
+          // maxFiles={3}
           savedFiles={[
             {
               name: 'file1',
