@@ -50,7 +50,11 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
           ) => { 
             const selectedOption = options?.find(
               (option) => `${option.value}` === `${data.value}`
-            );          
+            );  
+            
+            // remove the radioProps from the selectedOption
+            delete selectedOption?.radioProps;
+                  
             onChange(selectedOption);
             radioGroupProps.onChange?.(ev, data);
           };
@@ -86,13 +90,13 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
                 required={false}
               >
                 {(options || []).map(
-                  (option: RadioChoiceOption, index: number) => (
+                  ({radioProps = {}, ...option}: RadioChoiceOption, index: number) => (
                     <Radio
                       key={`${option.value}-${index}`}
                       value={`${option.value}`}
                       /*eslint-disable-next-line*/
                       label={<>{option.label}</>}
-                      {...option.radioProps}
+                      {...radioProps}
                     />
                   )
                 )}

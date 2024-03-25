@@ -1,6 +1,6 @@
 
 import {
-  Button, InfoLabel, Link,
+  Button,
 } from '@fluentui/react-components';
 import {
   Form,
@@ -108,18 +108,30 @@ export const ReactHookForm = () => {
 
   const monthOptions = useMemo(() => {
     return [
-      { label: 'January', value: 1 },
-      { label: 'February', value: 2 },
-      { label: 'March', value: 3 },
-      { label: 'April', value: 4 },
-      { label: 'May', value: 5 },
-      { label: 'June', value: 6 },
-      { label: 'July', value: 7 },
-      { label: 'August', value: 8 },
-      { label: 'September', value: 9 },
-      { label: 'October', value: 10 },
-      { label: 'November', value: 11 },
-      { label: 'December', value: 12 },
+      {
+        label: 'January', 
+        value: 1, 
+        meta: {
+          shortName: 'Jan'
+        },
+        checkboxProps: {
+          disabled: false
+        },
+        radioProps: {
+          disabled: true
+        }
+      },
+      { label: 'February', value: 2, meta: { shortName: 'Feb' }},
+      { label: 'March', value: 3, meta: { shortName: 'Mar' } },
+      { label: 'April', value: 4, meta: { shortName: 'Apr' } },
+      { label: 'May', value: 5, meta: { shortName: 'May' } },
+      { label: 'June', value: 6, meta: { shortName: 'Jun' } },
+      { label: 'July', value: 7, meta: { shortName: 'Jul' } },
+      { label: 'August', value: 8, meta: { shortName: 'Aug' } },
+      { label: 'September', value: 9, meta: { shortName: 'Sep' } },
+      { label: 'October', value: 10, meta: { shortName: 'Oct' } },
+      { label: 'November', value: 11, meta: { shortName: 'Nov' } },
+      { label: 'December', value: 12, meta: { shortName: 'Dec' } },
     ];
   }, []);
 
@@ -127,6 +139,14 @@ export const ReactHookForm = () => {
     return [
       { label: 'True', value: true },
       { label: 'False', value: false },
+    ];
+  }, []);
+
+  const textInputOptions = useMemo(() => {
+    return [
+      { label: 'One', value: 'one' },
+      { label: 'Two', value: 'two' },
+      { label: 'Three', value: 'three' },
     ];
   }, []);
 
@@ -143,7 +163,7 @@ export const ReactHookForm = () => {
         <RatingDisplay name={'rating'} label={'Rating Display'} compact color={"marigold"} />
         <CheckboxGroup
           name={'checkboxGroup'}
-          label={'Checkbox Group'}
+          label={'Checkbox Group (Number)'}
           layout='horizontal'
           options={monthOptions} />
 
@@ -153,9 +173,15 @@ export const ReactHookForm = () => {
           layout='horizontal'
           options={truFalseOptions} />
 
+        <CheckboxGroup
+          name={'checkboxGroupText'}
+          label={'Checkbox Group (Text)'}
+          layout='horizontal'
+          options={textInputOptions} />
+
         <RadioGroup
           name={'radioGroup'}
-          label={'Radio Group'}
+          label={'Radio Group (Number)'}
           layout='horizontal'
           options={monthOptions} />
 
@@ -164,6 +190,12 @@ export const ReactHookForm = () => {
           label={'Radio Group (True/False)'}
           layout='horizontal'
           options={truFalseOptions} />
+
+        <RadioGroup
+          name={'radioGroupText'}
+          label={'Radio Group (Text)'}
+          layout='horizontal'
+          options={textInputOptions} />
 
         <Input
           name={'firstName'}
