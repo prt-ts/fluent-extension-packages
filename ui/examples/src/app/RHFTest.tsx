@@ -22,6 +22,7 @@ import {
   RatingDisplay,
   CheckboxGroup,
   RadioGroup,
+  Radio,
 } from '@prt-ts/fluent-react-hook-form';
 import { Fragment, useCallback, useMemo, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
@@ -161,6 +162,10 @@ export const ReactHookForm = () => {
       <Form form={testForm} onSubmit={onSubmit}>
         <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={"marigold"} />
         <RatingDisplay name={'rating'} label={'Rating Display'} compact color={"marigold"} />
+
+        <Radio name='radio_single_input1' value={true} radioLabel={"Yes"}/>
+        <Radio name='radio_single_input2' value={false} radioLabel={"No"}/>
+
         <CheckboxGroup
           name={'checkboxGroup'}
           label={'Checkbox Group (Number)'}
