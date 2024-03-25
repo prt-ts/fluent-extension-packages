@@ -23,7 +23,7 @@ import {
   CheckboxGroup,
   RadioGroup,
 } from '@prt-ts/fluent-react-hook-form';
-import { Fragment, useCallback, useState } from 'react';
+import { Fragment, useCallback, useMemo, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -106,6 +106,32 @@ export const ReactHookForm = () => {
 
   const [isView, setIsView] = useState(false);
 
+  const monthOptions = useMemo(() => {
+    return [
+      { label: 'January', value: 1 },
+      { label: 'February', value: 2 },
+      { label: 'March', value: 3 },
+      { label: 'April', value: 4 },
+      { label: 'May', value: 5 },
+      { label: 'June', value: 6 },
+      { label: 'July', value: 7 },
+      { label: 'August', value: 8 },
+      { label: 'September', value: 9 },
+      { label: 'October', value: 10 },
+      { label: 'November', value: 11 },
+      { label: 'December', value: 12 },
+    ];
+  }, []);
+
+  const truFalseOptions = useMemo(() => {
+    return [
+      { label: 'True', value: true },
+      { label: 'False', value: false },
+    ];
+  }, []);
+
+  console.log("formValue", testForm.watch());
+
   return (
     <>
       <Button onClick={getFormValue}>Get Form Value</Button>
@@ -119,29 +145,25 @@ export const ReactHookForm = () => {
           name={'checkboxGroup'}
           label={'Checkbox Group'}
           layout='horizontal'
-          options={[
-            { label: 'Option 1', value: 'option1' },
-            { label: 'Option 2', value: 'option2', checkboxProps: { disabled: true }},
-            { label: 'Option 3', value: 'option3' },
-          ]} />
+          options={monthOptions} />
+
+        <CheckboxGroup
+          name={'checkboxGroupTrueFalse'}
+          label={'Checkbox Group (True/False)'}
+          layout='horizontal'
+          options={truFalseOptions} />
 
         <RadioGroup
           name={'radioGroup'}
           label={'Radio Group'}
           layout='horizontal'
-          options={[
-            {
-              label: (<InfoLabel info={"Some Info"}>
-                <Link href='www.example.com'>go to example </Link>
-              </InfoLabel>),
-              value: 'option1',
-              meta: {
-                info: "Some Info"
-              }
-            },
-            { label: 'Option 2', value: 'option2', radioProps: { disabled: true} },
-            { label: 'Option 3', value: 'option3' },
-          ]} />
+          options={monthOptions} />
+
+        <RadioGroup
+          name={'radioGroupTrueFalse'}
+          label={'Radio Group (True/False)'}
+          layout='horizontal'
+          options={truFalseOptions} />
 
         <Input
           name={'firstName'}

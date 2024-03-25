@@ -49,7 +49,7 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
             data: RadioGroupOnChangeData
           ) => { 
             const selectedOption = options?.find(
-              (option) => option.value === data.value
+              (option) => `${option.value}` === `${data.value}`
             );          
             onChange(selectedOption);
             radioGroupProps.onChange?.(ev, data);
@@ -80,7 +80,7 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
                 {...radioGroupProps}
                 ref={radioGroupRef || ref}
                 onBlur={handleOnBlur}
-                value={value?.value || ''}
+                value={`${value?.value}` || ''}
                 onChange={handleOnChange}
                 aria-labelledby={labelId}
                 required={false}
@@ -89,7 +89,7 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
                   (option: RadioChoiceOption, index: number) => (
                     <Radio
                       key={`${option.value}-${index}`}
-                      value={option.value as string}
+                      value={`${option.value}`}
                       /*eslint-disable-next-line*/
                       label={<>{option.label}</>}
                       {...option.radioProps}
