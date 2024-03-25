@@ -109,8 +109,8 @@ export const ReactHookForm = () => {
   const monthOptions = useMemo(() => {
     return [
       {
-        label: 'January', 
-        value: 1, 
+        label: 'January',
+        value: 1,
         meta: {
           shortName: 'Jan'
         },
@@ -121,7 +121,7 @@ export const ReactHookForm = () => {
           disabled: true
         }
       },
-      { label: 'February', value: 2, meta: { shortName: 'Feb' }},
+      { label: 'February', value: 2, meta: { shortName: 'Feb' } },
       { label: 'March', value: 3, meta: { shortName: 'Mar' } },
       { label: 'April', value: 4, meta: { shortName: 'Apr' } },
       { label: 'May', value: 5, meta: { shortName: 'May' } },
@@ -196,6 +196,16 @@ export const ReactHookForm = () => {
           label={'Radio Group (Text)'}
           layout='horizontal'
           options={textInputOptions} />
+
+        <Dropdown
+          name={'dropdownNumber'}
+          label={'Checkbox Group (Number)'} 
+          options={[
+            { label: "Months", options: monthOptions},
+            { label: "True/False", options: truFalseOptions},
+            { label: "Text", options: textInputOptions}
+          ]} 
+          multiselect/>
 
         <Input
           name={'firstName'}
