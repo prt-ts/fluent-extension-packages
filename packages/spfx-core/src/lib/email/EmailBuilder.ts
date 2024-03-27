@@ -1,8 +1,7 @@
 /* eslint-disable */
 import { IEmailProperties } from "@pnp/sp/sputilities";
 import { getSP } from "../pnp";
-import EmailSettings from "./EmailConfig";
-import { SPFxCoreDebugKey } from "../types/DebugKey";
+import EmailSettings from "./EmailConfig"; 
 import { isDebugMode } from "../debug";
 
 export interface IEmailProps {
@@ -90,7 +89,9 @@ export class EmailBuilder implements IEmailProperties {
 
                 // override email receiver with delegate email
                 this.appendBody(
-                    "<br/> <h1> Following are the actual email receiver. </h1> <hr/>"
+                    `<br/> 
+                    <h3>This email is intended for following users</h3> 
+                    <hr/>`
                 );
                 this.appendBody("TO Emails : " + this.To?.join(", ") + "<br/>");
                 this.appendBody("CC Emails: " + this.CC?.join(",") + "<br/>");
@@ -112,6 +113,11 @@ export class EmailBuilder implements IEmailProperties {
 
             // get sp configuration
             const sp = await getSP();
+
+            // remove duplicate emails from TO, CC, BCC
+            this.To = [...new Set(this.To)];
+            this.CC = [...new Set(this.CC)];
+            this.BCC = [...new Set(this.BCC)];
 
             // send email
             await sp.utility
