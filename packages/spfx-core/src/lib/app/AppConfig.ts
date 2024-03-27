@@ -85,6 +85,9 @@ export default class AppContext {
     }
 
     public updateSiteURL = async (siteName: string) => {
+        if(!this._context) {
+            throw new Error("AppContext is not initialized");
+        }
         const absoluteUrl = this.context.pageContext.site.absoluteUrl;
 
         // replace last part of the url with siteName
