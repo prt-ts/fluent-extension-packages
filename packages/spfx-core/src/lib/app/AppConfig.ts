@@ -3,7 +3,7 @@ import { getGraphFi, getSP } from "../pnp";
 import { EmailConfig, EmailSettingType } from "../email";
 import { AppSettings } from "./AppSettings";
 import { UserInfo } from "../types";
-import { ApplicationInsights } from "@microsoft/applicationinsights-web";
+import { ApplicationInsights, IConfig, IConfiguration } from "@microsoft/applicationinsights-web";
 
 export default class AppContext {
     private static instance: AppContext;
@@ -84,6 +84,20 @@ export default class AppContext {
         return this;
     }
 
+    public updateSiteURL = async (siteName: string) => {
+        const absoluteUrl = this.context.pageContext.site.absoluteUrl;
+
+        // replace last part of the url with siteName
+        const urlParts = absoluteUrl.split("/");
+        urlParts.pop();
+        urlParts.push(siteName);
+        const siteURL = urlParts.join("/");
+
+        // reinitialize sp
+        await getSP(this.context, siteURL);
+        return this;
+    }
+
     public initializeEmailConfig = (config: EmailSettingType) => {
         const emailConfig = EmailConfig.getInstance();
         emailConfig.initializeConfig(config);
@@ -95,11 +109,12 @@ export default class AppContext {
         return this;
     }
 
-    public initializeAppInsights = async (connectionString: string) => {
+    public initializeAppInsights = async (connectionString: string, config?: IConfiguration & IConfig) => {
         this._appInsights = new ApplicationInsights({
             config: {
                 connectionString: connectionString,
                 /* ...Other Configuration Options... */
+                ...(config || {}),
             },
         });
 
