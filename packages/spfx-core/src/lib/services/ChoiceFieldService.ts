@@ -4,6 +4,8 @@ import { getSP } from "../pnp";
 export type OptionType = {
   value: string;
   label: string;
+
+  meta?: Record<string, unknown>;
 };
 
 export const ChoiceFieldService = () => {
