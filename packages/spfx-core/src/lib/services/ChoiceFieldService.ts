@@ -55,12 +55,12 @@ export const ChoiceFieldService = () => {
         const listItems = await sp.web.lists
           .getByTitle(listName)
           .items.filter(config.filterContext || "")
-          .expand(...(config.additionalFields || []))
+          .expand(...(config.expandListColumns || []))
           .orderBy(config.orderBy || config.labelField, config.orderAsc || true)
           .select(
             config.valueField, 
             config.labelField, 
-            ...(config.expandListColumns || [])
+            ...(config.additionalFields || [])
           )();
 
         const options = listItems.map((choice) => {
