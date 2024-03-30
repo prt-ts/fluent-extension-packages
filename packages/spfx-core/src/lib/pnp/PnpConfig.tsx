@@ -18,8 +18,25 @@ declare global {
 
 export const getSP = async (
     context?: WebPartContext,
-    siteURL?: string
+    siteURL?: string,
+    updateContext: boolean = false
 ): Promise<SPFI> => {
+
+    // if updateContext is false, return new spfi instance
+    if (!updateContext && context) {
+
+        // create new sp instance
+        const sp =  await spfi(siteURL)
+        .using(SPFx(context))
+        .using(PnPLogging(LogLevel.Error));
+
+        return new Promise((resolve, reject) => {
+            if (sp) resolve(sp);
+            else reject("PnpSP is Not Initialized");
+        });
+    }
+
+
     // initialize if _SP is null and Context is provided
     if (context) {
         // Set sp as the global variable so we don't have to pass webpartcontext deep down to the child component
@@ -47,7 +64,7 @@ export const getGraphFi = async (
         // initialize once at init
         window.__GraphFI = await graphfi()
             .using(graphSPFx(context))
-            .using(PnPLogging(LogLevel.Error)); 
+            .using(PnPLogging(LogLevel.Error));
     }
 
     return new Promise((resolve, reject) => {

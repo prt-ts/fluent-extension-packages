@@ -17,7 +17,7 @@ export default class AppContext {
     private constructor() {
         // initialize default values
         this._context = null;
-        this._settings = null;
+        this._settings = {};
         this._currentUser = null;
         this._appInsights = null;
         this._domReact = null;
@@ -109,6 +109,14 @@ export default class AppContext {
 
     public initializeAppSettings = (settings: AppSettings) => {
         this._settings = settings;
+        return this;
+    }
+
+    public updateAppSettings = (settings: Partial<AppSettings>) => {
+        this._settings = {
+            ...this._settings,
+            ...settings,
+        };
         return this;
     }
 

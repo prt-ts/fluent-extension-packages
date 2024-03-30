@@ -73,6 +73,7 @@ export const useListSubscription = (props: ListSubscriptionType) => {
 
     React.useEffect(() => {
         if (!enable) {
+            _deleteSubscription();
             console.log("Subscription is disabled", listIdOrListName);
             return;
         }
@@ -81,11 +82,11 @@ export const useListSubscription = (props: ListSubscriptionType) => {
 
             createListSubscription()
                 .catch((error) => {
-                    console.log("error creating subscription", error);
+                    console.error("error creating subscription", error);
                 })
                 .then(() => console.log("subscription created"));
         } catch (error) {
-            console.log("error creating subscription", error);
+            console.error("error creating subscription", error);
         }
 
         return () => {
