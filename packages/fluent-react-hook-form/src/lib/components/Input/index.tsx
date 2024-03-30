@@ -18,7 +18,10 @@ export {
   RichViewerField as RichViewer,
 } from './RichInputField';
 export { DropdownField as Dropdown } from './DropdownField';
-export { RadioGroupField as RadioGroup } from './RadioGroupField';
+export { 
+  RadioGroupField as RadioGroup,
+  RadioField as Radio, 
+} from './RadioGroupField';
 
 export { FileInputField as FileInput } from './FileInputField';
 export { 
@@ -39,7 +42,11 @@ export {
 
 // export options types
 export type { FileInfo } from './FileInputField';
-export type { RadioChoiceOption } from './RadioGroupField';
+export type { 
+  RadioChoiceOption, 
+  RadioGroupFieldProps as RadioGroupProps,
+  RadioFieldProps as RadioProps,
+} from './RadioGroupField';
 export type { DropdownChoiceOption } from './DropdownField';
 
 // export props types

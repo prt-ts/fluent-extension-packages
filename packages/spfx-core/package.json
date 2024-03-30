@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/spfx-core",
-  "version": "1.18.2-build-9.2",
+  "version": "1.18.2-build-10.3",
   "dependencies": {
     "@pnp/core": ">3.0.0",
     "@pnp/graph": ">3.0.0",

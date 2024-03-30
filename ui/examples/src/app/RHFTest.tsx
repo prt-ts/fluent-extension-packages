@@ -1,6 +1,6 @@
 
 import {
-  Button, InfoLabel, Link,
+  Button,
 } from '@fluentui/react-components';
 import {
   Form,
@@ -22,8 +22,9 @@ import {
   RatingDisplay,
   CheckboxGroup,
   RadioGroup,
+  Radio,
 } from '@prt-ts/fluent-react-hook-form';
-import { Fragment, useCallback, useState } from 'react';
+import { Fragment, useCallback, useMemo, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -106,6 +107,52 @@ export const ReactHookForm = () => {
 
   const [isView, setIsView] = useState(false);
 
+  const monthOptions = useMemo(() => {
+    return [
+      {
+        label: 'January',
+        value: 1,
+        meta: {
+          shortName: 'Jan'
+        },
+        checkboxProps: {
+          disabled: false
+        },
+        radioProps: {
+          disabled: true
+        }
+      },
+      { label: 'February', value: 2, meta: { shortName: 'Feb' } },
+      { label: 'March', value: 3, meta: { shortName: 'Mar' } },
+      { label: 'April', value: 4, meta: { shortName: 'Apr' } },
+      { label: 'May', value: 5, meta: { shortName: 'May' } },
+      { label: 'June', value: 6, meta: { shortName: 'Jun' } },
+      { label: 'July', value: 7, meta: { shortName: 'Jul' } },
+      { label: 'August', value: 8, meta: { shortName: 'Aug' } },
+      { label: 'September', value: 9, meta: { shortName: 'Sep' } },
+      { label: 'October', value: 10, meta: { shortName: 'Oct' } },
+      { label: 'November', value: 11, meta: { shortName: 'Nov' } },
+      { label: 'December', value: 12, meta: { shortName: 'Dec' } },
+    ];
+  }, []);
+
+  const truFalseOptions = useMemo(() => {
+    return [
+      { label: 'True', value: true },
+      { label: 'False', value: false },
+    ];
+  }, []);
+
+  const textInputOptions = useMemo(() => {
+    return [
+      { label: 'One', value: 'one' },
+      { label: 'Two', value: 'two' },
+      { label: 'Three', value: 'three' },
+    ];
+  }, []);
+
+  console.log("formValue", testForm.watch());
+
   return (
     <>
       <Button onClick={getFormValue}>Get Form Value</Button>
@@ -115,33 +162,55 @@ export const ReactHookForm = () => {
       <Form form={testForm} onSubmit={onSubmit}>
         <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={"marigold"} />
         <RatingDisplay name={'rating'} label={'Rating Display'} compact color={"marigold"} />
+
+        <Radio name='radio_single_input1' value={true} radioLabel={"Yes"}/>
+        <Radio name='radio_single_input2' value={false} radioLabel={"No"}/>
+
         <CheckboxGroup
           name={'checkboxGroup'}
-          label={'Checkbox Group'}
+          label={'Checkbox Group (Number)'}
           layout='horizontal'
-          options={[
-            { label: 'Option 1', value: 'option1' },
-            { label: 'Option 2', value: 'option2', checkboxProps: { disabled: true }},
-            { label: 'Option 3', value: 'option3' },
-          ]} />
+          options={monthOptions} />
+
+        <CheckboxGroup
+          name={'checkboxGroupTrueFalse'}
+          label={'Checkbox Group (True/False)'}
+          layout='horizontal'
+          options={truFalseOptions} />
+
+        <CheckboxGroup
+          name={'checkboxGroupText'}
+          label={'Checkbox Group (Text)'}
+          layout='horizontal'
+          options={textInputOptions} />
 
         <RadioGroup
           name={'radioGroup'}
-          label={'Radio Group'}
+          label={'Radio Group (Number)'}
           layout='horizontal'
+          options={monthOptions} />
+
+        <RadioGroup
+          name={'radioGroupTrueFalse'}
+          label={'Radio Group (True/False)'}
+          layout='horizontal'
+          options={truFalseOptions} />
+
+        <RadioGroup
+          name={'radioGroupText'}
+          label={'Radio Group (Text)'}
+          layout='horizontal'
+          options={textInputOptions} />
+
+        <Dropdown
+          name={'dropdownNumber'}
+          label={'Checkbox Group (Number)'} 
           options={[
-            {
-              label: (<InfoLabel info={"Some Info"}>
-                <Link href='www.example.com'>go to example </Link>
-              </InfoLabel>),
-              value: 'option1',
-              meta: {
-                info: "Some Info"
-              }
-            },
-            { label: 'Option 2', value: 'option2', radioProps: { disabled: true} },
-            { label: 'Option 3', value: 'option3' },
-          ]} />
+            { label: "Months", options: monthOptions},
+            { label: "True/False", options: truFalseOptions},
+            { label: "Text", options: textInputOptions}
+          ]} 
+          multiselect/>
 
         <Input
           name={'firstName'}
@@ -152,11 +221,34 @@ export const ReactHookForm = () => {
           readOnly={isView}
           autoCompleteOptions={['one', 'two', 'three']}
           autoComplete='false' />
+
+        <Input
+          name={'phoneNumber'}
+          label={'Phone Number'}
+          required={true}
+          fieldMask='phone'
+        />
+
+        <Input
+          name={'currencyValue'}
+          label={'Currency'}
+          required={true}
+          fieldMask='currency'
+        />
+
         <CurrencyInput
           name={'currencyValue'}
           label={'Currency'}
           required={true}
         />
+
+        <Input
+          name={'creditCard'}
+          label={'Credit Card'}
+          required={true}
+          fieldMask='creditCard'
+        />
+
         <Input
           name={'lastName'}
           label={<>LastName with Info</>}

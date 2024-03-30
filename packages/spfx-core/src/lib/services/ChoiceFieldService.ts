@@ -4,6 +4,8 @@ import { getSP } from "../pnp";
 export type OptionType = {
   value: string;
   label: string;
+
+  meta?: Record<string, unknown>;
 };
 
 export const ChoiceFieldService = () => {
@@ -42,16 +44,24 @@ export const ChoiceFieldService = () => {
       additionalFields?: string[];
       expandListColumns?: string[];
       filterContext?: string;
+
+      orderBy?: string;
+      orderAsc?: boolean;
     }
   ): Promise<OptionType[]> => {
     return new Promise<OptionType[]>(async (resolve, reject) => {
-      try {
+      try {        
         const sp = await getSP();
         const listItems = await sp.web.lists
           .getByTitle(listName)
           .items.filter(config.filterContext || "")
-          .expand(...(config.additionalFields || []))
-          .select([config.valueField, config.labelField, ...(config.expandListColumns || [])]?.join(", "))();
+          .expand(...(config.expandListColumns || []))
+          .orderBy(config.orderBy || config.labelField, config.orderAsc || true)
+          .select(
+            config.valueField, 
+            config.labelField, 
+            ...(config.additionalFields || [])
+          )();
 
         const options = listItems.map((choice) => {
           return {

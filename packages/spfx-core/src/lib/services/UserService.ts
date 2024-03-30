@@ -9,6 +9,42 @@ export type ObjectType = "user" | "group" | "both";
 export const UserService = () => {
     (async () => { })();
 
+    const mapUserFromSPList = (user: any, allowFormat: boolean = true): UserInfo | null => {
+        try {
+            const mappedUser = {
+                id: user.Id || user.ID,
+                name: allowFormat? formatName(user.Title) : user.Title,
+                email: user.EMail,
+                loginName: user.UserName,
+                userType: "User",
+            } as UserInfo;
+
+            return mappedUser;
+
+        } catch (error) {
+            console.error(error);
+        }
+        return null;
+    };
+
+    const mapUsersFromSPList = (users: any[]): (UserInfo | null)[] => {
+        return users.map((user) => mapUserFromSPList(user));
+    };
+
+    const formatName = (displayName: string, outputFormat: string = `{firstName} {lastName}`): string => {
+        try {
+            const name = displayName?.split(" (")?.[0];
+            const [lastName, firstName] = name?.split(", ");
+            return outputFormat
+                .replace("{firstName}", (firstName || ''))
+                .replace("{lastName}", (lastName || ''));
+
+        } catch (error) {
+            console.error(error);
+            return displayName;
+        }
+    };
+
     async function searchUsers(
         usernameOrEmailOrName: string,
         excludedUsers: UserInfo[] = [],
@@ -138,6 +174,33 @@ export const UserService = () => {
         });
     };
 
+    const getSiteUsers = async (allowFormat: boolean = true): Promise<UserInfo[]> => {
+        return new Promise<UserInfo[]>(async (resolve, reject) => {
+            try {
+                const sp = await getSP();
+                const users = await sp.web.siteUsers();
+
+                if (!users) {
+                    resolve([]);
+                }
+
+                const mappedUsers = (users || []).map((user) => {
+                    return {
+                        id: user.Id,
+                        name: allowFormat ? formatName(user.Title) : user.Title,
+                        email: user.Email,
+                        loginName: user.LoginName,
+                        userType: "User",
+                    } as UserInfo;
+                });
+
+                resolve(mappedUsers);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    };
+
     const getUserProfile = async (userPrincipalName: string): Promise<any> => {
         return new Promise<any>(async (resolve, reject) => {
             try {
@@ -208,45 +271,10 @@ export const UserService = () => {
                 reject(error);
             }
         });
-    }
-
-    const mapUserFromSPList = (user: any, allowFormat: boolean = true): UserInfo | null => {
-        try {
-            const mappedUser = {
-                id: user.Id || user.ID,
-                name: allowFormat? formatName(user.Title) : user.Title,
-                email: user.EMail,
-                loginName: user.UserName,
-                userType: "User",
-            } as UserInfo;
-
-            return mappedUser;
-
-        } catch (error) {
-            console.error(error);
-        }
-        return null;
     };
-
-    const mapUsersFromSPList = (users: any[]): (UserInfo | null)[] => {
-        return users.map((user) => mapUserFromSPList(user));
-    };
-
-    const formatName = (displayName: string, outputFormat: string = `{firstName} {lastName}`): string => {
-        try {
-            const name = displayName?.split(" (")?.[0];
-            const [lastName, firstName] = name?.split(", ");
-            return outputFormat
-                .replace("{firstName}", (firstName || ''))
-                .replace("{lastName}", (lastName || ''));
-
-        } catch (error) {
-            console.error(error);
-            return displayName;
-        }
-    }
 
     return {
+        getSiteUsers,
         searchUsers,
         getCurrentUserGroups,
         ensureUser,

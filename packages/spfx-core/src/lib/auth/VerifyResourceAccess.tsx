@@ -6,15 +6,19 @@ export const useVerifyResourceAccess = (props: Omit<ResourceAccessProps, "childr
     // destructure the requiredRolesOrResources, requiredAll, and additionalUserRolesOrResources from props
     // and get the userRolesOrResources from the useAuthContext hook
     const { requiredRolesOrResources, requiredAll, additionalUserRolesOrResources } = props;
-    const { userRolesOrResources } = useAuthContext();
+    const { userRolesOrResources = [] } = useAuthContext();
 
     // if additionalUserRolesOrResources is provided, add them to userRolesOrResources
+    // it is important to create a copy of userRolesOrResources before 
+    // adding additionalUserRolesOrResources
+    // to avoid mutating the original userRolesOrResources array
+    const userRolesOrResourcesCpy = [...userRolesOrResources];
     if (additionalUserRolesOrResources && additionalUserRolesOrResources.length > 0) {
-        userRolesOrResources.push(...additionalUserRolesOrResources);
+        userRolesOrResourcesCpy.push(...additionalUserRolesOrResources);
     }
 
     // convert userRolesOrResources to lower case
-    const userRoles = userRolesOrResources.map((role) => role.toLowerCase());
+    const userRoles = userRolesOrResourcesCpy.map((role) => role.toLowerCase());
     const requiredRoles = requiredRolesOrResources.map((role) => role.toLowerCase());
 
     // if requiredAll is true, check if the user has all the required roles

@@ -20,7 +20,7 @@ export function setSubscriptionFactory(component: BaseComponent) {
 }
 
 export const useListSubscription = (props: ListSubscriptionType) => {
-    const { listIdOrListName, onChange, onConnect, onDisconnect } = props;
+    const { listIdOrListName, enable = true, onChange, onConnect, onDisconnect } = props;
     const _listSubscription = React.useRef<IListSubscription>();
 
     const _onChangeNotification = (): void => {
@@ -72,6 +72,10 @@ export const useListSubscription = (props: ListSubscriptionType) => {
     }
 
     React.useEffect(() => {
+        if (!enable) {
+            console.log("Subscription is disabled", listIdOrListName);
+            return;
+        }
         try {
             console.log("creating subscription");
 
@@ -88,7 +92,7 @@ export const useListSubscription = (props: ListSubscriptionType) => {
             _deleteSubscription();
             console.log("removing subscription");
         };
-    }, []);
+    }, [enable]);
 
     return {
         _listSubscription,

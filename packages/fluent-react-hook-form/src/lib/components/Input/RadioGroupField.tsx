@@ -10,6 +10,7 @@ import {
   useId,
   InfoLabel,
   InfoLabelProps,
+  RadioOnChangeData,
 } from '@fluentui/react-components';
 import { ReactNode, forwardRef } from "react";
 import { useFormContext } from "../Form";
@@ -49,8 +50,12 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
             data: RadioGroupOnChangeData
           ) => { 
             const selectedOption = options?.find(
-              (option) => option.value === data.value
-            );          
+              (option) => `${option.value}` === `${data.value}`
+            );  
+            
+            // remove the radioProps from the selectedOption
+            delete selectedOption?.radioProps;
+                  
             onChange(selectedOption);
             radioGroupProps.onChange?.(ev, data);
           };
@@ -80,19 +85,19 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
                 {...radioGroupProps}
                 ref={radioGroupRef || ref}
                 onBlur={handleOnBlur}
-                value={value?.value || ''}
+                value={`${value?.value}` || ''}
                 onChange={handleOnChange}
                 aria-labelledby={labelId}
                 required={false}
               >
                 {(options || []).map(
-                  (option: RadioChoiceOption, index: number) => (
+                  ({radioProps = {}, ...option}: RadioChoiceOption, index: number) => (
                     <Radio
                       key={`${option.value}-${index}`}
-                      value={option.value as string}
+                      value={`${option.value}`}
                       /*eslint-disable-next-line*/
                       label={<>{option.label}</>}
-                      {...option.radioProps}
+                      {...radioProps}
                     />
                   )
                 )}
@@ -104,3 +109,64 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
     );
   }
 );
+
+export type RadioFieldProps = FieldProps & Omit<RadioProps, "value"> & InfoLabelProps & {
+  name: string,
+  rules?: ControllerProps['rules'] 
+  radioLabel?: ReactNode,
+  value: string | number | boolean,
+}
+
+export const RadioField = forwardRef<HTMLInputElement, RadioFieldProps>(({ name, value, radioLabel, rules, required, ...rest }, radioRef) => {
+  const { form: { control } } = useFormContext();
+
+  const { ...fieldProps }: FieldProps = rest;
+  const { ...radioProps }: RadioProps = rest as unknown as RadioProps;
+  const { ...infoLabelProps }: InfoLabelProps = rest;
+
+  return (
+      <Controller
+          name={name}
+          control={control}
+          rules={rules}
+          render={({ field, fieldState }) => {
+              const { onChange, onBlur, value, ref } = field;
+
+              const handleOnChange = (ev: React.ChangeEvent<HTMLInputElement>, data: RadioOnChangeData) => {
+                  onChange(value);
+                  radioProps.onChange?.(ev, data);
+              }
+
+              const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
+                  onBlur();
+                  radioProps.onBlur?.(ev);
+              }
+
+              return (
+                  <Field
+                      {...fieldProps}
+                      label={{
+                          children: (_: unknown, props: LabelProps) => (
+                              <InfoLabel {...props} {...infoLabelProps} />
+                          )
+                      } as unknown as InfoLabelProps}
+                      validationState={fieldState.invalid ? "error" : undefined}
+                      validationMessage={fieldState.error?.message}
+                      required={required}
+                  >
+                      <Radio
+                          {...radioProps}
+                          ref={radioRef || ref}
+                          name={name} 
+                          value={`${value}` || ''}
+                          onChange={handleOnChange}
+                          onBlur={handleOnBlur} 
+                          /* eslint-disable-next-line */
+                          label={<>{radioLabel || `${value}`}</>}
+                          required={false}
+                      />
+                  </Field>
+              )
+          }}
+      />)
+})
