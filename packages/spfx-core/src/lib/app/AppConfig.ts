@@ -79,7 +79,7 @@ export default class AppContext {
         }
 
         // initialize sp and graph
-        await getSP(context, siteURL);
+        await getSP(context, siteURL, true);
         await getGraphFi(context);
         return this;
     }
@@ -97,7 +97,7 @@ export default class AppContext {
         const siteURL = urlParts.join("/");
 
         // reinitialize sp
-        await getSP(this.context, siteURL);
+        await getSP(this.context, siteURL, true);
         return this;
     }
 

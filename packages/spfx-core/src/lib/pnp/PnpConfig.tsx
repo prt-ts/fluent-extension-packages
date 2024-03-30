@@ -19,7 +19,7 @@ declare global {
 export const getSP = async (
     context?: WebPartContext,
     siteURL?: string,
-    updateContext: boolean = false
+    updateContext: boolean = true
 ): Promise<SPFI> => {
 
     // if updateContext is false, return new spfi instance
