@@ -221,6 +221,21 @@ export const ReactHookForm = () => {
           readOnly={isView}
           autoCompleteOptions={['one', 'two', 'three']}
           autoComplete='false' />
+
+        <Input
+          name={'phoneNumber'}
+          label={'Phone Number'}
+          required={true}
+          fieldMask='phone'
+        />
+
+        <Input
+          name={'currencyValue'}
+          label={'Currency'}
+          required={true}
+          fieldMask='currency'
+        />
+
         <CurrencyInput
           name={'currencyValue'}
           label={'Currency'}

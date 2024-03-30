@@ -2,14 +2,17 @@ import { Field, FieldProps, Input, InputOnChangeData, InputProps, LabelProps, In
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
+import { currencyMask, phoneMask } from "../../utils/InputFormatter";
 
-export type InputFieldProps = FieldProps & InputProps & InfoLabelProps & { 
-    name: string, 
+export type InputFieldProps = FieldProps & InputProps & InfoLabelProps & {
+    name: string,
     rules?: ControllerProps['rules']
     autoCompleteOptions?: string[]
+    fieldMask?: "phone" | "currency" | "custom" | undefined
+    onCustomMask?: (value: string) => string
 }
 
-export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ name, rules, autoCompleteOptions = [], required, ...rest }, inputRef) => {
+export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ name, rules, autoCompleteOptions = [], required, fieldMask, onCustomMask, ...rest }, inputRef) => {
     const autoCompleteListId = useId('autoCompleteList');
     const { form: { control } } = useFormContext();
 
@@ -26,6 +29,15 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ name,
                 const { onChange, onBlur, value, ref } = field;
 
                 const handleOnChange = (ev: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+                    if (fieldMask === "phone") {
+                        data.value = phoneMask(data.value);
+                    }
+                    else if (fieldMask === "currency") {
+                        data.value = currencyMask(data.value);
+                    }
+                    else if (fieldMask === "custom" && onCustomMask) {
+                        data.value = onCustomMask(data.value);
+                    }
                     onChange(data.value);
                     inputProps.onChange?.(ev, data);
                 }
@@ -60,7 +72,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ name,
                         {
                             autoCompleteOptions.length > 0 && (
                                 <datalist id={autoCompleteListId}>
-                                    {autoCompleteOptions.map((option : string) => (
+                                    {autoCompleteOptions.map((option: string) => (
                                         <option key={option} value={option} />
                                     ))}
                                 </datalist>
