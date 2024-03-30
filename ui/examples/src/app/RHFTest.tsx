@@ -241,6 +241,14 @@ export const ReactHookForm = () => {
           label={'Currency'}
           required={true}
         />
+
+        <Input
+          name={'creditCard'}
+          label={'Credit Card'}
+          required={true}
+          fieldMask='creditCard'
+        />
+
         <Input
           name={'lastName'}
           label={<>LastName with Info</>}

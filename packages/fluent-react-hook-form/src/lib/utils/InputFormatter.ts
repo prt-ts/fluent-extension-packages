@@ -16,3 +16,12 @@ export function currencyMask(currency: string, currencySymbol = '$') {
     }
     return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 }
+
+// mask for credit card
+export function creditCardMask(creditCard: string) {
+    return creditCard.replace(/\D/g, '')
+        .replace(/(\d{4})(\d)/, '$1 $2')
+        .replace(/(\d{4}) (\d{4})(\d)/, '$1 $2 $3')
+        .replace(/(\d{4} \d{4}) (\d{4})(\d)/, '$1 $2 $3')
+        .replace(/(\d{4} \d{4} \d{4}) (\d{4})/, '$1 $2');
+}

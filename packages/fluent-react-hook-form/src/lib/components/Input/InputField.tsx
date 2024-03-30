@@ -2,13 +2,13 @@ import { Field, FieldProps, Input, InputOnChangeData, InputProps, LabelProps, In
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
-import { currencyMask, phoneMask } from "../../utils/InputFormatter";
+import { creditCardMask, currencyMask, phoneMask } from "../../utils/InputFormatter";
 
 export type InputFieldProps = FieldProps & InputProps & InfoLabelProps & {
     name: string,
     rules?: ControllerProps['rules']
     autoCompleteOptions?: string[]
-    fieldMask?: "phone" | "currency" | "custom" | undefined
+    fieldMask?: "phone" | "currency" | "creditCard" | "custom" | undefined
     onCustomMask?: (value: string) => string
 }
 
@@ -29,14 +29,23 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ name,
                 const { onChange, onBlur, value, ref } = field;
 
                 const handleOnChange = (ev: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
-                    if (fieldMask === "phone") {
-                        data.value = phoneMask(data.value);
-                    }
-                    else if (fieldMask === "currency") {
-                        data.value = currencyMask(data.value);
-                    }
-                    else if (fieldMask === "custom" && onCustomMask) {
-                        data.value = onCustomMask(data.value);
+                    switch (fieldMask) {
+                        case "phone":
+                            data.value = phoneMask(data.value);
+                            break;
+                        case "currency":
+                            data.value = currencyMask(data.value);
+                            break;
+                        case "creditCard":
+                            data.value = creditCardMask(data.value);
+                            break;
+                        case "custom":
+                            if (onCustomMask) {
+                                data.value = onCustomMask(data.value);
+                            }
+                            break;
+                        default:
+                            break;
                     }
                     onChange(data.value);
                     inputProps.onChange?.(ev, data);
