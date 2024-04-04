@@ -4,10 +4,15 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "type": "commonjs",
-  "main": "./src/index.js", 
+  "license": "MIT",
+  "author": "Pradeep Raj Thapaliya",
+  "bugs": {
+    "url": "https://github.com/prt-ts/fluent-extension-packages.git"
+  },
+  "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme",
   "publishConfig": {
     "access": "public"
   },
-  "types": "./index.cjs.d.ts"
+  "main": "./src/index.js", 
+  "types": "./src/index.d.ts"
 }
