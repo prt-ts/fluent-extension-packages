@@ -65,3 +65,5 @@ export type {
 
 export { createColumnHelper } from "@tanstack/react-table";
 
+export { getTableData } from "./helpers/TableExportDataHelper";
+

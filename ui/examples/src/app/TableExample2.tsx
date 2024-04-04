@@ -1,8 +1,8 @@
 import * as React from "react";
 import { createRef, useEffect, useState } from 'react';
 import { Person, makeData } from './data/data';
-import { Button, Field, Input, Radio, RadioGroup } from '@fluentui/react-components';
-import { EditRegular, DeleteRegular, StarDismissRegular, StarRegular, SwipeUpFilled, SwipeDownFilled, PinOffRegular } from '@fluentui/react-icons';
+import { Button } from '@fluentui/react-components';
+import { EditRegular, DeleteRegular } from '@fluentui/react-icons';
 import {
   ColumnDef,
   PinRowAction,
@@ -10,8 +10,10 @@ import {
   Table,
   TableRef,
   TableState,
+  TableType,
   TableView,
   createColumnHelper,
+  getTableData,
   useSkipper,
 } from '@prt-ts/fluent-react-table-v2';
 import { useNavigate } from 'react-router-dom';
@@ -33,6 +35,8 @@ import {
 } from "@fluentui/react-components";
 import { tableViews as views } from './data/tableView';
 import { ColumnPinningState } from '@tanstack/react-table'; 
+import { DownloadIcon } from "@prt-ts/fluent-common-features";
+import { exportToFile } from "@prt-ts/export-helpers";
 
 const ColumnIdAccessMapping = {
   "First Name": "firstName",
@@ -46,63 +50,7 @@ export function TableExample2() {
   const [data, setData] = useState<Person[]>([]);
   const [tableViews, setTableViews] = useState<TableView[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectionMode, setSelectionMode] = useState<
-    'single' | 'multiple' | undefined
-  >('multiple');
-
-  const logSelectedRows = () => {
-    const table = tableRef.current?.table;
-    const selectedRow = table
-      ?.getSelectedRowModel()
-      .flatRows.map((row) => row.original);
-    console.log(selectedRow);
-  };
-
-  const logTableState = () => {
-    const tableState = tableRef.current?.getTableState();
-    console.log(tableState);
-  };
-
-  // Give our default column cell renderer editing superpowers!
-  const defaultColumn: Partial<ColumnDef<Person>> = {
-    cell: ({ getValue, row: { index }, column: { id }, table }) => {
-      const initialValue = getValue()
-      // We need to keep and update the state of the cell normally
-      const [value, setValue] = React.useState(initialValue)
-
-      // When the input is blurred, we'll call our table meta's updateData function
-      const onBlur = () => {
-        table.options.meta?.updateData(index, id, value)
-      }
-
-      // If the initialValue is changed external, sync it up with our state
-      React.useEffect(() => {
-        setValue(initialValue)
-      }, [initialValue])
-
-      return (
-        <Input
-          value={value as string}
-          onChange={(e, data) => setValue(data.value)}
-          onBlur={onBlur}
-          appearance="filled-lighter"
-        />
-      )
-    },
-  }
-
-  const saveCurrentTableState = () => {
-    const tableState = tableRef.current?.getTableState();
-    localStorage.setItem('view1', JSON.stringify(tableState));
-    console.log(tableState);
-  };
-
-  const applyLastSavedTableState = () => {
-    const tableState = JSON.parse(localStorage.getItem('view1') || '') as TableState;
-    tableRef.current?.applyTableState(tableState);
-    console.log(tableState);
-  };
-
+  
   const applyBeforeEditState = () => {
     const localStorageString = localStorage.getItem('table1_edit_temp');
     if (!localStorageString) return;
@@ -342,10 +290,10 @@ export function TableExample2() {
         pageSizeOptions={[10, 20, 100, 1000, 10000]}
         isLoading={isLoading}
         gridTitle={<strong>Grid Header</strong>}
-        headerMenu={(selectedItems) => (
-          <TopToolbar selectedItems={selectedItems} />
+        headerMenu={(table) => (
+          <TopToolbar table={table}/>
         )}
-        rowSelectionMode={selectionMode}
+        rowSelectionMode={"multiple"}
         columnVisibility={{
           progress: false,
           firstName: false,
@@ -387,8 +335,26 @@ export function TableExample2() {
 }
 
 export const TopToolbar: React.FC<{
-  selectedItems: Person[];
-}> = ({ selectedItems }) => {
+  table: TableType<Person>;
+}> = ({ table }) => {
+
+  
+  const selectedItems = table.getSelectedRowModel().flatRows.map((row) => row.original);
+  
+  const getExportDataFromTable = () => {    
+    const data = getTableData(table);
+    console.log(data);
+
+    exportToFile({
+      sheets: [
+        {
+          sheetName: 'Sheet 1',
+          data: data,
+        },
+      ],
+    });
+  }
+
 
   console.log(selectedItems);
   return (
@@ -405,6 +371,7 @@ export const TopToolbar: React.FC<{
           icon={<FontDecrease24Regular />}
         />
         <ToolbarButton aria-label="Reset Font Size" icon={<TextFont24Regular />} />
+        <ToolbarButton aria-label="DownloadData" icon={<DownloadIcon />} onClick={getExportDataFromTable} />
         {selectedItems?.length === 1 && (
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             <Button
