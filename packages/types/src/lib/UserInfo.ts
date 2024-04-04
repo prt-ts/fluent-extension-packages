@@ -5,8 +5,9 @@ export type UserInfo<TAdditionalInfo = {}> = {
     name: string;
     email: string;
     loginName: string; 
-    objectId?: string;
-    userType?: "User" | "Group";
+    objectId?: string; 
     userDomain?: string;
     userMeta?: TAdditionalInfo;
-};
+    userType?: "User" | "Group"
+    members?: UserInfo[];
+} 

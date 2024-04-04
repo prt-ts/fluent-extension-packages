@@ -1,9 +1,9 @@
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { getGraphFi, getSP } from "../pnp";
 import { EmailConfig, EmailSettingType } from "../email";
-import { AppSettings } from "./AppSettings";
-import { UserInfo } from "../types";
+import { AppSettings } from "./AppSettings"; 
 import { ApplicationInsights, IConfig, IConfiguration } from "@microsoft/applicationinsights-web";
+import { UserInfo } from "@prt-ts/types";
 
 export default class AppContext {
     private static instance: AppContext;

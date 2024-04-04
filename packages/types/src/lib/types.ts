@@ -1,3 +1,3 @@
-export function types(): string {
-  return 'types';
-}
+export {
+    UserInfo
+} from './UserInfo';

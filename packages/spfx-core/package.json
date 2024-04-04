@@ -8,7 +8,8 @@
     "@pnp/sp": ">3.0.0",
     "@microsoft/sp-list-subscription": "1.18.2",
     "@microsoft/applicationinsights-web": ">3.0.0",
-    "socket.io-client": "4.5.4"
+    "socket.io-client": "4.5.4",
+     "@prt-ts/types": "latest"
   },
   "peerDependencies": {
     "@microsoft/sp-webpart-base": "1.18.2",
