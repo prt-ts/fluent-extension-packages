@@ -28,6 +28,9 @@ export {
   RatingField as Rating,
   RatingDisplayField as RatingDisplay,
 } from './RatingField';
+export {
+  PeoplePickerField as PeoplePicker
+} from './PeoplePickerField';
 
 // export helper functions
 export { formatCurrency } from './CurrencyInputField';
@@ -74,3 +77,6 @@ export type {
   RatingDisplayFieldProps as RatingDisplayProps,
 } from './RatingField';
 
+export type {
+  PeoplePickerProps
+} from "./PeoplePickerField"

@@ -5,7 +5,8 @@ import {
   TagPickerOptionGroup,
 } from "@fluentui/react-tag-picker-preview";
 import { For, Show } from "@prt-ts/react-control-flow";
-import { PeopleInputProps, UserInfo } from "./PeopleInputProps";
+import { PeopleInputProps } from "./PeopleInputProps";
+import { UserInfo } from "@prt-ts/types";
 
 type GetChildrenProps = {
   query: string;
@@ -32,7 +33,7 @@ export function useGetChildren({
             <Show when={isLoading}>
               <TagPickerOption
                 key={"loading"}
-                value={undefined}
+                value={""}
                 text={"LOADING"}
               >
                 <Spinner size="tiny" label="Searching, Please Wait..." />
@@ -49,7 +50,7 @@ export function useGetChildren({
             >
               <TagPickerOption
                 key={"loading"}
-                value={undefined}
+                value={""}
                 text={"LOADING"}
               >
                 {`No results found for '${query}'`}
@@ -91,14 +92,14 @@ export function useGetChildren({
             <TagPickerOptionGroup label="Suggestions">
               <TagPickerOption
                 key={"no_suggestions"}
-                value={undefined}
+                value={""}
                 text={"NO_LOADING"}
               >
                 {`No suggestions available.`}
               </TagPickerOption>
             </TagPickerOptionGroup>
           </Show>
-          <Show when={availableSuggestions?.length > 0}>
+          <Show when={availableSuggestions && availableSuggestions?.length > 0}>
             <TagPickerOptionGroup label="Suggestions">
               <For each={availableSuggestions}>
                 {(option) => (

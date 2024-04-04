@@ -1,5 +1,6 @@
 import * as React from "react";
-import { PeopleInputProps, PeopleInputRef, UserInfo } from "./PeopleInputProps";
+import { PeopleInputProps, PeopleInputRef } from "./PeopleInputProps";
+import { UserInfo } from "@prt-ts/types";
 
 /* eslint-disable */
 export function usePickerImperativeHandle(
@@ -12,8 +13,8 @@ export function usePickerImperativeHandle(
     ref,
     () => ({
       value: value || [],
-      reset: () => onUserSelectionChange([]),
-      setValue: (users) => onUserSelectionChange(users),
+      reset: () => onUserSelectionChange?.([]),
+      setValue: (users) => onUserSelectionChange?.(users),
       focus: () => inputRef.current?.focus(),
       blur: () => inputRef.current?.blur(),
     }),

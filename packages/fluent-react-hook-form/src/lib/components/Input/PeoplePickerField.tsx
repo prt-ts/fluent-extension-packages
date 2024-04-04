@@ -10,8 +10,14 @@ import {
 import { InfoLabel, InfoLabelProps } from "@fluentui/react-components";
 import { useFormContext } from "@prt-ts/fluent-react-hook-form";
 import { Controller } from "react-hook-form";
-import { PeoplePickerProps } from "./PeoplePickerTypes";
-import { PeopleInput, PeopleInputProps, PeopleInputRef } from "../PeoplePicker";
+import { PeopleInput, PeopleInputProps, PeopleInputRef } from "@prt-ts/fluent-input-extensions";
+
+export type PeoplePickerProps = Omit<PeopleInputProps, "value"> &
+  InfoLabelProps &
+  Omit<FieldProps, "size"> & {
+    name: string;
+    rules?: any;
+  };
 
 export const PeoplePickerField = React.forwardRef<
   PeopleInputRef,
@@ -49,7 +55,7 @@ export const PeoplePickerField = React.forwardRef<
                       paddingTop: tokens.spacingVerticalXXS,
                     }}
                   >
-                    {label}
+                    {label as unknown as string}
                   </InfoLabel>
                 ),
               } as LabelProps

@@ -1,4 +1,22 @@
 {
   "name": "@prt-ts/fluent-input-extensions",
-  "version": "0.0.1"
+  "version": "9.47.4-build.1.0",
+  "description": "Fluent UI Input Extensions",
+  "dependencies": {
+    "@prt-ts/react-control-flow": "latest",
+    "@prt-ts/types": "latest"
+  },
+  "peerDependencies": {
+    "@fluentui/react-components": ">=9.47.4",
+    "@fluentui/react-icons": ">=2.0.232",
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
+  },
+  "license": "MIT",
+  "author": "Pradeep Raj Thapaliya",
+  "bugs": {
+    "url": "https://github.com/prt-ts/fluent-extension-packages.git"
+  },
+  "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme",
+  "types": "./index.cjs.d.ts"
 }

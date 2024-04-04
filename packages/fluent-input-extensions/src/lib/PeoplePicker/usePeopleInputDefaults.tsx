@@ -1,9 +1,10 @@
 import * as React from "react";
-import { PeopleInputProps, UserInfo } from "./PeopleInputProps";
+import { PeopleInputProps } from "./PeopleInputProps";
 import {
   TagPickerInputProps,
   TagPickerProps,
 } from "@fluentui/react-tag-picker-preview";
+import { UserInfo } from "@prt-ts/types";
 
 /* eslint-disable  */
 export function usePeopleInputDefault(props: PeopleInputProps) {

@@ -9,6 +9,8 @@ export const usePeopleInputStyles = makeStyles({
       tokens.spacingHorizontalSNudge
     ),
   },
+  normal: {},
+  compact: {},
   horizontal: {},
   vertical: {
     flexDirection: "column",

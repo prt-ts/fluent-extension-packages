@@ -15,7 +15,9 @@
         "entryFile": "packages/fluent-input-extensions//src/index.ts",
         "external": ["react", "react-dom", "react/jsx-runtime"],
         "rollupConfig": "@nx/react/plugins/bundle-rollup",
-        "compiler": "babel",
+        "compiler": "tsc",
+        "format": ["esm", "cjs"],
+
         "assets": [
           {
             "glob": "packages/fluent-input-extensions//README.md",

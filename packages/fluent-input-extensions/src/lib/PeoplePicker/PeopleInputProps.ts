@@ -2,9 +2,7 @@ import {
   TagPickerInputProps,
   TagPickerProps,
 } from "@fluentui/react-tag-picker-preview";
-import { UserInfo as CoreUserInfo } from "@prt-ts/spfx-core";
-
-export type UserInfo = CoreUserInfo;
+import { UserInfo } from "@prt-ts/types";
 
 type LocalPeopleInputProps = {
   /**

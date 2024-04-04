@@ -1,8 +1,7 @@
 {
   "name": "@prt-ts/types",
   "version": "0.0.1",
-  "dependencies": {
-    "tslib": "^2.3.0"
+  "dependencies": { 
   },
   "license": "MIT",
   "author": "Pradeep Raj Thapaliya",
