@@ -33,6 +33,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
 import { debouncedSearchUserInfo } from './data/UserInfo';
+import { PeopleInput } from '@prt-ts/fluent-input-extensions';
 
 const schema = yup.object({
   rating: yup.number().required('Rating is required'),
@@ -163,9 +164,10 @@ export const ReactHookForm = () => {
       <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
       <Form form={testForm} onSubmit={onSubmit}>
 
-        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} multiselect/>
+        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} multiselect placeholder='Search users'/>
 
 
+        <PeopleInput onSearchUsers={debouncedSearchUserInfo} multiselect placeholder='Search users'/>
         <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={"marigold"} />
         <RatingDisplay name={'rating'} label={'Rating Display'} compact color={"marigold"} />
 
