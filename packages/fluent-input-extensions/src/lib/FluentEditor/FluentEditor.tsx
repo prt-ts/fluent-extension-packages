@@ -126,6 +126,8 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
 
     const { ...textareaProps } = rest as unknown as TextareaProps;
     const { ...fieldProps } = rest as unknown as FieldControlProps;
+     
+    const { disabled, readOnly } = textareaProps;
 
     const id = useId("editorDiv");
 
@@ -175,6 +177,7 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
             const defaultEditor = defaultEditorCreator(editorDiv.current!, {
                 initialModel: createModelFromHtml(props.value || ""),
                 plugins: plugins,
+                
             });
 
             // attach event to default editor
@@ -232,7 +235,7 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
         return (!internalValue || internalValue === "<br>" || internalValue === "<div><br></div>");
     }, [internalValue]);
 
-    const showRibbonAll = showRibbon && !textareaProps.disabled && !textareaProps.readOnly; 
+    const showRibbonAll = showRibbon && !disabled && !readOnly; 
 
     const styles = useEditorStyle();
     return (
@@ -252,6 +255,7 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
                 onBlur={handleBlur}
                 onFocus={handleFocus}
                 data-placeholder={!showPlaceholder || hasFocus ? "" : textareaProps.placeholder}
+                contentEditable={!disabled && !readOnly}
             />
             <Show when={!!editor && showRibbonAll && ribbonPosition === "bottom"}>
                 <div className={mergeClasses(styles[ribbonPosition])}>

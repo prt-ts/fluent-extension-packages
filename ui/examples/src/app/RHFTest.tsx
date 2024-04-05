@@ -179,7 +179,7 @@ export const ReactHookForm = () => {
       <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
       <Form form={testForm} onSubmit={onSubmit}>
 
-        {/* <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} multiselect readOnly={isView} placeholder='Search users'/> */}
+        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} multiselect readOnly={isView} placeholder='Search users'/>
        
         {/* <Input
           name={'firstName1'}
@@ -197,11 +197,11 @@ export const ReactHookForm = () => {
 
         <br />
 
-        <RichInput showRibbon={true} label={<>Medium Label</>} name={"firstName3"} size="medium" placeholder='Enter First Name'/>
+        {/* <RichInput showRibbon={true} label={<>Medium Label</>} name={"firstName3"} size="medium" placeholder='Enter First Name'/>
 
         <br />
 
-        <RichInput showRibbon={true} label={<>Large Label</>} name={"firstName4"} size="large" placeholder='Enter First Name'/>
+        <RichInput showRibbon={true} label={<>Large Label</>} name={"firstName4"} size="large" placeholder='Enter First Name'/> */}
 
         <div dangerouslySetInnerHTML={{ __html: value }}></div>
 
@@ -493,10 +493,11 @@ export const ReactHookForm = () => {
           size="large"
           label={<strong>Rich Input Text</strong>}
         />
-        <RichViewer
+        <RichInput
           name="richHTMLText"
           size="large"
           label={<strong>Rich Input Viewer</strong>}
+          readOnly
         />
 
         <Textarea

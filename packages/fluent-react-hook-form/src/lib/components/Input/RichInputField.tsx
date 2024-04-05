@@ -1,13 +1,13 @@
 import {
-  Field,
-  FieldProps,
-  LabelProps,
-  InfoLabel,
-  InfoLabelProps, 
-} from '@fluentui/react-components'; 
+    Field,
+    FieldProps,
+    LabelProps,
+    InfoLabel,
+    InfoLabelProps,
+} from '@fluentui/react-components';
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
-import { Controller, ControllerProps } from "react-hook-form"; 
+import { Controller, ControllerProps } from "react-hook-form";
 import { FluentEditor, FluentEditorProps } from '@prt-ts/fluent-input-extensions';
 
 export type RichInputFieldProps = FieldProps & FluentEditorProps & InfoLabelProps & { name: string, rules?: ControllerProps['rules'] }
@@ -18,7 +18,7 @@ export const RichInputField = forwardRef<HTMLDivElement, RichInputFieldProps>(({
     const { ...fieldProps }: FieldProps = rest as unknown as FieldProps;
     const { ...fluentEditorProps }: FluentEditorProps = rest as unknown as FluentEditorProps;
     const { ...infoLabelProps }: InfoLabelProps = rest as unknown as InfoLabelProps;
-    
+
     return (
         <Controller
             name={name}
@@ -58,10 +58,12 @@ export const RichInputField = forwardRef<HTMLDivElement, RichInputFieldProps>(({
         />)
 });
 
-export const RichViewerField = forwardRef<HTMLDivElement, RichInputFieldProps>(({ name, rules, required, ...rest }, reactQuillRef) => {
+// @deprecated
+export const RichViewerField = forwardRef<HTMLDivElement, RichInputFieldProps>(({ name, rules, required, ...rest }, editorProps) => {
     const { form: { control } } = useFormContext();
 
-    const { ...fieldProps }: FieldProps = rest as unknown as FieldProps; 
+    const { ...fieldProps }: FieldProps = rest as unknown as FieldProps;
+    const { ...fluentEditorProps }: FluentEditorProps = rest as unknown as FluentEditorProps;
     const { ...infoLabelProps }: InfoLabelProps = rest as unknown as InfoLabelProps;
 
     return (
@@ -70,7 +72,7 @@ export const RichViewerField = forwardRef<HTMLDivElement, RichInputFieldProps>((
             control={control}
             rules={rules}
             render={({ field, fieldState }) => {
-                const { value } = field;
+                const { value, onBlur, ref } = field;
 
                 return (
                     <Field
@@ -84,9 +86,18 @@ export const RichViewerField = forwardRef<HTMLDivElement, RichInputFieldProps>((
                         validationMessage={fieldState.error?.message}
                         required={required}
                     >
-                        {(fieldProps) => ( 
-                             // eslint-disable-next-line react/no-danger                           
-                             <span dangerouslySetInnerHTML={{ __html: value }} {...fieldProps}/>
+                        {(fieldProps) => (
+                            <FluentEditor
+                                {...fluentEditorProps}
+                                ref={editorProps || ref}
+                                value={value}
+                                onBlur={onBlur}
+                                {...fieldProps}
+
+                                // make it readonly
+                                readOnly={true}
+                                showRibbon={false}
+                            />
                         )}
                     </Field>
                 )
