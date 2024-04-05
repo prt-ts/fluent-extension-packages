@@ -5,7 +5,10 @@
   "dependencies": {
     "@fluentui/react-tag-picker-preview": "latest",
     "@prt-ts/react-control-flow": "*",
-    "@prt-ts/types": "*"
+    "@prt-ts/types": "*",
+    "roosterjs-content-model-api": ">=9.0.0",
+    "roosterjs-content-model-core": ">=9.0.0",
+    "roosterjs-content-model-types": ">=9.0.0"
   },
   "peerDependencies": {
     "@fluentui/react-components": ">=9.47.4",

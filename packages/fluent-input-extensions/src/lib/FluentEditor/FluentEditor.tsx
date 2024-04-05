@@ -39,7 +39,7 @@ const useEditorStyle = makeStyles({
         ...shorthands.borderLeft(tokens.strokeWidthThin, "solid", tokens.colorNeutralStroke1Pressed),
         ...shorthands.borderRight(tokens.strokeWidthThin, "solid", tokens.colorNeutralStroke1Pressed),
         ...shorthands.borderBottom(tokens.strokeWidthThin, "solid", tokens.colorNeutralStrokeAccessiblePressed),
-        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+        ...shorthands.borderRadius(tokens.borderRadiusMedium, tokens.borderRadiusMedium, tokens.borderRadiusMedium, tokens.borderRadiusMedium),
 
         ":after": {
             content: "''",
@@ -63,25 +63,30 @@ const useEditorStyle = makeStyles({
     },
     top: {
         ...shorthands.borderBottom(tokens.strokeWidthThin, "solid", tokens.colorNeutralStroke1),
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
         boxShadow: tokens.shadow2,
     },
     bottom: {
-        ...shorthands.borderTop(tokens.strokeWidthThin, "solid", tokens.colorNeutralStroke1),
+        // ...shorthands.borderTop(tokens.strokeWidthThin, "solid", tokens.colorNeutralStroke1),
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+        boxShadow: tokens.shadow2,
     },
 
     editor: {
         display: "block",
         width: `calc(100% - ${tokens.spacingHorizontalM} * 2)`,
         ...shorthands.padding(tokens.spacingVerticalM, tokens.spacingHorizontalM),
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+
 
         ...shorthands.border(0)
     },
 
     small: {
-        minHeight: "50px",
+        minHeight: "40px",
     },
     medium: {
-        minHeight: "80px",
+        minHeight: "60px",
     },
     large: {
         minHeight: "100px",
@@ -121,6 +126,8 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
     const editor = React.useRef<IEditor | null>(null);
     const editorDiv = React.useRef<HTMLDivElement>(null);
     const [hasFocus, setHasFocus] = React.useState(false);
+
+    React.useImperativeHandle(ref, () => editorDiv.current!);
 
     const handleChange = () => {
         if (editor?.current) {
@@ -219,10 +226,12 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
         return (!internalValue || internalValue === "<br>" || internalValue === "<div><br></div>");
     }, [internalValue]);
 
+    const showRibbonAll = showRibbon && !textareaProps.disabled && !textareaProps.readOnly; 
+
     const styles = useEditorStyle();
     return (
         <div className={mergeClasses(styles.root, hasFocus && styles.rootFocused, fieldProps['aria-invalid'] && !hasFocus && styles.invalid)}>
-            <Show when={!!editor && showRibbon && ribbonPosition === "top"}>
+            <Show when={!!editor && showRibbonAll && ribbonPosition === "top"}>
                 <div className={mergeClasses(styles[ribbonPosition])} >
                     <FluentEditorRibbon editor={editor.current!} value={internalValue} handleChange={handleChange} />
                 </div>
@@ -238,7 +247,7 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
                 onFocus={handleFocus}
                 data-placeholder={!showPlaceholder || hasFocus ? "" : textareaProps.placeholder}
             />
-            <Show when={!!editor && showRibbon && ribbonPosition === "bottom"}>
+            <Show when={!!editor && showRibbonAll && ribbonPosition === "bottom"}>
                 <div className={mergeClasses(styles[ribbonPosition])}>
                     <FluentEditorRibbon editor={editor.current!} value={internalValue} handleChange={handleChange} />
                 </div>

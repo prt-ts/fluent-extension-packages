@@ -6,6 +6,8 @@ import { IFormInput } from "../RHFTest"
 export const defaultValues: IFormInput = {
     peoplePicker: [],
   firstName: '',
+  firstName1: '',
+  firstName2: 'Hello <b>World</b>',
   lastName: '',
   iceCreamType: { label: '', value: '' },
   arrayItem: [],

@@ -34,6 +34,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
 import { debouncedSearchUserInfo } from './data/UserInfo'; 
 
+const nameSchema = yup
+.string()
+.required('First Name is required')
+.min(10, 'Min 10')
+.max(15, 'Max 15')
+
 const schema = yup.object({
   peoplePicker: yup.array().of(
     yup.object({
@@ -43,11 +49,11 @@ const schema = yup.object({
     })
   ).min(1, 'People Picker is required'),
   rating: yup.number().required('Rating is required'),
-  firstName: yup
-    .string()
-    .required('First Name is required')
-    .min(10, 'Min 10')
-    .max(15, 'Max 15'),
+  firstName: nameSchema,
+  firstName1: nameSchema,
+  firstName2: nameSchema,
+  firstName3: nameSchema,
+  firstName4: nameSchema,
   lastName: yup.string().required('Last Name is required'),
   iceCreamType: yup.object().required('Ice Cream Type is required'),
   arrayItem: yup.array().of(
@@ -162,7 +168,7 @@ export const ReactHookForm = () => {
 
   console.log("formValue", testForm.watch());
 
-  const value = testForm.watch('firstName');
+  const value = testForm.watch('firstName2');
 
 
   return (
@@ -173,10 +179,10 @@ export const ReactHookForm = () => {
       <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
       <Form form={testForm} onSubmit={onSubmit}>
 
-        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} multiselect readOnly={isView} placeholder='Search users'/>
+        {/* <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} multiselect readOnly={isView} placeholder='Search users'/> */}
        
-        <Input
-          name={'firstName'}
+        {/* <Input
+          name={'firstName1'}
           label={'First Name'}
           placeholder='Enter First Name'
           required={true}
@@ -184,18 +190,18 @@ export const ReactHookForm = () => {
           disabled={isView}
           readOnly={isView}
           autoCompleteOptions={['one', 'two', 'three']}
-          autoComplete='false' />
+          autoComplete='false' /> */}
 
         <br />
-        <RichInput label={<>Small Label</>} name={"firstName"} placeholder='Enter First Name' size='small'/>
-
-        <br />
-
-        <RichInput label={<>Medium Label</>} name={"firstName"} size="medium" placeholder='Enter First Name'/>
+        <RichInput showRibbon={true} label={<>Small Label</>} name={"firstName2"} placeholder='Enter First Name' size='small'/>
 
         <br />
 
-        <RichInput label={<>Large Label</>} name={"firstName"} size="large" placeholder='Enter First Name'/>
+        <RichInput showRibbon={true} label={<>Medium Label</>} name={"firstName3"} size="medium" placeholder='Enter First Name'/>
+
+        <br />
+
+        <RichInput showRibbon={true} label={<>Large Label</>} name={"firstName4"} size="large" placeholder='Enter First Name'/>
 
         <div dangerouslySetInnerHTML={{ __html: value }}></div>
 
