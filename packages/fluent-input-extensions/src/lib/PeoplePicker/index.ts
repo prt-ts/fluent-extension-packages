@@ -1,7 +1,4 @@
-export {
-    PeopleInputProps,
-    PeopleInputRef, 
-} from "./PeopleInputProps";
+export * from "./PeopleInputProps";
 export {
     PeopleInput
 } from "./PeopleInput";

@@ -1,5 +1,8 @@
 export {
-  PeopleInput,
+  PeopleInput
+} from "./PeoplePicker";
+
+export type {
   PeopleInputProps,
   PeopleInputRef
-} from "./PeoplePicker/"
+} from "./PeoplePicker";
