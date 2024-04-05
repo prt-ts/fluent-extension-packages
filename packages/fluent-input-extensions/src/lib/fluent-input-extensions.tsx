@@ -8,10 +8,13 @@ export type {
 } from "./PeoplePicker";
 
 export {
-  FluentEditor
+  FluentEditor,
+  createModelFromHtml,
+  exportContent
 } from "./FluentEditor";
 
 export type {
   FluentEditorProps
 } from "./FluentEditor";
+
 
