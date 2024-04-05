@@ -33,7 +33,7 @@ import {
     ClearFormattingRegular,
     TextNumberListLtrRegular,
     TextBulletListRegular,
-    TextQuoteRegular, 
+    TextQuoteRegular,
     TextCaseTitleFilled,
     TextCaseUppercaseFilled,
     TextCaseLowercaseFilled,
@@ -43,9 +43,10 @@ import {
     TextGrammarArrowRightFilled,
     TextSubscriptFilled,
     TextSuperscriptFilled,
-    TextColorFilled} from "@fluentui/react-icons";
+    TextColorFilled
+} from "@fluentui/react-icons";
 import { Case, Switch } from "@prt-ts/react-control-flow";
-import { InsertImageButton, InsertLinkButton, InsertTableButton } from "./EditorButtons"; 
+import { InsertImageButton, InsertLinkButton, InsertTableButton } from "./EditorButtons";
 
 /* eslint-disable */
 type FluentEditorRibbonProps = {
@@ -63,7 +64,7 @@ const useRibbonStyle = makeStyles({
         height: "100%",
     },
     menuPopover: {
-        minWidth: tokens.spacingHorizontalM, 
+        minWidth: tokens.spacingHorizontalM,
     }
 })
 
@@ -74,7 +75,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
             return {
                 basicFormat: [],
                 textAlign: ["left"],
-                textFormat: ["sentence"], 
+                textFormat: ["sentence"],
                 additionalFormat: []
             };
         }
@@ -160,26 +161,26 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Menu>
                     <MenuTrigger disableButtonEnhancement>
                         <Button icon={{
-                            children: ( 
-                                    <Switch when={formats.textAlign?.[0] || "left"} >
-                                        <Case value={["left", "start"]}>
-                                            <TextAlignLeftRegular className={styles.icon} />
-                                        </Case> 
-                                        <Case value={"center"}>
-                                            <TextAlignCenterRegular className={styles.icon} />
-                                        </Case>
-                                        <Case value={"end"}>
-                                            <TextAlignRightRegular className={styles.icon} />
-                                        </Case>
-                                        <Case value={"justify"}>
-                                            <TextAlignJustifyRegular className={styles.icon} />
-                                        </Case>
-                                    </Switch> 
+                            children: (
+                                <Switch when={formats.textAlign?.[0] || "left"} >
+                                    <Case value={["left", "start"]}>
+                                        <TextAlignLeftRegular className={styles.icon} />
+                                    </Case>
+                                    <Case value={"center"}>
+                                        <TextAlignCenterRegular className={styles.icon} />
+                                    </Case>
+                                    <Case value={"end"}>
+                                        <TextAlignRightRegular className={styles.icon} />
+                                    </Case>
+                                    <Case value={"justify"}>
+                                        <TextAlignJustifyRegular className={styles.icon} />
+                                    </Case>
+                                </Switch>
                             ),
                         }}
                             size="small"
                         />
-                    </MenuTrigger> 
+                    </MenuTrigger>
                     <MenuPopover className={styles.menuPopover}>
                         <MenuList>
                             <MenuItem
@@ -350,7 +351,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                     size="small"
                 />
 
-                <Divider vertical className={styles.divider} /> 
+                <Divider vertical className={styles.divider} />
 
                 <ToolbarToggleButton
                     aria-label="Code Block"
@@ -362,14 +363,14 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                         handleChange?.();
                     }}
                     size="small"
-                /> 
+                />
 
                 {/* insert table */}
                 <InsertTableButton editor={editor!} handleChange={handleChange} />
-                
+
                 {/* insert link */}
                 <InsertLinkButton editor={editor!} handleChange={handleChange} />
-                 
+
                 {/* insert image */}
                 <InsertImageButton editor={editor!} handleChange={handleChange} />
 
@@ -384,6 +385,9 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                     }}
                     size="small"
                 />
+
+                <Divider vertical className={styles.divider} />
+
                 <ToolbarToggleButton
                     aria-label="Clear Format"
                     icon={<ClearFormattingRegular className={styles.icon} />}

@@ -36,9 +36,9 @@ export const InsertLinkButton: React.FC<InsertLinkButtonProps> = ({ editor, hand
 
                 <PopoverSurface tabIndex={-1}>
                     <div style={{ display: "flex", flexDirection: "column", gap: tokens.spacingHorizontalS }}>
-                        <Input type={"url"} placeholder='Link' value={`${link}`} onChange={(e) => setLink(e.target.value)} />
-                        <Input placeholder='Alt text' value={`${altText}`} onChange={(e) => setAltText(e.target.value)} />
-                        <Input placeholder='Display Title' value={`${title}`} onChange={(e) => setTitle(e.target.value)} />
+                        <Input size={"small"} type={"url"} placeholder='Link' value={`${link}`} onChange={(e) => setLink(e.target.value)} />
+                        <Input size={"small"} placeholder='Alt text' value={`${altText}`} onChange={(e) => setAltText(e.target.value)} />
+                        <Input size={"small"} placeholder='Display Title' value={`${title}`} onChange={(e) => setTitle(e.target.value)} />
                         <Checkbox id={id} checked={inNewWindow} onChange={(e) => setInNewWindow(e.target.checked)} label={<>Open in new tab</>} />
                         <Button
                             onClick={() => {
