@@ -93,10 +93,10 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
               value={query}
               onChange={async (e) => handleQueryChange(e.target.value)}
               readOnly={isReadOnly}
-              placeholder={isReadOnly ? "" : tagPickerInputProps.placeholder}
+              placeholder={tagPickerInputProps.placeholder}
             />
           </TagPickerControl>
-          <Show when={!isReadOnly}>
+          <Show when={!isReadOnly && !tagPickerInputProps.readOnly}>
             <TagPickerList className={styles.optionList}>
               {children}
             </TagPickerList>

@@ -27,7 +27,7 @@ export function usePeopleInput(
     tagPickerInputProps,
     showSecondaryText,
   } = usePeopleInputDefault(props);
-  const isReadOnly = value.length >= max || props.disabled;
+  const isReadOnly = value.length >= max || props.disabled || props.readOnly;
 
   const [searchedUsers, setSearchedUsers] = React.useState<UserInfo[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -37,6 +37,9 @@ export function usePeopleInput(
     e,
     data
   ) => {
+    if (isReadOnly) {
+      return;
+    }
     const matchUsers = [...searchedUsers, ...(suggestions || [])].filter(
       (user) => user.loginName === data.optionValue
     );

@@ -4,6 +4,7 @@ import { IFormInput } from "../RHFTest"
 
 // ts-ignore-next-line
 export const defaultValues: IFormInput = {
+    peoplePicker: [],
   firstName: '',
   lastName: '',
   iceCreamType: { label: '', value: '' },

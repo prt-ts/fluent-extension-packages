@@ -32,10 +32,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // import { DevTool } from '@hookform/devtools';
 
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
-import { debouncedSearchUserInfo } from './data/UserInfo';
-import { PeopleInput } from '@prt-ts/fluent-input-extensions';
+import { debouncedSearchUserInfo } from './data/UserInfo'; 
 
 const schema = yup.object({
+  peoplePicker: yup.array().of(
+    yup.object({
+      id: yup.string().required('Id is required'),
+      name: yup.string().required('Name is required'),
+      email: yup.string().required('Email is required'),
+    })
+  ).min(1, 'People Picker is required'),
   rating: yup.number().required('Rating is required'),
   firstName: yup
     .string()
@@ -156,6 +162,9 @@ export const ReactHookForm = () => {
 
   console.log("formValue", testForm.watch());
 
+  const value = testForm.watch('firstName');
+
+
   return (
     <>
       <Button onClick={getFormValue}>Get Form Value</Button>
@@ -164,10 +173,32 @@ export const ReactHookForm = () => {
       <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
       <Form form={testForm} onSubmit={onSubmit}>
 
-        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} multiselect placeholder='Search users'/>
+        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} multiselect readOnly={isView} placeholder='Search users'/>
+       
+        <Input
+          name={'firstName'}
+          label={'First Name'}
+          placeholder='Enter First Name'
+          required={true}
+          appearance={isView ? "underline" : undefined}
+          disabled={isView}
+          readOnly={isView}
+          autoCompleteOptions={['one', 'two', 'three']}
+          autoComplete='false' />
 
+        <br />
+        <RichInput label={<>Small Label</>} name={"firstName"} placeholder='Enter First Name' size='small'/>
 
-        <PeopleInput onSearchUsers={debouncedSearchUserInfo} multiselect placeholder='Search users'/>
+        <br />
+
+        <RichInput label={<>Medium Label</>} name={"firstName"} size="medium" placeholder='Enter First Name'/>
+
+        <br />
+
+        <RichInput label={<>Large Label</>} name={"firstName"} size="large" placeholder='Enter First Name'/>
+
+        <div dangerouslySetInnerHTML={{ __html: value }}></div>
+
         <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={"marigold"} />
         <RatingDisplay name={'rating'} label={'Rating Display'} compact color={"marigold"} />
 
