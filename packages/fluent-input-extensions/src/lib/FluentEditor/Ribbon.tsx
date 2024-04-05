@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Divider, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Popover, PopoverSurface, PopoverTrigger, Toolbar, ToolbarToggleButton, makeStyles, tokens } from "@fluentui/react-components";
+import { Button, Divider, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Toolbar, ToolbarToggleButton, makeStyles, tokens } from "@fluentui/react-components";
 import type { IEditor } from 'roosterjs-content-model-types';
 import {
     setAlignment,
@@ -18,9 +18,6 @@ import {
     toggleSuperscript,
     toggleSubscript,
     setTextColor,
-    insertTable,
-    insertLink,
-    insertImage,
 } from 'roosterjs-content-model-api';
 
 import {
@@ -46,18 +43,15 @@ import {
     TextGrammarArrowRightFilled,
     TextSubscriptFilled,
     TextSuperscriptFilled,
-    TextColorFilled,    
-    TableFilled,
-    LinkFilled,
-    ImageRegular
-} from "@fluentui/react-icons";
+    TextColorFilled} from "@fluentui/react-icons";
 import { Case, Switch } from "@prt-ts/react-control-flow";
+import { InsertImageButton, InsertLinkButton, InsertTableButton } from "./EditorButtons"; 
 
 /* eslint-disable */
 type FluentEditorRibbonProps = {
     editor?: IEditor;
     value?: string | undefined;
-    handleChange?: () => void;
+    handleChange: () => void;
 };
 
 const useRibbonStyle = makeStyles({
@@ -371,68 +365,13 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 /> 
 
                 {/* insert table */}
-                <Popover>
-                    <PopoverTrigger disableButtonEnhancement>
-                        <Button
-                            aria-label="Code Block"
-                            icon={<TableFilled className={styles.icon} />}
-                            name="additionalFormat"
-                            value={"code"}
-                           
-                            size="small"
-                        />
-                    </PopoverTrigger>
-
-                    <PopoverSurface tabIndex={-1}>
-                        <Button                            
-                            onClick={() => {
-                                insertTable(editor!, 5, 5);
-                                handleChange?.();
-                            }}>Insert</Button>
-                    </PopoverSurface>
-                </Popover>
-
+                <InsertTableButton editor={editor!} handleChange={handleChange} />
+                
                 {/* insert link */}
-                <Popover>
-                    <PopoverTrigger disableButtonEnhancement>
-                        <Button
-                            aria-label="Insert Link"
-                            icon={<LinkFilled className={styles.icon} />}
-                            name="additionalFormat"
-                            value={"code"}
-                           
-                            size="small"
-                        />
-                    </PopoverTrigger>
-
-                    <PopoverSurface tabIndex={-1}>
-                        <Button                            
-                            onClick={() => {
-                                insertLink(editor!, "https://www.google.com", "Google", "Google", "_blank");
-                                handleChange?.();
-                            }}>Insert</Button>
-                    </PopoverSurface>
-                </Popover>
-
+                <InsertLinkButton editor={editor!} handleChange={handleChange} />
+                 
                 {/* insert image */}
-                <Popover>
-                    <PopoverTrigger disableButtonEnhancement>
-                        <Button
-                            aria-label="Insert Link"
-                            icon={<ImageRegular className={styles.icon} />} 
-                            size="small"
-                        />
-                    </PopoverTrigger>
-
-                    <PopoverSurface tabIndex={-1}>
-                        <Button                            
-                            onClick={() => {
-                                insertImage(editor!, "https://placehold.co/600x400");
-                                handleChange?.();
-                            }}>Insert</Button>
-                    </PopoverSurface>
-                </Popover>
-
+                <InsertImageButton editor={editor!} handleChange={handleChange} />
 
                 <ToolbarToggleButton
                     aria-label="Code Block"

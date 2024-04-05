@@ -84,12 +84,18 @@ const useEditorStyle = makeStyles({
 
     small: {
         minHeight: "40px",
+        maxHeight: "30vh",
+        overflowY: "auto",
     },
     medium: {
         minHeight: "60px",
+        maxHeight: "50vh",
+        overflowY: "auto",
     },
     large: {
         minHeight: "100px",
+        maxHeight: "70vh",
+        overflowY: "auto",
     },
 
     invalid: {
