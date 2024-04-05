@@ -14,6 +14,8 @@ import DummyEditPage from './DummyEditPage';
 import Controls from './examples/Control/Controls';
 import { TableExample2 } from './TableExample2';
 import { EditableGrid } from './EditableGrid/EditableGrid';
+import { seedUserInfo } from './data/UserInfo';
+import { useEffect } from 'react';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -56,6 +58,9 @@ const router = createBrowserRouter(
 
 
 export function App() {
+  useEffect(() => {
+    seedUserInfo(100);
+  }, []); 
   return (
     <div>
       <div

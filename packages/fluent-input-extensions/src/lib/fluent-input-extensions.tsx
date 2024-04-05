@@ -2,4 +2,4 @@ export {
   PeopleInput,
   PeopleInputProps,
   PeopleInputRef
-} from "./PeoplePicker"
+} from "./PeoplePicker/"

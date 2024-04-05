@@ -4,8 +4,8 @@
   "description": "Fluent UI Input Extensions",
   "dependencies": {
     "@fluentui/react-tag-picker-preview": "latest",
-    "@prt-ts/react-control-flow": "latest",
-    "@prt-ts/types": "latest"
+    "@prt-ts/react-control-flow": "*",
+    "@prt-ts/types": "*"
   },
   "peerDependencies": {
     "@fluentui/react-components": ">=9.47.4",

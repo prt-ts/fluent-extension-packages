@@ -23,6 +23,7 @@ import {
   CheckboxGroup,
   RadioGroup,
   Radio,
+  PeoplePicker,
 } from '@prt-ts/fluent-react-hook-form';
 import { Fragment, useCallback, useMemo, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
@@ -31,6 +32,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // import { DevTool } from '@hookform/devtools';
 
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
+import { debouncedSearchUserInfo } from './data/UserInfo';
 
 const schema = yup.object({
   rating: yup.number().required('Rating is required'),
@@ -160,6 +162,10 @@ export const ReactHookForm = () => {
       <Button onClick={addMore}>Add Dynamic Values</Button>
       <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
       <Form form={testForm} onSubmit={onSubmit}>
+
+        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} multiselect/>
+
+
         <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={"marigold"} />
         <RatingDisplay name={'rating'} label={'Rating Display'} compact color={"marigold"} />
 

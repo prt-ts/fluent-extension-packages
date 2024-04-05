@@ -7,10 +7,10 @@ import {
   tokens,
   useId,
 } from "@fluentui/react-components";
-import { InfoLabel, InfoLabelProps } from "@fluentui/react-components";
-import { useFormContext } from "@prt-ts/fluent-react-hook-form";
+import { InfoLabel, InfoLabelProps } from "@fluentui/react-components"; 
 import { Controller } from "react-hook-form";
 import { PeopleInput, PeopleInputProps, PeopleInputRef } from "@prt-ts/fluent-input-extensions";
+import { useFormContext } from "../Form";
 
 export type PeoplePickerProps = Omit<PeopleInputProps, "value"> &
   InfoLabelProps &
