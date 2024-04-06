@@ -23,7 +23,7 @@ import {
   RadioGroup,
   Radio,
   PeoplePicker,
-} from '@prt-ts/fluent-react-hook-form';
+} from '@prt-ts/fluent-react-hook-form'; 
 import { Fragment, useCallback, useMemo, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
 import * as yup from 'yup';
@@ -174,7 +174,6 @@ export const ReactHookForm = () => {
 
   const value = testForm.watch('firstName2');
 
-
   return (
     <>
       <Button onClick={getFormValue}>Get Form Value</Button>
@@ -208,6 +207,11 @@ export const ReactHookForm = () => {
         <RichInput showRibbon={true} label={<>Large Label</>} name={"firstName4"} size="large" placeholder='Enter First Name'/> */}
 
         <div dangerouslySetInnerHTML={{ __html: value }}></div>
+
+        <div>
+          <strong>Text Value:</strong>
+           
+        </div>
 
         <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={"marigold"} />
         <RatingDisplay name={'rating'} label={'Rating Display'} compact color={"marigold"} />

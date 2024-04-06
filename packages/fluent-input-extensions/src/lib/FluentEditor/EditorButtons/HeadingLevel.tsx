@@ -4,6 +4,7 @@ import { setHeadingLevel } from 'roosterjs-content-model-api';
 import { useIconStyles } from './useIconStyles';
 import { IEditor } from 'roosterjs-content-model-types';
 import { For } from '@prt-ts/react-control-flow';
+import { ChoiceOption } from '@prt-ts/types';
 
 export interface HeadingLevelProps {
     editor: IEditor;
@@ -11,32 +12,33 @@ export interface HeadingLevelProps {
     headingLevel: 0 | 1 | 2 | 3 | 4 | 5;
 }
 
-const headingLevelOptions = {
-    "0": "Paragraph",
-    "1": "Heading 1",
-    "2": "Heading 2",
-    "3": "Heading 3",
-    "4": "Heading 4",
-    "5": "Heading 5",
-};
+const headingLevelOptions: ChoiceOption[] = [
+    { label: "Normal", value: "0" },
+    { label: "Heading 1", value: "1" },
+    { label: "Heading 2", value: "2" },
+    { label: "Heading 3", value: "3" },
+    { label: "Heading 4", value: "4" },
+    { label: "Heading 5", value: "5" },
+];
 
 export const HeadingLevel: React.FC<HeadingLevelProps> = ({ editor, headingLevel = "0", handleChange }) => {
 
     const styles = useIconStyles();
+    const value = React.useMemo(() => headingLevelOptions?.find(l => +l.value === +headingLevel)?.label, [headingLevel]);
     return (
         <Dropdown
             size="small"
             className={styles.dropdown}
-            value={headingLevelOptions[(headingLevel) as HeadingLevelProps["headingLevel"]]}
+            value={value || ""}
             selectedOptions={[headingLevel?.toString()]}
             onOptionSelect={(_, data) => {
                 setHeadingLevel(editor, parseInt(data.optionValue ?? "0") as HeadingLevelProps["headingLevel"]);
                 handleChange?.();
             }}
         >
-            <For each={Object.keys(headingLevelOptions) as unknown as HeadingLevelProps["headingLevel"][]}>
+            <For each={headingLevelOptions}>
                 {
-                    (key: HeadingLevelProps["headingLevel"]) => (<Option key={key} value={`${key}`}>{headingLevelOptions?.[key] ?? ""}</Option>)
+                    (option) => (<Option key={`${option.value}`} value={`${option.value}`}>{`${option.label}` ?? ""}</Option>)
                 }
             </For>
         </Dropdown>

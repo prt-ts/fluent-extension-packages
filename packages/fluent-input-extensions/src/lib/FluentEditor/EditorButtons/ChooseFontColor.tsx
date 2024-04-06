@@ -1,4 +1,4 @@
-import { Popover, PopoverTrigger, Button, PopoverSurface } from '@fluentui/react-components';
+import { Popover, PopoverTrigger, Button, PopoverSurface, Tooltip } from '@fluentui/react-components';
 import { TextColorFilled } from '@fluentui/react-icons';
 import React from 'react';
 import { setTextColor } from 'roosterjs-content-model-api';
@@ -30,33 +30,35 @@ export const ChooseFontColor: React.FC<InsertImageButtonProps> = ({ editor, hand
     const styles = useIconStyles();
     return (
         <Popover trapFocus>
-        <PopoverTrigger disableButtonEnhancement>
-            <Button
-                aria-label="Font Color"
-                icon={<TextColorFilled className={styles.icon} primaryFill={fontColor} />}
-                size="small"
-            />
-        </PopoverTrigger>
+            <PopoverTrigger disableButtonEnhancement>
+                <Tooltip content={<>Text Color</>} relationship='label'>
+                    <Button
+                        aria-label="Font Color"
+                        icon={<TextColorFilled className={styles.icon} primaryFill={fontColor} />}
+                        size="small"
+                    />
+                </Tooltip>
+            </PopoverTrigger>
 
-        <PopoverSurface>
-            <SwatchPicker
-                layout="grid"
-                aria-label="Select Font Color"
-                selectedValue={fontColor}
-                onSelectionChange={(_, data) => {
-                    console.log(data)
-                    setTextColor(editor, data.selectedValue);
-                    handleChange?.();
-                }}
-                size="small"
-            >
-                {renderSwatchPickerGrid({
-                    items: colors,
-                    columnCount: 5,
-                })}
-            </SwatchPicker>
-        </PopoverSurface>
-    </Popover>
+            <PopoverSurface>
+                <SwatchPicker
+                    layout="grid"
+                    aria-label="Select Font Color"
+                    selectedValue={fontColor}
+                    onSelectionChange={(_, data) => {
+                        console.log(data)
+                        setTextColor(editor, data.selectedValue);
+                        handleChange?.();
+                    }}
+                    size="small"
+                >
+                    {renderSwatchPickerGrid({
+                        items: colors,
+                        columnCount: 5,
+                    })}
+                </SwatchPicker>
+            </PopoverSurface>
+        </Popover>
     );
 
 }

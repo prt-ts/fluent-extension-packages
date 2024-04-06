@@ -14,7 +14,7 @@ export {
 } from "./FluentEditor";
 
 export type {
-  FluentEditorProps
+  FluentEditorProps, 
 } from "./FluentEditor";
 
 

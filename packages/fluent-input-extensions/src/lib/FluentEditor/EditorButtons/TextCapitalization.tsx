@@ -1,4 +1,4 @@
-import { Button, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger } from '@fluentui/react-components';
+import { Button, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Tooltip } from '@fluentui/react-components';
 import { TextCaseLowercaseFilled, TextCaseTitleFilled, TextCaseUppercaseFilled, TextEditStyleFilled, TextEffectsFilled } from '@fluentui/react-icons';
 import React from 'react';
 import { changeCapitalization } from 'roosterjs-content-model-api';
@@ -16,17 +16,20 @@ export const TextCapitalization: React.FC<TextCapitalizationProps> = ({ editor, 
     return (
         <Menu>
             <MenuTrigger disableButtonEnhancement>
-                <Button
-                    icon={{
-                        children: (
-                            <TextEditStyleFilled className={styles.icon} />
-                        ),
-                    }}
-                    size="small"
-                />
+                <Tooltip content={<>Text Capitalization</>} relationship='label'>
+                    <Button
+                        icon={{
+                            children: (
+                                <TextEditStyleFilled className={styles.icon} />
+                            ),
+                        }}
+                        size="small"
+                    />
+                </Tooltip>
             </MenuTrigger>
             <MenuPopover className={styles.menuPopover}>
                 <MenuList>
+                    <Tooltip content={<>Capitalize sentence</>} relationship='label'>
                     <MenuItem
                         aria-label="Text Format Capitalize Sentence"
                         icon={<TextCaseTitleFilled className={styles.icon} />}
@@ -35,6 +38,8 @@ export const TextCapitalization: React.FC<TextCapitalizationProps> = ({ editor, 
                             handleChange?.();
                         }}
                     />
+                    </Tooltip>
+                    <Tooltip content={<>All uppercase</>} relationship='label'>
                     <MenuItem
                         aria-label="Text Format Upper Case"
                         icon={<TextCaseUppercaseFilled className={styles.icon} />}
@@ -43,6 +48,8 @@ export const TextCapitalization: React.FC<TextCapitalizationProps> = ({ editor, 
                             handleChange?.();
                         }}
                     />
+                    </Tooltip>
+                    <Tooltip content={<>All lowercase</>} relationship='label'>
                     <MenuItem
                         aria-label="Text Format Lower Case"
                         icon={<TextCaseLowercaseFilled className={styles.icon} />}
@@ -51,6 +58,8 @@ export const TextCapitalization: React.FC<TextCapitalizationProps> = ({ editor, 
                             handleChange?.();
                         }}
                     />
+                    </Tooltip>
+                    <Tooltip content={<>Capitalize all words</>} relationship='label'>
                     <MenuItem
                         aria-label="Text Format Capitalize All Words"
                         icon={<TextEffectsFilled className={styles.icon} />}
@@ -59,6 +68,7 @@ export const TextCapitalization: React.FC<TextCapitalizationProps> = ({ editor, 
                             handleChange?.();
                         }}
                     />
+                    </Tooltip>
                 </MenuList>
             </MenuPopover>
         </Menu>

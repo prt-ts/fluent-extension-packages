@@ -78,7 +78,7 @@ export function useFluentEditor(props: FluentEditorProps, ref: React.ForwardedRe
         if (editorDiv.current) {
             const defaultEditor = defaultEditorCreator(editorDiv.current, {
                 initialModel: createModelFromHtml(props.value || ""),
-                plugins: plugins, 
+                plugins: plugins,  
             });
 
             // attach event to default editor

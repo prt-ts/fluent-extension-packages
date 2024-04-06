@@ -1,9 +1,10 @@
-import { Dropdown, Option } from '@fluentui/react-components';
+import { Button, Dropdown, Option } from '@fluentui/react-components';
 import React from 'react';
-import { setFontSize } from 'roosterjs-content-model-api';
+import { changeFontSize, setFontSize } from 'roosterjs-content-model-api';
 import { useIconStyles } from './useIconStyles';
 import { IEditor } from 'roosterjs-content-model-types';
 import { For } from '@prt-ts/react-control-flow';
+import { TextFontRegular, TextFontSizeFilled } from '@fluentui/react-icons';
 
 export interface HeadingLevelProps {
     editor: IEditor;
@@ -17,22 +18,43 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
 
     const styles = useIconStyles();
     return (
-        <Dropdown
-            size="small"
-            className={styles.dropdown}
-            value={`${fontSize}`}
-            selectedOptions={[`${fontSize}`]}
-            onOptionSelect={(_, data) => {
-                setFontSize(editor, `${data.optionValue}`);
-                handleChange?.();
-            }}
-        >
-            <For each={FontSizesOptions}>
-                {
-                    (fontSizeOption) => (<Option key={fontSizeOption} value={`${fontSizeOption}`} text={`${fontSizeOption}`}>{fontSizeOption}</Option>)
-                }
-            </For>
-        </Dropdown>
+        <>
+            <Dropdown
+                size="small"
+                className={styles.dropdown}
+                value={`${fontSize}`}
+                selectedOptions={[`${fontSize}`]}
+                onOptionSelect={(_, data) => {
+                    setFontSize(editor, `${data.optionValue}`);
+                    handleChange?.();
+                }}
+            >
+                <For each={FontSizesOptions}>
+                    {
+                        (fontSizeOption) => (<Option key={fontSizeOption} value={`${fontSizeOption}`} text={`${fontSizeOption}`}>{fontSizeOption}</Option>)
+                    }
+                </For>
+            </Dropdown>
+            <Button
+                aria-label="increase font size"
+                icon={<TextFontSizeFilled className={styles.icon} />}
+                onClick={() => {
+                    changeFontSize(editor, "increase");
+                    // handleChange?.();
+                }}
+                size="small"
+            />
+
+            <Button
+                aria-label="decrease font size"
+                icon={<TextFontRegular className={styles.icon} />}
+                onClick={() => {
+                    changeFontSize(editor, "decrease");
+                    // handleChange?.();
+                }}
+                size="small"
+            />
+        </>
     );
 
 }
