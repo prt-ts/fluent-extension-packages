@@ -32,6 +32,7 @@ import {
   ArrowDownloadFilled,
   DocumentCheckmarkRegular,
 } from '@fluentui/react-icons';
+import { FileInfo } from '@prt-ts/types';
 
 const useStyles = makeStyles({
   root: {
@@ -77,13 +78,6 @@ const useStyles = makeStyles({
 const arrayUniqueByKey = (items: File[], key: keyof File) => [
   ...new Map(items.map((item) => [item[key], item])).values(),
 ];
-
-export type FileInfo = {
-  name: string;
-  path: string;
-  size?: number;
-  type?: string;
-};
 
 export type FileInputFieldProps = FieldProps &
   DropzoneProps &

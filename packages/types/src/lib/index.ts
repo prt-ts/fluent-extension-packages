@@ -5,3 +5,7 @@ export {
 export {
     ChoiceOption
 } from './ChoiceOption';
+
+export {
+    FileInfo
+} from './FileInfo';
