@@ -44,7 +44,7 @@ export {
 } from './CalendarField';
 
 // export options types
-export type { FileInfo } from './FileInputField';
+export type { FileInfo } from '@prt-ts/types';
 export type { 
   RadioChoiceOption, 
   RadioGroupFieldProps as RadioGroupProps,
