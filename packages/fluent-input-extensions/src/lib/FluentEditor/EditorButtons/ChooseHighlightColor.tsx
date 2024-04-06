@@ -26,7 +26,7 @@ const highlightColors = [
     { color: "rgba(0, 0, 0)", value: "rgba(0, 0, 0, 0.5)", "aria-label": "black" },
 ];
 
-export const ChooseHighlightColor: React.FC<InsertImageButtonProps> = ({ editor, handleChange, fontColor = "#000000", backgroundColor = "#FFFFFF" }) => {
+export const ChooseHighlightColor: React.FC<InsertImageButtonProps> = ({ editor, handleChange, fontColor = "#000000", backgroundColor = "rgba(255, 255, 255, 0.5)" }) => {
 
     const styles = useIconStyles();
     return (

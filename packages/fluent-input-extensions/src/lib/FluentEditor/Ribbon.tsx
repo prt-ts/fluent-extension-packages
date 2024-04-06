@@ -1,8 +1,7 @@
 import * as React from "react";
-import { Button, Divider, ToggleButton, Toolbar, ToolbarToggleButton, makeStyles, tokens } from "@fluentui/react-components";
-import type { IEditor } from 'roosterjs-content-model-types';
+import { Button, Divider, Toolbar, ToggleButton, makeStyles, tokens } from "@fluentui/react-components";
+import type { ContentModelFormatState, IEditor } from 'roosterjs-content-model-types';
 import {
-    getFormatState,
     toggleBold,
     toggleItalic,
     toggleUnderline,
@@ -34,8 +33,9 @@ import {
     TextSuperscriptFilled,
     TextFontSizeFilled,
     TextFontRegular
-} from "@fluentui/react-icons"; 
-import { ChooseFontColor, ChooseHighlightColor, HeadingLevel, InsertImageButton, InsertLinkButton, InsertTableButton, TextAlign, TextCapitalization } from "./EditorButtons";
+} from "@fluentui/react-icons";
+import { ChooseFontColor, ChooseHighlightColor, HeadingLevel, InsertImageButton, InsertLinkButton, InsertTableButton, SetFontSizeFormatter, TextAlign, TextCapitalization } from "./EditorButtons";
+import { useFormatState } from "./useFormatState";
 
 /* eslint-disable */
 type FluentEditorRibbonProps = {
@@ -62,111 +62,72 @@ const useRibbonStyle = makeStyles({
 
 export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => {
     const { editor, value, handleChange } = props;
-    const formats = React.useMemo(() => {
-        if (!editor) {
-            return {
-                textAlign: "left",
-                textFormat: "sentence",
-                headingLevel: 0,
-                isSubscript: false,
-                isSuperscript: false,
-                isBlockQuote: false,
 
-                isBullet: false,
-                isNumbering: false,
-
-                fontColor: "#000000",
-                backgroundColor: "#FFFFFF",
-
-                toggleButtonOptions: {
-                    basicFormat: [],
-                    additionalFormat: []
-                }
-            };
-        }
-
-        const formatState = getFormatState(editor!);
-        console.log(formatState)
-        return {
-
-            textAlign: formatState?.textAlign ?? "left",
-            textFormat: formatState?.textColor ?? "sentence",
-            headingLevel: formatState.headingLevel,
-            isSubscript: formatState.isSubscript,
-            isSuperscript: formatState.isSuperscript,
-            isBlockQuote: formatState.isBlockQuote,
-            isBullet: formatState.isBullet,
-            isNumbering: formatState.isNumbering,
-
-            fontColor: formatState.textColor ?? "#000000",
-            backgroundColor: formatState.backgroundColor ?? "#FFFFFF",
-
-            toggleButtonOptions: {
-                basicFormat: [
-                    formatState?.isBold && "bold",
-                    formatState?.isItalic && "italic",
-                    formatState?.isUnderline && "underline",
-                    formatState?.isStrikeThrough && "strikethrough"
-                ]?.filter(x => !!x) as string[],
-
-                additionalFormat: []
-            }
-        };
-    },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [value]);
-
+    const {
+        isBold,
+        isItalic,
+        isUnderline,
+        isStrikeThrough,
+        isSubscript,
+        isSuperscript,
+        isNumbering,
+        isBullet,
+        isBlockQuote,
+        isCodeBlock,
+        fontSize, 
+        textColor,
+        backgroundColor,
+        textAlign,
+        headingLevel,
+    }: ContentModelFormatState = useFormatState(editor!, value!);
     const styles = useRibbonStyle()
     return (
         <div style={{ display: "flex", alignContent: "center", flexWrap: "wrap" }}>
             <Toolbar
                 aria-label="with controlled Toggle Button"
-                checkedValues={formats?.toggleButtonOptions}
             >
-                <ToolbarToggleButton
+                <ToggleButton
                     aria-label="Bold"
                     icon={<TextBoldRegular className={styles.icon} />}
-                    name="basicFormat"
-                    value="bold"
+                    checked={isBold}
                     onClick={async () => {
                         await toggleBold(editor!);
                         handleChange?.();
                     }}
                     size="small"
                 />
-                <ToolbarToggleButton
+                <ToggleButton
                     aria-label="Italic"
                     icon={<TextItalicRegular className={styles.icon} />}
-                    name="basicFormat"
-                    value="italic"
+                    checked={isItalic}
                     onClick={() => {
                         toggleItalic(editor!);
                         handleChange?.();
                     }}
                     size="small"
                 />
-                <ToolbarToggleButton
+                <ToggleButton
                     aria-label="Underline"
                     icon={<TextUnderlineRegular className={styles.icon} />}
-                    name="basicFormat"
-                    value="underline"
+                    checked={isUnderline}
                     onClick={() => {
                         toggleUnderline(editor!);
                         handleChange?.();
                     }}
                     size="small"
                 />
-                <ToolbarToggleButton
+                <ToggleButton
                     aria-label="strikeThrough"
                     icon={<TextStrikethroughRegular className={styles.icon} />}
-                    name="basicFormat"
-                    value="strikethrough"
+                    checked={isStrikeThrough}
                     onClick={() => {
                         toggleStrikethrough(editor!);
                         handleChange?.();
                     }}
                     size="small"
                 />
+
+                <SetFontSizeFormatter editor={editor!} handleChange={handleChange} fontSize={fontSize || "14"} />
 
                 <Button
                     aria-label="increase font size"
@@ -188,16 +149,15 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                     size="small"
                 />
 
-
                 <Divider vertical className={styles.divider} />
 
                 {/* text align */}
-                <TextAlign editor={editor!} handleChange={handleChange} textAlign={formats.textAlign as any} />
+                <TextAlign editor={editor!} handleChange={handleChange} textAlign={textAlign as any} />
 
                 <TextCapitalization editor={editor!} handleChange={handleChange} />
 
-                <HeadingLevel editor={editor!} handleChange={handleChange} headingLevel={formats.headingLevel as any} />
-             
+                <HeadingLevel editor={editor!} handleChange={handleChange} headingLevel={headingLevel as any} />
+
                 <Divider vertical className={styles.divider} />
 
                 <ToggleButton
@@ -210,11 +170,9 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                     size="small"
                 />
 
-                <ToolbarToggleButton
+                <ToggleButton
                     aria-label="Outdent"
                     icon={<TextGrammarArrowRightFilled className={styles.icon} />}
-                    name="additionalFormat"
-                    value={"numbering"}
                     onClick={() => {
                         setIndentation(editor!, "outdent");
                         handleChange?.();
@@ -225,7 +183,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <ToggleButton
                     aria-label="Number List"
                     icon={<TextNumberListLtrRegular className={styles.icon} />}
-                    checked={formats.isNumbering}
+                    checked={isNumbering}
                     onClick={() => {
                         toggleNumbering(editor!);
                         handleChange?.();
@@ -236,7 +194,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <ToggleButton
                     aria-label="Bullet List"
                     icon={<TextBulletListRegular className={styles.icon} />}
-                    checked={formats.isBullet}
+                    checked={isBullet}
                     onClick={() => {
                         toggleBullet(editor!);
                         handleChange?.();
@@ -247,7 +205,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <ToggleButton
                     aria-label="Superscript"
                     icon={<TextSuperscriptFilled className={styles.icon} />}
-                    checked={formats.isSuperscript}
+                    checked={isSuperscript}
                     onClick={() => {
                         toggleSuperscript(editor!);
                         handleChange?.();
@@ -257,7 +215,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <ToggleButton
                     aria-label="Subscript"
                     icon={<TextSubscriptFilled className={styles.icon} />}
-                    checked={formats.isSubscript}
+                    checked={isSubscript}
                     onClick={() => {
                         toggleSubscript(editor!);
                         handleChange?.();
@@ -268,10 +226,10 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Divider vertical className={styles.divider} />
 
                 {/* font color */}
-                <ChooseFontColor editor={editor!} handleChange={handleChange} fontColor={formats.fontColor} />
+                <ChooseFontColor editor={editor!} handleChange={handleChange} fontColor={textColor || "#000000"} />
 
                 {/* highlight color */}
-                <ChooseHighlightColor editor={editor!} handleChange={handleChange} fontColor={formats.fontColor} backgroundColor={formats.backgroundColor} />
+                <ChooseHighlightColor editor={editor!} handleChange={handleChange} fontColor={textColor || "#000000"} backgroundColor={backgroundColor || ""} />
 
                 {/* insert image */}
                 <InsertImageButton editor={editor!} handleChange={handleChange} />
@@ -284,7 +242,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <ToggleButton
                     aria-label="Block Quote"
                     icon={<TextQuoteRegular className={styles.icon} />}
-                    checked={formats.isBlockQuote}
+                    checked={isBlockQuote}
                     onClick={() => {
                         toggleBlockQuote(editor!);
                         handleChange?.();
@@ -295,11 +253,10 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 {/* insert table */}
                 <InsertTableButton editor={editor!} handleChange={handleChange} />
 
-                <ToolbarToggleButton
+                <ToggleButton
                     aria-label="Code Block"
                     icon={<CodeFilled className={styles.icon} />}
-                    name="additionalFormat"
-                    value={"code"}
+                    checked={isCodeBlock}
                     onClick={() => {
                         toggleCode(editor!);
                         handleChange?.();
@@ -307,11 +264,9 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                     size="small"
                 />
 
-                <ToolbarToggleButton
+                <ToggleButton
                     aria-label="Clear Format"
                     icon={<ClearFormattingRegular className={styles.icon} />}
-                    name="additionalFormat"
-                    value={"cleared"}
                     onClick={() => {
                         clearFormat(editor!);
                         handleChange?.();

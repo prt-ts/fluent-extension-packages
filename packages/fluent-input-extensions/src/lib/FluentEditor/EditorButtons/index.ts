@@ -6,3 +6,4 @@ export { ChooseHighlightColor } from './ChooseHighlightColor';
 export { TextCapitalization } from './TextCapitalization';
 export { TextAlign } from './TextAlign';
 export { HeadingLevel } from './HeadingLevel';
+export { SetFontSizeFormatter } from './SetFontSize';
