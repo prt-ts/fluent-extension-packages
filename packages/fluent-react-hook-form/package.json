@@ -10,7 +10,8 @@
     "@fluentui/react-datepicker-compat": ">=0.4.15",
     "@fluentui/react-timepicker-compat": ">=0.1.1",
     "@fluentui/react-calendar-compat": ">=0.0.22",
-    "@prt-ts/fluent-input-extensions": "*"
+    "@prt-ts/fluent-input-extensions": "*",
+    "@prt-ts/react-control-flow": "*"
   },
   "peerDependencies": {
     "@fluentui/react-components": ">=9.47.1",

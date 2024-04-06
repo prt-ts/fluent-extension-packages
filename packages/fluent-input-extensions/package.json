@@ -4,6 +4,7 @@
   "description": "Fluent UI Input Extensions",
   "dependencies": {
     "@fluentui/react-tag-picker-preview": "latest",
+    "@fluentui/react-swatch-picker-preview": "latest",
     "@prt-ts/react-control-flow": "*",
     "@prt-ts/types": "*",
     "roosterjs-content-model-api": ">=9.0.0",
