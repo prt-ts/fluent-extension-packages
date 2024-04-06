@@ -15,13 +15,11 @@ import {
 import { ReactNode, forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
+import { ChoiceOption } from '@prt-ts/types';
 
-export type RadioChoiceOption = {
-  label: ReactNode;
-  value: string | number | boolean; 
-  radioProps?: Partial<RadioProps> | undefined; 
-  meta?: Record<string, unknown>
-};
+export type RadioChoiceOption = { 
+  radioProps?: Partial<RadioProps> | undefined;  
+} & ChoiceOption;
 
 export type RadioGroupFieldProps = FieldProps & RadioGroupProps & InfoLabelProps & { name: string, rules?: ControllerProps['rules'], options: RadioChoiceOption[]}
 

@@ -3,14 +3,11 @@ import { forwardRef, useMemo } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
 import { Show } from "@prt-ts/react-control-flow";
+import { ChoiceOption } from "@prt-ts/types";
 
 export type DropdownChoiceOption = {
-  label: string;
-  value: string | number | boolean;
-
   optionProps?: Partial<OptionProps> | undefined;
-  meta?: Record<string, unknown>;
-}
+} & ChoiceOption;
 
 export type DropdownChoiceGroup = {
   label: string;
