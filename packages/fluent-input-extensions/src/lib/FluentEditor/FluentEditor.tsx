@@ -146,6 +146,7 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
                         newValue = "";
                     }
                     onChange && onChange?.(newValue);
+                    setInternalValue(newValue);
                 }
             } catch (error) {
                 // console.error("Error in handleChange", error);

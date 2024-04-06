@@ -38,6 +38,16 @@ type LocalPeopleInputProps = {
   onResolveUsers?: (users: UserInfo[]) => Promise<UserInfo[]>;
 
   /**
+   * Callback when an internal error occurs
+   * @param errorMessage The error message
+   * @default undefined
+   * @description This callback is used to handle internal errors
+   * For example, you can use this callback to show a toast notification
+   * when an internal error occurs
+   */
+  onInternalError?: (errorMessage: string) => void;
+
+  /**
    * If true, multiple users can be selected
    * @default false
    */

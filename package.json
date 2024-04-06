@@ -18,6 +18,7 @@
     "@fluentui/react-components": "9.47.4",
     "@fluentui/react-datepicker-compat": "0.4.26",
     "@fluentui/react-icons": "2.0.232",
+    "@fluentui/react-swatch-picker-preview": "^0.2.1",
     "@fluentui/react-tag-picker-preview": "^0.2.0",
     "@fluentui/react-timepicker-compat": "0.2.2",
     "@hookform/devtools": "^4.3.1",

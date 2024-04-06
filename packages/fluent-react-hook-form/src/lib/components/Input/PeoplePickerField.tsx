@@ -29,8 +29,12 @@ export const PeoplePickerField = React.forwardRef<
 
   const inputId = useId("people-picker");
   const {
-    form: { control },
+    form: { control, setError },
   } = useFormContext();
+
+  const onError = (errorMessage: string) => {
+    setError(name, { type: "manual", message: errorMessage }, { shouldFocus: true });
+  };
 
   return (
     <Controller
@@ -76,6 +80,7 @@ export const PeoplePickerField = React.forwardRef<
                 }
               }}
               onBlur={onBlur}
+              onInternalError={onError}
               ref={ref || fieldRef}
             />
           </Field>

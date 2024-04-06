@@ -3,6 +3,7 @@ import {
   Button,
 } from '@fluentui/react-components';
 import {
+  useForm, 
   Form,
   Checkbox,
   DatePicker,
@@ -15,9 +16,7 @@ import {
   Dropdown,
   CurrencyInput,
   FileInput,
-  TimePicker,
-  useForm,
-  RichViewer,
+  TimePicker,  
   Rating,
   RatingDisplay,
   CheckboxGroup,
@@ -33,6 +32,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
 import { debouncedSearchUserInfo } from './data/UserInfo'; 
+import { UserInfo } from '@prt-ts/types';
 
 const nameSchema = yup
 .string()
@@ -76,6 +76,10 @@ const schema = yup.object({
   // SpinButton: yup.number().required('Spin Button is required'),
   attachments: yup.array().min(1, 'Attachments is required'),
 });
+
+const onResolveUsers = async (users: UserInfo[]) => {
+  throw new Error('Not able to resolve all the users');
+}
 
 export type IFormInput = yup.InferType<typeof schema>;
 
@@ -179,7 +183,7 @@ export const ReactHookForm = () => {
       <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
       <Form form={testForm} onSubmit={onSubmit}>
 
-        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} multiselect readOnly={isView} placeholder='Search users'/>
+        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} multiselect readOnly={isView} placeholder='Search users'/>
        
         {/* <Input
           name={'firstName1'}
@@ -536,6 +540,7 @@ export const ReactHookForm = () => {
             { label: 'Chocolate', value: 'chocolate' },
             { label: 'Strawberry', value: 'strawberry' },
           ]}
+          readOnly
         />
 
         <Dropdown

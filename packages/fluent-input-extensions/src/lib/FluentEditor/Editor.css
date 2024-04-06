@@ -9,3 +9,21 @@ div[contenteditable="true"]::before {
     white-space: pre;
     overflow: hidden;
 }
+
+#textColorInput{
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+#textColorInput::-webkit-color-swatch-wrapper {
+    padding: 0; 
+}
+#textColorInput::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}

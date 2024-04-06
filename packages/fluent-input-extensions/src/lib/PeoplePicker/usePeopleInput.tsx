@@ -59,7 +59,11 @@ export function usePeopleInput(
 
     // resolve users
     if (onResolveUsers) {
-      uniqueUsers = await onResolveUsers(uniqueUsers);
+      try {
+        uniqueUsers = await onResolveUsers(uniqueUsers);
+      } catch (error: any) {
+        props.onInternalError?.(error.message ?? "Error in resolving users");        
+      }      
     }
     if (onUserSelectionChange) {
       onUserSelectionChange(uniqueUsers);
