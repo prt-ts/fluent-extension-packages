@@ -4,5 +4,5 @@ export { InsertLinkButton } from './InsertLinkButton';
 export { ChooseFontColor } from './ChooseFontColor';
 export { ChooseHighlightColor } from './ChooseHighlightColor';
 export { TextCapitalization } from './TextCapitalization';
-export { TextAlign, TextAlignProps } from './TextAlign';
-export { HeadingLevel, HeadingLevelProps } from './HeadingLevel';
+export { TextAlign } from './TextAlign';
+export { HeadingLevel } from './HeadingLevel';

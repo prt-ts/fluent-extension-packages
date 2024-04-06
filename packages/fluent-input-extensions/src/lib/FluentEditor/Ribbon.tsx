@@ -35,7 +35,7 @@ import {
     TextFontSizeFilled,
     TextFontRegular
 } from "@fluentui/react-icons"; 
-import { ChooseFontColor, ChooseHighlightColor, HeadingLevel, HeadingLevelProps, InsertImageButton, InsertLinkButton, InsertTableButton, TextAlign, TextAlignProps, TextCapitalization } from "./EditorButtons";
+import { ChooseFontColor, ChooseHighlightColor, HeadingLevel, InsertImageButton, InsertLinkButton, InsertTableButton, TextAlign, TextCapitalization } from "./EditorButtons";
 
 /* eslint-disable */
 type FluentEditorRibbonProps = {
@@ -192,11 +192,11 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Divider vertical className={styles.divider} />
 
                 {/* text align */}
-                <TextAlign editor={editor!} handleChange={handleChange} textAlign={formats.textAlign as TextAlignProps["textAlign"]} />
+                <TextAlign editor={editor!} handleChange={handleChange} textAlign={formats.textAlign as any} />
 
                 <TextCapitalization editor={editor!} handleChange={handleChange} />
 
-                <HeadingLevel editor={editor!} handleChange={handleChange} headingLevel={formats.headingLevel as HeadingLevelProps["headingLevel"]} />
+                <HeadingLevel editor={editor!} handleChange={handleChange} headingLevel={formats.headingLevel as any} />
              
                 <Divider vertical className={styles.divider} />
 

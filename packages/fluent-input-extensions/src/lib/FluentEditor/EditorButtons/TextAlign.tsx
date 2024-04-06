@@ -6,7 +6,7 @@ import { useIconStyles } from './useIconStyles';
 import { IEditor } from 'roosterjs-content-model-types';
 import { Case, Switch } from '@prt-ts/react-control-flow';
 
-export interface TextAlignProps {
+export type TextAlignProps = {
     editor: IEditor;
     handleChange: () => void;
     textAlign: "left" | "center" | "right" | "justify";
