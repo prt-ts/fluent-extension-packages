@@ -4,4 +4,10 @@ export const useIconStyles = makeStyles({
     icon: {
         fontSize: tokens.fontSizeBase300
     },
+    menuPopover: {
+        minWidth: tokens.spacingHorizontalM,
+    },
+    dropdown: {
+        minWidth: tokens.spacingHorizontalM,
+    }
 });

@@ -34,7 +34,7 @@ export const InsertLinkButton: React.FC<InsertLinkButtonProps> = ({ editor, hand
                     />
                 </PopoverTrigger>
 
-                <PopoverSurface tabIndex={-1}>
+                <PopoverSurface>
                     <div style={{ display: "flex", flexDirection: "column", gap: tokens.spacingHorizontalS }}>
                         <Input size={"small"} type={"url"} placeholder='Link' value={`${link}`} onChange={(e) => setLink(e.target.value)} />
                         <Input size={"small"} placeholder='Alt text' value={`${altText}`} onChange={(e) => setAltText(e.target.value)} />

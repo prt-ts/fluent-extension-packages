@@ -28,7 +28,7 @@ export const InsertImageButton: React.FC<InsertImageButtonProps> = ({ editor, ha
                 />
             </PopoverTrigger>
 
-            <PopoverSurface tabIndex={-1}>
+            <PopoverSurface>
                 <div style={{ display: "flex", gap: tokens.spacingHorizontalS }}>
                     <input ref={fileInputRef}
                         type="file"

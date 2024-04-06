@@ -29,10 +29,10 @@ export const InsertTableButton: React.FC<InsertTableButtonProps> = ({ editor, ha
                 />
             </PopoverTrigger>
 
-            <PopoverSurface tabIndex={-1}>
+            <PopoverSurface>
                 <div style={{ display: "flex", gap: tokens.spacingHorizontalS }}>
-                    <Input value={`${rows}`} onChange={(e) => setRows(+e.target.value ?? 0)} />
-                    <Input value={`${cols}`} onChange={(e) => setCols(+e.target.value ?? 0)} />
+                    <Input value={`${rows}`} onChange={(e) => setRows(+e.target.value || 0)} />
+                    <Input value={`${cols}`} onChange={(e) => setCols(+e.target.value || 0)} />
                     <Button
                         onClick={() => {
                             insertTable(editor, cols, rows);
