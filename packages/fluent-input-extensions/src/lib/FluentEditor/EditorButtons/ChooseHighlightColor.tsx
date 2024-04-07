@@ -45,6 +45,7 @@ export const ChooseHighlightColor: React.FC<InsertImageButtonProps> = ({ editor,
             <PopoverSurface>
                 <SwatchPicker
                     layout="grid"
+                    shape="circular"
                     aria-label="Select Font Color"
                     selectedValue={fontColor}
                     onSelectionChange={(_, data) => {
@@ -56,7 +57,7 @@ export const ChooseHighlightColor: React.FC<InsertImageButtonProps> = ({ editor,
                 >
                     {renderSwatchPickerGrid({
                         items: highlightColors,
-                        columnCount: 5,
+                        columnCount: 5, 
                     })}
                 </SwatchPicker>
             </PopoverSurface>

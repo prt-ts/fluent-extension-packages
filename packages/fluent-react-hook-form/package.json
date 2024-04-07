@@ -5,8 +5,7 @@
   "dependencies": {
     "react-hook-form": ">=7.0.0",
     "@hookform/resolvers": ">=3.0.0",
-    "react-dropzone": ">=14.0.0",
-    "react-quill": ">=2.0.0",
+    "react-dropzone": ">=14.0.0", 
     "@fluentui/react-datepicker-compat": ">=0.4.15",
     "@fluentui/react-timepicker-compat": ">=0.1.1",
     "@fluentui/react-calendar-compat": ">=0.0.22",

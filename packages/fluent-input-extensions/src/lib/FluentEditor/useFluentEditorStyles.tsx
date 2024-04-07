@@ -1,6 +1,5 @@
 import { makeStaticStyles, makeStyles, shorthands, tokens } from "@fluentui/react-components";
 
-
 export const useEditorStaticStyles = makeStaticStyles({
     "[contenteditable]:focus": {
         outline: "0px solid transparent"
@@ -68,18 +67,18 @@ export const useEditorStyle = makeStyles({
 
     small: {
         minHeight: "40px",
-        maxHeight: "30vh",
-        overflowY: "auto",
+        // maxHeight: "30vh",
+        // overflowY: "auto",
     },
     medium: {
         minHeight: "60px",
-        maxHeight: "50vh",
-        overflowY: "auto",
+        // maxHeight: "50vh",
+        // overflowY: "auto",
     },
     large: {
         minHeight: "100px",
-        maxHeight: "70vh",
-        overflowY: "auto",
+        // maxHeight: "70vh",
+        // overflowY: "auto",
     },
 
     invalid: {
