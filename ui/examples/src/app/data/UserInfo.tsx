@@ -33,8 +33,42 @@ export function makeData(...lens: number[]) {
     return makeDataLevel()
   }
 
+  const additionalUserInfo = [
+    {
+      id: 10000,
+      name: 'Pradeep Thapaliya',
+      email: 'pradeep.thapaliya@nih.gov',
+      loginName: 'pradeep.thapaliya',
+    },
+    {
+      id: 10001,
+      name: 'Durga Thapaliya',
+      email: 'durga.thapaliya95@gmail.com',
+      loginName: 'durga.thapaliya',
+    },
+    {
+      id: 10002,
+      name: 'Fana Goitom',
+      email: 'fana.goitiom@nih.gov',
+      loginName: 'fana.goitom',
+    },
+    {
+      id: 10003,
+      name: 'Mulugeta Goitom',
+      email: 'mulugeta.goitom@gmail.com',
+      loginName: 'mulugeta.goitom',
+    },
+    {
+      id: 10004,
+      name: 'Rukmareddy Sripathi',
+      email: 'rukma.sripathi@nih.gov',
+      loginName: 'rukma.sripathi',
+    }
+  ]
+
 export const seedUserInfo = (len: number) => {
     userInfo = makeData(len);
+    userInfo = userInfo.concat(additionalUserInfo);    
 }
 
 const searchUserInfo = (searchText: string): Promise<UserInfo[]> => {

@@ -4,6 +4,11 @@ import {
 } from "@fluentui/react-tag-picker-preview";
 import { UserInfo } from "@prt-ts/types";
 
+type ResolvedUserInfo = {
+  resolvedUserInfo: UserInfo[];
+  error: string; 
+}
+
 type LocalPeopleInputProps = {
   /**
    * The selected users
@@ -35,7 +40,7 @@ type LocalPeopleInputProps = {
    * This is useful when you want to show additional information about the user
    * For example, you can use this callback to show the user's email, department, etc.
    */
-  onResolveUsers?: (users: UserInfo[]) => Promise<UserInfo[]>;
+  onResolveUsers?: (users: UserInfo[]) => Promise<ResolvedUserInfo>;
 
   /**
    * Callback when an internal error occurs

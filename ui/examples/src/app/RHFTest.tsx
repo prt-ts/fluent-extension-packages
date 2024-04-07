@@ -79,7 +79,12 @@ const schema = yup.object({
 });
 
 const onResolveUsers = async (users: UserInfo[]) => {
-  throw new Error('Not able to resolve all the users');
+  const lastUser = users[users.length - 1];
+
+  return {
+    resolvedUserInfo: users,
+    error: `Error resolving user: ${lastUser.name}`
+  }; 
 }
 
 export type IFormInput = yup.InferType<typeof schema>;

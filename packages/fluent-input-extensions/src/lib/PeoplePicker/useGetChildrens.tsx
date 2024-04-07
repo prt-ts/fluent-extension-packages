@@ -53,7 +53,7 @@ export function useGetChildren({
                 value={query}
                 text={query}
               >
-                {`No results found for '${query}'`}
+                {`No results found for term '${query}'`}
               </TagPickerOption>
             </Show>
 

@@ -57,16 +57,24 @@ export function usePeopleInput(
     // reset query
     setQuery("");
 
+    let resolvedUsers: UserInfo[] = uniqueUsers;
+
     // resolve users
     if (onResolveUsers) {
       try {
-        uniqueUsers = await onResolveUsers(uniqueUsers);
+        const result = await onResolveUsers(uniqueUsers);
+        resolvedUsers = result.resolvedUserInfo; 
+
+        if (result?.error && result.error.length > 0) {
+          props.onInternalError?.(result.error);
+        }
+
       } catch (error: any) {
         props.onInternalError?.(error.message ?? "Error in resolving users");        
       }      
     }
     if (onUserSelectionChange) {
-      onUserSelectionChange(uniqueUsers);
+      onUserSelectionChange(resolvedUsers);
     }
     setSearchedUsers([]);
 

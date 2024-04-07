@@ -1,7 +1,7 @@
 import { Popover, PopoverTrigger, Button, PopoverSurface, Tooltip } from '@fluentui/react-components';
 import { ColorBackgroundFilled } from '@fluentui/react-icons';
 import React from 'react';
-import { setTextColor } from 'roosterjs-content-model-api';
+import { setBackgroundColor } from 'roosterjs-content-model-api';
 import { useIconStyles } from './useIconStyles';
 import { IEditor } from 'roosterjs-content-model-types';
 import { SwatchPicker, renderSwatchPickerGrid } from '@fluentui/react-swatch-picker-preview';
@@ -50,7 +50,7 @@ export const ChooseHighlightColor: React.FC<InsertImageButtonProps> = ({ editor,
                     selectedValue={fontColor}
                     onSelectionChange={(_, data) => {
                         console.log(data)
-                        setTextColor(editor, data.selectedValue);
+                        setBackgroundColor(editor, data.selectedValue);
                         handleChange?.();
                     }}
                     size="small"
