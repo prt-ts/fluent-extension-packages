@@ -1,4 +1,4 @@
-import { Popover, PopoverTrigger, Button, PopoverSurface, Input, tokens, Checkbox, useId } from '@fluentui/react-components';
+import { Popover, Button, PopoverSurface, Input, tokens, Checkbox, useId, PositioningImperativeRef, SplitButton, MenuPopover, Menu, MenuTrigger, MenuButtonProps, MenuList, MenuItem } from '@fluentui/react-components';
 import { LinkDismissRegular, LinkRegular } from '@fluentui/react-icons';
 import React from 'react';
 import { useIconStyles } from './useIconStyles';
@@ -12,44 +12,59 @@ export interface InsertLinkButtonProps {
 
 export const InsertLinkButton: React.FC<InsertLinkButtonProps> = ({ editor, handleChange }) => {
 
-    const [link, setLink] = React.useState<string>("");
-    const [altText, setAltText] = React.useState<string>("");
-    const [title, setTitle] = React.useState<string>("");
-    const [inNewWindow, setInNewWindow] = React.useState<boolean>(true);
+    const [isLinkEditorOpen, setIsLinkEditorOpen] = React.useState<boolean>(false);
+
+    // const [link, setLink] = React.useState<string>("");
+    // const [altText, setAltText] = React.useState<string>("");
+    // const [title, setTitle] = React.useState<string>("");
+    // const [inNewWindow, setInNewWindow] = React.useState<boolean>(true);
+
+    const linkRef = React.useRef<HTMLInputElement>(null);
+    const altTextRef = React.useRef<HTMLInputElement>(null);
+    const titleRef = React.useRef<HTMLInputElement>(null);
+    const inNewWindowRef = React.useRef<HTMLInputElement>(null);
 
     const id = useId("link");
+
+    const popoverTriggerButtonRef = React.useRef<HTMLButtonElement>(null);
+    const popoverPositioningRef = React.useRef<PositioningImperativeRef>(null);
+    React.useEffect(() => {
+        if (popoverTriggerButtonRef.current) {
+            popoverPositioningRef.current?.setTarget(popoverTriggerButtonRef.current);
+        }
+    }, [popoverPositioningRef, popoverTriggerButtonRef]);
 
     const styles = useIconStyles();
     return (
         <>
-            <Popover trapFocus>
-                <PopoverTrigger disableButtonEnhancement>
-                    <Button
-                        aria-label="Code Block"
-                        icon={<LinkRegular className={styles.icon} />}
-                        name="additionalFormat"
-                        value={"code"}
-
-                        size="small"
-                    />
-                </PopoverTrigger>
-
+            <Popover trapFocus
+                positioning={{ positioningRef: popoverPositioningRef }}
+                open={isLinkEditorOpen}
+                onOpenChange={(_, data) => setIsLinkEditorOpen(data.open)}
+            >
                 <PopoverSurface>
                     <div style={{ display: "flex", flexDirection: "column", gap: tokens.spacingHorizontalS }}>
-                        <Input size={"small"} type={"url"} placeholder='Link' value={`${link}`} onChange={(e) => setLink(e.target.value)} />
-                        <Input size={"small"} placeholder='Alt text' value={`${altText}`} onChange={(e) => setAltText(e.target.value)} />
-                        <Input size={"small"} placeholder='Display Title' value={`${title}`} onChange={(e) => setTitle(e.target.value)} />
-                        <Checkbox id={id} checked={inNewWindow} onChange={(e) => setInNewWindow(e.target.checked)} label={<>Open in new tab</>} />
+                        <Input size={"small"} type={"url"} placeholder='Link' ref={linkRef} />
+                        <Input size={"small"} placeholder='Alt text' ref={altTextRef} />
+                        <Input size={"small"} placeholder='Display Title' ref={titleRef} />
+                        <Checkbox id={id} defaultChecked={true} ref={inNewWindowRef} label={<>Open in new tab</>} />
                         <Button
                             onClick={() => {
+                                const link = linkRef.current?.value;
+                                const altText = altTextRef.current?.value;
+                                const title = titleRef.current?.value;
+                                const inNewWindow = inNewWindowRef.current?.checked;
                                 if (link) {
                                     insertLink(editor, link, altText, title, inNewWindow ? "_blank" : undefined);
                                     handleChange?.();
 
-                                    setLink("");
-                                    setAltText("");
-                                    setTitle("");
-                                    setInNewWindow(true);
+                                    // clear the input fields
+                                    if (linkRef.current) linkRef.current.value = "";
+                                    if (altTextRef.current) altTextRef.current.value = "";
+                                    if (titleRef.current) titleRef.current.value = "";
+                                    if (inNewWindowRef.current) inNewWindowRef.current.checked = true;
+
+                                    setIsLinkEditorOpen(false);
                                 }
                             }}
                             size='small'
@@ -59,15 +74,35 @@ export const InsertLinkButton: React.FC<InsertLinkButtonProps> = ({ editor, hand
                     </div>
                 </PopoverSurface>
             </Popover>
-            <Button
-                onClick={() => {
-                    removeLink(editor);
-                    handleChange?.();
-                }}
-                size='small'
-                icon={<LinkDismissRegular />}
-            />
-        </>
+            <Menu positioning="above">
+                <MenuTrigger disableButtonEnhancement>
+                    {(triggerProps: MenuButtonProps) => (
+                        <SplitButton
+                            menuButton={triggerProps}
+                            primaryActionButton={{
+                                ref: popoverTriggerButtonRef,
+                                icon: <LinkRegular className={styles.icon} />,
+                                size: 'small',
+                                onClick: () => setIsLinkEditorOpen(true)
+                            }}
+                        />
+                    )}
+                </MenuTrigger>
 
+                <MenuPopover>
+                    <MenuList>
+                        <MenuItem
+                            onClick={() => {
+                                removeLink(editor);
+                                handleChange?.();
+                            }}
+                            icon={<LinkDismissRegular />}
+                        >
+                            Remove Link
+                        </MenuItem>
+                    </MenuList>
+                </MenuPopover>
+            </Menu>
+        </>
     );
 };
