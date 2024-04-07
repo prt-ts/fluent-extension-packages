@@ -33,8 +33,8 @@ export function useGetChildren({
             <Show when={isLoading}>
               <TagPickerOption
                 key={"loading"}
-                value={""}
-                text={"LOADING"}
+                value={query}
+                text={query}
               >
                 <Spinner size="tiny" label="Searching, Please Wait..." />
               </TagPickerOption>
@@ -50,8 +50,8 @@ export function useGetChildren({
             >
               <TagPickerOption
                 key={"loading"}
-                value={""}
-                text={"LOADING"}
+                value={query}
+                text={query}
               >
                 {`No results found for '${query}'`}
               </TagPickerOption>
@@ -93,7 +93,7 @@ export function useGetChildren({
               <TagPickerOption
                 key={"no_suggestions"}
                 value={""}
-                text={"NO_LOADING"}
+                text={""}
               >
                 {`No suggestions available.`}
               </TagPickerOption>

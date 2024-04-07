@@ -16,8 +16,7 @@ export const usePeopleInputStyles = makeStyles({
     flexDirection: "column",
   },
 
-  optionList: {
-    width: "100%",
+  optionList: { 
     maxHeight: "300px",
     ...shorthands.overflow("auto"),
   },

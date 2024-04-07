@@ -3,7 +3,7 @@ import {
   Button,
 } from '@fluentui/react-components';
 import {
-  useForm, 
+  useForm,
   Form,
   Checkbox,
   DatePicker,
@@ -16,14 +16,14 @@ import {
   Dropdown,
   CurrencyInput,
   FileInput,
-  TimePicker,  
+  TimePicker,
   Rating,
   RatingDisplay,
   CheckboxGroup,
   RadioGroup,
   Radio,
   PeoplePicker,
-} from '@prt-ts/fluent-react-hook-form'; 
+} from '@prt-ts/fluent-react-hook-form';
 import { Fragment, useCallback, useMemo, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
 import * as yup from 'yup';
@@ -31,14 +31,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // import { DevTool } from '@hookform/devtools';
 
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
-import { debouncedSearchUserInfo } from './data/UserInfo'; 
+import { debouncedSearchUserInfo } from './data/UserInfo';
 import { UserInfo } from '@prt-ts/types';
+import { GroupedTagPicker } from './examples/PeoplePicker/PeoplePicker';
 
 const nameSchema = yup
-.string()
-.required('First Name is required')
-.min(10, 'Min 10')
-.max(15, 'Max 15')
+  .string()
+  .required('First Name is required')
+  .min(10, 'Min 10')
+  .max(15, 'Max 15')
 
 const schema = yup.object({
   peoplePicker: yup.array().of(
@@ -182,8 +183,9 @@ export const ReactHookForm = () => {
       <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
       <Form form={testForm} onSubmit={onSubmit}>
 
-        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} multiselect readOnly={isView} placeholder='Search users'/>
-       
+        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} multiselect readOnly={isView} placeholder='Search users' />
+
+        <GroupedTagPicker />
         {/* <Input
           name={'firstName1'}
           label={'First Name'}
@@ -196,7 +198,7 @@ export const ReactHookForm = () => {
           autoComplete='false' /> */}
 
         <br />
-        <RichInput showRibbon={true} label={<>Small Label</>} name={"firstName2"} placeholder='Enter First Name' size='small'/>
+        <RichInput showRibbon={true} label={<>Small Label</>} name={"firstName2"} placeholder='Enter First Name' size='small' />
 
         <br />
 
@@ -210,14 +212,14 @@ export const ReactHookForm = () => {
 
         <div>
           <strong>Text Value:</strong>
-           
+
         </div>
 
         <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={"marigold"} />
         <RatingDisplay name={'rating'} label={'Rating Display'} compact color={"marigold"} />
 
-        <Radio name='radio_single_input1' value={true} radioLabel={"Yes"}/>
-        <Radio name='radio_single_input2' value={false} radioLabel={"No"}/>
+        <Radio name='radio_single_input1' value={true} radioLabel={"Yes"} />
+        <Radio name='radio_single_input2' value={false} radioLabel={"No"} />
 
         <CheckboxGroup
           name={'checkboxGroup'}
@@ -257,13 +259,13 @@ export const ReactHookForm = () => {
 
         <Dropdown
           name={'dropdownNumber'}
-          label={'Checkbox Group (Number)'} 
+          label={'Checkbox Group (Number)'}
           options={[
-            { label: "Months", options: monthOptions},
-            { label: "True/False", options: truFalseOptions},
-            { label: "Text", options: textInputOptions}
-          ]} 
-          multiselect/>
+            { label: "Months", options: monthOptions },
+            { label: "True/False", options: truFalseOptions },
+            { label: "Text", options: textInputOptions }
+          ]}
+          multiselect />
 
         <Input
           name={'firstName'}
