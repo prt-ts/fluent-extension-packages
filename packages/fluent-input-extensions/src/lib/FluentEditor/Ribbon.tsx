@@ -165,7 +165,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 </Tooltip>
                 <Tooltip content={<>Decrease Indent</>} relationship='label'>
                     <ToggleButton
-                        aria-label="Outdent"
+                        aria-label="Decrease Indent"
                         icon={<TextGrammarArrowRightFilled className={styles.icon} />}
                         onClick={() => {
                             setIndentation(editor!, "outdent");
