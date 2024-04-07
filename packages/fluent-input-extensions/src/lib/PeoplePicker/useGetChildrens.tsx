@@ -88,6 +88,7 @@ export function useGetChildren({
             query?.length === 0
           }
         >
+          <>
           <Show when={availableSuggestions?.length === 0}>
             <TagPickerOptionGroup label="Suggestions">
               <TagPickerOption
@@ -119,6 +120,7 @@ export function useGetChildren({
               </For>
             </TagPickerOptionGroup>
           </Show>
+          </>
         </Show>
       </>
     );
