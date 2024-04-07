@@ -203,7 +203,7 @@ export const ReactHookForm = () => {
           autoComplete='false' /> */}
 
         <br />
-        <RichInput showRibbon={true} label={<>Small Label</>} name={"firstName2"} placeholder='Enter First Name' size='small' />
+        <RichInput showRibbon={true} label={<>Small Label</>} name={"firstName2"} placeholder='Enter First Name' size='small' style={{ minHeight: "30vh"}}/>
 
         <br />
 

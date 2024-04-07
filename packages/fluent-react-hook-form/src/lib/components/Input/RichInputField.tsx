@@ -12,7 +12,7 @@ import { FluentEditor, FluentEditorProps } from '@prt-ts/fluent-input-extensions
 
 export type RichInputFieldProps = FieldProps & FluentEditorProps & InfoLabelProps & { name: string, rules?: ControllerProps['rules'] }
 
-export const RichInputField = forwardRef<HTMLDivElement, RichInputFieldProps>(({ name, rules, required, ...rest }, editorRef) => {
+export const RichInputField = forwardRef<HTMLDivElement, RichInputFieldProps>(({ name, rules, required, style, className, ...rest }, editorRef) => {
     const { form: { control } } = useFormContext();
 
     const { ...fieldProps }: FieldProps = rest as unknown as FieldProps;
@@ -50,6 +50,8 @@ export const RichInputField = forwardRef<HTMLDivElement, RichInputFieldProps>(({
                                 }}
                                 onBlur={onBlur}
                                 {...fieldProps}
+                                style={style}
+                                className={className}
                             />
                         )}
                     </Field>

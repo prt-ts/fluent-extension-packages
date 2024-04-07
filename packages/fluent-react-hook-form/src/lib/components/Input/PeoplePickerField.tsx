@@ -22,7 +22,7 @@ export type PeoplePickerProps = Omit<PeopleInputProps, "value"> &
 export const PeoplePickerField = React.forwardRef<
   PeopleInputRef,
   PeoplePickerProps
->(({ name, label, rules, required, ...props }, ref) => {
+>(({ name, label, rules, required, style, className, ...props }, ref) => {
   const { ...fieldsProps }: FieldProps = props;
   const { ...infoLabelProps }: InfoLabelProps = props;
   const { ...peoplePickerProps }: PeopleInputProps = props;
@@ -82,6 +82,8 @@ export const PeoplePickerField = React.forwardRef<
               onBlur={onBlur}
               onInternalError={onError}
               ref={ref || fieldRef}
+              style={style}
+              className={className}
             />
           </Field>
         );

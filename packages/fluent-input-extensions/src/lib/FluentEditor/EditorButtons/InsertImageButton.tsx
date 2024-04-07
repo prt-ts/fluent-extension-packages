@@ -12,6 +12,8 @@ export interface InsertImageButtonProps {
 
 export const InsertImageButton: React.FC<InsertImageButtonProps> = ({ editor, handleChange }) => {
 
+    const [isLinkImporterOpen, setIsLinkImporterOpen] = React.useState(false);
+
     const imageUrlRef = React.useRef<HTMLInputElement>(null);
     const fileInputRef = React.useRef<HTMLInputElement>(null);
     const styles = useIconStyles();
@@ -37,13 +39,15 @@ export const InsertImageButton: React.FC<InsertImageButtonProps> = ({ editor, ha
                         }, 2000);
                     }
                 }} />
-            <Popover trapFocus>
+            <Popover trapFocus
+                open={isLinkImporterOpen}
+                onOpenChange={(_, data) => setIsLinkImporterOpen(data.open)}
+                >
                 <PopoverTrigger disableButtonEnhancement>
                     {(triggerProps: MenuButtonProps) => (
                         <SplitButton
                             menuButton={triggerProps}
-                            aria-label="Insert Link"
-                            // menuIcon={<ImageRegular className={styles.icon} />} 
+                            aria-label="Insert Link" 
                             primaryActionButton={{
                                 icon: <ImageRegular className={styles.icon} />,
                                 size: 'small',
@@ -54,7 +58,6 @@ export const InsertImageButton: React.FC<InsertImageButtonProps> = ({ editor, ha
                                 }
                             }}
                         >
-
                         </SplitButton>
                     )}
                 </PopoverTrigger>
@@ -69,6 +72,8 @@ export const InsertImageButton: React.FC<InsertImageButtonProps> = ({ editor, ha
                                 if (imageUrl) {
                                     insertImage(editor, imageUrl);
                                     handleChange?.();
+                                    imageUrlRef.current && (imageUrlRef.current.value = "");
+                                    setIsLinkImporterOpen(false);
                                 }
                             }}>Load image from web</Button>
                     </div>

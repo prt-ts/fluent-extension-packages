@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Divider, Toolbar, ToggleButton, makeStyles, tokens, Tooltip } from "@fluentui/react-components";
+import { Divider, Toolbar, ToggleButton, makeStyles, tokens, Tooltip, Button, shorthands } from "@fluentui/react-components";
 import type { ContentModelFormatState, IEditor } from 'roosterjs-content-model-types';
 import {
     toggleBold,
@@ -42,6 +42,12 @@ type FluentEditorRibbonProps = {
 };
 
 const useRibbonStyle = makeStyles({
+    toolbar: {
+        display: "flex",
+        alignContent: "center",
+        flexWrap: "wrap",
+        ...shorthands.gap(tokens.spacingVerticalXXS, tokens.spacingVerticalXXS)
+    },
     icon: {
         fontSize: tokens.fontSizeBase300
     },
@@ -81,7 +87,8 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
     return (
         <div style={{ display: "flex", alignContent: "center", flexWrap: "wrap" }}>
             <Toolbar
-                aria-label="with controlled Toggle Button"
+                aria-label="Text Formatting Toolbar"
+                className={styles.toolbar}
             >
                 <Tooltip content={<>Toggle Bold</>} relationship='label'>
                     <ToggleButton
@@ -230,9 +237,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Divider vertical className={styles.divider} />
 
                 {/* insert image */}
-                <InsertImageButton editor={editor!} handleChange={handleChange} />
-
-                <Divider vertical className={styles.divider} />
+                <InsertImageButton editor={editor!} handleChange={handleChange} /> 
 
                 {/* insert link */}
                 <InsertLinkButton editor={editor!} handleChange={handleChange} />
@@ -267,7 +272,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 </Tooltip>
 
                 <Tooltip content={<>Clear Format</>} relationship='label'>
-                    <ToggleButton
+                    <Button
                         aria-label="Clear Format"
                         icon={<ClearFormattingRegular className={styles.icon} />}
                         onClick={() => {
