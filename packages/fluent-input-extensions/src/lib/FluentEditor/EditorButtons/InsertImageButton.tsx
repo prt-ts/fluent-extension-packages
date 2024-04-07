@@ -19,7 +19,7 @@ export const InsertImageButton: React.FC<InsertImageButtonProps> = ({ editor, ha
 
     const styles = useIconStyles();
     return (
-        <Popover>
+        <Popover trapFocus>
             <PopoverTrigger disableButtonEnhancement>
                 <Button
                     aria-label="Insert Link"

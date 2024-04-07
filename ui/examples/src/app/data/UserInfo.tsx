@@ -1,24 +1,19 @@
 import { UserInfo } from "@prt-ts/types";
 import { faker } from '@faker-js/faker';
 import { debounceAsync } from '@prt-ts/debounce';
+import { range } from "@prt-ts/utilities";
 
-let userInfo = [];
-
-const range = (len: number) => {
-    const arr: number[] = []
-    for (let i = 0; i < len; i++) {
-      arr.push(i)
-    }
-    return arr
-  }
+let userInfo = [];  
   
 
 const makeUserInfo = (index: number) : UserInfo => {
+  const firstName = faker.person.firstName();
+  const lastName = faker.person.lastName();
     return {
         id: index + 1,
-        name: faker.person.fullName(),
-        email: faker.internet.email(),
-        loginName: faker.internet.userName(),
+        name: `${firstName} ${lastName}`,
+        email: faker.internet.email(firstName, lastName),
+        loginName: faker.internet.userName(firstName, lastName),
     }
 }
 
@@ -28,7 +23,7 @@ export function makeData(...lens: number[]) {
       if (!len) {
         return [];
       }
-      return range(len).map((d): UserInfo => {
+      return range(1, 199).map((d): UserInfo => {
         return {
           ...makeUserInfo(d),
         }
@@ -45,7 +40,9 @@ export const seedUserInfo = (len: number) => {
 const searchUserInfo = (searchText: string): Promise<UserInfo[]> => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(userInfo.filter((user) => user.name.toLowerCase().includes(searchText.toLowerCase())));
+            resolve(userInfo.filter((user) => user.name.toLowerCase().includes(searchText.toLowerCase())
+                                              || user.email.toLowerCase().includes(searchText.toLowerCase())
+                                              || user.loginName.toLowerCase().includes(searchText.toLowerCase())));
         }, 1000);
     });
 }

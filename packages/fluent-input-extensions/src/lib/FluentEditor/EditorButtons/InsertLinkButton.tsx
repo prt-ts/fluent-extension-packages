@@ -22,7 +22,7 @@ export const InsertLinkButton: React.FC<InsertLinkButtonProps> = ({ editor, hand
     const styles = useIconStyles();
     return (
         <>
-            <Popover>
+            <Popover trapFocus>
                 <PopoverTrigger disableButtonEnhancement>
                     <Button
                         aria-label="Code Block"
