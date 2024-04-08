@@ -59,10 +59,10 @@ export const useEditorStyle = makeStyles({
         display: "block",
         width: `calc(100% - ${tokens.spacingHorizontalM} * 2)`,
         ...shorthands.padding(tokens.spacingVerticalM, tokens.spacingHorizontalM),
-        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+        ...shorthands.borderRadius(tokens.borderRadiusMedium), 
+        ...shorthands.border(0),
 
-
-        ...shorthands.border(0)
+        backgroundColor: "transparent",
     },
 
     small: {

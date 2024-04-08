@@ -15,7 +15,7 @@ export function useFormatState(editor: IEditor, value: string): ContentModelForm
         isBullet = false,
         isBlockQuote = false,
         isCodeBlock = false,
-        fontSize = "14px",
+        fontSize = "12pt",
         fontName = "",
         textColor = "#000000",
         backgroundColor = "rgba(255, 255, 255, 0.5)",

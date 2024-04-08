@@ -93,7 +93,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
               value={query}
               onChange={async (e) => handleQueryChange(e.target.value)}
               readOnly={isReadOnly}
-              placeholder={tagPickerInputProps.placeholder}
+              placeholder={isReadOnly && selectedOptions?.length > 0 ? "" : tagPickerInputProps.placeholder}
             />
           </TagPickerControl>
           <Show when={!isReadOnly && !tagPickerInputProps.readOnly}>
@@ -118,8 +118,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
                 value={user.loginName}
                 type="button"
                 size="small"
-                dismissible
-                disabled={props.disabled}
+                dismissible={!props.disabled && !props.disabled} 
               >
                 {user.name}
               </Tag>

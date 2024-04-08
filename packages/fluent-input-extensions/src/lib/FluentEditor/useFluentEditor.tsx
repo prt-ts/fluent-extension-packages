@@ -78,9 +78,10 @@ export function useFluentEditor(props: FluentEditorProps, ref: React.ForwardedRe
         if (editorDiv.current) {
             const defaultEditor = defaultEditorCreator(editorDiv.current, {
                 initialModel: createModelFromHtml(props.value || "", {
-                    
+                     
                 }),
-                plugins: plugins,  
+                plugins: plugins, 
+                 
             });
 
             // attach event to default editor
@@ -102,6 +103,7 @@ export function useFluentEditor(props: FluentEditorProps, ref: React.ForwardedRe
             }
             defaultEditor.attachDomEvent(domEvent);
             defaultEditor.setEditorStyle("fontSize", "14pt");
+            defaultEditor.setDarkModeState(true);
             editor.current = defaultEditor;
 
             if (focusOnInit) {

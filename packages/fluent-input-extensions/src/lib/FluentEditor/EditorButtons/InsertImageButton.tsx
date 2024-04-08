@@ -1,7 +1,7 @@
-import { Popover, PopoverTrigger, Button, PopoverSurface, Input, tokens, MenuButtonProps, SplitButton } from '@fluentui/react-components';
+import { Popover, Button, PopoverSurface, Input, tokens, MenuButtonProps, SplitButton, PositioningImperativeRef, Menu, MenuTrigger, MenuPopover, MenuList, MenuItem } from '@fluentui/react-components';
 import { ImageRegular } from '@fluentui/react-icons';
 import React from 'react';
-import { insertImage } from 'roosterjs-content-model-api';
+import { insertImage, setImageBorder } from 'roosterjs-content-model-api';
 import { useIconStyles } from './useIconStyles';
 import { IEditor } from 'roosterjs-content-model-types';
 
@@ -13,6 +13,14 @@ export interface InsertImageButtonProps {
 export const InsertImageButton: React.FC<InsertImageButtonProps> = ({ editor, handleChange }) => {
 
     const [isLinkImporterOpen, setIsLinkImporterOpen] = React.useState(false);
+
+    const popoverTriggerButtonRef = React.useRef<HTMLButtonElement>(null);
+    const popoverPositioningRef = React.useRef<PositioningImperativeRef>(null);
+    React.useEffect(() => {
+        if (popoverTriggerButtonRef.current) {
+            popoverPositioningRef.current?.setTarget(popoverTriggerButtonRef.current);
+        }
+    }, [popoverPositioningRef, popoverTriggerButtonRef]);
 
     const imageUrlRef = React.useRef<HTMLInputElement>(null);
     const fileInputRef = React.useRef<HTMLInputElement>(null);
@@ -39,15 +47,12 @@ export const InsertImageButton: React.FC<InsertImageButtonProps> = ({ editor, ha
                         }, 2000);
                     }
                 }} />
-            <Popover trapFocus
-                open={isLinkImporterOpen}
-                onOpenChange={(_, data) => setIsLinkImporterOpen(data.open)}
-                >
-                <PopoverTrigger disableButtonEnhancement>
+
+            <Menu positioning="below-end">
+                <MenuTrigger disableButtonEnhancement>
                     {(triggerProps: MenuButtonProps) => (
                         <SplitButton
                             menuButton={triggerProps}
-                            aria-label="Insert Link" 
                             primaryActionButton={{
                                 icon: <ImageRegular className={styles.icon} />,
                                 size: 'small',
@@ -55,12 +60,33 @@ export const InsertImageButton: React.FC<InsertImageButtonProps> = ({ editor, ha
                                     if (fileInputRef.current) {
                                         fileInputRef.current.click();
                                     }
-                                }
+                                },
+                                ref: popoverTriggerButtonRef
                             }}
-                        >
-                        </SplitButton>
+                        />
                     )}
-                </PopoverTrigger>
+                </MenuTrigger>
+
+                <MenuPopover>
+                    <MenuList>
+                        <MenuItem onClick={() => setIsLinkImporterOpen(true)}>Import image using link</MenuItem>
+                        <MenuItem onClick={() => {
+                            setImageBorder(editor, {
+                                style: "solid",
+                                width: "1px",
+                                color: "black"
+                            });
+                        }}>Set image border</MenuItem>
+                    </MenuList>
+                </MenuPopover>
+            </Menu>
+
+
+            <Popover trapFocus
+                open={isLinkImporterOpen}
+                onOpenChange={(_, data) => setIsLinkImporterOpen(data.open)}
+                positioning={{ positioningRef: popoverPositioningRef }}
+            >
 
                 <PopoverSurface>
                     <div style={{ display: "flex", flexDirection: "column", gap: tokens.spacingHorizontalS }}>

@@ -12,25 +12,35 @@ export interface HeadingLevelProps {
     fontSize: string;
 }
 
-const FontSizesOptions = [8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48, 60, 72];
+const FontSizesOptions = ["8pt", "9pt", "10pt", "11pt", "12pt", "14pt", "16pt", "18pt", "20pt", "24pt"];
 
-export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, fontSize = 14, handleChange }) => {
-
+export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, fontSize = "14pt", handleChange }) => {
     const styles = useIconStyles();
+    const [selectedFontSize, setSelectedFontSize] = React.useState<string[]>([fontSize]);
+
+    React.useEffect(() => {
+        if (fontSize) {
+            setSelectedFontSize([fontSize]);
+        }
+    }, [fontSize]);
+
+    const selectedValue = selectedFontSize?.[0] || "12pt";
+
     return (
         <>
             <Dropdown
                 size="small"
                 className={styles.dropdown}
-                value={`${fontSize}`}
-                selectedOptions={[`${fontSize}`]}
+                value={selectedValue}
+                selectedOptions={selectedFontSize}
                 onOptionSelect={(_, data) => {
-                    setFontSize(editor, `${data.optionValue}pt`);
+                    setSelectedFontSize([`${data.optionValue}`]);
+                    setFontSize(editor, `${data.optionValue}`);
                     // handleChange?.();
                 }}
                 listbox={{
                     style: {
-                        maxHeight: "200px",
+                        maxHeight: "200px", 
                         overflowY: "auto",
                     },
 
@@ -38,7 +48,7 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
             >
                 <For each={FontSizesOptions}>
                     {
-                        (fontSizeOption) => (<Option key={fontSizeOption} value={`${fontSizeOption}`} text={`${fontSizeOption}`}>{fontSizeOption}pt</Option>)
+                        (fontSizeOption) => (<Option key={fontSizeOption} value={`${fontSizeOption}`} text={`${fontSizeOption}`}>{fontSizeOption}</Option>)
                     }
                 </For>
             </Dropdown>

@@ -178,7 +178,7 @@ export const ReactHookForm = () => {
 
   // console.log("formValue", testForm.watch());
 
-  const value = testForm.watch('firstName2');
+  // const value = testForm.watch('firstName2');
 
   return (
     <>
@@ -213,7 +213,7 @@ export const ReactHookForm = () => {
 
         <RichInput showRibbon={true} label={<>Large Label</>} name={"firstName4"} size="large" placeholder='Enter First Name'/> */}
 
-        <div dangerouslySetInnerHTML={{ __html: value }}></div>
+        {/* <div dangerouslySetInnerHTML={{ __html: value }}></div> */}
 
         <div>
           <strong>Text Value:</strong>
