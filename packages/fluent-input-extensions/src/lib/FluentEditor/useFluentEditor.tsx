@@ -3,7 +3,7 @@ import { FluentEditorProps, FontSizeOption } from "./FluentEditorTypes";
 import { FieldControlProps, TextareaProps, tokens, useId } from "@fluentui/react-components";
 import { DOMEventRecord, EditorOptions, EditorPlugin, IEditor } from "roosterjs-content-model-types";
 import { Editor, createModelFromHtml, exportContent } from "roosterjs-content-model-core";
-import { TableEditPlugin, ShortcutPlugin, EditPlugin } from "roosterjs-content-model-plugins";
+import { TableEditPlugin, ShortcutPlugin, WatermarkPlugin } from "roosterjs-content-model-plugins";
 
 
 function defaultEditorCreator(div: HTMLDivElement, options: EditorOptions): IEditor {
@@ -71,8 +71,11 @@ export function useFluentEditor(props: FluentEditorProps, ref: React.ForwardedRe
         if (editorDiv.current) {
             const plugins: EditorPlugin[] = [
                 new TableEditPlugin(),
-                new ShortcutPlugin(),
-                new EditPlugin(), 
+                new ShortcutPlugin(), 
+                new WatermarkPlugin(`${props.placeholder || ""}`, {
+                    fontSize: tokens.fontSizeBase300,
+                    textColor: tokens.colorNeutralForeground3,
+                }),
             ];
 
             const defaultEditor = defaultEditorCreator(editorDiv.current, {

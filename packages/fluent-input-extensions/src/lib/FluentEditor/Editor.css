@@ -1,15 +1,3 @@
-div[contenteditable="true"]::before {
-    content: attr(data-placeholder);
-    color: var(--colorNeutralForeground4);
-    opacity: 1;
-    text-overflow: inherit;
-    overflow-wrap: normal;
-    line-height: initial !important;
-    -webkit-user-modify: read-only !important;
-    white-space: pre;
-    overflow: hidden;
-}
-
 #textColorInput{
     border-radius: 50%;
     height: 60px;

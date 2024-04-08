@@ -58,6 +58,7 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
                 icon={<FontIncreaseFilled className={styles.icon} />}
                 onClick={() => {
                     changeFontSize(editor, "increase"); 
+                    setSpacing(editor, selectedValue);
                 }}
                 size="small"
             />
@@ -69,6 +70,7 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
                 icon={<FontDecreaseFilled className={styles.icon} />}
                 onClick={() => {
                     changeFontSize(editor, "decrease"); 
+                    setSpacing(editor, selectedValue);
                 }}
                 size="small"
             />

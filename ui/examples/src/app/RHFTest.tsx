@@ -207,6 +207,8 @@ export const ReactHookForm = () => {
 
         <br />
 
+        <RichInput showRibbon={true} ribbonPosition='top' label={<>Medium Label</>} name={"firstName3"} size="medium" placeholder='Enter First Name'/>
+
         {/* <RichInput showRibbon={true} label={<>Medium Label</>} name={"firstName3"} size="medium" placeholder='Enter First Name'/>
 
         <br />

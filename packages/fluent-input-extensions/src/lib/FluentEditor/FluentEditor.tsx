@@ -14,8 +14,7 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
         id,
         editorDiv,
         textareaProps,
-        fieldProps,
-        showPlaceholder,
+        fieldProps, 
         hasFocus,
         handleChange,
         handleFocus,
@@ -34,6 +33,8 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
         "--darkColor__000000" : tokens.colorNeutralForeground1,
         backgroundColor: tokens.colorNeutralBackground1,
         color: tokens.colorNeutralForeground1,
+
+        ...(props.style || {}),
     } as React.CSSProperties;
 
     useEditorStaticStyles();
@@ -46,15 +47,14 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
                 </div>
             </Show>
             <div
-                {...textareaProps as unknown as React.HTMLAttributes<HTMLDivElement>}
-                {...fieldProps}
                 id={id}
+                {...textareaProps as unknown as React.HTMLAttributes<HTMLDivElement>}
+                {...fieldProps} 
                 ref={editorDiv}
                 tabIndex={0}
                 className={mergeClasses(styles.editor, styles[size])}
                 onBlur={handleBlur}
-                onFocus={handleFocus}
-                data-placeholder={!showPlaceholder || hasFocus ? "" : textareaProps.placeholder}
+                onFocus={handleFocus} 
                 contentEditable={!disabled && !readOnly}
                 style={themeInfoStyles}
             />
