@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * debounceAsync(func, [wait=0], [options={}])
  *
@@ -9,6 +8,7 @@
  * @param {cancelObj} [options.cancelObj='canceled'] Specify the error object to be rejected.
  * @returns {Function} Returns the new debounced function.
  */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function debounceAsync<T, TFuncParams extends any[]>(
   callback: (...args: TFuncParams) => Promise<T>,
   wait = 0,
@@ -41,8 +41,7 @@ export function debounceAsync<T, TFuncParams extends any[]>(
           wait
         );
       });
-    } catch (e) {
-      console.error(e);
+    } catch (e) { 
       return;
     }
   };

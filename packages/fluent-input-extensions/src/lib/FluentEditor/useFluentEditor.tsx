@@ -1,6 +1,6 @@
 import * as React from "react";
-import { FluentEditorProps } from "./FluentEditorTypes";
-import { FieldControlProps, TextareaProps, useId } from "@fluentui/react-components";
+import { FluentEditorProps, FontSizeOption } from "./FluentEditorTypes";
+import { FieldControlProps, TextareaProps, tokens, useId } from "@fluentui/react-components";
 import { DOMEventRecord, EditorOptions, EditorPlugin, IEditor } from "roosterjs-content-model-types";
 import { Editor, createModelFromHtml, exportContent } from "roosterjs-content-model-core";
 
@@ -77,11 +77,14 @@ export function useFluentEditor(props: FluentEditorProps, ref: React.ForwardedRe
     React.useEffect(() => {
         if (editorDiv.current) {
             const defaultEditor = defaultEditorCreator(editorDiv.current, {
-                initialModel: createModelFromHtml(props.value || "", {
-                     
-                }),
+                initialModel: createModelFromHtml(props.value || ""),
                 plugins: plugins, 
-                 
+                defaultSegmentFormat: {
+                    fontSize: FontSizeOption[size] || "12pt",
+                    fontFamily: "Segoe UI",
+                    textColor: tokens.colorNeutralForeground1,
+                    backgroundColor: tokens.colorNeutralBackground1,                    
+                }
             });
 
             // attach event to default editor
@@ -101,9 +104,8 @@ export function useFluentEditor(props: FluentEditorProps, ref: React.ForwardedRe
                     }
                 },
             }
-            defaultEditor.attachDomEvent(domEvent);
-            defaultEditor.setEditorStyle("fontSize", "14pt");
-            defaultEditor.setDarkModeState(true);
+            defaultEditor.attachDomEvent(domEvent); 
+            defaultEditor.setDarkModeState(false);
             editor.current = defaultEditor;
 
             if (focusOnInit) {

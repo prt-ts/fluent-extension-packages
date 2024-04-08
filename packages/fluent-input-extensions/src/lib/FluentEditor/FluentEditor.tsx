@@ -2,7 +2,7 @@ import React from 'react';
 import "./Editor.css";
 import { FluentEditorRibbon } from './Ribbon';
 import { Show } from '@prt-ts/react-control-flow';
-import { mergeClasses } from '@fluentui/react-components';
+import { mergeClasses, tokens } from '@fluentui/react-components';
 import { FluentEditorProps } from './FluentEditorTypes';
 import { useEditorStaticStyles, useEditorStyle } from './useFluentEditorStyles';
 import { useFluentEditor } from './useFluentEditor'; 
@@ -29,6 +29,13 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
         readOnly,
     } = useFluentEditor(props, ref);
 
+    const themeInfoStyles = {
+        "--darkColor__ffffff" : tokens.colorNeutralBackground1,
+        "--darkColor__000000" : tokens.colorNeutralForeground1,
+        backgroundColor: tokens.colorNeutralBackground1,
+        color: tokens.colorNeutralForeground1,
+    } as React.CSSProperties;
+
     useEditorStaticStyles();
     const styles = useEditorStyle();
     return (
@@ -49,6 +56,7 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
                 onFocus={handleFocus}
                 data-placeholder={!showPlaceholder || hasFocus ? "" : textareaProps.placeholder}
                 contentEditable={!disabled && !readOnly}
+                style={themeInfoStyles}
             />
             <Show when={!!editor?.current && showRibbonAll && ribbonPosition === "bottom"}>
                 <div className={mergeClasses(styles[ribbonPosition])}>

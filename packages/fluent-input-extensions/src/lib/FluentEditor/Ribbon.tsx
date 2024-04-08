@@ -29,10 +29,13 @@ import {
     TextGrammarArrowLeftFilled,
     TextGrammarArrowRightFilled,
     TextSubscriptFilled,
-    TextSuperscriptFilled
+    TextSuperscriptFilled,
+    ArrowUndoRegular,
+    ArrowRedoRegular
 } from "@fluentui/react-icons";
 import { ChooseFontColor, ChooseHighlightColor, HeadingLevel, InsertImageButton, InsertLinkButton, InsertTableButton, SetFontSizeFormatter, TextAlign, TextCapitalization } from "./EditorButtons";
 import { useFormatState } from "./useFormatState";
+import { redo, undo } from "roosterjs-content-model-core";
 
 /* eslint-disable */
 type FluentEditorRibbonProps = {
@@ -82,6 +85,11 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
         backgroundColor,
         textAlign,
         headingLevel,
+        imageFormat,
+        canUndo,
+        canRedo,
+        canUnlink,
+        canAddImageAltText
     }: ContentModelFormatState = useFormatState(editor!, value!);
     const styles = useRibbonStyle()
     return (
@@ -90,6 +98,31 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 aria-label="Text Formatting Toolbar"
                 className={styles.toolbar}
             >
+                <Tooltip content={<>Undo</>} relationship='label'>
+                    <Button
+                        aria-label="Bold"
+                        icon={<ArrowUndoRegular className={styles.icon} />}
+                        disabled={!canUndo}
+                        onClick={async () => {
+                           undo(editor!);
+                        }}
+                        size="small"
+                    />
+                </Tooltip>
+                <Tooltip content={<>Redo</>} relationship='label'>
+                    <Button
+                        aria-label="Italic"
+                        icon={<ArrowRedoRegular className={styles.icon} />}
+                        disabled={!canRedo}
+                        onClick={() => {
+                            redo(editor!);
+                        }}
+                        size="small"
+                    />
+                </Tooltip>
+
+                <Divider vertical className={styles.divider} />
+
                 <Tooltip content={<>Toggle Bold</>} relationship='label'>
                     <ToggleButton
                         aria-label="Bold"
@@ -237,10 +270,10 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Divider vertical className={styles.divider} />
 
                 {/* insert image */}
-                <InsertImageButton editor={editor!} handleChange={handleChange} /> 
+                <InsertImageButton editor={editor!} handleChange={handleChange} imageFormat={imageFormat} /> 
 
                 {/* insert link */}
-                <InsertLinkButton editor={editor!} handleChange={handleChange} />
+                <InsertLinkButton editor={editor!} handleChange={handleChange} canUnlink={canUnlink}/>
 
                 <Tooltip content={<>Block Quote</>} relationship='label'>
                     <ToggleButton

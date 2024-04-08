@@ -21,11 +21,18 @@ export function useFormatState(editor: IEditor, value: string): ContentModelForm
         backgroundColor = "rgba(255, 255, 255, 0.5)",
         textAlign = "left",
         headingLevel = 0,
+        imageFormat = {},
+        canUndo = false,
+        canRedo = false,
+        canUnlink = false,
     }: ContentModelFormatState = React.useMemo(() => {
         if (!editor) {
             return {};
         }
-        return getFormatState(editor);        
+        const formats = getFormatState(editor);   
+        console.log(formats);
+        
+        return formats;
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [value]);
@@ -47,6 +54,10 @@ export function useFormatState(editor: IEditor, value: string): ContentModelForm
         backgroundColor,
         textAlign,
         headingLevel,
+        imageFormat,
+        canRedo,
+        canUndo,
+        canUnlink,
     };
 
 }

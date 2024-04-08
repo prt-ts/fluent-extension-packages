@@ -7,10 +7,11 @@ import { insertLink, removeLink } from 'roosterjs-content-model-api';
 
 export interface InsertLinkButtonProps {
     editor: IEditor;
+    canUnlink?: boolean;
     handleChange: () => void;
 }
 
-export const InsertLinkButton: React.FC<InsertLinkButtonProps> = ({ editor, handleChange }) => {
+export const InsertLinkButton: React.FC<InsertLinkButtonProps> = ({ editor, canUnlink, handleChange }) => {
 
     const [isLinkEditorOpen, setIsLinkEditorOpen] = React.useState<boolean>(false);
 
@@ -97,6 +98,7 @@ export const InsertLinkButton: React.FC<InsertLinkButtonProps> = ({ editor, hand
                                 handleChange?.();
                             }}
                             icon={<LinkDismissRegular />}
+                            disabled={!canUnlink}
                         >
                             Remove Link
                         </MenuItem>

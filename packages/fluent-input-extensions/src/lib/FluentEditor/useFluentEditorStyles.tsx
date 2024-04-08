@@ -62,7 +62,8 @@ export const useEditorStyle = makeStyles({
         ...shorthands.borderRadius(tokens.borderRadiusMedium), 
         ...shorthands.border(0),
 
-        backgroundColor: "transparent",
+        backgroundColor: `${tokens.colorNeutralBackground1}!important`,
+        color: `${tokens.colorNeutralForeground1}!important`,
     },
 
     small: {

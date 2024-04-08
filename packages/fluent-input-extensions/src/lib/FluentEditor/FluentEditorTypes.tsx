@@ -8,4 +8,10 @@ export type FluentEditorProps = {
     ribbonPosition?: "top" | "bottom";
     showRibbon?: boolean;
     size?: "small" | "medium" | "large";
-} & Omit<TextareaProps, "onChange" | "onBlur" | "value"> & FieldControlProps
+} & Omit<TextareaProps, "onChange" | "onBlur" | "value"> & FieldControlProps;
+
+export const FontSizeOption = {
+    small: "10pt",
+    medium: "13pt",
+    large: "16pt",
+}

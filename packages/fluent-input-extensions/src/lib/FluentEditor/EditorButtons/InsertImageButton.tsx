@@ -3,14 +3,15 @@ import { ImageRegular } from '@fluentui/react-icons';
 import React from 'react';
 import { insertImage, setImageBorder } from 'roosterjs-content-model-api';
 import { useIconStyles } from './useIconStyles';
-import { IEditor } from 'roosterjs-content-model-types';
+import { IEditor, ImageFormatState } from 'roosterjs-content-model-types';
 
 export interface InsertImageButtonProps {
     editor: IEditor;
     handleChange: () => void;
+    imageFormat?: ImageFormatState;
 }
 
-export const InsertImageButton: React.FC<InsertImageButtonProps> = ({ editor, handleChange }) => {
+export const InsertImageButton: React.FC<InsertImageButtonProps> = ({ editor, handleChange, imageFormat }) => {
 
     const [isLinkImporterOpen, setIsLinkImporterOpen] = React.useState(false);
 
@@ -69,14 +70,25 @@ export const InsertImageButton: React.FC<InsertImageButtonProps> = ({ editor, ha
 
                 <MenuPopover>
                     <MenuList>
-                        <MenuItem onClick={() => setIsLinkImporterOpen(true)}>Import image using link</MenuItem>
-                        <MenuItem onClick={() => {
+                        <MenuItem onClick={() => setIsLinkImporterOpen(true)}>Import image</MenuItem>
+                        <MenuItem 
+                            disabled={!imageFormat || imageFormat?.borderWidth === "1px"}
+                            onClick={() => {
                             setImageBorder(editor, {
                                 style: "solid",
                                 width: "1px",
                                 color: "black"
                             });
-                        }}>Set image border</MenuItem>
+                        }}>Set border</MenuItem>
+                        <MenuItem
+                            disabled={!imageFormat || imageFormat?.borderWidth !== "1px"}
+                            onClick={() => {
+                                setImageBorder(editor, {
+                                    style: "solid",
+                                    width: "0px",
+                                    color: "black"
+                                });
+                            }}>Remove border</MenuItem>
                     </MenuList>
                 </MenuPopover>
             </Menu>

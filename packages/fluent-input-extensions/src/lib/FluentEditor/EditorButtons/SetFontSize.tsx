@@ -1,10 +1,10 @@
-import { Button, Dropdown, Option } from '@fluentui/react-components';
+import { Button, Dropdown, Option, Tooltip } from '@fluentui/react-components';
 import React from 'react';
-import { changeFontSize, setFontSize } from 'roosterjs-content-model-api';
+import { changeFontSize, setFontSize, setSpacing } from 'roosterjs-content-model-api';
 import { useIconStyles } from './useIconStyles';
 import { IEditor } from 'roosterjs-content-model-types';
 import { For } from '@prt-ts/react-control-flow';
-import { TextFontRegular, TextFontSizeFilled } from '@fluentui/react-icons';
+import { FontDecreaseFilled, FontIncreaseFilled } from '@fluentui/react-icons';
 
 export interface HeadingLevelProps {
     editor: IEditor;
@@ -12,7 +12,7 @@ export interface HeadingLevelProps {
     fontSize: string;
 }
 
-const FontSizesOptions = ["8pt", "9pt", "10pt", "11pt", "12pt", "14pt", "16pt", "18pt", "20pt", "24pt"];
+const FontSizesOptions = ["8pt", "9pt", "10pt", "11pt", "12pt", "14pt", "16pt", "18pt", "20pt", "24pt", "36pt", "54pt", "72pt"];
 
 export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, fontSize = "14pt", handleChange }) => {
     const styles = useIconStyles();
@@ -35,8 +35,8 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
                 selectedOptions={selectedFontSize}
                 onOptionSelect={(_, data) => {
                     setSelectedFontSize([`${data.optionValue}`]);
-                    setFontSize(editor, `${data.optionValue}`);
-                    // handleChange?.();
+                    setSpacing(editor, `${data.optionValue}`);
+                    setFontSize(editor, `${data.optionValue}`); 
                 }}
                 listbox={{
                     style: {
@@ -52,25 +52,27 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
                     }
                 </For>
             </Dropdown>
+            <Tooltip content={<>Increase font size</>} relationship='label'>
             <Button
                 aria-label="increase font size"
-                icon={<TextFontSizeFilled className={styles.icon} />}
+                icon={<FontIncreaseFilled className={styles.icon} />}
                 onClick={() => {
-                    changeFontSize(editor, "increase");
-                    // handleChange?.();
+                    changeFontSize(editor, "increase"); 
                 }}
                 size="small"
             />
+            </Tooltip>
 
+            <Tooltip content={<>Decrease font size</>} relationship='label'>
             <Button
                 aria-label="decrease font size"
-                icon={<TextFontRegular className={styles.icon} />}
+                icon={<FontDecreaseFilled className={styles.icon} />}
                 onClick={() => {
-                    changeFontSize(editor, "decrease");
-                    // handleChange?.();
+                    changeFontSize(editor, "decrease"); 
                 }}
                 size="small"
             />
+            </Tooltip>
         </>
     );
 
