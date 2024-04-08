@@ -25,13 +25,20 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
                 value={`${fontSize}`}
                 selectedOptions={[`${fontSize}`]}
                 onOptionSelect={(_, data) => {
-                    setFontSize(editor, `${data.optionValue}`);
-                    handleChange?.();
+                    setFontSize(editor, `${data.optionValue}pt`);
+                    // handleChange?.();
+                }}
+                listbox={{
+                    style: {
+                        maxHeight: "200px",
+                        overflowY: "auto",
+                    },
+
                 }}
             >
                 <For each={FontSizesOptions}>
                     {
-                        (fontSizeOption) => (<Option key={fontSizeOption} value={`${fontSizeOption}`} text={`${fontSizeOption}`}>{fontSizeOption}</Option>)
+                        (fontSizeOption) => (<Option key={fontSizeOption} value={`${fontSizeOption}`} text={`${fontSizeOption}`}>{fontSizeOption}pt</Option>)
                     }
                 </For>
             </Dropdown>

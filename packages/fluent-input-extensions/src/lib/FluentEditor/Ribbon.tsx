@@ -31,7 +31,7 @@ import {
     TextSubscriptFilled,
     TextSuperscriptFilled
 } from "@fluentui/react-icons";
-import { ChooseFontColor, ChooseHighlightColor, HeadingLevel, InsertImageButton, InsertLinkButton, InsertTableButton, TextAlign, TextCapitalization } from "./EditorButtons";
+import { ChooseFontColor, ChooseHighlightColor, HeadingLevel, InsertImageButton, InsertLinkButton, InsertTableButton, SetFontSizeFormatter, TextAlign, TextCapitalization } from "./EditorButtons";
 import { useFormatState } from "./useFormatState";
 
 /* eslint-disable */
@@ -139,7 +139,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                     />
                 </Tooltip>
 
-                {/* <SetFontSizeFormatter editor={editor!} handleChange={handleChange} fontSize={fontSize || "14"} /> */}
+                <SetFontSizeFormatter editor={editor!} handleChange={handleChange} fontSize={fontSize || "14"} />
 
                 <Divider vertical className={styles.divider} />
 

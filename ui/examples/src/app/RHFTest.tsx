@@ -176,7 +176,7 @@ export const ReactHookForm = () => {
     ];
   }, []);
 
-  console.log("formValue", testForm.watch());
+  // console.log("formValue", testForm.watch());
 
   const value = testForm.watch('firstName2');
 
