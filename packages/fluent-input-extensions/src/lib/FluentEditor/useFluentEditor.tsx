@@ -3,6 +3,7 @@ import { FluentEditorProps, FontSizeOption } from "./FluentEditorTypes";
 import { FieldControlProps, TextareaProps, tokens, useId } from "@fluentui/react-components";
 import { DOMEventRecord, EditorOptions, EditorPlugin, IEditor } from "roosterjs-content-model-types";
 import { Editor, createModelFromHtml, exportContent } from "roosterjs-content-model-core";
+import { TableEditPlugin, ShortcutPlugin, EditPlugin } from "roosterjs-content-model-plugins";
 
 
 function defaultEditorCreator(div: HTMLDivElement, options: EditorOptions): IEditor {
@@ -66,16 +67,14 @@ export function useFluentEditor(props: FluentEditorProps, ref: React.ForwardedRe
         onBlur && onBlur(e);
     };
 
-    const plugins: EditorPlugin[] = [
-        //    new WatermarkPlugin("Type something here...", {
-        //     fontFamily: "Arial",
-        //     fontSize: "12px",
-        //     textColor: "#c0c0c0",
-        //    })
-    ]
-
     React.useEffect(() => {
         if (editorDiv.current) {
+            const plugins: EditorPlugin[] = [
+                new TableEditPlugin(),
+                new ShortcutPlugin(),
+                new EditPlugin(), 
+            ];
+
             const defaultEditor = defaultEditorCreator(editorDiv.current, {
                 initialModel: createModelFromHtml(props.value || ""),
                 plugins: plugins, 
@@ -84,7 +83,7 @@ export function useFluentEditor(props: FluentEditorProps, ref: React.ForwardedRe
                     fontFamily: "Segoe UI",
                     textColor: tokens.colorNeutralForeground1,
                     backgroundColor: tokens.colorNeutralBackground1,                    
-                }
+                },
             });
 
             // attach event to default editor
@@ -162,8 +161,7 @@ export function useFluentEditor(props: FluentEditorProps, ref: React.ForwardedRe
         editor,
         internalValue,
         setInternalValue,
-        defaultEditorCreator,
-        plugins,
+        defaultEditorCreator, 
         focusOnInit,
         disabled,
         readOnly,

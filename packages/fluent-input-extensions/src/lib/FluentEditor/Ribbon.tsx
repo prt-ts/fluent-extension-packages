@@ -98,31 +98,6 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 aria-label="Text Formatting Toolbar"
                 className={styles.toolbar}
             >
-                <Tooltip content={<>Undo</>} relationship='label'>
-                    <Button
-                        aria-label="Bold"
-                        icon={<ArrowUndoRegular className={styles.icon} />}
-                        disabled={!canUndo}
-                        onClick={async () => {
-                           undo(editor!);
-                        }}
-                        size="small"
-                    />
-                </Tooltip>
-                <Tooltip content={<>Redo</>} relationship='label'>
-                    <Button
-                        aria-label="Italic"
-                        icon={<ArrowRedoRegular className={styles.icon} />}
-                        disabled={!canRedo}
-                        onClick={() => {
-                            redo(editor!);
-                        }}
-                        size="small"
-                    />
-                </Tooltip>
-
-                <Divider vertical className={styles.divider} />
-
                 <Tooltip content={<>Toggle Bold</>} relationship='label'>
                     <ToggleButton
                         aria-label="Bold"
@@ -315,6 +290,31 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                         size="small"
                     />
                 </Tooltip>
+
+                <Divider vertical className={styles.divider} />
+                <Tooltip content={<>Undo</>} relationship='label'>
+                    <Button
+                        aria-label="Bold"
+                        icon={<ArrowUndoRegular className={styles.icon} />}
+                        disabled={!canUndo}
+                        onClick={async () => {
+                           undo(editor!);
+                        }}
+                        size="small"
+                    />
+                </Tooltip>
+                <Tooltip content={<>Redo</>} relationship='label'>
+                    <Button
+                        aria-label="Italic"
+                        icon={<ArrowRedoRegular className={styles.icon} />}
+                        disabled={!canRedo}
+                        onClick={() => {
+                            redo(editor!);
+                        }}
+                        size="small"
+                    />
+                </Tooltip>
+
             </Toolbar>
 
         </div>
