@@ -27,7 +27,8 @@ export function usePeopleInput(
     tagPickerInputProps,
     showSecondaryText,
   } = usePeopleInputDefault(props);
-  const isReadOnly = value.length >= max || props.disabled || props.readOnly;
+
+  const reachMaxSelection = value?.length >= max;
 
   const [searchedUsers, setSearchedUsers] = React.useState<UserInfo[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -67,6 +68,8 @@ export function usePeopleInput(
 
         if (result?.error && result.error.length > 0) {
           props.onInternalError?.(result.error);
+        }else{
+          props.onInternalError?.(undefined);
         }
 
       } catch (error: any) {
@@ -168,7 +171,7 @@ export function usePeopleInput(
     tagPickerInputProps,
     tagPickerProps,
     children,
-    isReadOnly,
+    reachMaxSelection,
     pickerType,
     layout,
     handleOptionSelect,

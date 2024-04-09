@@ -29,10 +29,14 @@ export const PeoplePickerField = React.forwardRef<
 
   const inputId = useId("people-picker");
   const {
-    form: { control, setError },
+    form: { control, setError, clearErrors },
   } = useFormContext();
 
-  const onError = (errorMessage: string) => {
+  const onError = (errorMessage?: string) => {
+    if(!errorMessage) {
+      clearErrors(name);
+      return;    
+    };
     setError(name, { type: "manual", message: errorMessage }, { shouldFocus: true });
   };
 

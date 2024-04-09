@@ -50,7 +50,7 @@ type LocalPeopleInputProps = {
    * For example, you can use this callback to show a toast notification
    * when an internal error occurs
    */
-  onInternalError?: (errorMessage: string) => void;
+  onInternalError?: (errorMessage?: string) => void;
 
   /**
    * If true, multiple users can be selected

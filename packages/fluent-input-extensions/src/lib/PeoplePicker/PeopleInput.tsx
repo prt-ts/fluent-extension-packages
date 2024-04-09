@@ -32,7 +32,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
       handleQueryChange,
       onUserSelectionChange,
       removeSelectedUser,
-      isReadOnly,
+      reachMaxSelection,
       pickerType,
       layout,
       query,
@@ -92,11 +92,12 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
               ref={inputRef}
               value={query}
               onChange={async (e) => handleQueryChange(e.target.value)}
-              readOnly={isReadOnly}
-              placeholder={isReadOnly && selectedOptions?.length > 0 ? "" : tagPickerInputProps.placeholder}
+              readOnly={props.readOnly || reachMaxSelection}
+              disabled={props.disabled}
+              placeholder={reachMaxSelection && selectedOptions?.length > 0 ? "" : tagPickerInputProps.placeholder}
             />
           </TagPickerControl>
-          <Show when={!isReadOnly && !tagPickerInputProps.readOnly}>
+          <Show when={!reachMaxSelection && !tagPickerInputProps.readOnly}>
             <TagPickerList className={styles.optionList}>
               {children}
             </TagPickerList>

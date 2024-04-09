@@ -83,7 +83,7 @@ const onResolveUsers = async (users: UserInfo[]) => {
 
   return {
     resolvedUserInfo: users,
-    error: `Error resolving user: ${lastUser.name}`
+    error: users?.length < 2 ? `Error resolving user: ${lastUser.name}` : null,
   }; 
 }
 
@@ -597,7 +597,8 @@ export const ReactHookForm = () => {
           }}
         />
 
-        <TimePicker name={'timePickerValue'} label={'Time Picker'} />
+        <DatePicker name={'datePickerValue'} label={'Date Picker'} />
+        <TimePicker name={'timePickerValue'} dateAnchorName={'datePickerValue'} label={'Time Picker'} />
 
         <Button type="submit" appearance="primary">
           Submit

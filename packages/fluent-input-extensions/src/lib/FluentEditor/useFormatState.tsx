@@ -30,7 +30,7 @@ export function useFormatState(editor: IEditor, value: string): ContentModelForm
             return {};
         }
         const formats = getFormatState(editor);   
-        console.log(formats);
+        // console.log(formats);
         
         return formats;
     },
