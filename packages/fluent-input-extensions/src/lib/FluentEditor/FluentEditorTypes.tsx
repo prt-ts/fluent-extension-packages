@@ -11,7 +11,7 @@ export type FluentEditorProps = {
 } & Omit<TextareaProps, "onChange" | "onBlur" | "value"> & FieldControlProps;
 
 export const FontSizeOption = {
-    small: "10pt",
-    medium: "13pt",
-    large: "16pt",
+    small: "9pt",
+    medium: "12pt",
+    large: "14pt",
 }

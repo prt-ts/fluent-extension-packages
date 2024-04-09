@@ -8,6 +8,7 @@ export const defaultValues: IFormInput = {
   firstName: '',
   firstName1: '',
   firstName2: 'Hello <b>World</b>',
+  firstName3: "",
   lastName: '',
   iceCreamType: { label: '', value: '' },
   arrayItem: [],

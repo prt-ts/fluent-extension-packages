@@ -45,6 +45,9 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
                     },
 
                 }}
+                button={{
+                    className : styles.buttonContent,
+                }}
             >
                 <For each={FontSizesOptions}>
                     {

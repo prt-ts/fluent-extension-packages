@@ -35,6 +35,9 @@ export const HeadingLevel: React.FC<HeadingLevelProps> = ({ editor, headingLevel
                 setHeadingLevel(editor, parseInt(data.optionValue ?? "0") as HeadingLevelProps["headingLevel"]);
                 handleChange?.();
             }}
+            button={{
+                className : styles.buttonContent,
+            }}
         >
             <For each={headingLevelOptions}>
                 {

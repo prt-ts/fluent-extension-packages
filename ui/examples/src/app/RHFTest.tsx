@@ -178,7 +178,7 @@ export const ReactHookForm = () => {
 
   // console.log("formValue", testForm.watch());
 
-  // const value = testForm.watch('firstName2');
+  const value = testForm.watch('firstName2');
 
   return (
     <>
@@ -203,11 +203,11 @@ export const ReactHookForm = () => {
           autoComplete='false' /> */}
 
         <br />
-        <RichInput showRibbon={true} label={<>Small Label</>} name={"firstName2"} placeholder='Enter First Name' size='medium' style={{ minHeight: "30vh"}}/>
+        <RichInput showRibbon={true} ribbonPosition='top' label={<>Small Label</>} name={"firstName2"} placeholder='Enter First Name' size='medium' style={{ minHeight: "30vh"}}/>
 
         <br />
 
-        <RichInput showRibbon={true} ribbonPosition='top' label={<>Medium Label</>} name={"firstName3"} size="medium" placeholder='Enter First Name'/>
+        <RichInput showRibbon={true} ribbonPosition='bottom' label={<>Medium Label</>} name={"firstName3"} size="large" placeholder='Enter First Name'/>
 
         {/* <RichInput showRibbon={true} label={<>Medium Label</>} name={"firstName3"} size="medium" placeholder='Enter First Name'/>
 
@@ -215,7 +215,7 @@ export const ReactHookForm = () => {
 
         <RichInput showRibbon={true} label={<>Large Label</>} name={"firstName4"} size="large" placeholder='Enter First Name'/> */}
 
-        {/* <div dangerouslySetInnerHTML={{ __html: value }}></div> */}
+        <div dangerouslySetInnerHTML={{ __html: value }}></div>
 
         <div>
           <strong>Text Value:</strong>

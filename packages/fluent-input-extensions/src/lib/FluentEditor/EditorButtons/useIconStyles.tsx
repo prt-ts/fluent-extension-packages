@@ -9,5 +9,12 @@ export const useIconStyles = makeStyles({
     },
     dropdown: {
         minWidth: tokens.spacingHorizontalM,
-    }
+    },
+
+    buttonContent: {
+        display: "flex",
+        ":before": {
+            content: "''!important", 
+        },
+    },
 });

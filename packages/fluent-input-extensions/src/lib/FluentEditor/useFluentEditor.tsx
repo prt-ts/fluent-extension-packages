@@ -74,7 +74,7 @@ export function useFluentEditor(props: FluentEditorProps, ref: React.ForwardedRe
                 new ShortcutPlugin(), 
                 new WatermarkPlugin(`${props.placeholder || ""}`, {
                     fontSize: tokens.fontSizeBase300,
-                    textColor: tokens.colorNeutralForeground3,
+                    textColor: tokens.colorNeutralForeground3,                    
                 }),
             ];
 
@@ -85,7 +85,14 @@ export function useFluentEditor(props: FluentEditorProps, ref: React.ForwardedRe
                     fontSize: FontSizeOption[size] || "12pt",
                     fontFamily: "Segoe UI",
                     textColor: tokens.colorNeutralForeground1,
-                    backgroundColor: tokens.colorNeutralBackground1,                    
+                    backgroundColor: tokens.colorNeutralBackground1, 
+                    fontWeight: tokens.fontWeightRegular,
+                    italic: false,
+                    underline: false,
+                    strikethrough: false,
+                    letterSpacing: "normal",
+                    lineHeight: "normal",
+                    superOrSubScriptSequence: "normal" 
                 },
             });
 

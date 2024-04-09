@@ -1,5 +1,4 @@
-import React from 'react';
-import "./Editor.css";
+import React from 'react'; 
 import { FluentEditorRibbon } from './Ribbon';
 import { Show } from '@prt-ts/react-control-flow';
 import { mergeClasses, tokens } from '@fluentui/react-components';
