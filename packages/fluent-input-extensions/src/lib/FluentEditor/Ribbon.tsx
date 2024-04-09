@@ -292,6 +292,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 </Tooltip>
 
                 <Divider vertical className={styles.divider} />
+                
                 <Tooltip content={<>Undo</>} relationship='label'>
                     <Button
                         aria-label="Bold"
