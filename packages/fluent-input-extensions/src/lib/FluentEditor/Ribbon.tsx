@@ -149,7 +149,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
 
                 <SetFontSizeFormatter editor={editor!} handleChange={handleChange} fontSize={fontSize || "14"} />
 
-                <Divider vertical className={styles.divider} />
+                <div><Divider vertical className={styles.divider} /></div>
 
                 {/* font color */}
                 <ChooseFontColor editor={editor!} handleChange={handleChange} fontColor={textColor || "#000000"} />
@@ -165,7 +165,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
 
                 <HeadingLevel editor={editor!} handleChange={handleChange} headingLevel={headingLevel as any} />
 
-                <Divider vertical className={styles.divider} />
+                <div><Divider vertical className={styles.divider} /></div>
 
                 <Tooltip content={<>Increase Indent</>} relationship='label'>
                     <ToggleButton
@@ -242,7 +242,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                     />
                 </Tooltip>
 
-                <Divider vertical className={styles.divider} />
+                <div><Divider vertical className={styles.divider} /></div>
 
                 {/* insert image */}
                 <InsertImageButton editor={editor!} handleChange={handleChange} imageFormat={imageFormat} /> 
@@ -291,7 +291,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                     />
                 </Tooltip>
 
-                <Divider vertical className={styles.divider} />
+                <div><Divider vertical className={styles.divider} /></div>
                 
                 <Tooltip content={<>Undo</>} relationship='label'>
                     <Button

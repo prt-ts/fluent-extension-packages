@@ -118,7 +118,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
                 value={user.loginName}
                 type="button"
                 size="small"
-                dismissible={!props.disabled && !props.disabled} 
+                dismissible={!(props.disabled || props.readOnly)} 
               >
                 {user.name}
               </Tag>

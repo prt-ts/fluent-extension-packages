@@ -37,7 +37,7 @@ export function usePeopleInput(
     e,
     data
   ) => {
-    if (isReadOnly) {
+    if (props.disabled || props.readOnly) {
       return;
     }
     const matchUsers = [...searchedUsers, ...(suggestions || [])].filter(
@@ -60,7 +60,7 @@ export function usePeopleInput(
     let resolvedUsers: UserInfo[] = uniqueUsers;
 
     // resolve users
-    if (onResolveUsers) {
+    if (onResolveUsers && uniqueUsers?.length > 0) {
       try {
         const result = await onResolveUsers(uniqueUsers);
         resolvedUsers = result.resolvedUserInfo; 

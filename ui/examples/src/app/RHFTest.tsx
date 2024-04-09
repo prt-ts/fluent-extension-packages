@@ -189,6 +189,7 @@ export const ReactHookForm = () => {
       <Form form={testForm} onSubmit={onSubmit}>
 
         <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} multiselect readOnly={isView} placeholder='Search users' />
+        <PeoplePicker name={'peoplePicker1'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} readOnly={isView} placeholder='Search users' />
 
         <GroupedTagPicker />
         {/* <Input
