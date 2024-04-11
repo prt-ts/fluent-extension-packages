@@ -38,6 +38,8 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
                     setSelectedFontSize([`${data.optionValue}`]);
                     setSpacing(editor, `${data.optionValue}`);
                     setFontSize(editor, `${data.optionValue}`); 
+
+                    editor?.focus?.();
                 }}
                 listbox={{
                     style: {
@@ -63,6 +65,9 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
                 onClick={() => {
                     changeFontSize(editor, "increase"); 
                     setSpacing(editor, selectedValue);
+
+                    // focus
+                    editor?.focus?.();
                 }}
                 size="small"
                 appearance="subtle"
@@ -76,6 +81,9 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
                 onClick={() => {
                     changeFontSize(editor, "decrease"); 
                     setSpacing(editor, selectedValue);
+
+                    // focus
+                    editor?.focus?.();
                 }}
                 size="small"
                 appearance="subtle"

@@ -23,10 +23,12 @@ const headingLevelOptions: ChoiceOption[] = [
 
 export const HeadingLevel: React.FC<HeadingLevelProps> = ({ editor, headingLevel = "0", handleChange }) => {
 
+    const dropdownRef = React.useRef<HTMLButtonElement>(null);
     const styles = useIconStyles();
     const value = React.useMemo(() => headingLevelOptions?.find(l => +l.value === +headingLevel)?.label, [headingLevel]);
     return (
         <Dropdown
+            ref={dropdownRef}
             size="small"
             appearance="filled-lighter"
             className={styles.dropdown}
@@ -35,6 +37,12 @@ export const HeadingLevel: React.FC<HeadingLevelProps> = ({ editor, headingLevel
             onOptionSelect={(_, data) => {
                 setHeadingLevel(editor, parseInt(data.optionValue ?? "0") as HeadingLevelProps["headingLevel"]);
                 handleChange?.();
+
+                // remove focus from dropdown
+                dropdownRef?.current?.blur();
+
+                // set focus back to editor
+                editor?.focus?.();
             }}
             button={{
                 className : styles.buttonContent,
