@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-input-extensions",
-  "version": "9.47.5-build.2.0",
+  "version": "9.47.5-build.4.0",
   "description": "Fluent UI Input Extensions",
   "dependencies": {
     "@fluentui/react-tag-picker-preview": "latest",
