@@ -28,6 +28,7 @@ export const HeadingLevel: React.FC<HeadingLevelProps> = ({ editor, headingLevel
     return (
         <Dropdown
             size="small"
+            appearance="filled-lighter"
             className={styles.dropdown}
             value={value || ""}
             selectedOptions={[headingLevel?.toString()]}

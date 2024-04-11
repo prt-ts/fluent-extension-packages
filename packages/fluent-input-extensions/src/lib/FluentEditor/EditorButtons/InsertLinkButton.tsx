@@ -50,6 +50,7 @@ export const InsertLinkButton: React.FC<InsertLinkButtonProps> = ({ editor, canU
                         <Input size={"small"} placeholder='Display Title' ref={titleRef} />
                         <Checkbox id={id} defaultChecked={true} ref={inNewWindowRef} label={<>Open in new tab</>} />
                         <Button
+                            appearance="subtle"
                             onClick={() => {
                                 const link = linkRef.current?.value;
                                 const altText = altTextRef.current?.value;
@@ -79,6 +80,7 @@ export const InsertLinkButton: React.FC<InsertLinkButtonProps> = ({ editor, canU
                 <MenuTrigger disableButtonEnhancement>
                     {(triggerProps: MenuButtonProps) => (
                         <SplitButton
+                        appearance="subtle"
                             menuButton={triggerProps}
                             primaryActionButton={{
                                 ref: popoverTriggerButtonRef,

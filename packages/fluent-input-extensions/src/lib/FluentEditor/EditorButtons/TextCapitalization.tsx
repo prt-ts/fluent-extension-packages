@@ -18,6 +18,7 @@ export const TextCapitalization: React.FC<TextCapitalizationProps> = ({ editor, 
             <MenuTrigger disableButtonEnhancement>
                 <Tooltip content={<>Text Capitalization</>} relationship='label'>
                     <Button
+                        appearance="subtle"
                         icon={{
                             children: (
                                 <TextEditStyleFilled className={styles.icon} />

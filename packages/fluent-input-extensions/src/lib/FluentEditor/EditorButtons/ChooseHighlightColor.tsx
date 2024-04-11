@@ -34,6 +34,7 @@ export const ChooseHighlightColor: React.FC<InsertImageButtonProps> = ({ editor,
             <PopoverTrigger disableButtonEnhancement>
                 <Tooltip content={<>Highlight Color</>} relationship='label'>
                     <Button
+                    appearance="subtle"
                         aria-label="Highlight Color"
                         icon={<ColorBackgroundFilled className={styles.icon} />}
                         size="small"

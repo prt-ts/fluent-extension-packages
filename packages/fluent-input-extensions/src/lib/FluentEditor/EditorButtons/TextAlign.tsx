@@ -45,6 +45,7 @@ export const TextAlign: React.FC<TextAlignProps> = ({ editor, handleChange, text
                         ),
                     }}
                         size="small"
+                        appearance="subtle"
                     />
                 </Tooltip>
             </MenuTrigger>

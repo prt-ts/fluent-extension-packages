@@ -53,6 +53,7 @@ export const InsertImageButton: React.FC<InsertImageButtonProps> = ({ editor, ha
                 <MenuTrigger disableButtonEnhancement>
                     {(triggerProps: MenuButtonProps) => (
                         <SplitButton
+                        appearance="subtle"
                             menuButton={triggerProps}
                             primaryActionButton={{
                                 icon: <ImageRegular className={styles.icon} />,

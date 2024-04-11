@@ -63,6 +63,7 @@ export const InsertTableButton: React.FC<InsertTableButtonProps> = ({ editor, ha
             <PopoverTrigger disableButtonEnhancement>
                 <Tooltip content={<>Insert Table</>} relationship='label'>
                     <Button
+                        appearance="subtle"
                         aria-label="Code Block"
                         icon={<TableRegular className={styles.icon} />}
                         name="additionalFormat"

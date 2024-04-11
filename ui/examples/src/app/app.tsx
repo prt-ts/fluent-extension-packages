@@ -16,6 +16,7 @@ import { TableExample2 } from './TableExample2';
 import { EditableGrid } from './EditableGrid/EditableGrid';
 import { seedUserInfo } from './data/UserInfo';
 import { useEffect } from 'react';
+import { InputExample } from './RHFormExamples/Input';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -52,6 +53,7 @@ const router = createBrowserRouter(
       <Route path="/page-5" element={<Features />} />
       <Route path="/sign-up" element={<SignUpForm />} />
       <Route path="/controls" element={<Controls />} />
+      <Route path="/rhf/input" element={<InputExample />} />
     </>
   )
 );

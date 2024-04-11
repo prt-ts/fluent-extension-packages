@@ -59,6 +59,7 @@ export const ChooseFontColor: React.FC<InsertImageButtonProps> = ({ editor, hand
             <PopoverTrigger disableButtonEnhancement>
                 <Tooltip content={<>Text Color</>} relationship='label'>
                     <Button
+                        appearance="subtle"
                         aria-label="Font Color"
                         icon={<TextColorFilled className={styles.icon} primaryFill={fontColor} />}
                         size="small"

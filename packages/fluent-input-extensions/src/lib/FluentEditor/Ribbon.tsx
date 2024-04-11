@@ -101,6 +101,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Toggle Bold</>} relationship='label'>
                     <ToggleButton
                         aria-label="Bold"
+                        appearance="subtle"
                         icon={<TextBoldRegular className={styles.icon} />}
                         checked={isBold}
                         onClick={async () => {
@@ -113,6 +114,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Toggle Italic</>} relationship='label'>
                     <ToggleButton
                         aria-label="Italic"
+                        appearance="subtle"
                         icon={<TextItalicRegular className={styles.icon} />}
                         checked={isItalic}
                         onClick={() => {
@@ -125,6 +127,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Toggle Underline</>} relationship='label'>
                     <ToggleButton
                         aria-label="Underline"
+                        appearance="subtle"
                         icon={<TextUnderlineRegular className={styles.icon} />}
                         checked={isUnderline}
                         onClick={() => {
@@ -137,6 +140,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Toggle Strike Through</>} relationship='label'>
                     <ToggleButton
                         aria-label="strikeThrough"
+                        appearance="subtle"
                         icon={<TextStrikethroughRegular className={styles.icon} />}
                         checked={isStrikeThrough}
                         onClick={() => {
@@ -170,6 +174,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Increase Indent</>} relationship='label'>
                     <ToggleButton
                         aria-label="Indent"
+                        appearance="subtle"
                         icon={<TextGrammarArrowLeftFilled className={styles.icon} />}
                         onClick={() => {
                             setIndentation(editor!, "indent");
@@ -181,6 +186,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Decrease Indent</>} relationship='label'>
                     <ToggleButton
                         aria-label="Decrease Indent"
+                        appearance="subtle"
                         icon={<TextGrammarArrowRightFilled className={styles.icon} />}
                         onClick={() => {
                             setIndentation(editor!, "outdent");
@@ -193,6 +199,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Number List</>} relationship='label'>
                     <ToggleButton
                         aria-label="Number List"
+                        appearance="subtle"
                         icon={<TextNumberListLtrRegular className={styles.icon} />}
                         checked={isNumbering}
                         onClick={() => {
@@ -206,6 +213,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Bullet List</>} relationship='label'>
                     <ToggleButton
                         aria-label="Bullet List"
+                        appearance="subtle"
                         icon={<TextBulletListRegular className={styles.icon} />}
                         checked={isBullet}
                         onClick={() => {
@@ -219,6 +227,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Superscript</>} relationship='label'>
                     <ToggleButton
                         aria-label="Superscript"
+                        appearance="subtle"
                         icon={<TextSuperscriptFilled className={styles.icon} />}
                         checked={isSuperscript}
                         onClick={() => {
@@ -232,6 +241,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Subscript</>} relationship='label'>
                     <ToggleButton
                         aria-label="Subscript"
+                        appearance="subtle"
                         icon={<TextSubscriptFilled className={styles.icon} />}
                         checked={isSubscript}
                         onClick={() => {
@@ -253,6 +263,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Block Quote</>} relationship='label'>
                     <ToggleButton
                         aria-label="Block Quote"
+                        appearance="subtle"
                         icon={<TextQuoteRegular className={styles.icon} />}
                         checked={isBlockQuote}
                         onClick={() => {
@@ -269,6 +280,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Code Block</>} relationship='label'>
                     <ToggleButton
                         aria-label="Code Block"
+                        appearance="subtle"
                         icon={<CodeFilled className={styles.icon} />}
                         checked={isCodeBlock}
                         onClick={() => {
@@ -282,6 +294,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Clear Format</>} relationship='label'>
                     <Button
                         aria-label="Clear Format"
+                        appearance="subtle"
                         icon={<ClearFormattingRegular className={styles.icon} />}
                         onClick={() => {
                             clearFormat(editor!);
@@ -296,6 +309,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Undo</>} relationship='label'>
                     <Button
                         aria-label="Bold"
+                        appearance="subtle"
                         icon={<ArrowUndoRegular className={styles.icon} />}
                         disabled={!canUndo}
                         onClick={async () => {
@@ -307,6 +321,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 <Tooltip content={<>Redo</>} relationship='label'>
                     <Button
                         aria-label="Italic"
+                        appearance="subtle"
                         icon={<ArrowRedoRegular className={styles.icon} />}
                         disabled={!canRedo}
                         onClick={() => {

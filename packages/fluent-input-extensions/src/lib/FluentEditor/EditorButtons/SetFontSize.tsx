@@ -30,6 +30,7 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
         <>
             <Dropdown
                 size="small"
+                appearance="filled-lighter"
                 className={styles.dropdown}
                 value={selectedValue}
                 selectedOptions={selectedFontSize}
@@ -64,6 +65,7 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
                     setSpacing(editor, selectedValue);
                 }}
                 size="small"
+                appearance="subtle"
             />
             </Tooltip>
 
@@ -76,6 +78,7 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
                     setSpacing(editor, selectedValue);
                 }}
                 size="small"
+                appearance="subtle"
             />
             </Tooltip>
         </>
