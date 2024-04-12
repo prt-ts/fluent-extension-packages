@@ -21,11 +21,12 @@ const useInputStyles = makeStyles({
         width: '100%',
         height: '100%',
         ...shorthands.padding("5px", "10px"),
-        boxShadow: tokens.shadow2,
+        // boxShadow: tokens.shadow2,
+        backgroundColor: tokens.colorNeutralBackground2,
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
 
         ":hover": {
-            backgroundColor: tokens.colorNeutralBackground1,
+            backgroundColor: tokens.colorNeutralBackground2,
         }
         
     },
