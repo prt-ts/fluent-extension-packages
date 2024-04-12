@@ -7,7 +7,7 @@ import {
   tokens,
   useId,
 } from "@fluentui/react-components";
-import { InfoLabel, InfoLabelProps } from "@fluentui/react-components"; 
+import { InfoLabel, InfoLabelProps } from "@fluentui/react-components";
 import { Controller } from "react-hook-form";
 import { PeopleInput, PeopleInputProps, PeopleInputRef } from "@prt-ts/fluent-input-extensions";
 import { useFormContext } from "../Form";
@@ -33,9 +33,9 @@ export const PeoplePickerField = React.forwardRef<
   } = useFormContext();
 
   const onError = (errorMessage?: string) => {
-    if(!errorMessage) {
+    if (!errorMessage) {
       clearErrors(name);
-      return;    
+      return;
     };
     setError(name, { type: "manual", message: errorMessage }, { shouldFocus: true });
   };
@@ -73,22 +73,27 @@ export const PeoplePickerField = React.forwardRef<
             required={required}
             style={{ padding: 0, margin: 0 }}
           >
-            <PeopleInput
-              {...peoplePickerProps}
-              id={inputId}
-              value={value}
-              onUserSelectionChange={(users) => {
-                onChange(users);
-                if (peoplePickerProps?.onUserSelectionChange) {
-                  peoplePickerProps?.onUserSelectionChange?.(users);
-                }
-              }}
-              onBlur={onBlur}
-              onInternalError={onError}
-              ref={ref || fieldRef}
-              style={style}
-              className={className}
-            />
+            {
+              (fieldProps) => (
+                <PeopleInput
+                  {...peoplePickerProps}
+                  {...fieldProps}
+                  id={inputId}
+                  value={value}
+                  onUserSelectionChange={(users) => {
+                    onChange(users);
+                    if (peoplePickerProps?.onUserSelectionChange) {
+                      peoplePickerProps?.onUserSelectionChange?.(users);
+                    }
+                  }}
+                  onBlur={onBlur}
+                  onInternalError={onError}
+                  ref={ref || fieldRef}
+                  style={style}
+                  className={className}
+                />
+              )
+            }
           </Field>
         );
       }}

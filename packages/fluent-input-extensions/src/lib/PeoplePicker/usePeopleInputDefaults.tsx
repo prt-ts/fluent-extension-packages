@@ -5,6 +5,7 @@ import {
   TagPickerProps,
 } from "@fluentui/react-tag-picker-preview";
 import { UserInfo } from "@prt-ts/types";
+import { FieldControlProps } from "@fluentui/react-components";
 
 /* eslint-disable  */
 export function usePeopleInputDefault(props: PeopleInputProps) {
@@ -26,7 +27,8 @@ export function usePeopleInputDefault(props: PeopleInputProps) {
   } = props;
 
   const tagPickerProps: TagPickerProps = rest as TagPickerProps;
-  const tagPickerInputProps: TagPickerInputProps = rest as TagPickerInputProps;
+  const tagPickerInputProps: TagPickerInputProps = rest as TagPickerInputProps; 
+  const fieldControlProps : FieldControlProps = rest as FieldControlProps;
 
   return {
     value,
@@ -41,6 +43,7 @@ export function usePeopleInputDefault(props: PeopleInputProps) {
     layout,
     tagPickerProps,
     tagPickerInputProps,
+    fieldControlProps,
     showSecondaryText,
   };
 }

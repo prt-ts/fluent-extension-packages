@@ -13,8 +13,7 @@ import Features from './examples/FeatureComp/Features';
 import DummyEditPage from './DummyEditPage';
 import Controls from './examples/Control/Controls';
 import { TableExample2 } from './TableExample2';
-import { EditableGrid } from './EditableGrid/EditableGrid';
-import { seedUserInfo } from './data/UserInfo';
+import { EditableGrid } from './EditableGrid/EditableGrid'; 
 import { useEffect } from 'react';
 import { InputExample } from './RHFormExamples/Input';
 

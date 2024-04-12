@@ -24,14 +24,14 @@ import {
   Radio,
   PeoplePicker,
 } from '@prt-ts/fluent-react-hook-form';
-import { Fragment, useCallback, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 // import { DevTool } from '@hookform/devtools';
 
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
-import { debouncedSearchUserInfo } from './data/UserInfo';
+import { debouncedSearchUserInfo, seedUserInfo } from './data/UserInfo';
 import { UserInfo } from '@prt-ts/types';
 import { GroupedTagPicker } from './examples/PeoplePicker/PeoplePicker';
 
@@ -93,6 +93,10 @@ export const ReactHookForm = () => {
   const onSubmit = useCallback((data: IFormInput) => {
     console.log(data);
   }, []);
+
+  useEffect(() => {
+    seedUserInfo(100);
+  }, []); 
 
   const values = useDefaultValues();
 
@@ -189,7 +193,7 @@ export const ReactHookForm = () => {
       <Form form={testForm} onSubmit={onSubmit}>
 
         <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} multiselect readOnly={isView} placeholder='Search users' />
-        <PeoplePicker name={'peoplePicker1'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} readOnly={isView} placeholder='Search users' />
+        <PeoplePicker name={'peoplePicker1'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} readOnly={isView} placeholder='Search users' pickerType='list'/>
 
         <GroupedTagPicker />
         {/* <Input

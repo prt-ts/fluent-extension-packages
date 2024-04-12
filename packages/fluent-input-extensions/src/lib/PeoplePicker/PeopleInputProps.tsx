@@ -1,3 +1,4 @@
+import { FieldControlProps } from "@fluentui/react-components";
 import {
   TagPickerInputProps,
   TagPickerProps,
@@ -97,7 +98,7 @@ type LocalPeopleInputProps = {
 
 export type PeopleInputProps = LocalPeopleInputProps &
   Omit<TagPickerProps, "children" | "value"> &
-  Omit<TagPickerInputProps, "value">;
+  Omit<TagPickerInputProps, "value"> & FieldControlProps;
 
 export type PeopleInputRef = {
   /**

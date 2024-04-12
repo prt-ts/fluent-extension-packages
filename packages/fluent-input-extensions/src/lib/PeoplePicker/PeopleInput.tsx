@@ -7,12 +7,14 @@ import {
   TagPickerGroup,
 } from "@fluentui/react-tag-picker-preview";
 import {
-  Tag,
   Avatar,
   Button,
   Tooltip,
   TagGroup,
   mergeClasses,
+  InteractionTag,
+  InteractionTagPrimary,
+  InteractionTagSecondary,
 } from "@fluentui/react-components";
 import { Show } from "@prt-ts/react-control-flow";
 import { PeopleInputProps, PeopleInputRef } from "./PeopleInputProps";
@@ -28,6 +30,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
       selectedOptions,
       tagPickerInputProps,
       tagPickerProps,
+      fieldControlProps,
       handleOptionSelect,
       handleQueryChange,
       onUserSelectionChange,
@@ -44,6 +47,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
       <>
         <TagPicker
           {...tagPickerProps}
+          {...fieldControlProps}
           onOptionSelect={handleOptionSelect}
           selectedOptions={selectedOptions}
           freeform
@@ -75,15 +79,20 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
                 className={mergeClasses(styles[pickerType], styles[layout])}
               >
                 {(value || []).map((user) => (
-                  <Tag
+                  <InteractionTag
                     key={user.loginName}
                     shape="circular"
-                    media={<Avatar name={user.name} color="colorful" />}
+
                     value={user.loginName}
-                    type="button"
                   >
-                    {user.name}
-                  </Tag>
+                    <InteractionTagPrimary
+                      media={<Avatar name={user.name} color="colorful" />}
+                      hasSecondaryAction
+                    >
+                      {user.name}
+                    </InteractionTagPrimary>
+                    <InteractionTagSecondary aria-label="remove" />
+                  </InteractionTag >
                 ))}
               </TagPickerGroup>
             </Show>
@@ -112,17 +121,20 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
             className={mergeClasses(styles[pickerType], styles[layout])}
           >
             {(value || []).map((user) => (
-              <Tag
+              <InteractionTag
                 key={user.loginName}
                 shape="circular"
-                media={<Avatar name={user.name} color="colorful" />}
-                value={user.loginName}
-                type="button"
                 size="small"
-                dismissible={!(props.disabled || props.readOnly)} 
+                value={user.loginName}
               >
-                {user.name}
-              </Tag>
+                <InteractionTagPrimary
+                  media={<Avatar name={user.name} color="colorful" />}
+                  hasSecondaryAction
+                >
+                  {user.name}
+                </InteractionTagPrimary>
+                <InteractionTagSecondary aria-label="remove" />
+              </InteractionTag >
             ))}
           </TagGroup>
         </Show>
