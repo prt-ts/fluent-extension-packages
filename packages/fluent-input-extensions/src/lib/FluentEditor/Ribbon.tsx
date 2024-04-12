@@ -36,6 +36,7 @@ import {
 import { ChooseFontColor, ChooseHighlightColor, HeadingLevel, InsertImageButton, InsertLinkButton, InsertTableButton, SetFontSizeFormatter, TextAlign, TextCapitalization } from "./EditorButtons";
 import { useFormatState } from "./useFormatState";
 import { redo, undo } from "roosterjs-content-model-core";
+import { DocPopover } from "./EditorButtons/DocPopover";
 
 /* eslint-disable */
 type FluentEditorRibbonProps = {
@@ -98,7 +99,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                 aria-label="Text Formatting Toolbar"
                 className={styles.toolbar}
             >
-                <Tooltip content={<>Toggle Bold</>} relationship='label'>
+                <Tooltip content={<>Toggle Bold (ctrl + B)</>} relationship='label'>
                     <ToggleButton
                         aria-label="Bold"
                         appearance="subtle"
@@ -111,7 +112,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                         size="small"
                     />
                 </Tooltip>
-                <Tooltip content={<>Toggle Italic</>} relationship='label'>
+                <Tooltip content={<>Toggle Italic (ctrl + I)</>} relationship='label'>
                     <ToggleButton
                         aria-label="Italic"
                         appearance="subtle"
@@ -124,7 +125,7 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                         size="small"
                     />
                 </Tooltip>
-                <Tooltip content={<>Toggle Underline</>} relationship='label'>
+                <Tooltip content={<>Toggle Underline (ctrl + U)</>} relationship='label'>
                     <ToggleButton
                         aria-label="Underline"
                         appearance="subtle"
@@ -331,6 +332,8 @@ export const FluentEditorRibbon: React.FC<FluentEditorRibbonProps> = (props) => 
                     />
                 </Tooltip>
 
+                <DocPopover />
+                
             </Toolbar>
 
         </div>

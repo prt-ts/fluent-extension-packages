@@ -9,6 +9,7 @@ export type Person = {
   progress: number
   status: 'relationship' | 'complicated' | 'single'
   createdAt: Date,
+  description?: string,
 
   address: {
     street: string,
