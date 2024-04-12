@@ -47,6 +47,7 @@ export const HeadingLevel: React.FC<HeadingLevelProps> = ({ editor, headingLevel
             button={{
                 className : styles.buttonContent,
             }}
+            aria-invalid={false}
         >
             <For each={headingLevelOptions}>
                 {
