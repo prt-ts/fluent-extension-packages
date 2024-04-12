@@ -47,7 +47,8 @@ export function EditableGrid() {
                     return (<GridDropdownCell 
                         name={name}
                         defaultValue={value}
-                        options={["Test 1", "Test 2"]} />)
+                        options={["Test 1", "Test 2"]} 
+                        placeholder="--select--"/>)
                 }
             }),
             columnHelper.accessor((row) => row.lastName, {
@@ -60,7 +61,8 @@ export function EditableGrid() {
                     return (<GridDropdownCell 
                         name={name}
                         defaultValue={value}
-                        options={["Test 1", "Test 2"]} />)
+                        options={["Test 1", "Test 2"]} 
+                        placeholder="--select--"/>)
                 }
             }),
             columnHelper.accessor('age', {
@@ -80,11 +82,11 @@ export function EditableGrid() {
                 filterFn: 'arrIncludesSome',
                 cell: ({ getValue, row: { id: rowId }, column: { id: columnId } }) => {
                     const value = (getValue() || '') as string;
-                    const name = `${rowId}.${columnId}`;
+                    const name = `items.${rowId}.${columnId}`;
                     return (<GridDropdownCell 
                         name={name}
                         defaultValue={value}
-                        options={["Test 1", "Test 2"]} />)
+                        options={["single", "in relationship", "complicated"]} />)
                 }
             }),
             columnHelper.accessor(({ createdAt }) => createdAt ? new Date(createdAt)?.toLocaleDateString() : "", {
@@ -124,7 +126,7 @@ export function EditableGrid() {
     useEffect(
         () => {
             const timeout = setTimeout(() => {
-                setData(() => makeData(10));
+                setData(() => makeData(10_000));
             }, 1000);
 
             return () => clearTimeout(timeout);
@@ -135,7 +137,15 @@ export function EditableGrid() {
 
     const form = useForm({
         values: {
-            items : data || []
+            items : (data || [])?.map((item) => {
+                return {
+                    ...item,
+                    firstName: "",
+                    lastName: "",
+                    age: null,
+                    status: null
+                } as Person
+            })
         },
     })
 

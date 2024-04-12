@@ -1,9 +1,9 @@
-import { Dropdown, Option, Input, makeStyles, shorthands } from '@fluentui/react-components';
+import { Dropdown, Option, Input, makeStyles, shorthands, useRestoreFocusSource, useRestoreFocusTarget, tokens } from '@fluentui/react-components';
 import { useFormContext } from '@prt-ts/fluent-react-hook-form'; 
 import React from 'react';
 import { Controller } from 'react-hook-form';  
 import { DatePicker, DatePickerProps } from '@fluentui/react-datepicker-compat';
-import { For } from '@prt-ts/react-control-flow';
+import { For, Show } from '@prt-ts/react-control-flow';
 
 interface FormElementProps {
     name: string; 
@@ -20,8 +20,19 @@ const useInputStyles = makeStyles({
         cursor: 'pointer',
         width: '100%',
         height: '100%',
-        ...shorthands.padding("5px", "10px")
+        ...shorthands.padding("5px", "10px"),
+        boxShadow: tokens.shadow2,
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+
+        ":hover": {
+            backgroundColor: tokens.colorNeutralBackground1,
+        }
+        
+    },
+    placeholder: {
+        color: tokens.colorNeutralForeground4,
     }
+    
 });
 
 
@@ -93,6 +104,9 @@ export const GridDatePickerCell: React.FC<FormElementProps> = ({ name, defaultVa
     const [isEditMode, setIsEditMode] = React.useState(false);
     const inputRef = React.useRef<HTMLInputElement>(null);
 
+    const focusSourceAttribute = useRestoreFocusSource();
+    const focusTargetAttribute = useRestoreFocusTarget();
+
     const switchToEditMode = () => {
         setIsEditMode(true);
         setTimeout(() => {
@@ -108,7 +122,10 @@ export const GridDatePickerCell: React.FC<FormElementProps> = ({ name, defaultVa
             tabIndex={0}
             onFocus={switchToEditMode}
             onSelect={switchToEditMode}
-            onClick={switchToEditMode}>{defaultValue}
+            onClick={switchToEditMode}
+            {...focusTargetAttribute}
+            >
+                {defaultValue}            
         </div>)
     }
 
@@ -148,6 +165,8 @@ export const GridDatePickerCell: React.FC<FormElementProps> = ({ name, defaultVa
                         input={{
                            className: styles.cell 
                         }}
+                        {...focusSourceAttribute}
+                        placeholder='Select a date'
                     />
                 )
             }}
@@ -158,9 +177,10 @@ type DropdownEditableCellProps ={
     name: string; 
     defaultValue?: string;
     options: string[];
+    placeholder?: string;
 }
 
-export const GridDropdownCell: React.FC<DropdownEditableCellProps> = ({ name, defaultValue, options }) => {
+export const GridDropdownCell: React.FC<DropdownEditableCellProps> = ({ name, defaultValue, placeholder, options }) => {
     const {
         form: { control }
     } = useFormContext();
@@ -184,7 +204,8 @@ export const GridDropdownCell: React.FC<DropdownEditableCellProps> = ({ name, de
             onFocus={switchToEditMode}
             onSelect={switchToEditMode}
             onClick={switchToEditMode}>
-            {defaultValue}
+            <Show when={defaultValue}>{defaultValue}</Show>
+            <Show when={!defaultValue}><span className={styles.placeholder}>{placeholder}</span></Show>
         </div>)
     }
 
@@ -211,6 +232,7 @@ export const GridDropdownCell: React.FC<DropdownEditableCellProps> = ({ name, de
                         defaultOpen={true} 
                         appearance='filled-lighter'
                         className={styles.cell}
+                        placeholder={placeholder}
                     >
                         <For each={options || []}>
                             {(option, index) => (
