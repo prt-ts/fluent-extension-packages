@@ -61,7 +61,7 @@ const router = createBrowserRouter(
 
 export function App() {
   useEffect(() => {
-    seedUserInfo(100);
+    // seedUserInfo(100);
   }, []); 
   return (
     <div>

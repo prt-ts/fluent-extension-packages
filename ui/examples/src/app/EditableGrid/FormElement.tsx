@@ -1,23 +1,20 @@
 import { Dropdown, Option, Input, makeStyles, shorthands } from '@fluentui/react-components';
-import { useFormContext } from '@prt-ts/fluent-react-hook-form';
-import { TableType } from '@prt-ts/fluent-react-table-v2';
+import { useFormContext } from '@prt-ts/fluent-react-hook-form'; 
 import React from 'react';
-import { Controller } from 'react-hook-form';
-import { Person } from '../data/data';
+import { Controller } from 'react-hook-form';  
 import { DatePicker, DatePickerProps } from '@fluentui/react-datepicker-compat';
+import { For } from '@prt-ts/react-control-flow';
 
 interface FormElementProps {
-    name: string;
-    value?: string;
-    table: TableType<Person>;
-    rowId: number;
-    columnId: string;
+    name: string; 
+    defaultValue?: string;
 }
 
 const useInputStyles = makeStyles({
     cell: {
         minWidth: "30px",
         width: "100%",
+        maxWidth: "400px",
     },
     placeholderDiv: {
         cursor: 'pointer',
@@ -28,7 +25,7 @@ const useInputStyles = makeStyles({
 });
 
 
-export const GridInputCell: React.FC<FormElementProps> = ({ name, value, rowId, columnId, table }) => {
+export const GridInputCell: React.FC<FormElementProps> = ({ name, defaultValue }) => {
     const {
         form: { control }
     } = useFormContext();
@@ -40,7 +37,7 @@ export const GridInputCell: React.FC<FormElementProps> = ({ name, value, rowId, 
         setIsEditMode(true);
         setTimeout(() => {
             inputRef.current?.focus();
-        }, 100);
+        }, 0);
     }
 
     const styles = useInputStyles();
@@ -51,7 +48,8 @@ export const GridInputCell: React.FC<FormElementProps> = ({ name, value, rowId, 
             tabIndex={0}
             onFocus={switchToEditMode}
             onSelect={switchToEditMode}
-            onClick={switchToEditMode}>{value}
+            onClick={switchToEditMode}>
+                {defaultValue}
         </div>)
     }
 
@@ -66,31 +64,32 @@ export const GridInputCell: React.FC<FormElementProps> = ({ name, value, rowId, 
                 return (
                     <Input
                         ref={inputRef}
-                        name={name}
-                        onChange={(_, data) => {
-                            onChange(data.value);
-                        }}
+                        name={name} 
                         onFocus={e=>e.target.select()}
                         onBlur={() => {
                             onBlur();
                             setIsEditMode(false);
-                            table.options.meta?.updateData(+rowId, columnId, value)
+                            const value = inputRef.current?.value;
+                            onChange(value); 
                         }}
-                        value={value || ''}
+                        defaultValue={value || ''}
                         required={false}
                         appearance='filled-lighter'
                         className={styles.cell}
+                        input={{
+                            className: styles.cell                        
+                        }}
                     />
                 )
             }}
         />)
 };
 
-export const GridDatePickerCell: React.FC<FormElementProps> = ({ name, value, rowId, columnId, table }) => {
+export const GridDatePickerCell: React.FC<FormElementProps> = ({ name, defaultValue }) => {
     const {
         form: { control }
     } = useFormContext();
-
+ 
     const [isEditMode, setIsEditMode] = React.useState(false);
     const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -98,7 +97,7 @@ export const GridDatePickerCell: React.FC<FormElementProps> = ({ name, value, ro
         setIsEditMode(true);
         setTimeout(() => {
             inputRef.current?.focus();
-        }, 100);
+        }, 0);
     }
 
     const styles = useInputStyles();
@@ -109,7 +108,7 @@ export const GridDatePickerCell: React.FC<FormElementProps> = ({ name, value, ro
             tabIndex={0}
             onFocus={switchToEditMode}
             onSelect={switchToEditMode}
-            onClick={switchToEditMode}>{value}
+            onClick={switchToEditMode}>{defaultValue}
         </div>)
     }
 
@@ -123,42 +122,56 @@ export const GridDatePickerCell: React.FC<FormElementProps> = ({ name, value, ro
 
                 const handleOnChange: DatePickerProps["onSelectDate"] = (date: Date | null | undefined) => {
                     onChange(date || "");
-                    table.options.meta?.updateData(+rowId, columnId, value);
+                    // table.options.meta?.updateData(+rowId, columnId, value);
                     setIsEditMode(false);
                 }
 
                 const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
                     onBlur();
-                    table.options.meta?.updateData(+rowId, columnId, value);
+                    // table.options.meta?.updateData(+rowId, columnId, value);
                     setIsEditMode(false);
                 }
 
                 return (
                     <DatePicker
-                        ref={inputRef || ref}
+                        ref={ref}
                         name={name}
                         onSelectDate={handleOnChange}
+                        onOpenChange={(open) => setIsEditMode(open)}
                         onBlur={handleOnBlur}
                         value={value || ""}
+                        defaultOpen={true}
                         required={false}
+                        className={styles.cell}
+                        allowTextInput
+                        showMonthPickerAsOverlay
+                        input={{
+                           className: styles.cell 
+                        }}
                     />
                 )
             }}
         />)
 };
 
-export const GridDropdownCell: React.FC<FormElementProps> = ({ name, value, rowId, columnId, table }) => {
+type DropdownEditableCellProps ={
+    name: string; 
+    defaultValue?: string;
+    options: string[];
+}
+
+export const GridDropdownCell: React.FC<DropdownEditableCellProps> = ({ name, defaultValue, options }) => {
     const {
         form: { control }
     } = useFormContext();
 
     const [isEditMode, setIsEditMode] = React.useState(false);
-    const inputRef = React.useRef<HTMLButtonElement>(null);
+    const dropdownRef = React.useRef<HTMLButtonElement>(null);
 
     const switchToEditMode = React.useCallback(() => {
         setIsEditMode(true);
         setTimeout(() => {
-            inputRef.current?.focus();
+            dropdownRef.current?.focus();
         }, 0);
     }, []);
 
@@ -170,39 +183,40 @@ export const GridDropdownCell: React.FC<FormElementProps> = ({ name, value, rowI
             tabIndex={0}
             onFocus={switchToEditMode}
             onSelect={switchToEditMode}
-            onClick={switchToEditMode}>{value}
+            onClick={switchToEditMode}>
+            {defaultValue}
         </div>)
     }
 
     return (
-        <Controller
+        <Controller 
             key={name}
             name={name}
             control={control}
-            render={({ field, fieldState }) => {
-                const { onChange, onBlur, value } = field;
-                console.log(name, value)
-                
+            render={({ field }) => {
+                const { onChange, onBlur, value } = field;   
                 return (
                     <Dropdown 
-                        ref={inputRef}
+                        ref={dropdownRef}
                         name={name}
                         onOptionSelect={(_, data) => {
                             onChange(data.optionValue);
                         }} 
                         onBlur={() => {
                             onBlur();
-                            setIsEditMode(false);
-                            table.options.meta?.updateData(+rowId, columnId, value || '')
-                        }}
-                        selectedOptions={[value] || []}
-                        value={value || ''} 
+                            setIsEditMode(false); 
+                        }} 
+                        defaultSelectedOptions={[value] || []}
+                        defaultValue={value || ''}
+                        defaultOpen={true} 
                         appearance='filled-lighter'
                         className={styles.cell}
                     >
-                        <Option key='1' value={value}>{value}</Option>
-                        <Option key='2' value='2'>2</Option>
-                        <Option key='3' value='3'>3</Option>
+                        <For each={options || []}>
+                            {(option, index) => (
+                                <Option key={`${name}_${index}`} value={option}>{option}</Option>
+                            )}
+                        </For>
                     </Dropdown>
                 )
             }}
