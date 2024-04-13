@@ -2,9 +2,9 @@ import * as React from "react";
 import { useFormContext } from "../Form/useFormContext";
 import { useInputStyles } from "./useStyles";
 import { Controller } from "react-hook-form";
-import { Button, Input, Tooltip, tokens } from "@fluentui/react-components";
+import { Input } from "@fluentui/react-components";
 import { Show } from "@prt-ts/react-control-flow";
-import { ErrorCircleRegular } from "@fluentui/react-icons";
+import { useGetErrorContent } from "./useGetErrorContent";
 
 interface GridInputCellProps {
     name: string;
@@ -14,7 +14,7 @@ interface GridInputCellProps {
 
 export const GridInputCell: React.FC<GridInputCellProps> = ({ name, defaultValue, placeholder }) => {
     const {
-        form: { control, getFieldState }
+        form: { control }
     } = useFormContext();
 
     const [isEditMode, setIsEditMode] = React.useState(false);
@@ -27,20 +27,11 @@ export const GridInputCell: React.FC<GridInputCellProps> = ({ name, defaultValue
         }, 0);
     }
 
+    const {
+        errorContent,
+        hasError    
+    } = useGetErrorContent(name);
     const styles = useInputStyles();
-
-    const fieldState = getFieldState(name); 
-    const error = fieldState?.error?.message;
-
-    const errorContent = React.useMemo(() => {
-        if (error) {
-            return (<Tooltip content={error} relationship="description">
-                <Button tabIndex={-1} icon={<ErrorCircleRegular primaryFill={tokens.colorPaletteRedBackground3} />} appearance="transparent" />
-            </Tooltip>)
-        }
-        return null;
-    }, [error]);
-
 
     if (!isEditMode) {
         return (<div
@@ -52,7 +43,7 @@ export const GridInputCell: React.FC<GridInputCellProps> = ({ name, defaultValue
         >
             <Show when={defaultValue}>{defaultValue}</Show>
             <Show when={!defaultValue}><span className={styles.placeholder}>{placeholder}</span></Show>
-            <Show when={error}>
+            <Show when={hasError}>
                 {errorContent}
             </Show>
         </div>)
@@ -73,7 +64,7 @@ export const GridInputCell: React.FC<GridInputCellProps> = ({ name, defaultValue
                         onBlur={() => {
                             onBlur();
                             setIsEditMode(false);
-                            const value = inputRef.current?.value;
+                            const value = inputRef.current?.value?.length ? inputRef.current?.value : null;
                             onChange(value, { shouldValidate: true });
                             // trigger(name);
                         }}

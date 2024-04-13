@@ -5,8 +5,7 @@ import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 export const useInputStyles = makeStyles({
     cell: {
         minWidth: "30px",
-        width: "100%",
-        maxWidth: "400px",
+        width: "100%", 
     },
     placeholderDiv: {
         display: "flex",
@@ -26,6 +25,22 @@ export const useInputStyles = makeStyles({
     },
     placeholder: {
         color: tokens.colorNeutralForegroundDisabled,
+        overflowX: "hidden",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+        maxWidth: "400px",
+    },
+    truncatedText: {
+        overflowX: "hidden",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+        maxWidth: "400px",
+    },
+    listbox: {
+        maxHeight: "300px",
+    }, 
+    error: {
+        color: tokens.colorPaletteRedBackground3,
     }
-    
+
 });

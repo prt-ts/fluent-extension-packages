@@ -137,10 +137,18 @@ export type TableProps<TItem extends RowData> = {
     onTableViewDelete?: (tableView: TableView) => void;
 
     /**
-     * disable table header
+     * remove table header
      */
     disableTableHeader?: boolean;
 
+    /**
+     * remove pagination bar
+     */
+    disablePagination?: boolean;
+
+    /**
+     * Additional settings for the table
+     */
     tableSettings?: TableSettings;
 };
 

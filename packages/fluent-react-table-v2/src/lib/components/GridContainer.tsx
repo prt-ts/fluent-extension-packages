@@ -86,8 +86,10 @@ export function AdvancedTable<TItem extends RowData>(
             applyTableState={applyTableState}
             resetToGridDefaultView={resetToDefaultView} 
           />
-        </div> 
-        <Pagination table={table} />
+        </div>
+        <Show when={!props.disablePagination}>
+          <Pagination table={table} />
+        </Show>
       </SortableContext>
     </DndContext>
   );

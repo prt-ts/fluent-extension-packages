@@ -3,11 +3,12 @@ import { useFormContext } from "../Form/useFormContext";
 import { useInputStyles } from "./useStyles";
 import { For, Show } from "@prt-ts/react-control-flow";
 import { Controller } from "react-hook-form";
-import { Dropdown, Option, Tooltip, tokens } from "@fluentui/react-components";
-import { ChevronDown20Regular, ErrorCircle20Regular } from "@fluentui/react-icons";
+import { Dropdown, Option, tokens } from "@fluentui/react-components";
+import { ChevronDown20Regular } from "@fluentui/react-icons";
+import { useGetErrorContent } from "./useGetErrorContent";
 
-type DropdownEditableCellProps ={
-    name: string; 
+type DropdownEditableCellProps = {
+    name: string;
     defaultValue?: string;
     options: string[];
     placeholder?: string;
@@ -15,7 +16,7 @@ type DropdownEditableCellProps ={
 
 export const GridDropdownCell: React.FC<DropdownEditableCellProps> = ({ name, defaultValue, placeholder, options }) => {
     const {
-        form: { control, getFieldState }
+        form: { control }
     } = useFormContext();
 
     const [isEditMode, setIsEditMode] = React.useState(false);
@@ -28,18 +29,11 @@ export const GridDropdownCell: React.FC<DropdownEditableCellProps> = ({ name, de
         }, 0);
     }, []);
 
+    const {
+        errorContent,
+        hasError
+    } = useGetErrorContent(name);
     const styles = useInputStyles();
-
-    const fieldState = getFieldState(name); 
-    const error = fieldState?.error?.message; 
-    const errorContent = React.useMemo(() => {
-        if (error) {
-            return (<Tooltip content={error} relationship="description">
-                <ErrorCircle20Regular primaryFill={tokens.colorPaletteRedBackground3} />
-            </Tooltip>)
-        }
-        return null;
-    }, [error]);
 
     if (!isEditMode) {
         return (<div
@@ -50,40 +44,40 @@ export const GridDropdownCell: React.FC<DropdownEditableCellProps> = ({ name, de
             onClick={switchToEditMode}>
             <Show when={defaultValue}>{defaultValue}</Show>
             <Show when={!defaultValue}><span className={styles.placeholder}>{placeholder}</span></Show>
-            <Show when={error} fallback={<ChevronDown20Regular primaryFill={tokens.colorNeutralForegroundDisabled}/>}>
+            <Show when={hasError} fallback={<ChevronDown20Regular primaryFill={tokens.colorNeutralForegroundDisabled} />}>
                 {errorContent}
             </Show>
         </div>)
     }
 
     return (
-        <Controller 
+        <Controller
             key={name}
             name={name}
             control={control}
             render={({ field }) => {
-                const { onChange, onBlur, value } = field;   
-                return ( 
-                    <Dropdown 
+                const { onChange, onBlur, value } = field;
+                return (
+                    <Dropdown
                         ref={dropdownRef}
                         name={name}
                         onOptionSelect={(_, data) => {
                             onChange(data.optionValue);
                             // trigger(name);
-                        }} 
+                        }}
                         onBlur={() => {
                             onBlur();
                             onChange(value);
                             setIsEditMode(false);
                             // trigger(name); 
-                        }} 
+                        }}
                         defaultSelectedOptions={[value] || []}
                         defaultValue={value || ''}
-                        defaultOpen={true} 
+                        defaultOpen={true}
                         appearance='filled-lighter'
                         className={styles.cell}
                         placeholder={placeholder}
-                        expandIcon={errorContent ? errorContent: <ChevronDown20Regular />}
+                        expandIcon={errorContent ? errorContent : <ChevronDown20Regular />}
                     >
                         <For each={options || []}>
                             {(option, index) => (

@@ -5,14 +5,15 @@ import { InfoRegular } from '@fluentui/react-icons';
 
 export const DocPopover: React.FC = () => {
     return (
-        <Popover>
+        <Popover withArrow>
             <PopoverTrigger disableButtonEnhancement>
                 <Tooltip content="Keyboard Shortcuts" relationship='label'>
                     <Button icon={<InfoRegular />} appearance='subtle' size='small'/>
                 </Tooltip>
             </PopoverTrigger>
 
-            <PopoverSurface tabIndex={-1}> <EditorShortcutDoc />
+            <PopoverSurface tabIndex={-1} style={{ maxHeight: "400px", overflowY: "auto"}}> 
+                <EditorShortcutDoc />
             </PopoverSurface>
         </Popover>
     );

@@ -2,9 +2,9 @@ import * as React from "react";
 import { useFormContext } from "../Form/useFormContext";
 import { useInputStyles } from "./useStyles";
 import { Controller } from "react-hook-form";
-import { Button, Textarea, Tooltip, tokens } from "@fluentui/react-components";
+import { Textarea, Tooltip } from "@fluentui/react-components";
 import { Show } from "@prt-ts/react-control-flow";
-import { ErrorCircleRegular } from "@fluentui/react-icons";
+import { useGetErrorContent } from "./useGetErrorContent";
 
 interface GridTextareaCellProps {
     name: string;
@@ -15,7 +15,7 @@ interface GridTextareaCellProps {
 
 export const GridTextareaCell: React.FC<GridTextareaCellProps> = ({ name, rows, defaultValue, placeholder }) => {
     const {
-        form: { control, getFieldState }
+        form: { control }
     } = useFormContext();
 
     const [isEditMode, setIsEditMode] = React.useState(false);
@@ -28,20 +28,11 @@ export const GridTextareaCell: React.FC<GridTextareaCellProps> = ({ name, rows, 
         }, 0);
     }
 
+    const {
+        errorContent,
+        hasError    
+    } = useGetErrorContent(name);
     const styles = useInputStyles();
-
-    const fieldState = getFieldState(name); 
-    const error = fieldState?.error?.message;
-
-    const errorContent = React.useMemo(() => {
-        if (error) {
-            return (<Tooltip content={error} relationship="description">
-                <Button tabIndex={-1} icon={<ErrorCircleRegular primaryFill={tokens.colorPaletteRedBackground3} />} appearance="transparent" />
-            </Tooltip>)
-        }
-        return null;
-    }, [error]);
-
 
     if (!isEditMode) {
         return (<div
@@ -51,9 +42,13 @@ export const GridTextareaCell: React.FC<GridTextareaCellProps> = ({ name, rows, 
             onSelect={switchToEditMode}
             onClick={switchToEditMode}
         >
-            <Show when={defaultValue}>{defaultValue}</Show>
+            <Show when={defaultValue}>
+                <Tooltip content={defaultValue || ""} relationship="description">
+                    <span className={styles.truncatedText}>{defaultValue}</span>
+                </Tooltip>
+            </Show>
             <Show when={!defaultValue}><span className={styles.placeholder}>{placeholder}</span></Show>
-            <Show when={error}>
+            <Show when={hasError}>
                 {errorContent}
             </Show>
         </div>)
@@ -70,7 +65,7 @@ export const GridTextareaCell: React.FC<GridTextareaCellProps> = ({ name, rows, 
                     <Textarea
                         ref={inputRef}
                         name={name}
-                        onFocus={e => e.target.select()}
+                        // onFocus={e => e.target.select()}
                         onBlur={() => {
                             onBlur();
                             setIsEditMode(false);

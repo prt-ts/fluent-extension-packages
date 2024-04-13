@@ -10,3 +10,7 @@ export {
  export {
     GridTextareaCell
  } from "./TextareaCell";
+
+ export {
+    GridDatePickerCell
+ } from "./DatePickerCell";
