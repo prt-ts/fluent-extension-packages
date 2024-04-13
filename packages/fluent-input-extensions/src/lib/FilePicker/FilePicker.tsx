@@ -58,8 +58,6 @@ export const FilePicker = React.forwardRef<FilePickerRef, FilePickerProps>((prop
         styles[size]
     );
 
-    console.log("fileRejections", fileRejections);
-
     return (
         <div className={styles.root}>
             <div {...getRootProps({ filepickerstyle })}>
