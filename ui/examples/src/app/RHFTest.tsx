@@ -33,7 +33,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
 import { debouncedSearchUserInfo, seedUserInfo } from './data/UserInfo';
 import { UserInfo } from '@prt-ts/types';
-import { GroupedTagPicker } from './examples/PeoplePicker/PeoplePicker';
+import { GroupedTagPicker } from './examples/PeoplePicker/PeoplePicker'; 
 
 const nameSchema = yup
   .string()
@@ -579,7 +579,7 @@ export const ReactHookForm = () => {
         <FileInput
           name={'attachments'}
           label={<strong>Attachments</strong>}
-          multiple={true}
+          multiple={false}
           maxFiles={3}
           // maxSize={5}
           savedFiles={[
@@ -598,6 +598,15 @@ export const ReactHookForm = () => {
           ]}
           onRemoveSavedFile={(file) => {
             console.log(file);
+          }}
+        />
+
+        <FileInput
+          name={'attachments2'}
+          label={<strong>Attachments 2</strong>} 
+          accept={{
+            "image/": ['image/png', 'image/jpg', 'image/jpeg'],
+            video: ['video/mp4'],
           }}
         />
 

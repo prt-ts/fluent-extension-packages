@@ -18,3 +18,13 @@ export type {
 } from "./FluentEditor";
 
 
+export {
+  FilePicker
+} from "./FilePicker";
+
+export type {
+  FilePickerProps,
+  FilePickerRef
+} from "./FilePicker";
+
+
