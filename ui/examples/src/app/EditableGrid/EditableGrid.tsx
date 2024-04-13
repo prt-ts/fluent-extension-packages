@@ -10,8 +10,9 @@ import { Person, makeData } from "../data/data";
 import { Form, GridDatePickerCell, GridDropdownCell, GridInputCell, GridTextareaCell, useForm, yupResolver } from "@prt-ts/fluent-react-hook-form";
 
 import * as Yup from 'yup';
-import { Button, InfoLabel } from "@fluentui/react-components";
+import { Button, Tooltip } from "@fluentui/react-components";
 import { useAlert } from "@prt-ts/fluent-common-features";
+import { Info20Regular } from "@fluentui/react-icons";
 // define schema for the form
 const schema = Yup.object().shape({
     submitCount: Yup.number(),
@@ -21,8 +22,8 @@ const schema = Yup.object().shape({
             firstName: Yup.string().min(10, "First Name is required"),
             lastName: Yup.string().max(10, "Last Name is required"),
             age: Yup.number().nullable(),//.typeError("Age must be a number").required("Age is required"),
-            status: Yup.string().when('age', ([age]) => {
-                if (age > 18) {
+            status: Yup.string().when(['age', 'firstName', 'lastName'], ([age, firstName, lastName]) => {
+                if (age > 18 && firstName && lastName) {
                     return Yup
                         .string()
                         .required('If age is greater than 18, status is required')
@@ -34,7 +35,18 @@ const schema = Yup.object().shape({
                 }
             }),
             createdAt: Yup.date().nullable().required("Created At is required"),
-            description: Yup.string().nullable(),//.required("Description is required")
+            description: Yup.string().when(['age', 'firstName', 'lastName'], ([...values]) => {
+                if ((values || []).includes("Other")) {
+                    return Yup
+                        .string()
+                        .required('If first name is "Other", description is required')
+                }
+                else {
+                    return Yup
+                        .string()
+                        .nullable();
+                }
+            })
         })
     )
 });
@@ -58,26 +70,59 @@ export function EditableGrid() {
                     return <GridInputCell name={name} defaultValue={value} />
                 },
                 ...disableAllShorthand,
+                enableResizing: true,
+                enableSorting: true,
                 size: 50
             }),
             columnHelper.accessor('firstName', {
                 id: 'firstName',
-                header: () => <InfoLabel label="First Name" info={<>this is first name of the user</>} />,
+                header: () => (<span style={{
+                    display: "flex",
+                    gap: "5px",
+                    alignItems: "center",
+                    justifyContent: "end",
+                    textAlign: "left"
+                }}>
+                    <span>
+                        First Name (With very long text )
+                    </span>
+                    <span>
+                        <Tooltip content={<>this is some help description for header</>} relationship="description">
+                            <Info20Regular />
+                        </Tooltip>
+                    </span>
+                </span>),
                 cell: ({ getValue, row: { id: rowId }, column: { id: columnId } }) => {
                     const value = (getValue() || '') as string;
                     const name = `items.${rowId}.${columnId}`;
                     return (<GridDropdownCell
                         name={name}
                         defaultValue={value}
-                        options={["Pradeep Raj", "Raj Pradeep", "Pradeep", "Raj"]}
+                        options={["Pradeep Raj", "Raj Pradeep", "Pradeep", "Raj", "Other"]}
                         placeholder="--select first name--" />)
                 },
                 ...disableAllShorthand,
+                enableResizing: true,
                 size: 200
             }),
             columnHelper.accessor((row) => row.lastName, {
                 id: 'lastName',
-                header: () => <InfoLabel label="Last Name (With very long text )" info={<>this is last name of the user</>} />,
+                header: () => (<span style={{
+                    display: "flex",
+                    gap: "5px",
+                    alignItems: "center",
+                    justifyContent: "end",
+                    textAlign: "left"
+                }}>
+                    <span>
+                        Last Name (With very long text and info button)
+                    </span>
+                    <span>
+                        <Tooltip content={<>this is some help description for header</>} relationship="description">
+                            <Info20Regular />
+                        </Tooltip>
+                    </span>
+                </span>),
                 cell: ({ getValue, row: { id: rowId }, column: { id: columnId } }) => {
                     const value = (getValue() || '') as string;
                     const name = `items.${rowId}.${columnId}`;
@@ -88,6 +133,7 @@ export function EditableGrid() {
                         placeholder="--select last name--" />)
                 },
                 ...disableAllShorthand,
+                enableResizing: true,
                 size: 200
             }),
             columnHelper.accessor('age', {
@@ -99,6 +145,7 @@ export function EditableGrid() {
                     return <GridInputCell name={name} defaultValue={value} placeholder="--enter age--" />
                 },
                 ...disableAllShorthand,
+                enableResizing: true,
                 size: 100
             }),
             columnHelper.accessor('status', {
@@ -114,6 +161,7 @@ export function EditableGrid() {
                         placeholder="--select status--" />)
                 },
                 ...disableAllShorthand,
+                enableResizing: true,
                 size: 200
             }),
             columnHelper.accessor('description', {
@@ -130,6 +178,7 @@ export function EditableGrid() {
                     />)
                 },
                 ...disableAllShorthand,
+                enableResizing: true,
                 minSize: 300
             }),
             columnHelper.accessor(({ createdAt }) => createdAt ? new Date(createdAt)?.toLocaleDateString() : "", {
@@ -228,7 +277,8 @@ export function EditableGrid() {
                     // disablePagination
                     columnPinningState={{
                         left: ["id"],
-                        right: ["createdAt"]
+                        right: []
+                        // right: ["createdAt"]
                     }}
                     isLoading={!gridData?.length}
                 />

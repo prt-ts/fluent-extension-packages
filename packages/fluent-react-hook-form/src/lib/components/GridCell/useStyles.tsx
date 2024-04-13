@@ -10,6 +10,7 @@ export const useInputStyles = makeStyles({
     placeholderDiv: {
         display: "flex",
         justifyContent: "space-between",
+        alignItems: "start",
         cursor: 'pointer',
         width: '100%',
         height: '100%',
@@ -24,7 +25,7 @@ export const useInputStyles = makeStyles({
         
     },
     placeholder: {
-        color: tokens.colorNeutralForegroundDisabled,
+        color: tokens.colorNeutralForeground4,
         overflowX: "hidden",
         textOverflow: "ellipsis",
         whiteSpace: "nowrap",
@@ -38,9 +39,5 @@ export const useInputStyles = makeStyles({
     },
     listbox: {
         maxHeight: "300px",
-    }, 
-    error: {
-        color: tokens.colorPaletteRedBackground3,
-    }
-
+    } 
 });

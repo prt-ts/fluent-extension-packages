@@ -22,14 +22,18 @@ export function useGetErrorContent(name: string) {
 
     const errorContent = React.useMemo(() => {
         if (error) {
-            return (<Tooltip content={<span className={styles.error}>{error}</span>} relationship="description">
-                <Button tabIndex={-1} icon={<ErrorCircleRegular primaryFill={tokens.colorPaletteRedBackground3} />} appearance="transparent" />
-            </Tooltip>)
+            return (
+                <Tooltip
+                    content={<span className={styles.error}>{error}</span>}
+                    relationship="description">
+                    <Button size="small" tabIndex={-1} icon={<ErrorCircleRegular primaryFill={tokens.colorPaletteRedBackground3} />} appearance="transparent" />
+                </Tooltip>
+            )
         }
         return null;
     },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [error]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [error]);
 
     return {
         hasError : !!error,
