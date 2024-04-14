@@ -14,12 +14,12 @@ import { Button, Tooltip } from "@fluentui/react-components";
 import { useAlert } from "@prt-ts/fluent-common-features";
 import { Info20Regular } from "@fluentui/react-icons";
 // define schema for the form
-const schema = Yup.object().shape({
+const GridFormSchema = Yup.object().shape({
     submitCount: Yup.number(),
     items: Yup.array().of(
         Yup.object().shape({
             id: Yup.number().nullable(),//.required("Id is required"),
-            firstName: Yup.string().min(10, "First Name is required"),
+            firstName: Yup.string().min(2, "First Name is required"),
             lastName: Yup.string(), //.max(10, "Last Name is required"),
             age: Yup.number().nullable(),//.typeError("Age must be a number").required("Age is required"),
             status: Yup.string().when(['age', 'firstName', 'lastName'], ([age, firstName, lastName]) => {
@@ -51,12 +51,23 @@ const schema = Yup.object().shape({
     )
 });
 
-export type PersonFormValue = Yup.InferType<typeof schema>;
+export type PersonFormValue = Yup.InferType<typeof GridFormSchema>;
 export type GridItem = PersonFormValue["items"][0]
 
 export function EditableGrid() {
     const { error: alertError, success: alertSuccess } = useAlert();
     const [data, setData] = useState<Person[]>([]);
+    useEffect(
+        () => {
+            const timeout = setTimeout(() => {
+                setData(() => makeData(500));
+            }, 1000);
+
+            return () => clearTimeout(timeout);
+        },
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+        []
+    );
 
     const columns = React.useMemo(() => {
         const columnHelper = createColumnHelper<GridItem>();
@@ -195,20 +206,8 @@ export function EditableGrid() {
         ] as ColumnDef<Person>[]
     }, []);
 
-    useEffect(
-        () => {
-            const timeout = setTimeout(() => {
-                setData(() => makeData(500));
-            }, 1000);
-
-            return () => clearTimeout(timeout);
-        },
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-        []
-    );
-
     const form = useForm<PersonFormValue>({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(GridFormSchema),
         values: {
             submitCount: 0,
             items: (data || [])?.map((item) => {

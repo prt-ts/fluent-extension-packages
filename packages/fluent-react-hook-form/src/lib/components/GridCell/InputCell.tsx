@@ -55,17 +55,17 @@ export const GridInputCell: React.FC<GridInputCellProps> = ({ name, defaultValue
             name={name}
             control={control}
             render={({ field }) => {
-                const { onChange, onBlur, value } = field;
+                const { onChange, onBlur, value} = field;
                 return (
                     <Input
                         ref={inputRef}
                         name={name}
                         onFocus={e => e.target.select()}
-                        onBlur={() => {
-                            onBlur();
+                        onBlur={() => { 
                             setIsEditMode(false);
                             const value = inputRef.current?.value?.length ? inputRef.current?.value : null;
-                            onChange(value, { shouldValidate: true }); 
+                            onChange(value, { shouldValidate: true });
+                            onBlur();
                         }}
                         defaultValue={value || ''}
                         required={false}

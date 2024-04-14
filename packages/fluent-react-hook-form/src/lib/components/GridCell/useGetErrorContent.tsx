@@ -36,7 +36,7 @@ export function useGetErrorContent(name: string) {
     [error]);
 
     return {
-        hasError : !!error,
+        hasError : fieldState.invalid,
         errorContent
     };
 }

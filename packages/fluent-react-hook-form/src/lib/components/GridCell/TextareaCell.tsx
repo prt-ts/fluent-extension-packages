@@ -65,11 +65,11 @@ export const GridTextareaCell: React.FC<GridTextareaCellProps> = ({ name, rows, 
                     <Textarea
                         ref={inputRef}
                         name={name}
-                        onBlur={() => {
-                            onBlur();
+                        onBlur={() => { 
                             setIsEditMode(false);
-                            const value = inputRef.current?.value;
-                            onChange(value, { shouldValidate: true });
+                            const value = inputRef.current?.textLength ? inputRef.current.value : null;
+                            onChange(value); 
+                            onBlur();
                         }}
                         defaultValue={value || ''}
                         required={false}
