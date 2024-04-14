@@ -35,7 +35,7 @@ export const useInputStyles = makeStyles({
         overflowX: "hidden",
         textOverflow: "ellipsis",
         whiteSpace: "nowrap",
-        maxWidth: "400px",
+        maxWidth: "290px",
     },
     listbox: {
         maxHeight: "300px",

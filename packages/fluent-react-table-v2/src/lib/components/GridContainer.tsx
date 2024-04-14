@@ -12,6 +12,7 @@ import { SortableContext, arrayMove, horizontalListSortingStrategy } from "@dnd-
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers'
 import { RowData } from "@tanstack/react-table";
 import { Show } from "@prt-ts/react-control-flow";
+import { Divider } from "@fluentui/react-components";
 
 export function AdvancedTable<TItem extends RowData>(
   props: TableProps<TItem>,
@@ -87,7 +88,7 @@ export function AdvancedTable<TItem extends RowData>(
             resetToGridDefaultView={resetToDefaultView} 
           />
         </div>
-        <Show when={!props.disablePagination}>
+        <Show when={!props.disablePagination} fallback={<Divider />}>
           <Pagination table={table} />
         </Show>
       </SortableContext>

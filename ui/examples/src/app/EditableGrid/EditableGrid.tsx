@@ -191,7 +191,8 @@ export function EditableGrid() {
                 },
                 ...disableAllShorthand,
                 enableResizing: true,
-                minSize: 300
+                minSize: 300,
+                maxSize: 300
             }),
             columnHelper.accessor(({ createdAt }) => createdAt ? new Date(createdAt)?.toLocaleDateString() : "", {
                 id: 'createdAt',
@@ -212,7 +213,7 @@ export function EditableGrid() {
             submitCount: 0,
             items: (data || [])?.map((item) => {
                 return {
-                    ...item,
+                    id: item.id,
                     firstName: "",
                     lastName: "",
                     age: null,
@@ -222,6 +223,7 @@ export function EditableGrid() {
                 }
             }) as PersonFormValue['items']
         },
+        reValidateMode: "onChange"
     })
 
     const formValue = form.watch();
@@ -264,7 +266,8 @@ export function EditableGrid() {
                     columns={columns}
                     pageSize={1_000_000}
                     tableHeight="750px"
-                    disableTableHeader 
+                    disableTableHeader
+                    disablePagination 
                     columnPinningState={{
                         left: ["id"],
                         right: [] 

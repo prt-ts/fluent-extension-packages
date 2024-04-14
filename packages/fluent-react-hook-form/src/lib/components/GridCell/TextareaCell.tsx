@@ -43,7 +43,13 @@ export const GridTextareaCell: React.FC<GridTextareaCellProps> = ({ name, rows, 
             onClick={switchToEditMode}
         >
             <Show when={defaultValue}>
-                <Tooltip content={defaultValue || ""} relationship="description">
+                <Tooltip 
+                    content={{
+                        children: defaultValue,
+                        style: { minWidth: "400px", maxHeight: "600px", overflow: "auto", whiteSpace: "preserve-breaks" }
+                    }}
+                    showDelay={500}
+                    relationship="description" >
                     <span className={styles.truncatedText}>{defaultValue}</span>
                 </Tooltip>
             </Show>
