@@ -2,7 +2,7 @@ import * as React from "react";
 import { useFormContext } from "../Form/useFormContext";
 import { useInputStyles } from "./useStyles";
 import { Controller } from "react-hook-form";
-import { Input } from "@fluentui/react-components";
+import { Input, mergeClasses } from "@fluentui/react-components";
 import { Show } from "@prt-ts/react-control-flow";
 import { useGetErrorContent } from "./useGetErrorContent";
 
@@ -35,7 +35,7 @@ export const GridInputCell: React.FC<GridInputCellProps> = ({ name, defaultValue
 
     if (!isEditMode) {
         return (<div
-            className={styles.placeholderDiv}
+            className={mergeClasses(styles.placeholderDiv, hasError && styles.highlightError)}
             tabIndex={0}
             onFocus={switchToEditMode}
             onSelect={switchToEditMode}
@@ -65,8 +65,7 @@ export const GridInputCell: React.FC<GridInputCellProps> = ({ name, defaultValue
                             onBlur();
                             setIsEditMode(false);
                             const value = inputRef.current?.value?.length ? inputRef.current?.value : null;
-                            onChange(value, { shouldValidate: true });
-                            // trigger(name);
+                            onChange(value, { shouldValidate: true }); 
                         }}
                         defaultValue={value || ''}
                         required={false}

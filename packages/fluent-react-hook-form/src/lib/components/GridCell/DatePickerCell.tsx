@@ -59,8 +59,7 @@ export const GridDatePickerCell: React.FC<DatePickerCellProps> = ({ name, defaul
                 const { onChange, value } = field;
 
                 const handleOnChange: DatePickerProps["onSelectDate"] = (date: Date | null | undefined) => {
-                    onChange(date || "");
-                    // table.options.meta?.updateData(+rowId, columnId, value);
+                    onChange(date || ""); 
                     setIsEditMode(false);
                 }
 
@@ -69,7 +68,7 @@ export const GridDatePickerCell: React.FC<DatePickerCellProps> = ({ name, defaul
                         ref={inputRef}
                         name={name}
                         onSelectDate={handleOnChange}
-                        onOpenChange={(open) => setIsEditMode(open)} 
+                        onOpenChange={(open) => setIsEditMode(open)}  
                         value={value || ""}
                         defaultOpen={true}
                         required={false}

@@ -20,7 +20,7 @@ const schema = Yup.object().shape({
         Yup.object().shape({
             id: Yup.number().nullable(),//.required("Id is required"),
             firstName: Yup.string().min(10, "First Name is required"),
-            lastName: Yup.string().max(10, "Last Name is required"),
+            lastName: Yup.string(), //.max(10, "Last Name is required"),
             age: Yup.number().nullable(),//.typeError("Age must be a number").required("Age is required"),
             status: Yup.string().when(['age', 'firstName', 'lastName'], ([age, firstName, lastName]) => {
                 if (age > 18 && firstName && lastName) {
@@ -34,7 +34,7 @@ const schema = Yup.object().shape({
                         .nullable();
                 }
             }),
-            createdAt: Yup.date().nullable().required("Created At is required"),
+            createdAt: Yup.date().nullable(), //.required("Created At is required"),
             description: Yup.string().when(['age', 'firstName', 'lastName'], ([...values]) => {
                 if ((values || []).includes("Other")) {
                     return Yup
@@ -52,13 +52,14 @@ const schema = Yup.object().shape({
 });
 
 export type PersonFormValue = Yup.InferType<typeof schema>;
+export type GridItem = PersonFormValue["items"][0]
 
 export function EditableGrid() {
-    const { error: alertError, progress: alertProgress } = useAlert();
+    const { error: alertError, success: alertSuccess } = useAlert();
     const [data, setData] = useState<Person[]>([]);
 
     const columns = React.useMemo(() => {
-        const columnHelper = createColumnHelper<Person>();
+        const columnHelper = createColumnHelper<GridItem>();
         return [
             columnHelper.accessor('id', {
                 id: 'id',
@@ -87,7 +88,7 @@ export function EditableGrid() {
                         First Name (With very long text )
                     </span>
                     <span>
-                        <Tooltip content={<>this is some help description for header</>} relationship="description">
+                        <Tooltip withArrow content={<>this is some help description for header</>} relationship="description">
                             <Info20Regular />
                         </Tooltip>
                     </span>
@@ -118,7 +119,7 @@ export function EditableGrid() {
                         Last Name (With very long text and info button)
                     </span>
                     <span>
-                        <Tooltip content={<>this is some help description for header</>} relationship="description">
+                        <Tooltip withArrow content={<>this is some help description for header</>} relationship="description">
                             <Info20Regular />
                         </Tooltip>
                     </span>
@@ -129,7 +130,7 @@ export function EditableGrid() {
                     return (<GridDropdownCell
                         name={name}
                         defaultValue={value}
-                        options={["Test 1", "Test 2"]}
+                        options={["Test 1", "Test 2", "Other"]}
                         placeholder="--select last name--" />)
                 },
                 ...disableAllShorthand,
@@ -224,61 +225,50 @@ export function EditableGrid() {
         },
     })
 
-    const { watch, trigger, setValue } = form;
-
-    const formValue = watch();
+    const formValue = form.watch();
     const gridData = React.useMemo(() => {
         return formValue.items as Person[];
     }, [formValue]);
 
     // console.log("rendering", gridData, formValue);
 
-    const handleSubmit = (data: PersonFormValue) => {
-        console.log(data);
+    const handleError = () => {
+        console.log("error")
+
+        // update submit count to trigger validation message popup
+        const submitCount = form.getValues("submitCount");
+        form.setValue("submitCount", submitCount + 1, { shouldValidate: true }); 
+
+        // show error alert
+        alertError({
+            title: "Validation Error",
+            body: "Please fix all the errors before submitting the form",
+        });
+    }
+
+    const handleSubmit = (data: PersonFormValue) => { 
+        console.log("submitted", data)
+        alertSuccess({
+            title: "Success",
+            body: "Validation successfully completed"
+        })
     }
 
     return (
         <div>
-            <Form form={form} onSubmit={handleSubmit}>
-                <Button type="button" onClick={() => {
-                    let toastId = null;
-                    console.log("submitting", form.formState.errors, form.formState);
-                    if (form.formState.errors && Object.keys(form.formState.errors).length > 0) {
-                        toastId = alertProgress({
-                            title: "Validating",
-                            body: "Please wait while we validate the form",
-                        });
-                        setTimeout(() => {
-                            trigger();
-                            const submitCount = form.getValues("submitCount");
-                            setValue("submitCount", submitCount + 1, { shouldValidate: true });
-
-                            alertError({
-                                title: "Validation Error",
-                                body: "Please fix all the errors before submitting the form",
-                            }, {
-                                toastId: toastId
-                            });
-                        }, 1000);
-                        return;
-                    }
-
-                    form.handleSubmit(handleSubmit)();
-                }}>
+            <Form form={form} onSubmit={handleSubmit} onError={handleError}>
+                <Button type="submit">
                     Submit
                 </Button>
                 <Table
-                    data={[...gridData]}
-                    // defaultColumn={defaultColumn}
+                    data={[...gridData]} 
                     columns={columns}
                     pageSize={1_000_000}
                     tableHeight="750px"
-                    disableTableHeader
-                    // disablePagination
+                    disableTableHeader 
                     columnPinningState={{
                         left: ["id"],
-                        right: []
-                        // right: ["createdAt"]
+                        right: [] 
                     }}
                     isLoading={!gridData?.length}
                 />

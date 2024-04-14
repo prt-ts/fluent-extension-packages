@@ -39,5 +39,8 @@ export const useInputStyles = makeStyles({
     },
     listbox: {
         maxHeight: "300px",
-    } 
+    },
+    highlightError : {
+        ...shorthands.border(tokens.strokeWidthThin, "solid", tokens.colorPaletteRedBackground3)
+    }
 });

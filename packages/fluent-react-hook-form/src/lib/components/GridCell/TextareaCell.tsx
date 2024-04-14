@@ -2,7 +2,7 @@ import * as React from "react";
 import { useFormContext } from "../Form/useFormContext";
 import { useInputStyles } from "./useStyles";
 import { Controller } from "react-hook-form";
-import { Textarea, Tooltip } from "@fluentui/react-components";
+import { Textarea, Tooltip, mergeClasses } from "@fluentui/react-components";
 import { Show } from "@prt-ts/react-control-flow";
 import { useGetErrorContent } from "./useGetErrorContent";
 
@@ -30,13 +30,13 @@ export const GridTextareaCell: React.FC<GridTextareaCellProps> = ({ name, rows, 
 
     const {
         errorContent,
-        hasError    
+        hasError
     } = useGetErrorContent(name);
     const styles = useInputStyles();
 
     if (!isEditMode) {
         return (<div
-            className={styles.placeholderDiv}
+            className={mergeClasses(styles.placeholderDiv, hasError && styles.highlightError)}
             tabIndex={0}
             onFocus={switchToEditMode}
             onSelect={switchToEditMode}
@@ -65,25 +65,21 @@ export const GridTextareaCell: React.FC<GridTextareaCellProps> = ({ name, rows, 
                     <Textarea
                         ref={inputRef}
                         name={name}
-                        // onFocus={e => e.target.select()}
                         onBlur={() => {
                             onBlur();
                             setIsEditMode(false);
                             const value = inputRef.current?.value;
                             onChange(value, { shouldValidate: true });
-                            // trigger(name);
                         }}
                         defaultValue={value || ''}
                         required={false}
                         appearance='filled-lighter'
                         className={styles.cell}
                         textarea={{
-                            className: styles.cell 
+                            className: styles.cell
                         }}
                         placeholder={placeholder}
-                        rows={rows} 
-                        
-                        // contentAfter={errorContent}
+                        rows={rows}
                     />
                 )
             }}

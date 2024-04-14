@@ -3,7 +3,7 @@ import { useFormContext } from "../Form/useFormContext";
 import { useInputStyles } from "./useStyles";
 import { For, Show } from "@prt-ts/react-control-flow";
 import { Controller } from "react-hook-form";
-import { Dropdown, Option, tokens } from "@fluentui/react-components";
+import { Dropdown, Option, mergeClasses, tokens } from "@fluentui/react-components";
 import { ChevronDown20Regular } from "@fluentui/react-icons";
 import { useGetErrorContent } from "./useGetErrorContent";
 
@@ -37,7 +37,7 @@ export const GridDropdownCell: React.FC<DropdownEditableCellProps> = ({ name, de
 
     if (!isEditMode) {
         return (<div
-            className={styles.placeholderDiv}
+            className={mergeClasses(styles.placeholderDiv, hasError && styles.highlightError)}
             tabIndex={0}
             onFocus={switchToEditMode}
             onSelect={switchToEditMode}
