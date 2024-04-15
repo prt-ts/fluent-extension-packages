@@ -163,8 +163,8 @@ export function useEditableGrid() {
             items: (data || [])?.map((item) => {
                 return {
                     id: item.id,
-                    firstName: "",
-                    lastName: "",
+                    firstName: null,
+                    lastName:null,
                     age: null,
                     status: null,
                     description: "",

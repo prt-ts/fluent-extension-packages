@@ -5,7 +5,6 @@ import { useEditableGrid } from "./useEditableGrid";
 // define schema for the form
 
 export function EditableGrid() {
-
     const {
         form,
         columns,
@@ -17,9 +16,27 @@ export function EditableGrid() {
     return (
         <div>
             <Form form={form} onSubmit={handleSubmit} onError={handleError}>
-                <Button type="submit">
-                    Submit
-                </Button>
+                <div style={{
+                    display: "flex",
+                    gap: "10px",
+                    justifyContent: "right",
+                    marginBottom: "10px"
+                }}>
+                    <Button type="submit" shape="circular" appearance="primary">
+                        Submit
+                    </Button>
+                    <Button 
+                        type="button" 
+                        shape="circular"
+                        onClick={() => {
+                            const values = form.getValues(); 
+                            handleSubmit(values)
+                        }}
+                        >
+                        Save to draft
+                    </Button>
+                </div>
+                
                 <Table
                     data={[...gridData]}
                     columns={columns}

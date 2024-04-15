@@ -109,7 +109,8 @@
     "vite-tsconfig-paths": "^4.0.2",
     "vitest": "1.3.1",
     "xlsx": "^0.18.5",
-    "yup": "^1.1.1"
+    "yup": "^1.1.1",
+    "exceljs": "^4.4.0"
   },
   "keywords": [
     "components",
@@ -122,6 +123,8 @@
   "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme",
   "nx": {
     "includedScripts": []
+  },
+  "dependencies": {
+
   }
 }
-
