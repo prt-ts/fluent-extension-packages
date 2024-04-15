@@ -32,7 +32,7 @@ import {
   MenuItem,
 } from "@fluentui/react-components";
 import { tableViews as views } from './data/tableView';
-import { exportToFile } from '@prt-ts/export-helpers';
+import { ExportData, exportToFile } from '@prt-ts/export-helpers';
 
 export function TableExample() {
   const navigate = useNavigate();
@@ -447,10 +447,11 @@ export function TableExample() {
     console.log(data);
 
     exportToFile({
+      type: "excel",
       sheets: [
         {
           sheetName: 'Sheet 1',
-          data: data,
+          data: data as any,
         },
       ],
     });
@@ -530,6 +531,11 @@ export function TableExample() {
         }}
         disableTableHeader={true}
         tableHeight='750px'
+        rowSelectionState={{
+          1: true,
+          2: true,
+          3: true
+        }}
         // tableSettings={{
         //   enableManualSelection: true,
         // }}
