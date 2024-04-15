@@ -250,7 +250,12 @@ const Features = () => {
                 dataValidation : {
                   type : "list",
                   allowBlank: true,
-                  formulae : [ `"Pradeep, Durga, Fana"`]
+                  formulae: [`"Pradeep, Durga, Fana"`]
+                },
+                cellStyle: {
+                  protection: {
+                    locked: false
+                  }
                 }
               },
               /* eslint-disable-next-line */
@@ -283,7 +288,7 @@ const Features = () => {
               type: "excel",
 
               sheets : [{
-                sheetName : "User Info",
+                sheetName : "User Info - Formatted",
                 data: exportData
               }]
 

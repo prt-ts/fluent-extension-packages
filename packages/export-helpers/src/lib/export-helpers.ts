@@ -11,7 +11,7 @@ const fileInfo = {
     type: 'data:text/csv;charset=utf-8',
     extension: 'csv',
   },
-};
+} as const;
 
 export type CellStyle = Partial<Style>;
 
@@ -28,6 +28,7 @@ export type ExportFileInfo = {
   fileName?: string,
   type: 'excel' | 'csv',
   sheets: {
+    isProtected?: boolean,
     sheetName?: string;
     data?: ExportData,
     headerCellStyle?: Record<string, CellStyle>
@@ -83,7 +84,7 @@ export function exportDocument(fileInfo: ExportFileInfo) {
 
       // prepare sheet name and create new sheet
       const { sheetName = `Sheet ${index}` } = sheet;
-      const ws = workbook.addWorksheet(sheetName.substring(0, 10));
+      const ws = workbook.addWorksheet(sheetName);
 
       // prepare header
       // -- get header form data keys
@@ -99,7 +100,7 @@ export function exportDocument(fileInfo: ExportFileInfo) {
         header: header,
         key: header,
         width: header?.length + 15
-      })); 
+      }));
 
       // format header
       const { headerCellStyle = {} } = sheet;
@@ -197,9 +198,22 @@ export function exportDocument(fileInfo: ExportFileInfo) {
         }
       }
 
+      // set sheet protections
+      if(sheet.isProtected){
+        ws.protect('Pa$$w0Rd', {
+          formatCells: true,
+          formatColumns: true,
+          formatRows: true,
+          insertRows: false,
+          insertColumns: false,
+          insertHyperlinks: true,
+          deleteRows: true,
+          deleteColumns: false,
+          sort: true,
+          autoFilter: true
+        });
+      }      
     }
-
-
 
     // create blob
     const dataBlob = await workbook.xlsx.writeBuffer();
@@ -207,9 +221,7 @@ export function exportDocument(fileInfo: ExportFileInfo) {
     // save to file
     const { fileName = "download", type = "excel" } = fileInfo;
     saveAsExcelFile(dataBlob, fileName, type);
-  });
-
-
+  });  
 }
 
 function saveAsExcelFile(
