@@ -1,29 +1,25 @@
 /* eslint-disable */
-import { AppContext } from "@prt-ts/spfx-core";
 import { useEffect, useState } from "react";
+import { AppContext } from "../app";
 
 const currentContext = AppContext.getInstance();
-function getWindowDimensions() {
+function getWindowDimensions(): DOMRect {
   const { domElement = document.body } = currentContext;
-  const domRect = domElement.getBoundingClientRect();
-  return {
-    width: domRect.width,
-    height: domRect.height,
-  };
+  const domRect = domElement?.getBoundingClientRect();
+  if (domRect) return domRect
+
+  return {} as DOMRect;
 }
 
-export function useDocumentDimensions() {
+export function useDocumentDimensions(): DOMRect {
   const { domRect } = currentContext;
-  const [windowDimensions, setWindowDimensions] = useState({
-    width: domRect.width,
-    height: domRect.height,
-  });
+  const [windowDimensions, setWindowDimensions] = useState<DOMRect | null>(domRect);
 
   useEffect(() => {
-    let timeout = null;
+    let timeout;
     function handleResize() {
-      timeout = setTimeout(() => {}, 500);
-      setWindowDimensions(getWindowDimensions());
+      timeout = setTimeout(() => { }, 500);
+      setWindowDimensions(() => getWindowDimensions());
     }
 
     handleResize(); // <-- invoke this on component mount
@@ -34,6 +30,10 @@ export function useDocumentDimensions() {
       clearTimeout(timeout);
     };
   }, []);
+
+  if (!windowDimensions) {
+    return {} as DOMRect;
+  }
 
   return windowDimensions;
 }
