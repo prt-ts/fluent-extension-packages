@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "npx nx run examples:build"
+    "build": "npx nx run examples:build",
+    "serve": "npx nx run example:serve"
   },
   "private": true,
   "devDependencies": {
