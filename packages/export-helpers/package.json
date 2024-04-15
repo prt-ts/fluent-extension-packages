@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/export-helpers",
-  "version": "5.0.0",
+  "version": "5.0.4",
   "dependencies": {
     "file-saver": ">=2.0.0",
     "xlsx": ">=0.18.0",
@@ -13,5 +13,5 @@
     "url": "https://github.com/prt-ts/fluent-extension-packages.git"
   },
   "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme",
-  "types": "index.d.ts"
+  "types": "./src/index.d.ts"
 }

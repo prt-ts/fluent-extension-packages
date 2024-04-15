@@ -13,7 +13,7 @@ export const fileInfo = {
 
 export type CellStyle = Partial<Style>;
 
-export type SimpleFormat = string | number | boolean;
+export type SimpleFormat = string | number | boolean | Date | null | undefined;
 
 export type ComplexFormat = {
   value: CellValue,
@@ -21,7 +21,7 @@ export type ComplexFormat = {
   dataValidation?: DataValidation
 }
 
-export type ExportData = Record<string, SimpleFormat | ComplexFormat>[];
+export type ExportData = Record<string, SimpleFormat | ComplexFormat>;
 
 export type ExportFileInfo = {
   fileName?: string,
@@ -29,7 +29,7 @@ export type ExportFileInfo = {
   sheets: {
     isProtected?: boolean,
     sheetName?: string;
-    data?: ExportData,
+    data?: ExportData[],
     headerCellStyle?: Record<string, CellStyle>
   }[]
 }

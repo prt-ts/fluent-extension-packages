@@ -78,15 +78,15 @@ export async function createDocumentBuffer(fileInfo: ExportFileInfo) : Promise<B
 
                             const rowCell = dataRow.getCell(colIndex + 1);
                             const dataPoint = item[key];
-                            const isComplexFormat = typeof dataPoint === "object";
+                            const isComplexFormat = typeof dataPoint === "object" && dataPoint !== null && dataPoint !== undefined;
 
-                            rowCell.value = isComplexFormat ? (dataPoint.value ?? "") as CellValue : dataPoint;
+                            rowCell.value = isComplexFormat ? (dataPoint?.value ?? "") as CellValue : dataPoint;
 
                             // if it is not complex type return
                             if (!isComplexFormat) return;
 
                             // check if any formats exists
-                            const { cellStyle } = dataPoint;
+                            const { cellStyle } = dataPoint || {};
                             if (cellStyle) {
                                 // check for further format and apply
                                 if ("numFmt" in cellStyle && cellStyle["numFmt"] !== undefined) {
@@ -109,7 +109,7 @@ export async function createDocumentBuffer(fileInfo: ExportFileInfo) : Promise<B
                                 }
                             }
 
-                            const { dataValidation } = dataPoint;
+                            const { dataValidation } = dataPoint || {};
                             if (dataValidation) {
                                 rowCell.dataValidation = dataValidation
                             }

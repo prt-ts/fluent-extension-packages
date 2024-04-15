@@ -236,6 +236,8 @@ const Features = () => {
             const userData = makeData(10) 
             
             const exportData : ExportData = userData.map((d) => ({
+              NullValue : null,
+              UndefinedValue : undefined,
               /* eslint-disable-next-line */
               ["Display Name"] : {
                 value: {
