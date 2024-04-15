@@ -141,4 +141,11 @@ export default class AppContext {
         });
         await this._appInsights.trackPageView();
     }
+
+    public updateDomRect(domElement?: HTMLElement){
+        // initialize domRect
+        const element = domElement || document.body;
+        this._domReact = element?.getBoundingClientRect();
+    }
+
 }
