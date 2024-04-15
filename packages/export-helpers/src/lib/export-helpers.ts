@@ -93,12 +93,13 @@ export function exportDocument(fileInfo: ExportFileInfo) {
         return;
       }
 
+      // create headers column
       const headers = Object.keys(data?.[0]);
       ws.columns = headers.map(header => ({
         header: header,
         key: header,
-        width: header?.length + 10
-      }));
+        width: header?.length + 15
+      })); 
 
       // format header
       const { headerCellStyle = {} } = sheet;
@@ -184,7 +185,21 @@ export function exportDocument(fileInfo: ExportFileInfo) {
         })
       });
 
+       // enable auto-filter
+       ws.autoFilter = {
+        from: {
+          row: 1,
+          column: 1
+        },
+        to: {
+          row: 1,
+          column: headers.length
+        }
+      }
+
     }
+
+
 
     // create blob
     const dataBlob = await workbook.xlsx.writeBuffer();
