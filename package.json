@@ -93,7 +93,7 @@
     "react-virtual": "^2.10.4",
     "roosterjs-content-model-api": "^9.0.0",
     "roosterjs-content-model-core": "^9.0.0",
-    "roosterjs-content-model-plugins": "^9.0.1",
+    "roosterjs-content-model-plugins": "9.1.0",
     "roosterjs-content-model-types": "^9.0.0",
     "sass": "^1.55.0",
     "scheduler": "^0.19.0",
@@ -124,7 +124,6 @@
   "nx": {
     "includedScripts": []
   },
-  "dependencies": {
-
-  }
+  "dependencies": {}
 }
+

@@ -12,6 +12,7 @@ export default class AppContext {
     private _settings: AppSettings | null;
     private _currentUser: UserInfo | null;
     private _appInsights: ApplicationInsights | null;
+    private _domElement: HTMLElement | null; 
     private _domReact: DOMRect | null;
 
     private constructor() {
@@ -21,6 +22,7 @@ export default class AppContext {
         this._currentUser = null;
         this._appInsights = null;
         this._domReact = null;
+        this._domElement = null;
     }
 
     public static getInstance(): AppContext {
@@ -56,12 +58,17 @@ export default class AppContext {
         return this._domReact;
     }
 
+    public get domElement(): HTMLElement | null {
+        return this._domElement;
+    }
+
     public initializeAppContext = async (context: WebPartContext, domElement?: HTMLElement, siteURL?: string) => {
         this._context = context;
 
         // initialize domRect
         const element = domElement || document.body;
         this._domReact = element?.getBoundingClientRect();
+        this._domElement = element;
 
         // initialize user
         const user = context.pageContext.user;
@@ -146,6 +153,7 @@ export default class AppContext {
         // initialize domRect
         const element = domElement || document.body;
         this._domReact = element?.getBoundingClientRect();
+        this._domElement = element;
     }
 
 }
