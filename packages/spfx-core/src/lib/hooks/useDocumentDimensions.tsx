@@ -15,10 +15,8 @@ export function useDocumentDimensions(): DOMRect {
   const { domRect } = currentContext;
   const [windowDimensions, setWindowDimensions] = useState<DOMRect | null>(domRect);
 
-  useEffect(() => {
-    let timeout;
-    function handleResize() {
-      timeout = setTimeout(() => { }, 500);
+  useEffect(() => { 
+    function handleResize() { 
       setWindowDimensions(() => getWindowDimensions());
     }
 
@@ -26,8 +24,7 @@ export function useDocumentDimensions(): DOMRect {
     window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      clearTimeout(timeout);
+      window.removeEventListener("resize", handleResize); 
     };
   }, []);
 
