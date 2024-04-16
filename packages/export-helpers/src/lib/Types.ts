@@ -13,7 +13,7 @@ export const fileInfo = {
 
 export type CellStyle = Partial<Style>;
 
-export type SimpleFormat = string | number | boolean | Date | null | undefined;
+export type SimpleFormat = string | number | boolean;
 
 export type ComplexFormat = {
   value: CellValue,

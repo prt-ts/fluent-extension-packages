@@ -235,9 +235,28 @@ const Features = () => {
 
             const userData = makeData(10) 
             
-            const exportData : ExportData = userData.map((d) => ({
+            const exportData : ExportData[] = userData.map((d) => ({
               NullValue : null,
               UndefinedValue : undefined,
+              emptyString: {
+                value : '',
+                cellStyle: {
+                  border : {
+                    left : {
+                      style : "hair",
+                      color : {
+                        argb: "FF00FF00"
+                      }
+                    },
+                    diagonal : {
+                      style : "double",
+                      color : {
+                        argb: "rgba(255, 99, 71, 0.5)"
+                      }
+                    }
+                  },
+                }
+              },
               /* eslint-disable-next-line */
               ["Display Name"] : {
                 value: {
@@ -269,6 +288,12 @@ const Features = () => {
                   },
                   border : {
                     left : {
+                      style : "hair",
+                      color : {
+                        argb: "rgba(255, 99, 71, 0.5)"
+                      }
+                    },
+                    diagonal : {
                       style : "hair",
                       color : {
                         argb: "rgba(255, 99, 71, 0.5)"

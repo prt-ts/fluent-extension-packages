@@ -346,10 +346,11 @@ export const TopToolbar: React.FC<{
     console.log(data);
 
     exportToFile({
+      type: "excel",
       sheets: [
         {
           sheetName: 'Sheet 1',
-          data: data,
+          data: data as any,
         },
       ],
     });
