@@ -1,18 +1,5 @@
-import { makeStaticStyles, makeStyles, shorthands, tokens } from "@fluentui/react-components";
+import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 
-export const useEditorStaticStyles = makeStaticStyles({
-    "[contenteditable]:focus": {
-        outline: "0px solid transparent"
-    },
-
-    ".editor-container": {
-        display: "block",
-        width: "calc(100% - 20px)",
-        position: "relative",
-        padding: "10px",
-    },
-    '.editor-ribbon': {}
-});
 
 export const useEditorStyle = makeStyles({
     root: {
@@ -64,6 +51,7 @@ export const useEditorStyle = makeStyles({
 
         backgroundColor: `${tokens.colorNeutralBackground1}!important`,
         color: `${tokens.colorNeutralForeground1}!important`,
+        ...shorthands.outline(0, "solid", "transparent")
     },
 
     small: {

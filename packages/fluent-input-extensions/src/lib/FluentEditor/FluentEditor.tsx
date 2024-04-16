@@ -3,7 +3,7 @@ import { FluentEditorRibbon } from './Ribbon';
 import { Show } from '@prt-ts/react-control-flow';
 import { mergeClasses, tokens } from '@fluentui/react-components';
 import { FluentEditorProps } from './FluentEditorTypes';
-import { useEditorStaticStyles, useEditorStyle } from './useFluentEditorStyles';
+import { useEditorStyle } from './useFluentEditorStyles';
 import { useFluentEditor } from './useFluentEditor'; 
 import { IEditor } from 'roosterjs-content-model-types';
 
@@ -35,8 +35,7 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
 
         ...(props.style || {}),
     } as React.CSSProperties;
-
-    useEditorStaticStyles();
+ 
     const styles = useEditorStyle();
     return (
         <div className={mergeClasses(styles.root, hasFocus && styles.rootFocused, fieldProps['aria-invalid'] && !hasFocus && styles.invalid)}>
