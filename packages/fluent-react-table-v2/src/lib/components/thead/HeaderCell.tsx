@@ -50,7 +50,7 @@ import {
 import { useTableHeaderStyles } from "./useTableHeaderStyles";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from '@dnd-kit/utilities';
-import { CSSProperties } from "react";
+import { CSSProperties, useMemo } from "react";
 import { getHeaderCellPinningStyles } from "../../helpers/StylesHelper";
 import { Show } from "@prt-ts/react-control-flow";
 import { ClearFilterIcon } from "../icon-components/GridIcons";
@@ -93,9 +93,15 @@ export function HeaderCell<TItem extends RowData>({
     transition
   };
 
-  const styles = useTableHeaderStyles();
-  const isLeafHeaders = `${id}`?.split('_')?.length === 1;  
-  const headerCellCombinedStyles = getHeaderCellPinningStyles(column, isDragging, dndStyle)
+  const styles = useTableHeaderStyles(); 
+
+  const isLeafHeaders = useMemo(() => {
+    const leafCols = table.getAllLeafColumns();  
+    console.log("isLeafHeader")
+    return !!leafCols?.find(col => col.id === header.column.id)
+  }, [table, header.column.id]);   
+
+  const headerCellCombinedStyles = getHeaderCellPinningStyles(column, isDragging, dndStyle);
 
   if (header.isPlaceholder) {
     return (
@@ -203,7 +209,7 @@ export function HeaderCell<TItem extends RowData>({
               </Button>
             </Show>
           </div>
-          <Show when={isLeafHeaders}>
+          <Show when={!!isLeafHeaders}>
             <HeaderMenu header={header} table={table} />
           </Show>
         </div>

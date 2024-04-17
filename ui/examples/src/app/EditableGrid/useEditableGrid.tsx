@@ -20,7 +20,7 @@ export function useEditableGrid() {
 
     const columns = useMemo(() => {
         const columnHelper = createColumnHelper<GridItem>();
-        return [
+        const tempCol = [
             columnHelper.accessor('id', {
                 id: 'id',
                 header: () => 'ID',
@@ -154,6 +154,20 @@ export function useEditableGrid() {
                 ...disableAllShorthand
             })
         ] as ColumnDef<Person>[]
+
+        for (let i = 0; i < 5; i++) {
+
+            const accessor = columnHelper.accessor("id", {
+                id: `ID_${i}`,
+                header: () => 'ID', 
+            })
+
+            tempCol.push(accessor as ColumnDef<Person>)
+        }
+
+
+        return tempCol;
+
     }, []);
 
     const form = useForm<PersonFormValue>({
