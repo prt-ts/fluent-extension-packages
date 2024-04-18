@@ -97,7 +97,6 @@ export function HeaderCell<TItem extends RowData>({
 
   const isLeafHeaders = useMemo(() => {
     const leafCols = table.getAllLeafColumns();  
-    console.log("isLeafHeader")
     return !!leafCols?.find(col => col.id === header.column.id)
   }, [table, header.column.id]);   
 
