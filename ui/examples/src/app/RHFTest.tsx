@@ -38,8 +38,8 @@ import { GroupedTagPicker } from './examples/PeoplePicker/PeoplePicker';
 const nameSchema = yup
   .string()
   .required('First Name is required')
-  .min(10, 'Min 10')
-  .max(15, 'Max 15')
+  //.min(10, 'Min 10')
+  //.max(15, 'Max 15')
 
 const schema = yup.object({
   peoplePicker: yup.array().of(
