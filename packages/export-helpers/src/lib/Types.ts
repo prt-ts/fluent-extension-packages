@@ -11,9 +11,7 @@ export const fileInfo = {
     },
   } as const;
 
-export type CellStyle = Partial<Style>;
-
-export type SimpleFormat = string | number | boolean;
+export type CellStyle = Partial<Style>; 
 
 export type ComplexFormat = {
   value: CellValue,
@@ -21,11 +19,11 @@ export type ComplexFormat = {
   dataValidation?: DataValidation
 }
 
-export type ExportData = Record<string, SimpleFormat | ComplexFormat>;
+export type ExportData = Record<string, CellValue | ComplexFormat>;
 
 export type ExportFileInfo = {
   fileName?: string,
-  type: 'excel' | 'csv',
+  type?: 'excel' | 'csv',
   sheets: {
     isProtected?: boolean,
     sheetName?: string;

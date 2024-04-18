@@ -74,13 +74,12 @@ export async function createDocumentBuffer(fileInfo: ExportFileInfo) : Promise<B
                     // insert rows for each data and format
                     data.forEach((item, rowIndex) => {
                         const dataRow = ws.getRow(rowIndex + 2);
-                        headers.forEach((key, colIndex) => {
-
+                        headers.forEach((key, colIndex) => { 
                             const rowCell = dataRow.getCell(colIndex + 1);
                             const dataPoint = item[key];
-                            const isComplexFormat = typeof dataPoint === "object" && dataPoint !== null && dataPoint !== undefined;
+                            const isComplexFormat = dataPoint !== null && dataPoint !== undefined && typeof dataPoint === "object" && "value" in dataPoint;
 
-                            rowCell.value = isComplexFormat ? (dataPoint?.value ?? "") as CellValue : dataPoint;
+                            rowCell.value = (isComplexFormat ? dataPoint?.value : dataPoint) as unknown as CellValue;
 
                             // if it is not complex type return
                             if (!isComplexFormat) return;

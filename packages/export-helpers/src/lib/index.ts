@@ -3,8 +3,7 @@ export type {
   CellStyle,
   ExportData,
   ExportFileInfo,
-  ComplexFormat,
-  SimpleFormat, 
+  ComplexFormat
 } from "./Types";
 
 export { fileInfo } from "./Types";
@@ -21,5 +20,8 @@ export { createDocumentBuffer } from "./createDocumentBuffer";
 export { exportDocument } from "./exportDocument";
 export { exportToFile } from "./exportToFile";
 export { saveInFile } from "./saveInFile";
+
+// export type
+export type { CellValue as SimpleFormat } from "exceljs"
 
 
