@@ -51,17 +51,17 @@ export const FilePicker = React.forwardRef<FilePickerRef, FilePickerProps>((prop
     const styles = useFilePickerStyles();
     const filepickerstyle = mergeClasses(
         styles.baseStyle,
-        isFocused && !invalid && styles.focusedStyle,
         isDragAccept && styles.acceptStyle,
         invalid && styles.rejectStyle,
         isDragReject && styles.rejectStyle,
+        isFocused && !invalid && styles.focusedStyle,
         styles[size]
     );
 
     return (
         <div className={styles.root}>
-            <div {...getRootProps({ filepickerstyle })}>
-                <input ref={inputRef} {...getInputProps()} aria-invalid={invalid} />
+            <div {...getRootProps({ filepickerstyle })} ref={inputRef}>
+                <input {...getInputProps()} aria-invalid={invalid} />
                 <p
                     className={filepickerstyle}
                     style={{
