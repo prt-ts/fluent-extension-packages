@@ -33,8 +33,7 @@ export function useGetChildren({
             <Show when={isLoading}>
               <TagPickerOption
                 key={"loading"}
-                value={query}
-                text={query}
+                value={query} 
               >
                 <Spinner size="tiny" label="Searching, Please Wait..." />
               </TagPickerOption>
@@ -50,8 +49,7 @@ export function useGetChildren({
             >
               <TagPickerOption
                 key={"loading"}
-                value={query}
-                text={query}
+                value={query} 
               >
                 {`No results found for term '${query}'`}
               </TagPickerOption>
@@ -63,8 +61,7 @@ export function useGetChildren({
                 {(option) => (
                   <TagPickerOption
                     key={option.loginName}
-                    value={option.loginName}
-                    text={option.name}
+                    value={option.loginName} 
                   >
                     <Persona
                       name={option.name}
@@ -93,8 +90,7 @@ export function useGetChildren({
             <TagPickerOptionGroup label="Suggestions">
               <TagPickerOption
                 key={"no_suggestions"}
-                value={""}
-                text={""}
+                value={""} 
               >
                 {`No suggestions available.`}
               </TagPickerOption>
@@ -106,8 +102,7 @@ export function useGetChildren({
                 {(option) => (
                   <TagPickerOption
                     key={option.loginName}
-                    value={option.loginName}
-                    text={option.name}
+                    value={option.loginName} 
                   >
                     <Persona
                       name={option.name}
