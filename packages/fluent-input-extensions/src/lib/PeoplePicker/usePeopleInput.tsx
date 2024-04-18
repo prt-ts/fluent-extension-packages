@@ -24,8 +24,7 @@ export function usePeopleInput(
     pickerType,
     layout,
     tagPickerProps,
-    tagPickerInputProps,
-    fieldControlProps,
+    tagPickerInputProps, 
     showSecondaryText,
   } = usePeopleInputDefault(props);
 
@@ -170,8 +169,7 @@ export function usePeopleInput(
     value,
     selectedOptions,
     tagPickerInputProps,
-    tagPickerProps,
-    fieldControlProps,
+    tagPickerProps, 
     children,
     reachMaxSelection,
     pickerType,

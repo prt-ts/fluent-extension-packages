@@ -73,27 +73,22 @@ export const PeoplePickerField = React.forwardRef<
             required={required}
             style={{ padding: 0, margin: 0 }}
           >
-            {
-              (fieldProps) => (
-                <PeopleInput
-                  {...peoplePickerProps}
-                  {...fieldProps}
-                  id={inputId}
-                  value={value}
-                  onUserSelectionChange={(users) => {
-                    onChange(users);
-                    if (peoplePickerProps?.onUserSelectionChange) {
-                      peoplePickerProps?.onUserSelectionChange?.(users);
-                    }
-                  }}
-                  onBlur={onBlur}
-                  onInternalError={onError}
-                  ref={ref || fieldRef}
-                  style={style}
-                  className={className}
-                />
-              )
-            }
+            <PeopleInput
+              {...peoplePickerProps} 
+              id={inputId}
+              value={value}
+              onUserSelectionChange={(users) => {
+                onChange(users);
+                if (peoplePickerProps?.onUserSelectionChange) {
+                  peoplePickerProps?.onUserSelectionChange?.(users);
+                }
+              }}
+              onBlur={onBlur}
+              onInternalError={onError}
+              ref={ref || fieldRef}
+              style={style}
+              className={className}
+            />
           </Field>
         );
       }}

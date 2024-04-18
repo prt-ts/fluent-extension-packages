@@ -29,8 +29,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
       value,
       selectedOptions,
       tagPickerInputProps,
-      tagPickerProps,
-      fieldControlProps,
+      tagPickerProps, 
       handleOptionSelect,
       handleQueryChange,
       onUserSelectionChange,
@@ -46,8 +45,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
     return (
       <>
         <TagPicker
-          {...tagPickerProps}
-          {...fieldControlProps}
+          {...tagPickerProps} 
           onOptionSelect={handleOptionSelect}
           selectedOptions={selectedOptions}
           freeform
