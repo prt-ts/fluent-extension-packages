@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-input-extensions",
-  "version": "9.47.5-build.5.1",
+  "version": "9.48.0-build.1.0",
   "description": "Fluent UI Input Extensions",
   "dependencies": {
     "@fluentui/react-tag-picker-preview": "latest",
@@ -14,8 +14,8 @@
     "react-dropzone": ">=14.0.0"
   },
   "peerDependencies": {
-    "@fluentui/react-components": ">=9.47.5",
-    "@fluentui/react-icons": ">=2.0.232",
+    "@fluentui/react-components": ">=9.48.0",
+    "@fluentui/react-icons": ">=2.0.235",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0",
     "@prt-ts/fluent-input-extensions": "latest"

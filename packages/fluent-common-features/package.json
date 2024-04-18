@@ -1,9 +1,9 @@
 {
   "name": "@prt-ts/fluent-common-features",
-  "version": "9.47.1-build-2.0",
+  "version": "9.48.0-build-1.0",
   "peerDependencies": {
-    "@fluentui/react-components": ">=9.47.1",
-    "@fluentui/react-icons": ">=2.0.232",
+    "@fluentui/react-components": ">=9.48.0",
+    "@fluentui/react-icons": ">=2.0.235",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
   },
