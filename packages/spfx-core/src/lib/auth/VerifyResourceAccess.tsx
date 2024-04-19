@@ -5,8 +5,11 @@ export const useVerifyResourceAccess = (props: Omit<ResourceAccessProps, "childr
 
     // destructure the requiredRolesOrResources, requiredAll, and additionalUserRolesOrResources from props
     // and get the userRolesOrResources from the useAuthContext hook
-    const { requiredRolesOrResources, requiredAll, additionalUserRolesOrResources } = props;
+    const { requiredRolesOrResources = [], requiredAll, additionalUserRolesOrResources } = props; 
     const { userRolesOrResources = [] } = useAuthContext();
+
+    // if required roles is empty, return true 
+    if(requiredRolesOrResources?.length === 0) return true;
 
     // if additionalUserRolesOrResources is provided, add them to userRolesOrResources
     // it is important to create a copy of userRolesOrResources before 
