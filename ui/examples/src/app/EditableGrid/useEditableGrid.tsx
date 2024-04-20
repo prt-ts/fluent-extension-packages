@@ -153,18 +153,7 @@ export function useEditableGrid() {
                 },
                 ...disableAllShorthand
             })
-        ] as ColumnDef<Person>[]
-
-        for (let i = 0; i < 5; i++) {
-
-            const accessor = columnHelper.accessor("id", {
-                id: `ID_${i}`,
-                header: () => 'ID', 
-            })
-
-            tempCol.push(accessor as ColumnDef<Person>)
-        }
-
+        ] as ColumnDef<Person>[];
 
         return tempCol;
 
