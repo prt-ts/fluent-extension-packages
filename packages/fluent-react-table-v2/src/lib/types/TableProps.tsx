@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ColumnDef, ColumnFiltersState, ColumnOrderState, ColumnPinningState, ExpandedState, GroupingState, RowData, RowPinningState, RowSelectionState, SortingState, VisibilityState } from "@tanstack/react-table";
+import { ColumnDef, ColumnFiltersState, ColumnOrderState, ColumnPinningState, ExpandedState, GroupingState, RowData, RowPinningState, RowSelectionState, SortingState, Table, VisibilityState } from "@tanstack/react-table";
 import { TableView } from "./TableView";
 
 export type TableProps<TItem extends RowData> = {
@@ -34,7 +34,7 @@ export type TableProps<TItem extends RowData> = {
     /**
      * Table header menu
      */
-    headerMenu?: (selectedItems : TItem[]) => JSX.Element | React.ReactNode;
+    headerMenu?: (table: Table<TItem>) => JSX.Element | React.ReactNode;
 
     /**
      * Table default page size.
@@ -137,10 +137,18 @@ export type TableProps<TItem extends RowData> = {
     onTableViewDelete?: (tableView: TableView) => void;
 
     /**
-     * disable table header
+     * remove table header
      */
     disableTableHeader?: boolean;
 
+    /**
+     * remove pagination bar
+     */
+    disablePagination?: boolean;
+
+    /**
+     * Additional settings for the table
+     */
     tableSettings?: TableSettings;
 };
 

@@ -21,6 +21,9 @@
         "packages/fluent-common-features/src/index.ts"
       ],
       "@prt-ts/fluent-formik": ["packages/fluent-formik/src/index.ts"],
+      "@prt-ts/fluent-input-extensions": [
+        "packages/fluent-input-extensions/src/index.ts"
+      ],
       "@prt-ts/fluent-react-hook-form": [
         "packages/fluent-react-hook-form/src/index.ts"
       ],
@@ -34,6 +37,7 @@
         "packages/react-control-flow/src/index.ts"
       ],
       "@prt-ts/spfx-core": ["packages/spfx-core/src/index.ts"],
+      "@prt-ts/types": ["packages/types/src/index.ts"],
       "@prt-ts/utilities": ["packages/utilities/src/index.ts"]
     }
   },

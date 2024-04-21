@@ -1,0 +1,17 @@
+{
+  "name": "@prt-ts/types",
+  "version": "1.0.0",
+  "dependencies": { 
+  },
+  "license": "MIT",
+  "author": "Pradeep Raj Thapaliya",
+  "bugs": {
+    "url": "https://github.com/prt-ts/fluent-extension-packages.git"
+  },
+  "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./src/index.js", 
+  "types": "./src/index.d.ts"
+}

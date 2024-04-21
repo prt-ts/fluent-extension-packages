@@ -12,7 +12,7 @@ type HeaderRowProps<TItem extends RowData> = {
 
 export function TableHeader<TItem extends RowData>(props: HeaderRowProps<TItem>) {
     const styles = useTableHeaderStyles(); 
-    const { table, headerGroups, rowSelectionMode } = props;
+    const { table, headerGroups } = props;
     const focusAttribute = useFocusableGroup({ tabBehavior: "limited-trap-focus" });
 
 
@@ -21,8 +21,7 @@ export function TableHeader<TItem extends RowData>(props: HeaderRowProps<TItem>)
             {headerGroups?.map((headerGroup) => (
                 <HeaderRow
                     key={headerGroup.id}
-                    table={table}
-                    rowSelectionMode={rowSelectionMode}
+                    table={table} 
                     headerGroup={headerGroup}
                     headerGroupsLength={headerGroups.length}
                 />

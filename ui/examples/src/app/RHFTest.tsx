@@ -3,6 +3,7 @@ import {
   Button,
 } from '@fluentui/react-components';
 import {
+  useForm,
   Form,
   Checkbox,
   DatePicker,
@@ -16,29 +17,44 @@ import {
   CurrencyInput,
   FileInput,
   TimePicker,
-  useForm,
-  RichViewer,
   Rating,
   RatingDisplay,
   CheckboxGroup,
   RadioGroup,
   Radio,
+  PeoplePicker,
 } from '@prt-ts/fluent-react-hook-form';
-import { Fragment, useCallback, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 // import { DevTool } from '@hookform/devtools';
 
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
+import { debouncedSearchUserInfo, seedUserInfo } from './data/UserInfo';
+import { UserInfo } from '@prt-ts/types';
+import { GroupedTagPicker } from './examples/PeoplePicker/PeoplePicker'; 
+
+const nameSchema = yup
+  .string()
+  .required('First Name is required')
+  //.min(10, 'Min 10')
+  //.max(15, 'Max 15')
 
 const schema = yup.object({
+  peoplePicker: yup.array().of(
+    yup.object({
+      id: yup.string().required('Id is required'),
+      name: yup.string().required('Name is required'),
+      email: yup.string().required('Email is required'),
+    })
+  ).min(1, 'People Picker is required'),
   rating: yup.number().required('Rating is required'),
-  firstName: yup
-    .string()
-    .required('First Name is required')
-    .min(10, 'Min 10')
-    .max(15, 'Max 15'),
+  firstName: nameSchema,
+  firstName1: nameSchema,
+  firstName2: nameSchema,
+  firstName3: nameSchema,
+  firstName4: nameSchema,
   lastName: yup.string().required('Last Name is required'),
   iceCreamType: yup.object().required('Ice Cream Type is required'),
   arrayItem: yup.array().of(
@@ -62,12 +78,25 @@ const schema = yup.object({
   attachments: yup.array().min(1, 'Attachments is required'),
 });
 
+const onResolveUsers = async (users: UserInfo[]) => {
+  const lastUser = users[users.length - 1];
+
+  return {
+    resolvedUserInfo: users,
+    error: users?.length < 2 ? `Error resolving user: ${lastUser.name}` : null,
+  }; 
+}
+
 export type IFormInput = yup.InferType<typeof schema>;
 
 export const ReactHookForm = () => {
   const onSubmit = useCallback((data: IFormInput) => {
     console.log(data);
   }, []);
+
+  useEffect(() => {
+    seedUserInfo(100);
+  }, []); 
 
   const values = useDefaultValues();
 
@@ -151,7 +180,9 @@ export const ReactHookForm = () => {
     ];
   }, []);
 
-  console.log("formValue", testForm.watch());
+  // console.log("formValue", testForm.watch());
+
+  const value = testForm.watch('firstName2');
 
   return (
     <>
@@ -160,11 +191,47 @@ export const ReactHookForm = () => {
       <Button onClick={addMore}>Add Dynamic Values</Button>
       <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
       <Form form={testForm} onSubmit={onSubmit}>
+
+        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} multiselect readOnly={isView} placeholder='Search users' />
+        <PeoplePicker name={'peoplePicker1'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} readOnly={isView} placeholder='Search users' pickerType='list'/>
+
+        <GroupedTagPicker />
+        {/* <Input
+          name={'firstName1'}
+          label={'First Name'}
+          placeholder='Enter First Name'
+          required={true}
+          appearance={isView ? "underline" : undefined}
+          disabled={isView}
+          readOnly={isView}
+          autoCompleteOptions={['one', 'two', 'three']}
+          autoComplete='false' /> */}
+
+        <br />
+        <RichInput showRibbon={true} ribbonPosition='top' label={<>Small Label</>} name={"firstName2"} placeholder='Enter First Name' size='medium' style={{ minHeight: "30vh"}}/>
+
+        <br />
+
+        <RichInput showRibbon={true} ribbonPosition='bottom' label={<>Medium Label</>} name={"firstName3"} size="large" placeholder='Enter First Name'/>
+
+        {/* <RichInput showRibbon={true} label={<>Medium Label</>} name={"firstName3"} size="medium" placeholder='Enter First Name'/>
+
+        <br />
+
+        <RichInput showRibbon={true} label={<>Large Label</>} name={"firstName4"} size="large" placeholder='Enter First Name'/> */}
+
+        <div dangerouslySetInnerHTML={{ __html: value }}></div>
+
+        <div>
+          <strong>Text Value:</strong>
+
+        </div>
+
         <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={"marigold"} />
         <RatingDisplay name={'rating'} label={'Rating Display'} compact color={"marigold"} />
 
-        <Radio name='radio_single_input1' value={true} radioLabel={"Yes"}/>
-        <Radio name='radio_single_input2' value={false} radioLabel={"No"}/>
+        <Radio name='radio_single_input1' value={true} radioLabel={"Yes"} />
+        <Radio name='radio_single_input2' value={false} radioLabel={"No"} />
 
         <CheckboxGroup
           name={'checkboxGroup'}
@@ -204,13 +271,13 @@ export const ReactHookForm = () => {
 
         <Dropdown
           name={'dropdownNumber'}
-          label={'Checkbox Group (Number)'} 
+          label={'Checkbox Group (Number)'}
           options={[
-            { label: "Months", options: monthOptions},
-            { label: "True/False", options: truFalseOptions},
-            { label: "Text", options: textInputOptions}
-          ]} 
-          multiselect/>
+            { label: "Months", options: monthOptions },
+            { label: "True/False", options: truFalseOptions },
+            { label: "Text", options: textInputOptions }
+          ]}
+          multiselect />
 
         <Input
           name={'firstName'}
@@ -448,10 +515,11 @@ export const ReactHookForm = () => {
           size="large"
           label={<strong>Rich Input Text</strong>}
         />
-        <RichViewer
+        <RichInput
           name="richHTMLText"
           size="large"
           label={<strong>Rich Input Viewer</strong>}
+          readOnly
         />
 
         <Textarea
@@ -490,6 +558,7 @@ export const ReactHookForm = () => {
             { label: 'Chocolate', value: 'chocolate' },
             { label: 'Strawberry', value: 'strawberry' },
           ]}
+          readOnly
         />
 
         <Dropdown
@@ -510,7 +579,7 @@ export const ReactHookForm = () => {
         <FileInput
           name={'attachments'}
           label={<strong>Attachments</strong>}
-          multiple={true}
+          multiple={false}
           maxFiles={3}
           // maxSize={5}
           savedFiles={[
@@ -532,7 +601,17 @@ export const ReactHookForm = () => {
           }}
         />
 
-        <TimePicker name={'timePickerValue'} label={'Time Picker'} />
+        <FileInput
+          name={'attachments2'}
+          label={<strong>Attachments 2</strong>} 
+          accept={{
+            "image/": ['image/png', 'image/jpg', 'image/jpeg'],
+            video: ['video/mp4'],
+          }}
+        />
+
+        <DatePicker name={'datePickerValue'} label={'Date Picker'} />
+        <TimePicker name={'timePickerValue'} dateAnchorName={'datePickerValue'} label={'Time Picker'} />
 
         <Button type="submit" appearance="primary">
           Submit

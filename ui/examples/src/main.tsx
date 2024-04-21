@@ -13,15 +13,19 @@ const root = ReactDOM.createRoot(
 const { getTheme } = ThemeService();
 
 export const AppRoot: React.FC = () => {
+  const [mode, setMode] = React.useState<'light' | 'dark'>('light'); // ['light', 'dark'
   const [theme, setTheme] = React.useState(teamsLightTheme);
 
   React.useEffect(() => {
-    getTheme('#751d1f', false, 0.8).then(setTheme).catch(console.error);
-  }, []);
+    getTheme('#751d1f', mode === "dark", 0.8).then(setTheme).catch(console.error);
+  }, [mode]);
 
   return (
     <FluentProvider theme={theme}>
       <AppFeatureProvider>
+        <button onClick={() => {
+          setMode(mode === "light" ? "dark" : "light");
+        }}>{mode}</button>
         <App />
       </AppFeatureProvider>
     </FluentProvider>

@@ -1,53 +1,24 @@
 import {
-  Field,
-  FieldProps,
-  LabelProps,
-  InfoLabel,
-  InfoLabelProps,
+    Field,
+    FieldProps,
+    LabelProps,
+    InfoLabel,
+    InfoLabelProps,
 } from '@fluentui/react-components';
-import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
-import ReactQuill, { ReactQuillProps } from "react-quill";
-import { DeltaStatic, Sources } from 'quill';
-import 'react-quill/dist/quill.snow.css';
+import { FluentEditor, FluentEditorProps } from '@prt-ts/fluent-input-extensions';
 
-const modules = {
-    toolbar: [
-        // [{ font: [] }],
-        // [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-        [{ list: 'ordered' }, { list: 'bullet' }],
-        [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-        [{ align: [] }],
-        [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
-        // [{ direction: "rtl" }], // text direction
-        [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
-        // [{ header: 1 }, { header: 2 }], // custom button values
-        [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
-        ['link'],
-        ['blockquote', 'code-block'],
-        ['clean'], // remove formatting button
-    ] as const,
-    // toolbar: { container: "#toolbar" },
-    keyboard: { bindings: { tab: false } },
-};
+export type RichInputFieldProps = FieldProps & FluentEditorProps & InfoLabelProps & { name: string, rules?: ControllerProps['rules'] }
 
-const no_modules = {
-    toolbar: false,
-};
-
-export type RichInputFieldProps = FieldProps & ReactQuillProps & InfoLabelProps & { name: string, rules?: ControllerProps['rules'] }
-
-export const RichInputField = forwardRef<ReactQuill, RichInputFieldProps>(({ name, rules, required, ...rest }, reactQuillRef) => {
+export const RichInputField = forwardRef<HTMLDivElement, RichInputFieldProps>(({ name, rules, required, style, className, ...rest }, editorRef) => {
     const { form: { control } } = useFormContext();
 
-    const { ...fieldProps }: FieldProps = rest;
-    const { ...reactQuillProps }: ReactQuillProps = rest;
-    const { ...infoLabelProps }: InfoLabelProps = rest;
+    const { ...fieldProps }: FieldProps = rest as unknown as FieldProps;
+    const { ...fluentEditorProps }: FluentEditorProps = rest as unknown as FluentEditorProps;
+    const { ...infoLabelProps }: InfoLabelProps = rest as unknown as InfoLabelProps;
 
-    const classes = useRichTextEditorStyles();
     return (
         <Controller
             name={name}
@@ -69,21 +40,18 @@ export const RichInputField = forwardRef<ReactQuill, RichInputFieldProps>(({ nam
                         required={required}
                     >
                         {(fieldProps) => (
-                            <ReactQuill
-                                {...reactQuillProps}
-                                ref={reactQuillRef || ref}
+                            <FluentEditor
+                                {...fluentEditorProps}
+                                ref={editorRef || ref}
                                 value={value}
-                                theme="snow"
-                                onChange={(
-                                    value: string, delta: DeltaStatic, source: Sources, editor: ReactQuill.UnprivilegedEditor
-                                ) => {
-                                    onChange(value === '<p><br></p>' ? '' : value);
-                                    reactQuillProps?.onChange?.(value, delta, source, editor);
+                                onChange={(value: string | undefined) => {
+                                    onChange(value);
+                                    fluentEditorProps.onChange?.(value);
                                 }}
-                                onBlur={() => onBlur()}
-                                modules={modules}
-                                className={fieldState.invalid ? classes.error : classes.regular}
+                                onBlur={onBlur}
                                 {...fieldProps}
+                                style={style}
+                                className={className}
                             />
                         )}
                     </Field>
@@ -92,21 +60,21 @@ export const RichInputField = forwardRef<ReactQuill, RichInputFieldProps>(({ nam
         />)
 });
 
-export const RichViewerField = forwardRef<ReactQuill, RichInputFieldProps>(({ name, rules, required, ...rest }, reactQuillRef) => {
+// @deprecated
+export const RichViewerField = forwardRef<HTMLDivElement, RichInputFieldProps>(({ name, rules, required, ...rest }, editorProps) => {
     const { form: { control } } = useFormContext();
 
-    const { ...fieldProps }: FieldProps = rest;
-    const { ...reactQuillProps }: ReactQuillProps = rest;
-    const { ...infoLabelProps }: InfoLabelProps = rest;
+    const { ...fieldProps }: FieldProps = rest as unknown as FieldProps;
+    const { ...fluentEditorProps }: FluentEditorProps = rest as unknown as FluentEditorProps;
+    const { ...infoLabelProps }: InfoLabelProps = rest as unknown as InfoLabelProps;
 
-    const classes = useRichTextEditorStyles();
     return (
         <Controller
             name={name}
             control={control}
             rules={rules}
             render={({ field, fieldState }) => {
-                const { value, ref } = field;
+                const { value, onBlur, ref } = field;
 
                 return (
                     <Field
@@ -121,15 +89,16 @@ export const RichViewerField = forwardRef<ReactQuill, RichInputFieldProps>(({ na
                         required={required}
                     >
                         {(fieldProps) => (
-                            <ReactQuill
-                                {...reactQuillProps}
-                                ref={reactQuillRef || ref}
+                            <FluentEditor
+                                {...fluentEditorProps}
+                                ref={editorProps || ref}
                                 value={value}
-                                theme="snow" 
-                                modules={no_modules}
-                                className={fieldState.invalid ? classes.error : classes.regular}
+                                onBlur={onBlur}
                                 {...fieldProps}
+
+                                // make it readonly
                                 readOnly={true}
+                                showRibbon={false}
                             />
                         )}
                     </Field>
@@ -137,148 +106,3 @@ export const RichViewerField = forwardRef<ReactQuill, RichInputFieldProps>(({ na
             }}
         />)
 });
-
-
-export const useRichTextEditorStyles = makeStyles({
-    error: {
-        ...shorthands.border(
-            tokens.strokeWidthThin,
-            'solid',
-            tokens.colorPaletteRedBorder2
-        ),
-        ...shorthands.borderRadius(tokens.borderRadiusMedium),
-
-        '& .ql-toolbar': {
-            ...shorthands.border('none'),
-            ...shorthands.padding(tokens.spacingVerticalXXS),
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-        },
-
-        '& .ql-container': {
-            ...shorthands.border('none'),
-            minHeight: '9rem',
-
-            '& .ql-editor': {
-                ...shorthands.padding(
-                    tokens.spacingVerticalMNudge,
-                    tokens.spacingHorizontalSNudge
-                ),
-                boxShadow: tokens.shadow2,
-                minHeight: '9rem',
-                height: 'auto',
-
-                '::before': {
-                    ...shorthands.padding(tokens.spacingVerticalXXS),
-
-                    fontStyle: 'normal',
-                    opacity: 1,
-                    color: tokens.colorNeutralForeground4,
-                    lineHeight: tokens.lineHeightBase200,
-                    fontWeight: tokens.fontWeightRegular,
-                    fontFamily: 'inherit',
-                    fontSize: tokens.fontSizeBase200,
-
-                    left: tokens.spacingHorizontalXS,
-                    right: tokens.spacingHorizontalXS,
-                },
-            },
-        },
-
-        // reset the border when focus
-        ':has(.ql-toolbar):focus-within': {
-            ...shorthands.borderTop(
-                tokens.strokeWidthThin,
-                'solid',
-                tokens.colorNeutralStroke1
-            ),
-            ...shorthands.borderRight(
-                tokens.strokeWidthThin,
-                'solid',
-                tokens.colorNeutralStroke1
-            ),
-            ...shorthands.borderLeft(
-                tokens.strokeWidthThin,
-                'solid',
-                tokens.colorNeutralStroke1
-            ),
-            ...shorthands.borderBottom(
-                tokens.strokeWidthThick,
-                'solid',
-                tokens.colorBrandStroke1
-            ),
-        },
-    },
-    regular: {
-        ...shorthands.borderTop(
-            tokens.strokeWidthThin,
-            'solid',
-            tokens.colorNeutralStroke1
-        ),
-        ...shorthands.borderRight(
-            tokens.strokeWidthThin,
-            'solid',
-            tokens.colorNeutralStroke1
-        ),
-        ...shorthands.borderLeft(
-            tokens.strokeWidthThin,
-            'solid',
-            tokens.colorNeutralStroke1
-        ),
-        ...shorthands.borderBottom(
-            tokens.strokeWidthThin,
-            'solid',
-            tokens.colorNeutralStrokeAccessible
-        ),
-        ...shorthands.borderRadius(tokens.borderRadiusMedium),
-
-        '& .ql-toolbar': {
-            ...shorthands.border('none'),
-            ...shorthands.padding(tokens.spacingVerticalXXS),
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-        },
-
-        '& .ql-container': {
-            ...shorthands.border('none'),
-            minHeight: '9rem',
-
-            '& .ql-editor': {
-                ...shorthands.padding(
-                    tokens.spacingVerticalMNudge,
-                    tokens.spacingHorizontalSNudge
-                ),
-                boxShadow: tokens.shadow2,
-                minHeight: '9rem',
-                height: 'auto',
-
-                '::before': {
-                    ...shorthands.padding(tokens.spacingVerticalXXS),
-
-                    fontStyle: 'normal',
-                    opacity: 1,
-                    color: tokens.colorNeutralForeground4,
-                    lineHeight: tokens.lineHeightBase200,
-                    fontWeight: tokens.fontWeightRegular,
-                    fontFamily: 'inherit',
-                    fontSize: tokens.fontSizeBase200,
-
-                    left: tokens.spacingHorizontalXS,
-                    right: tokens.spacingHorizontalXS,
-                },
-            },
-        },
-
-        // border on focus
-        ':has(.ql-toolbar):focus-within': {
-            ...shorthands.borderBottom(
-                tokens.strokeWidthThick,
-                'solid',
-                tokens.colorBrandStroke1
-            ),
-        },
-    },
-});
-

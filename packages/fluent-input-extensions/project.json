@@ -1,0 +1,38 @@
+{
+  "name": "fluent-input-extensions",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/fluent-input-extensions/src",
+  "projectType": "library",
+  "tags": ["fluentui"],
+  "targets": {
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/fluent-input-extensions/",
+        "tsConfig": "packages/fluent-input-extensions//tsconfig.lib.json",
+        "project": "packages/fluent-input-extensions//package.json",
+        "entryFile": "packages/fluent-input-extensions//src/index.ts",
+        "external": ["react", "react-dom", "react/jsx-runtime"],
+        "rollupConfig": "@nx/react/plugins/bundle-rollup",
+        "compiler": "tsc",
+        "format": ["esm", "cjs"],
+
+        "assets": [
+          {
+            "glob": "packages/fluent-input-extensions//README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/fluent-input-extensions/jest.config.ts"
+      }
+    }
+  }
+}

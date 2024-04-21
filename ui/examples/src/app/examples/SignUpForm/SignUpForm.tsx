@@ -97,10 +97,7 @@ export const SignUpForm = () => {
           name={'firstName'}
           label={'First Name'}
           required={true}
-          info={'test'}
-          infoButton={{
-            children: <Checkbox120Filled />,
-          }}
+          info={'test'} 
           hint={'some hint for the field'}
         />
 

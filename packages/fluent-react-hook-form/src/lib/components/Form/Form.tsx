@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { ForwardedRef, PropsWithChildren, forwardRef } from "react"
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
+import { FieldValues, SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form"
 import { FormContext } from "./FormContext"
 
 export interface FormContextType {
@@ -10,6 +10,7 @@ export interface FormContextType {
 export type FormProps<TFormState extends FieldValues> = {
     form: ReturnType<typeof useForm<TFormState>>
     onSubmit?: SubmitHandler<TFormState>;
+    onError?: SubmitErrorHandler<TFormState>
 }
 
 export type FormRef = HTMLFormElement & {
@@ -18,11 +19,11 @@ export type FormRef = HTMLFormElement & {
 
 export function FormProvider<TFormState extends FieldValues>({ children, ...props }: PropsWithChildren<FormProps<TFormState>>, ref: ForwardedRef<FormRef>) {
 
-    const { form, onSubmit } = props;
+    const { form, onSubmit, onError } = props;
 
     return (
         <FormContext.Provider value={{ form }}>
-            <form ref={ref} onSubmit={onSubmit && form.handleSubmit(onSubmit)} autoComplete="off">
+            <form ref={ref} onSubmit={onSubmit && form.handleSubmit(onSubmit, onError)} autoComplete="off">
                 {children}
             </form>
         </FormContext.Provider>

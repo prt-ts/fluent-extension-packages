@@ -1,10 +1,11 @@
 {
   "name": "@prt-ts/export-helpers",
-  "version": "4.2.0",
+  "version": "5.1.1",
   "dependencies": {
     "file-saver": ">=2.0.0",
     "xlsx": ">=0.18.0",
-    "pdfmake": ">=0.2.6"
+    "pdfmake": ">=0.2.10",
+    "exceljs": "latest"
   },
   "license": "MIT",
   "author": "Pradeep Raj Thapaliya",
@@ -12,5 +13,5 @@
     "url": "https://github.com/prt-ts/fluent-extension-packages.git"
   },
   "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme",
-  "types": "index.d.ts"
+  "types": "./src/index.d.ts"
 }

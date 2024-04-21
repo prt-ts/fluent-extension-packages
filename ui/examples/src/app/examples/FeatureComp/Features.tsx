@@ -10,7 +10,9 @@ import {
   DialogContent,
   Button,
   Divider,
-} from '@fluentui/react-components';
+} from '@fluentui/react-components'; 
+import { makeData } from '../../data/UserInfo';
+import { ExportData, ExportFileInfo, exportDocument } from '@prt-ts/export-helpers';
 
 const FeatureComponent = () => {
   return (
@@ -225,6 +227,108 @@ const Features = () => {
         </Button>
 
       </div>
+
+      <div>
+
+        <Button onClick={
+          async () => {
+
+            const userData = makeData(10) 
+            
+            const exportData : ExportData[] = userData.map((d) => ({
+              NullValue : null,
+              UndefinedValue : undefined,
+              emptyString: {
+                value : '',
+                cellStyle: {
+                  border : {
+                    left : {
+                      style : "hair",
+                      color : {
+                        argb: "FF00FF00"
+                      }
+                    },
+                    diagonal : {
+                      style : "double",
+                      color : {
+                        argb: "rgba(255, 99, 71, 0.5)"
+                      }
+                    }
+                  },
+                }
+              },
+              /* eslint-disable-next-line */
+              ["Display Name"] : {
+                value: {
+                  text : d.name,
+                  isHyperlink : true,
+                  hyperlink: "https://www.google.com"
+                }
+              },
+              /* eslint-disable-next-line */
+              ["User Name"] : {
+                value : d.loginName,
+                dataValidation : {
+                  type : "list",
+                  allowBlank: true,
+                  formulae: [`"Pradeep, Durga, Fana"`]
+                },
+                cellStyle: {
+                  protection: {
+                    locked: false
+                  }
+                }
+              },
+              /* eslint-disable-next-line */
+              ["Email Address"]: {
+                value: d.email,
+                cellStyle: {
+                  font: { 
+                    italic: true
+                  },
+                  border : {
+                    left : {
+                      style : "hair",
+                      color : {
+                        argb: "rgba(255, 99, 71, 0.5)"
+                      }
+                    },
+                    diagonal : {
+                      style : "hair",
+                      color : {
+                        argb: "rgba(255, 99, 71, 0.5)"
+                      }
+                    }
+                  },
+                  // fill : {
+                  //   type : "pattern",
+                  //   pattern : "darkDown"
+                  // }
+                  
+                }
+              }
+
+            }))
+
+            const fileInfo : ExportFileInfo = {
+              fileName : "Pradeep Raj - User List",
+              type: "excel",
+
+              sheets : [{
+                sheetName : "User Info - Formatted",
+                data: exportData
+              }]
+
+            }
+
+            await exportDocument(fileInfo)
+          }
+         }>
+          Export template
+        </Button>
+
+      </div>
+
     </>
 
   );

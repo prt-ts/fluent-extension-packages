@@ -2,14 +2,12 @@ import { Field, FieldProps, Dropdown, DropdownProps, Option, OptionGroup, LabelP
 import { forwardRef, useMemo } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
+import { Show } from "@prt-ts/react-control-flow";
+import { ChoiceOption } from "@prt-ts/types";
 
 export type DropdownChoiceOption = {
-  label: string;
-  value: string | number | boolean;
-
   optionProps?: Partial<OptionProps> | undefined;
-  meta?: Record<string, unknown>;
-}
+} & ChoiceOption;
 
 export type DropdownChoiceGroup = {
   label: string;
@@ -24,6 +22,7 @@ export type DropdownFieldProps = FieldProps &
     name: string;
     options: DropdownChoiceOption[] | DropdownChoiceGroup[];
     rules?: ControllerProps['rules'];
+    readOnly?: boolean;
   };
 
 const useDropdownStyles = makeStyles({
@@ -32,7 +31,7 @@ const useDropdownStyles = makeStyles({
   },
 });
 
-export const DropdownField = forwardRef<HTMLButtonElement, DropdownFieldProps>(({ name, options, rules, required, ...rest }, dropdownRef) => {
+export const DropdownField = forwardRef<HTMLButtonElement, DropdownFieldProps>(({ name, options, rules, required, readOnly, ...rest }, dropdownRef) => {
 
   const dropdownId = useId('dropdown');
   const { form: { control } } = useFormContext();
@@ -48,8 +47,8 @@ export const DropdownField = forwardRef<HTMLButtonElement, DropdownFieldProps>((
     return options as DropdownChoiceOption[];
   }, [options]);
 
-  const dropdownOptions = useMemo(() => { 
-    if (options.some(option => 'options' in option)) { 
+  const dropdownOptions = useMemo(() => {
+    if (options.some(option => 'options' in option)) {
       return (options as DropdownChoiceGroup[]).map((group, index) => (
         <OptionGroup
           key={`${group.label}_${index}`}
@@ -132,6 +131,7 @@ export const DropdownField = forwardRef<HTMLButtonElement, DropdownFieldProps>((
               listbox={
                 {
                   className: styles.listbox,
+                  children: dropdownOptions,
                 }
               }
               {...dropdownProps}
@@ -143,7 +143,9 @@ export const DropdownField = forwardRef<HTMLButtonElement, DropdownFieldProps>((
               onOptionSelect={handleOnChange}
               onBlur={handleOnBlur}
             >
-              {dropdownOptions}
+              <Show when={!readOnly}>
+                {dropdownOptions}
+              </Show>
             </Dropdown>
           </Field>
         );

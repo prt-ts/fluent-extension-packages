@@ -262,8 +262,7 @@ export const useGridContainer = <TItem extends RowData>(
 
   const headerMenu = React.useMemo((): JSX.Element | React.ReactNode => {
     if (props.headerMenu) {
-      const selectedRows = table?.getSelectedRowModel().flatRows.map((row) => row.original) || [];
-      return props.headerMenu(selectedRows);
+      return props.headerMenu(table);
     }
     return null;
   },

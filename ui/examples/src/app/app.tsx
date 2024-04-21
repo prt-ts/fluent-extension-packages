@@ -13,7 +13,9 @@ import Features from './examples/FeatureComp/Features';
 import DummyEditPage from './DummyEditPage';
 import Controls from './examples/Control/Controls';
 import { TableExample2 } from './TableExample2';
-import { EditableGrid } from './EditableGrid/EditableGrid';
+import { EditableGrid } from './EditableGrid/EditableGrid'; 
+import { useEffect } from 'react';
+import { InputExample } from './RHFormExamples/Input';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,12 +52,16 @@ const router = createBrowserRouter(
       <Route path="/page-5" element={<Features />} />
       <Route path="/sign-up" element={<SignUpForm />} />
       <Route path="/controls" element={<Controls />} />
+      <Route path="/rhf/input" element={<InputExample />} />
     </>
   )
 );
 
 
 export function App() {
+  useEffect(() => {
+    // seedUserInfo(100);
+  }, []); 
   return (
     <div>
       <div

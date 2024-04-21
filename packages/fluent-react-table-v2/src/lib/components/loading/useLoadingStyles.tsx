@@ -5,11 +5,13 @@ export const useLoadingStyles = makeStyles({
         backgroundColor: tokens.colorNeutralBackground1, 
     },
     row: {
+        width: "100%",
         alignItems: "center",
-        display: "grid",
-        paddingBottom: "10px",
+        justifyContent: "space-between",
+        display: "flex",
         position: "relative",
-        ...shorthands.gap("10px"),
-        gridTemplateColumns: "min-content 20% 15% 30% 29%",
+        paddingBottom: "10px",
+        paddingTop: "10px",
+        ...shorthands.gap("20px"), 
     },
 });

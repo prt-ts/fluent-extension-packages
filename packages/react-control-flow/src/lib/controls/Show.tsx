@@ -1,10 +1,10 @@
-import type { ReactNode } from "react";
+import { ReactNode } from "react";
 import { ConditionClause } from "../types/ConditionalClause";
 
 interface ShowProps {
     when: ConditionClause;
-    children: JSX.Element | ReactNode | null;
-    fallback?: JSX.Element | ReactNode | null;
+    children: JSX.Element | JSX.Element[] | ReactNode | string | number | null;
+    fallback?: JSX.Element | null;
 }
 /* eslint-disable */
 export const Show = (props: ShowProps): JSX.Element | null => {

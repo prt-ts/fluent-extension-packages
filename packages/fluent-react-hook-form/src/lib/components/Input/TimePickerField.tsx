@@ -22,10 +22,9 @@ import {
 export type TimePickerFieldProps = FieldProps &
   InfoLabelProps & {
     name: string;
-    rules?: ControllerProps['rules'];
-    datePickerProps?: DatePickerProps;
-    timePickerProps?: TimePickerProps;
-  };
+    dateAnchorName: string;
+    rules?: ControllerProps['rules'];  
+  } & TimePickerProps;
 
 const useStyles = makeStyles({
   root: {
@@ -48,6 +47,82 @@ const useStyles = makeStyles({
 export const TimePickerField = forwardRef<
   HTMLInputElement,
   TimePickerFieldProps
+>(({ name, dateAnchorName, rules, required, ...rest }, inputRef) => {
+  const {
+    form: { control, setValue, getValues, watch },
+  } = useFormContext();
+
+  const { ...fieldProps }: FieldProps = rest;
+  const { ...timePickerProps } : TimePickerProps = rest; 
+  const { ...infoLabelProps }: InfoLabelProps = rest;
+
+  const [timePickerValue, setTimePickerValue] = React.useState<string>(
+    getValues(name) ? formatDateToTimeString(getValues(name)) : ''
+  );
+  const onTimeChange: TimePickerProps['onTimeChange'] = (_ev, data) => {
+    setValue(name ,data.selectedTime);
+    setTimePickerValue(data.selectedTimeText ?? '');
+  };
+  const onTimePickerInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setTimePickerValue(ev.target.value);
+  };
+
+  const styles = useStyles();
+
+  const dateAnchor = watch(dateAnchorName);
+
+  return (
+    <Controller
+      name={name}
+      control={control}
+      rules={rules}
+      render={({ field, fieldState }) => {
+        const { value = null, ref } = field;
+
+        return (
+          <Field
+            {...fieldProps}
+            label={
+              {
+                children: (_: unknown, props: LabelProps) => (
+                  <InfoLabel {...props} {...infoLabelProps} />
+                ),
+              } as unknown as InfoLabelProps
+            }
+            validationState={fieldState.invalid ? 'error' : undefined}
+            validationMessage={fieldState.error?.message}
+            required={required}
+          >
+            {(fieldProps) => (
+              <div style={{ display: 'flex' }}> 
+                <TimePicker 
+                  freeform
+                  {...timePickerProps} 
+                  dateAnchor={timePickerProps.dateAnchor || dateAnchor || new Date()}
+                  selectedTime={value || null}
+                  onTimeChange={onTimeChange}
+                  value={timePickerValue}
+                  onInput={onTimePickerInput}
+                  className={styles.timePickerClass}
+                  hourCycle={'h11'}
+                  input={{
+                    className: styles.timePickerInputClass,
+                  }}
+                  {...fieldProps}
+                  ref={inputRef || ref}
+                />
+              </div>
+            )}
+          </Field>
+        );
+      }}
+    />
+  );
+});
+
+export const DateTimePickerField = forwardRef<
+  HTMLInputElement,
+  TimePickerFieldProps & { datePickerProps: DatePickerProps }
 >(({ name, rules, required, ...rest }, inputRef) => {
   const {
     form: { control, setValue, getValues },
@@ -55,7 +130,7 @@ export const TimePickerField = forwardRef<
 
   const { ...fieldProps }: FieldProps = rest;
   const { datePickerProps } = rest;
-  const { timePickerProps } = rest;
+  const { ...timePickerProps } = rest;
   const { ...infoLabelProps }: InfoLabelProps = rest;
 
   const styles = useStyles();
@@ -113,8 +188,7 @@ export const TimePickerField = forwardRef<
       control={control}
       rules={rules}
       render={({ field, fieldState }) => {
-        const { value, ref } = field;
-
+        const { value, ref } = field; 
         return (
           <Field
             {...fieldProps}

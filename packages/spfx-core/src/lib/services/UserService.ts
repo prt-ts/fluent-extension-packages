@@ -2,7 +2,7 @@
 import { IWebEnsureUserResult } from "@pnp/sp/site-users";
 import { IPagedResult } from "@pnp/graph";
 import { getGraphFi, getSP } from "../pnp";
-import { UserInfo } from "../types";
+import { UserInfo } from "@prt-ts/types";
 
 export type ObjectType = "user" | "group" | "both"; 
 

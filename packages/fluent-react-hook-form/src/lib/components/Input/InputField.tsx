@@ -1,10 +1,12 @@
-import { Field, FieldProps, Input, InputOnChangeData, InputProps, LabelProps, InfoLabel, InfoLabelProps, useId } from "@fluentui/react-components";
+import { Field, Input, InputOnChangeData, InputProps, LabelProps, InfoLabel, InfoLabelProps, useId, FieldProps } from "@fluentui/react-components";
 import { forwardRef } from "react";
 import { useFormContext } from "../Form";
 import { Controller, ControllerProps } from "react-hook-form";
 import { creditCardMask, currencyMask, phoneMask } from "../../utils/InputFormatter";
+import { CommonFieldInfoLabelProps } from "../types/CommonFieldProps";
+import { Show } from "@prt-ts/react-control-flow";
 
-export type InputFieldProps = FieldProps & InputProps & InfoLabelProps & {
+export type InputFieldProps = CommonFieldInfoLabelProps & InputProps & {
     name: string,
     rules?: ControllerProps['rules']
     autoCompleteOptions?: string[]
@@ -12,13 +14,59 @@ export type InputFieldProps = FieldProps & InputProps & InfoLabelProps & {
     onCustomMask?: (value: string) => string
 }
 
-export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ name, rules, autoCompleteOptions = [], required, fieldMask, onCustomMask, ...rest }, inputRef) => {
-    const autoCompleteListId = useId('autoCompleteList');
-    const { form: { control } } = useFormContext();
+function useFormatInputProps(props: InputFieldProps) {
+    const {
+        name,
+        onChange,
+        onBlur,
+        placeholder,
+        required,
+        className,
+        label,
+        orientation,
+        hint,
+        info,
+        autoCompleteOptions = [],
+        fieldMask,
+        rules,
+        size,
+        onCustomMask,
+        ...rest
+    } = props;
 
-    const { ...fieldProps }: FieldProps = rest;
     const { ...inputProps }: InputProps = rest;
-    const { ...infoLabelProps }: InfoLabelProps = rest;
+    const { fieldProps = {}, infoLabelProps = {} } = props;
+
+    return {
+        name,
+        rules,
+        fieldMask,
+        autoCompleteOptions,
+        onCustomMask,
+        onChange,
+        onBlur,
+        inputProps: { ...inputProps, placeholder, className, size } as InputProps,
+        fieldProps: { ...fieldProps, required, hint, orientation, size } as FieldProps,
+        infoLabelProps: { ...infoLabelProps, label, info, size } as InfoLabelProps
+    } as const;
+}
+
+export const InputField = forwardRef<HTMLInputElement, InputFieldProps>((props, inputRef) => {
+    const fieldId = useId(`${props.name}-field`);
+    const autoCompleteListId = useId('autoCompleteList');
+    const { form: { control } } = useFormContext(); 
+    const {
+        name,
+        rules,
+        fieldMask,
+        autoCompleteOptions,
+        onCustomMask,
+        onChange : onInputChange,
+        onBlur : onInputBlur,
+        inputProps,
+        fieldProps,
+        infoLabelProps
+    } = useFormatInputProps(props);
 
     return (
         <Controller
@@ -48,28 +96,32 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ name,
                             break;
                     }
                     onChange(data.value);
-                    inputProps.onChange?.(ev, data);
+                    if (onInputChange) {
+                        onInputChange(ev, data);
+                    }
                 }
 
                 const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
                     onBlur();
-                    inputProps.onBlur?.(ev);
+                    if (onInputBlur) {
+                        onInputBlur(ev);
+                    }
                 }
 
                 return (
                     <Field
-                        {...fieldProps}
+                        {...(fieldProps)}
                         label={{
                             children: (_: unknown, props: LabelProps) => (
-                                <InfoLabel {...props} {...infoLabelProps} />
+                                <InfoLabel {...props} {...infoLabelProps} htmlFor={fieldId}/>
                             )
-                        } as unknown as InfoLabelProps}
+                        } as LabelProps}
                         validationState={fieldState.invalid ? "error" : undefined}
                         validationMessage={fieldState.error?.message}
-                        required={required}
                     >
                         <Input
                             {...inputProps}
+                            id={fieldId}
                             ref={inputRef || ref}
                             name={name}
                             onChange={handleOnChange}
@@ -78,15 +130,13 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ name,
                             required={false}
                             list={autoCompleteOptions.length > 0 ? autoCompleteListId : undefined}
                         />
-                        {
-                            autoCompleteOptions.length > 0 && (
-                                <datalist id={autoCompleteListId}>
-                                    {autoCompleteOptions.map((option: string) => (
-                                        <option key={option} value={option} />
-                                    ))}
-                                </datalist>
-                            )
-                        }
+                        <Show when={autoCompleteOptions?.length > 0}>
+                            <datalist id={autoCompleteListId}>
+                                {autoCompleteOptions.map((option: string) => (
+                                    <option key={option} value={option} />
+                                ))}
+                            </datalist>
+                        </Show>
                     </Field>
                 )
             }}

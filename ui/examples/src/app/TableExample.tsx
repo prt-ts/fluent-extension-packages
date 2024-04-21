@@ -5,12 +5,13 @@ import { EditRegular, DeleteRegular } from '@fluentui/react-icons';
 import {
   ColumnDef,
   PinRowAction,
-  SelectRowCheckbox,
   Table,
   TableRef,
   TableState,
+  TableType,
   TableView,
   createColumnHelper,
+  getTableData,
 } from '@prt-ts/fluent-react-table-v2';
 import { useNavigate } from 'react-router-dom';
 import * as React from "react";
@@ -31,6 +32,7 @@ import {
   MenuItem,
 } from "@fluentui/react-components";
 import { tableViews as views } from './data/tableView';
+import { ExportData, exportToFile } from '@prt-ts/export-helpers';
 
 export function TableExample() {
   const navigate = useNavigate();
@@ -240,13 +242,9 @@ export function TableExample() {
           aggregatedCell: () => null,
           filterFn: 'arrIncludesSome',
         }),
-        columnHelper.accessor(({createdAt}) => createdAt, {
+        columnHelper.accessor(({createdAt}) => createdAt ? new Date(createdAt)?.toLocaleDateString() : "", {
           id: 'Created At',
-          header: 'Created At',
-          cell: (info) =>
-            info.renderValue()
-              ? new Date(info.renderValue() as Date)?.toLocaleDateString()
-              : '',
+          header: 'Created At', 
           aggregatedCell: () => null,
           filterFn: 'inDateRange',
         }) as ColumnDef<Person>,
@@ -443,6 +441,21 @@ export function TableExample() {
     [data]
   );
 
+  const getExportDataFromTable = () => {
+    const { table } = tableRef.current;
+    const data = getTableData(table);
+    console.log(data);
+
+    exportToFile({
+      type: "excel",
+      sheets: [
+        {
+          sheetName: 'Sheet 1',
+          data: data as any,
+        },
+      ],
+    });
+  }
 
 
   return (
@@ -451,6 +464,7 @@ export function TableExample() {
         display: 'flex',
         gap: '10px',
       }}>
+      <Button onClick={getExportDataFromTable}>Get Export Data</Button>
       <Button onClick={logSelectedRows}>Log Selected Rows</Button>
       <Button onClick={logTableState}>Get Table State</Button>
       <Button onClick={saveCurrentTableState}>Save Current View</Button>
@@ -482,8 +496,8 @@ export function TableExample() {
         pageSizeOptions={[10, 20, 100, 1000, 10000]}
         isLoading={isLoading}
         gridTitle={<strong>Grid Header</strong>}
-        headerMenu={(selectedItems) => (
-          <TopToolbar selectedItems={selectedItems} />
+        headerMenu={(table) => (
+          <TopToolbar table={table} />
         )}
         rowSelectionMode={selectionMode}
         columnVisibility={{
@@ -517,6 +531,11 @@ export function TableExample() {
         }}
         disableTableHeader={true}
         tableHeight='750px'
+        rowSelectionState={{
+          1: true,
+          2: true,
+          3: true
+        }}
         // tableSettings={{
         //   enableManualSelection: true,
         // }}
@@ -526,8 +545,12 @@ export function TableExample() {
 }
 
 export const TopToolbar: React.FC<{
-  selectedItems: Person[];
-}> = ({ selectedItems }) => {
+  table: TableType<Person>;
+}> = ({ table }) => {
+
+  const selectedItems = table.getSelectedRowModel().flatRows.map((row) => row.original);
+
+  
 
   console.log(selectedItems);
   return (

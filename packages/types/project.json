@@ -1,0 +1,32 @@
+{
+  "name": "types",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/types/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/types/",
+        "main": "packages/types//src/index.ts",
+        "tsConfig": "packages/types//tsconfig.lib.json",
+        "assets": ["packages/types/*.md"],
+        "format": ["esm", "cjs"],
+        "compiler": "tsc"
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs types {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/types/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

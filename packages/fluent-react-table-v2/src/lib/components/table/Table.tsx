@@ -49,7 +49,7 @@ export const TableContainer = <TItem extends RowData>(
       </table>
       <Switch when={true}>
         <Case value={isLoading}>
-          <Loading />
+          <Loading visibleColumns={table.getVisibleLeafColumns()} table={table}/>
         </Case>
         <Case value={noItems}>
           <NoItemGrid message={props.noItemPage} />
