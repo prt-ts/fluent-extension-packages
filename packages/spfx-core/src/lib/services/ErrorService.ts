@@ -1,36 +1,41 @@
 /* eslint-disable  */
-import { Logger, LogLevel } from "@pnp/logging";
+import { LogLevel, Logger } from "@pnp/logging";
 import { HttpRequestError } from "@pnp/queryable";
 import { hOP } from "@pnp/core";
 
 export const ErrorService = () => {
   (async () => {})();
-
-   const handleError = async (e: Error | HttpRequestError): Promise<void> => {
+  
+  async function handleError(e: Error | HttpRequestError): Promise<string> {
+  
+    let message: string;
+    // check if the error is an HttpRequestError
     if (hOP(e, "isHttpRequestError")) {
+  
       // we can read the json from the response
-      const data = await(<HttpRequestError>e).response.json();
+      const data = await (<HttpRequestError>e).response.json();
   
       // parse this however you want
-      const message =
-        typeof data["odata.error"] === "object"
-          ? data["odata.error"].message.value
-          : e.message;
+      message = typeof data["odata.error"] === "object" ? data["odata.error"].message.value : e.message;
   
       // we use the status to determine a custom logging level
-      const level: LogLevel = (<HttpRequestError>e).status === 404 ? LogLevel.Warning : LogLevel.Error;
+      const level: LogLevel = (<HttpRequestError>e).status === 404 ? LogLevel.Warning : LogLevel.Info;
   
       // create a custom log entry
       Logger.log({
         data,
         level,
-        message
+        message,
       });
+  
     } else {
       // not an HttpRequestError so we just log message
       Logger.error(e);
     }
-    console.log("Error Handler >> Some Error : ", e);
+    
+    return new Promise<string>((resolve) => {
+      resolve(message);    
+    });
   }
   
   return {
