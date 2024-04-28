@@ -194,6 +194,8 @@ export const ReactHookForm = () => {
         Toggle View
       </Button>
       <Form form={testForm} onSubmit={onSubmit}>
+        <div className={formStyles.formTitle}>Form Title</div>
+        <div className={formStyles.formSectionTitle}>Form Section Title</div>
         <div className={formStyles.row}>
           <div className={formStyles.column}>
             <PeoplePicker
@@ -242,23 +244,27 @@ export const ReactHookForm = () => {
           </div>
         </div>
 
-        <div>
-          <strong>Text Value:</strong>
-        </div>
+        <div className={formStyles.formSectionTitle}>Sub Section Title</div>
 
-        <Rating
-          name={'rating'}
-          label={'Rating'}
-          step={0.5}
-          max={5}
-          color={'marigold'}
-        />
-        <RatingDisplay
-          name={'rating'}
-          label={'Rating Display'}
-          compact
-          color={'marigold'}
-        />
+        <div className={formStyles.row}>
+          <div className={formStyles.column}>
+            <Rating
+              name={'rating'}
+              label={<span className={formStyles.label}>Rating</span>}
+              step={0.5}
+              max={5}
+              color={'marigold'}
+            />
+          </div>
+          <div className={formStyles.column}>
+            <RatingDisplay
+              name={'rating'}
+              label={<span className={formStyles.label}>Rating Display</span>}
+              compact
+              color={'marigold'}
+            />
+          </div>
+        </div>
 
         <Radio name="radio_single_input1" value={true} radioLabel={'Yes'} />
         <Radio name="radio_single_input2" value={false} radioLabel={'No'} />
