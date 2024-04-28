@@ -16,6 +16,10 @@ export { exportToPdfDocument } from "./exportToPDFDoc";
 export { createBlob } from "./createBlob";
 export { createDocumentBuffer } from "./createDocumentBuffer";
 
+// import methods
+export type { ImportConfig } from "./importFiles";
+export { importExcelDocument, importCsvDocument } from "./importFiles";
+
 // download methods
 export { exportDocument } from "./exportDocument";
 export { exportToFile } from "./exportToFile";
