@@ -175,7 +175,6 @@ export const UserDetails: React.FC<{ user: UserInfo }> = ({ user }) => {
   return (
     <div>
       <Persona
-        presence={{ status: 'available' }}
         size="huge"
         name={user.name}
         avatar={{ color: 'colorful' }}

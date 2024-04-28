@@ -31,7 +31,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
 import { debouncedSearchUserInfo, seedUserInfo } from './data/UserInfo';
 import { UserInfo } from '@prt-ts/types';
-import { GroupedTagPicker } from './examples/PeoplePicker/PeoplePicker';
 
 const nameSchema = yup.string().required('First Name is required');
 //.min(10, 'Min 10')
@@ -181,7 +180,7 @@ export const ReactHookForm = () => {
 
   // console.log("formValue", testForm.watch());
 
-  const value = testForm.watch('firstName2');
+  // const value = testForm.watch('firstName2');
 
   const formStyles = useFormStyles();
 
