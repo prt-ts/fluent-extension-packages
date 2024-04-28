@@ -3,7 +3,7 @@ import { FluentEditorProps, FontSizeOption } from "./FluentEditorTypes";
 import { FieldControlProps, TextareaProps, tokens, useId } from "@fluentui/react-components";
 import { DOMEventRecord, EditorOptions, EditorPlugin, IEditor } from "roosterjs-content-model-types";
 import { Editor, createModelFromHtml, exportContent } from "roosterjs-content-model-core";
-import { TableEditPlugin, ShortcutPlugin, WatermarkPlugin, AutoFormatPlugin } from "roosterjs-content-model-plugins";
+import { TableEditPlugin, ShortcutPlugin, WatermarkPlugin, AutoFormatPlugin, PastePlugin, HyperlinkPlugin, MarkdownPlugin } from "roosterjs-content-model-plugins";
 
 
 function defaultEditorCreator(div: HTMLDivElement, options: EditorOptions): IEditor {
@@ -83,10 +83,33 @@ export function useFluentEditor(props: FluentEditorProps, ref: React.ForwardedRe
                     autoUnlink: true,
                     autoHyphen: true
                 }),
-                // new HyperlinkPlugin(
-                //     (url: string, anchor: HTMLAnchorElement) => url,
-                //     "_blank",
-                // )
+                new PastePlugin(),
+                new HyperlinkPlugin(
+                    (url: string, anchor: HTMLAnchorElement) => {
+                        anchor.title = url; 
+
+                        if (url.length > 2) {
+                            url = url.substring(0, 2) + "...";
+                        }
+                        
+                        return url;   
+                                   
+                    },
+                    "_blank",
+                    (anchor: HTMLAnchorElement, mouseEvent: MouseEvent) => {
+                        if (anchor.href.startsWith("mailto:")) {
+                            window.location.href = anchor.href;
+                        } else {
+                            window.open(anchor.href, "_blank");
+                        }
+                        return true;
+                    }
+                ),
+                new MarkdownPlugin({
+                    bold: true, 
+                    italic: true,
+                    strikethrough: true,                    
+                })
             ];
 
             const defaultEditor = defaultEditorCreator(editorDiv.current, {
