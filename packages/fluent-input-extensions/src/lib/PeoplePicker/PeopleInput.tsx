@@ -1,11 +1,11 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   TagPicker,
   TagPickerList,
   TagPickerInput,
   TagPickerControl,
   TagPickerGroup,
-} from "@fluentui/react-tag-picker-preview";
+} from '@fluentui/react-tag-picker-preview';
 import {
   Avatar,
   Button,
@@ -15,12 +15,19 @@ import {
   InteractionTag,
   InteractionTagPrimary,
   InteractionTagSecondary,
-} from "@fluentui/react-components";
-import { Show } from "@prt-ts/react-control-flow";
-import { PeopleInputProps, PeopleInputRef } from "./PeopleInputProps";
-import { ClearIcon } from "./Icons";
-import { usePeopleInput } from "./usePeopleInput";
-import { usePeopleInputStyles } from "./usePeopleInputStyles";
+  Popover,
+  PopoverSurface,
+  PopoverTrigger,
+  Persona,
+  Toolbar,
+} from '@fluentui/react-components';
+import { Show } from '@prt-ts/react-control-flow';
+import { PeopleInputProps, PeopleInputRef } from './PeopleInputProps';
+import { ClearIcon } from './Icons';
+import { usePeopleInput } from './usePeopleInput';
+import { usePeopleInputStyles } from './usePeopleInputStyles';
+import { UserInfo } from '@prt-ts/types';
+import { MailEditRegular } from '@fluentui/react-icons';
 
 export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
   (props, ref): JSX.Element => {
@@ -29,7 +36,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
       value,
       selectedOptions,
       tagPickerInputProps,
-      tagPickerProps, 
+      tagPickerProps,
       handleOptionSelect,
       handleQueryChange,
       onUserSelectionChange,
@@ -45,7 +52,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
     return (
       <>
         <TagPicker
-          {...tagPickerProps} 
+          {...tagPickerProps}
           onOptionSelect={handleOptionSelect}
           selectedOptions={selectedOptions}
           freeform
@@ -72,7 +79,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
               </Show>
             }
           >
-            <Show when={pickerType !== "list"}>
+            <Show when={pickerType !== 'list'}>
               <TagPickerGroup
                 className={mergeClasses(styles[pickerType], styles[layout])}
               >
@@ -80,17 +87,26 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
                   <InteractionTag
                     key={user.loginName}
                     shape="circular"
-
                     value={user.loginName}
                   >
-                    <InteractionTagPrimary
-                      media={<Avatar name={user.name} color="colorful" />}
-                      hasSecondaryAction
-                    >
-                      {user.name}
-                    </InteractionTagPrimary>
-                    <InteractionTagSecondary aria-label="remove" />
-                  </InteractionTag >
+                    <Popover withArrow trapFocus>
+                      <PopoverTrigger>
+                        <InteractionTagPrimary
+                          media={<Avatar name={user.name} color="colorful" />}
+                          type="button"
+                          hasSecondaryAction
+                        >
+                          {user.name}
+                        </InteractionTagPrimary>
+                      </PopoverTrigger>
+                      <PopoverSurface>
+                        <UserDetails user={user} />
+                      </PopoverSurface>
+                    </Popover>
+                    <Tooltip content="Remove" relationship="label">
+                      <InteractionTagSecondary aria-label="remove" />
+                    </Tooltip>
+                  </InteractionTag>
                 ))}
               </TagPickerGroup>
             </Show>
@@ -101,7 +117,11 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
               onChange={async (e) => handleQueryChange(e.target.value)}
               readOnly={props.readOnly || reachMaxSelection}
               disabled={props.disabled}
-              placeholder={reachMaxSelection && selectedOptions?.length > 0 ? "" : tagPickerInputProps.placeholder}
+              placeholder={
+                reachMaxSelection && selectedOptions?.length > 0
+                  ? ''
+                  : tagPickerInputProps.placeholder
+              }
             />
           </TagPickerControl>
           <Show when={!reachMaxSelection && !tagPickerInputProps.readOnly}>
@@ -110,7 +130,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
             </TagPickerList>
           </Show>
         </TagPicker>
-        <Show when={pickerType === "list"}>
+        <Show when={pickerType === 'list'}>
           <TagGroup
             onDismiss={(e, data) => {
               removeSelectedUser(e, data);
@@ -125,14 +145,24 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
                 size="small"
                 value={user.loginName}
               >
-                <InteractionTagPrimary
-                  media={<Avatar name={user.name} color="colorful" />}
-                  hasSecondaryAction
-                >
-                  {user.name}
-                </InteractionTagPrimary>
-                <InteractionTagSecondary aria-label="remove" />
-              </InteractionTag >
+                <Popover withArrow trapFocus>
+                  <PopoverTrigger>
+                    <InteractionTagPrimary
+                      media={<Avatar name={user.name} color="colorful" />}
+                      type="button"
+                      hasSecondaryAction
+                    >
+                      {user.name}
+                    </InteractionTagPrimary>
+                  </PopoverTrigger>
+                  <PopoverSurface>
+                    <UserDetails user={user} />
+                  </PopoverSurface>
+                </Popover>
+                <Tooltip content="Remove" relationship="label">
+                  <InteractionTagSecondary aria-label="remove" />
+                </Tooltip>
+              </InteractionTag>
             ))}
           </TagGroup>
         </Show>
@@ -140,3 +170,40 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
     );
   }
 );
+
+export const UserDetails: React.FC<{ user: UserInfo }> = ({ user }) => {
+  return (
+    <div>
+      <Persona
+        presence={{ status: 'available' }}
+        size="huge"
+        name={user.name}
+        avatar={{ color: 'colorful' }}
+        secondaryText={user.email}
+        tertiaryText={
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%',
+            }}
+          >
+            <Toolbar>
+              <Tooltip content="Send Email" relationship="label">
+                <Button
+                  appearance="subtle"
+                  size="small"
+                  shape="rounded"
+                  icon={<MailEditRegular />}
+                  onClick={() => {
+                    window.open(`mailto:${user.email}`);
+                  }}
+                />
+              </Tooltip>
+            </Toolbar>
+          </div>
+        }
+      />
+    </div>
+  );
+};

@@ -1,7 +1,4 @@
-
-import {
-  Button,
-} from '@fluentui/react-components';
+import { Button } from '@fluentui/react-components';
 import {
   useForm,
   Form,
@@ -23,6 +20,7 @@ import {
   RadioGroup,
   Radio,
   PeoplePicker,
+  useFormStyles,
 } from '@prt-ts/fluent-react-hook-form';
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
@@ -33,22 +31,23 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
 import { debouncedSearchUserInfo, seedUserInfo } from './data/UserInfo';
 import { UserInfo } from '@prt-ts/types';
-import { GroupedTagPicker } from './examples/PeoplePicker/PeoplePicker'; 
+import { GroupedTagPicker } from './examples/PeoplePicker/PeoplePicker';
 
-const nameSchema = yup
-  .string()
-  .required('First Name is required')
-  //.min(10, 'Min 10')
-  //.max(15, 'Max 15')
+const nameSchema = yup.string().required('First Name is required');
+//.min(10, 'Min 10')
+//.max(15, 'Max 15')
 
 const schema = yup.object({
-  peoplePicker: yup.array().of(
-    yup.object({
-      id: yup.string().required('Id is required'),
-      name: yup.string().required('Name is required'),
-      email: yup.string().required('Email is required'),
-    })
-  ).min(1, 'People Picker is required'),
+  peoplePicker: yup
+    .array()
+    .of(
+      yup.object({
+        id: yup.string().required('Id is required'),
+        name: yup.string().required('Name is required'),
+        email: yup.string().required('Email is required'),
+      })
+    )
+    .min(1, 'People Picker is required'),
   rating: yup.number().required('Rating is required'),
   firstName: nameSchema,
   firstName1: nameSchema,
@@ -84,8 +83,8 @@ const onResolveUsers = async (users: UserInfo[]) => {
   return {
     resolvedUserInfo: users,
     error: users?.length < 2 ? `Error resolving user: ${lastUser.name}` : null,
-  }; 
-}
+  };
+};
 
 export type IFormInput = yup.InferType<typeof schema>;
 
@@ -96,7 +95,7 @@ export const ReactHookForm = () => {
 
   useEffect(() => {
     seedUserInfo(100);
-  }, []); 
+  }, []);
 
   const values = useDefaultValues();
 
@@ -142,14 +141,14 @@ export const ReactHookForm = () => {
         label: 'January',
         value: 1,
         meta: {
-          shortName: 'Jan'
+          shortName: 'Jan',
         },
         checkboxProps: {
-          disabled: false
+          disabled: false,
         },
         radioProps: {
-          disabled: true
-        }
+          disabled: true,
+        },
       },
       { label: 'February', value: 2, meta: { shortName: 'Feb' } },
       { label: 'March', value: 3, meta: { shortName: 'Mar' } },
@@ -184,123 +183,189 @@ export const ReactHookForm = () => {
 
   const value = testForm.watch('firstName2');
 
+  const formStyles = useFormStyles();
+
   return (
     <>
       <Button onClick={getFormValue}>Get Form Value</Button>
       <Button onClick={getFromError}>Get Form Error</Button>
       <Button onClick={addMore}>Add Dynamic Values</Button>
-      <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
+      <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>
+        Toggle View
+      </Button>
       <Form form={testForm} onSubmit={onSubmit}>
+        <div className={formStyles.row}>
+          <div className={formStyles.column}>
+            <PeoplePicker
+              name={'peoplePicker'}
+              label={<span className={formStyles.label}>People Picker</span>}
+              onSearchUsers={debouncedSearchUserInfo}
+              onResolveUsers={onResolveUsers}
+              multiselect
+              readOnly={isView}
+              placeholder="Search users"
+            />
+          </div>
+          <div className={formStyles.column}>
+            <PeoplePicker
+              name={'peoplePicker1'}
+              label={<span className={formStyles.label}>People Picker</span>}
+              onSearchUsers={debouncedSearchUserInfo}
+              onResolveUsers={onResolveUsers}
+              readOnly={isView}
+              placeholder="Search users"
+              pickerType="list"
+            />
+          </div>
+        </div>
 
-        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} multiselect readOnly={isView} placeholder='Search users' />
-        <PeoplePicker name={'peoplePicker1'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} readOnly={isView} placeholder='Search users' pickerType='list'/>
-
-        <GroupedTagPicker />
-        {/* <Input
-          name={'firstName1'}
-          label={'First Name'}
-          placeholder='Enter First Name'
-          required={true}
-          appearance={isView ? "underline" : undefined}
-          disabled={isView}
-          readOnly={isView}
-          autoCompleteOptions={['one', 'two', 'three']}
-          autoComplete='false' /> */}
-
-        <br />
-        <RichInput showRibbon={true} ribbonPosition='top' label={<>Small Label</>} name={"firstName2"} placeholder='Enter First Name' size='medium' style={{ minHeight: "30vh"}}/>
-
-        <br />
-
-        <RichInput showRibbon={true} ribbonPosition='bottom' label={<>Medium Label</>} name={"firstName3"} size="large" placeholder='Enter First Name'/>
-
-        {/* <RichInput showRibbon={true} label={<>Medium Label</>} name={"firstName3"} size="medium" placeholder='Enter First Name'/>
-
-        <br />
-
-        <RichInput showRibbon={true} label={<>Large Label</>} name={"firstName4"} size="large" placeholder='Enter First Name'/> */}
-
-        <div dangerouslySetInnerHTML={{ __html: value }}></div>
+        <div className={formStyles.row}>
+          <div className={formStyles.column}>
+            <RichInput
+              showRibbon={true}
+              ribbonPosition="top"
+              label={<span className={formStyles.label}>Small Label</span>}
+              name={'firstName2'}
+              placeholder="Enter First Name"
+              size="medium"
+            />
+          </div>
+          <div className={formStyles.column}>
+            <RichInput
+              showRibbon={true}
+              ribbonPosition="bottom"
+              label={<span className={formStyles.label}>Medium Label</span>}
+              name={'firstName3'}
+              placeholder="Enter First Name"
+              size="medium"
+            />
+          </div>
+        </div>
 
         <div>
           <strong>Text Value:</strong>
-
         </div>
 
-        <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={"marigold"} />
-        <RatingDisplay name={'rating'} label={'Rating Display'} compact color={"marigold"} />
+        <Rating
+          name={'rating'}
+          label={'Rating'}
+          step={0.5}
+          max={5}
+          color={'marigold'}
+        />
+        <RatingDisplay
+          name={'rating'}
+          label={'Rating Display'}
+          compact
+          color={'marigold'}
+        />
 
-        <Radio name='radio_single_input1' value={true} radioLabel={"Yes"} />
-        <Radio name='radio_single_input2' value={false} radioLabel={"No"} />
+        <Radio name="radio_single_input1" value={true} radioLabel={'Yes'} />
+        <Radio name="radio_single_input2" value={false} radioLabel={'No'} />
 
-        <CheckboxGroup
-          name={'checkboxGroup'}
-          label={'Checkbox Group (Number)'}
-          layout='horizontal'
-          options={monthOptions} />
+        <div className={formStyles.row}>
+          <div className={formStyles.column}>
+            <CheckboxGroup
+              name={'checkboxGroup'}
+              label={'Checkbox Group (Number)'}
+              layout="horizontal"
+              options={monthOptions}
+            />
+          </div>
+        </div>
 
-        <CheckboxGroup
-          name={'checkboxGroupTrueFalse'}
-          label={'Checkbox Group (True/False)'}
-          layout='horizontal'
-          options={truFalseOptions} />
-
-        <CheckboxGroup
-          name={'checkboxGroupText'}
-          label={'Checkbox Group (Text)'}
-          layout='horizontal'
-          options={textInputOptions} />
+        <div className={formStyles.row}>
+          <div className={formStyles.column}>
+            <CheckboxGroup
+              name={'checkboxGroupTrueFalse'}
+              label={
+                <span className={formStyles.label}>
+                  Checkbox Group (True/False)
+                </span>
+              }
+              layout="vertical"
+              options={truFalseOptions}
+            />
+          </div>
+          <div className={formStyles.column}>
+            <CheckboxGroup
+              name={'checkboxGroupText'}
+              label={
+                <span className={formStyles.label}>Checkbox Group (Text)</span>
+              }
+              layout="vertical"
+              options={textInputOptions}
+            />
+          </div>
+        </div>
 
         <RadioGroup
           name={'radioGroup'}
           label={'Radio Group (Number)'}
-          layout='horizontal'
-          options={monthOptions} />
+          layout="horizontal"
+          options={monthOptions}
+        />
 
-        <RadioGroup
-          name={'radioGroupTrueFalse'}
-          label={'Radio Group (True/False)'}
-          layout='horizontal'
-          options={truFalseOptions} />
-
-        <RadioGroup
-          name={'radioGroupText'}
-          label={'Radio Group (Text)'}
-          layout='horizontal'
-          options={textInputOptions} />
-
-        <Dropdown
-          name={'dropdownNumber'}
-          label={'Checkbox Group (Number)'}
-          options={[
-            { label: "Months", options: monthOptions },
-            { label: "True/False", options: truFalseOptions },
-            { label: "Text", options: textInputOptions }
-          ]}
-          multiselect />
+        <div className={formStyles.row}>
+          <div className={formStyles.column}>
+            <RadioGroup
+              name={'radioGroupTrueFalse'}
+              label={
+                <span className={formStyles.label}>
+                  Radio Group (True/False)
+                </span>
+              }
+              layout="horizontal"
+              options={truFalseOptions}
+            />
+          </div>
+          <div className={formStyles.column}>
+            <RadioGroup
+              name={'radioGroupText'}
+              label={
+                <span className={formStyles.label}>Radio Group (Text)</span>
+              }
+              layout="horizontal"
+              options={textInputOptions}
+            />
+          </div>
+          <div className={formStyles.column}>
+            <Dropdown
+              name={'dropdownNumber'}
+              label={'Checkbox Group (Number)'}
+              options={[
+                { label: 'Months', options: monthOptions },
+                { label: 'True/False', options: truFalseOptions },
+                { label: 'Text', options: textInputOptions },
+              ]}
+              multiselect
+            />
+          </div>
+        </div>
 
         <Input
           name={'firstName'}
           label={'First Name'}
           required={true}
-          appearance={isView ? "underline" : undefined}
+          appearance={isView ? 'underline' : undefined}
           disabled={isView}
           readOnly={isView}
           autoCompleteOptions={['one', 'two', 'three']}
-          autoComplete='false' />
+          autoComplete="false"
+        />
 
         <Input
           name={'phoneNumber'}
           label={'Phone Number'}
           required={true}
-          fieldMask='phone'
+          fieldMask="phone"
         />
 
         <Input
           name={'currencyValue'}
           label={'Currency'}
           required={true}
-          fieldMask='currency'
+          fieldMask="currency"
         />
 
         <CurrencyInput
@@ -313,7 +378,7 @@ export const ReactHookForm = () => {
           name={'creditCard'}
           label={'Credit Card'}
           required={true}
-          fieldMask='creditCard'
+          fieldMask="creditCard"
         />
 
         <Input
@@ -409,7 +474,7 @@ export const ReactHookForm = () => {
             ))}
           </TableBody>
         </Table> */}
-        <table style={{ width: "100%" }}>
+        <table style={{ width: '100%' }}>
           <thead>
             <tr>
               <th>Selected</th>
@@ -422,7 +487,7 @@ export const ReactHookForm = () => {
           <tbody>
             {(arrayItem || [])?.map((item, index: number) => (
               <Fragment key={index + item.value}>
-                <tr >
+                <tr>
                   <td>
                     <Checkbox
                       name={`arrayItem.${index}.selected`}
@@ -603,22 +668,28 @@ export const ReactHookForm = () => {
 
         <FileInput
           name={'attachments2'}
-          label={<strong>Attachments 2</strong>} 
+          label={<strong>Attachments 2</strong>}
           accept={{
-            "image/": ['image/png', 'image/jpg', 'image/jpeg'],
+            'image/': ['image/png', 'image/jpg', 'image/jpeg'],
             video: ['video/mp4'],
           }}
         />
 
         <DatePicker name={'datePickerValue'} label={'Date Picker'} />
-        <TimePicker name={'timePickerValue'} dateAnchorName={'datePickerValue'} label={'Time Picker'} />
+        <TimePicker
+          name={'timePickerValue'}
+          dateAnchorName={'datePickerValue'}
+          label={'Time Picker'}
+        />
 
-        <Button type="submit" appearance="primary">
-          Submit
-        </Button>
-        <Button onClick={onCancel} appearance="secondary">
-          Cancel
-        </Button>
+        <div className={formStyles.actionContainer}>
+          <Button type="submit" appearance="primary">
+            Submit
+          </Button>
+          <Button onClick={onCancel} appearance="secondary">
+            Cancel
+          </Button>
+        </div>
       </Form>
       {/* <DevTool control={testForm.control} />   */}
     </>

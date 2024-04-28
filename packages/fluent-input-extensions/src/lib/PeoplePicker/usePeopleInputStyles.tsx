@@ -1,9 +1,9 @@
-import { makeStyles, shorthands, tokens } from "@fluentui/react-components";
+import { makeStyles, shorthands, tokens } from '@fluentui/react-components';
 
 export const usePeopleInputStyles = makeStyles({
   list: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap',
     ...shorthands.gap(
       tokens.spacingHorizontalSNudge,
       tokens.spacingHorizontalSNudge
@@ -13,11 +13,12 @@ export const usePeopleInputStyles = makeStyles({
   compact: {},
   horizontal: {},
   vertical: {
-    flexDirection: "column",
+    flexDirection: 'column',
   },
 
-  optionList: { 
-    maxHeight: "300px",
-    ...shorthands.overflow("auto"),
+  optionList: {
+    maxHeight: '300px',
+    maxWidth: '400px',
+    ...shorthands.overflow('auto'),
   },
 });

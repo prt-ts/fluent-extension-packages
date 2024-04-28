@@ -1,18 +1,18 @@
-import * as React from "react";
-import { Persona, Spinner } from "@fluentui/react-components";
+import * as React from 'react';
+import { Persona, Spinner } from '@fluentui/react-components';
 import {
   TagPickerOption,
   TagPickerOptionGroup,
-} from "@fluentui/react-tag-picker-preview";
-import { For, Show } from "@prt-ts/react-control-flow";
-import { PeopleInputProps } from "./PeopleInputProps";
-import { UserInfo } from "@prt-ts/types";
+} from '@fluentui/react-tag-picker-preview';
+import { For, Show } from '@prt-ts/react-control-flow';
+import { PeopleInputProps } from './PeopleInputProps';
+import { UserInfo } from '@prt-ts/types';
 
 type GetChildrenProps = {
   query: string;
   availableSearchUsers: UserInfo[];
-  availableSuggestions: PeopleInputProps["suggestions"];
-  showSecondaryText: PeopleInputProps["showSecondaryText"];
+  availableSuggestions: PeopleInputProps['suggestions'];
+  showSecondaryText: PeopleInputProps['showSecondaryText'];
   isLoading: boolean;
 };
 
@@ -32,10 +32,20 @@ export function useGetChildren({
             {/* show loading */}
             <Show when={isLoading}>
               <TagPickerOption
-                key={"loading"}
-                value={query} 
+                key={'loading'}
+                value={query}
+                title="Searching, Please Wait..."
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
               >
-                <Spinner size="tiny" label="Searching, Please Wait..." />
+                <Spinner
+                  size="tiny"
+                  label="Searching, Please Wait..."
+                  labelPosition="below"
+                />
               </TagPickerOption>
             </Show>
 
@@ -47,10 +57,7 @@ export function useGetChildren({
                 query?.length > 0
               }
             >
-              <TagPickerOption
-                key={"loading"}
-                value={query} 
-              >
+              <TagPickerOption key={'loading'} value={query}>
                 {`No results found for term '${query}'`}
               </TagPickerOption>
             </Show>
@@ -61,15 +68,15 @@ export function useGetChildren({
                 {(option) => (
                   <TagPickerOption
                     key={option.loginName}
-                    value={option.loginName} 
+                    value={option.loginName}
                   >
                     <Persona
                       name={option.name}
                       secondaryText={
                         showSecondaryText ? option.email : undefined
                       }
-                      avatar={{ color: "colorful" }}
-                      size={"extra-small"}
+                      avatar={{ color: 'colorful' }}
+                      size={'extra-small'}
                     />
                   </TagPickerOption>
                 )}
@@ -86,35 +93,34 @@ export function useGetChildren({
           }
         >
           <>
-          <Show when={availableSuggestions?.length === 0}>
-            <TagPickerOptionGroup label="Suggestions">
-              <TagPickerOption
-                key={"no_suggestions"}
-                value={""} 
-              >
-                {`No suggestions available.`}
-              </TagPickerOption>
-            </TagPickerOptionGroup>
-          </Show>
-          <Show when={availableSuggestions && availableSuggestions?.length > 0}>
-            <TagPickerOptionGroup label="Suggestions">
-              <For each={availableSuggestions}>
-                {(option) => (
-                  <TagPickerOption
-                    key={option.loginName}
-                    value={option.loginName} 
-                  >
-                    <Persona
-                      name={option.name}
-                      secondaryText={option.email}
-                      avatar={{ color: "colorful" }}
-                      size={"extra-small"}
-                    />
-                  </TagPickerOption>
-                )}
-              </For>
-            </TagPickerOptionGroup>
-          </Show>
+            <Show when={availableSuggestions?.length === 0}>
+              <TagPickerOptionGroup label="Suggestions">
+                <TagPickerOption key={'no_suggestions'} value={''}>
+                  {`No suggestions available.`}
+                </TagPickerOption>
+              </TagPickerOptionGroup>
+            </Show>
+            <Show
+              when={availableSuggestions && availableSuggestions?.length > 0}
+            >
+              <TagPickerOptionGroup label="Suggestions">
+                <For each={availableSuggestions}>
+                  {(option) => (
+                    <TagPickerOption
+                      key={option.loginName}
+                      value={option.loginName}
+                    >
+                      <Persona
+                        name={option.name}
+                        secondaryText={option.email}
+                        avatar={{ color: 'colorful' }}
+                        size={'extra-small'}
+                      />
+                    </TagPickerOption>
+                  )}
+                </For>
+              </TagPickerOptionGroup>
+            </Show>
           </>
         </Show>
       </>
