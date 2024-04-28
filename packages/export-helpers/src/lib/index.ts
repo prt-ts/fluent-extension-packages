@@ -21,8 +21,7 @@ export type { ImportConfig } from "./importFiles";
 export { importExcelDocument, importCsvDocument } from "./importFiles";
 
 // download methods
-export { exportDocument } from "./exportDocument";
-export { exportToFile } from "./exportToFile";
+export { exportDocument } from "./exportDocument"; 
 export { saveInFile } from "./saveInFile";
 
 // export type
