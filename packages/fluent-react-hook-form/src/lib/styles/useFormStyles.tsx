@@ -1,12 +1,20 @@
 import { makeStyles, shorthands, tokens } from '@fluentui/react-components';
 
 export const useFormStyles = makeStyles({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    boxSizing: 'border-box',
+    ...shorthands.padding(tokens.spacingVerticalXL, tokens.spacingHorizontalXL),
+  },
+
   row: {
     marginTop: tokens.spacingHorizontalM,
     display: 'flex',
     flexWrap: 'wrap',
     width: '100%',
-    ...shorthands.gap(tokens.spacingHorizontalXL, tokens.spacingVerticalS),
+    ...shorthands.gap(tokens.spacingHorizontalXXL, tokens.spacingVerticalS),
   },
 
   column: {
