@@ -83,9 +83,9 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
               <TagPickerGroup
                 className={mergeClasses(styles[pickerType], styles[layout])}
               >
-                {(value || []).map((user) => (
+                {(value || []).map((user, index) => (
                   <InteractionTag
-                    key={user.loginName}
+                    key={`${user.loginName}-${index}`}
                     shape="circular"
                     value={user.loginName}
                   >
@@ -138,9 +138,9 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
             }}
             className={mergeClasses(styles[pickerType], styles[layout])}
           >
-            {(value || []).map((user) => (
+            {(value || []).map((user, index) => (
               <InteractionTag
-                key={user.loginName}
+                key={`${user.loginName}-${index}`}
                 shape="circular"
                 size="small"
                 value={user.loginName}

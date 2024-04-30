@@ -32,6 +32,8 @@ export const AppRoot: React.FC = () => {
       <div
         style={{
           minHeight: '100vh',
+          margin: '0 auto',
+          padding: '0',
         }}
       >
         <AppFeatureProvider>
