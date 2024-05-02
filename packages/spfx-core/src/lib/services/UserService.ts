@@ -1,8 +1,11 @@
 /* eslint-disable */ 
-import { IWebEnsureUserResult } from "@pnp/sp/site-users";
+import { 
+    
+ } from "@pnp/sp/site-users";
 import { IPagedResult } from "@pnp/graph";
 import { getGraphFi, getSP } from "../pnp";
 import { UserInfo } from "@prt-ts/types";
+import { ISiteGroupInfo } from "@pnp/sp/site-groups";
 
 export type ObjectType = "user" | "group" | "both"; 
 
@@ -59,13 +62,9 @@ export const UserService = () => {
                 const userName = usernameOrEmailOrName?.toLocaleLowerCase();
                 const graphi = await getGraphFi();
 
-                let users: IPagedResult = {
-                    value: [],
-                } as unknown as IPagedResult;
+                let users: any[] = [];
 
-                let groups: IPagedResult = {
-                    value: [],
-                } as unknown as IPagedResult;  
+                let groups: any[] = [];  
 
                 if (["both", "user"].includes(objectType)) {
                     users = await graphi.users
@@ -77,8 +76,7 @@ export const UserService = () => {
                                 OR "userPrincipalName:${encodeURIComponent(userName)}" 
                             `
                         )
-                        .filter(filterString)
-                        .paged();
+                        .filter(filterString)();
                 }
 
                 if (["both", "group"].includes(objectType)) {
@@ -91,13 +89,12 @@ export const UserService = () => {
                                 OR "mailNickname:${encodeURIComponent(userName)}"
                             `
                         )
-                        .filter(filterString)
-                        .paged();
+                        .filter(filterString)();
                 }
 
                 const selectedUserEmails = excludedUsers?.map((x) => x.email?.toLowerCase());
                 const allGroupAndUser = [
-                    ...(users?.value || [])?.map((user) => {
+                    ...(users || [])?.map((user) => {
                         {
                             const displayName = allowFormat ? formatName(user.displayName): user.displayName;
                             return {
@@ -111,7 +108,7 @@ export const UserService = () => {
                             } as UserInfo;
                         }
                     }),
-                    ...(groups?.value || [])?.map((user) => {
+                    ...(groups || [])?.map((user) => {
                         {
                             return {
                                 id: user.id,
@@ -136,8 +133,8 @@ export const UserService = () => {
         });
     };
 
-    const getCurrentUserGroups = async (): Promise<any> => {
-        return new Promise<any>(async (resolve, reject) => {
+    const getCurrentUserGroups = async (): Promise<ISiteGroupInfo[]> => {
+        return new Promise<ISiteGroupInfo[]>(async (resolve, reject) => {
             try {
                 const sp = await getSP();
                 const groups = await sp.web.currentUser.groups();
@@ -152,19 +149,17 @@ export const UserService = () => {
         return new Promise<any>(async (resolve, reject) => {
             try {
                 const sp = await getSP();
-                const result: IWebEnsureUserResult = await sp.web.ensureUser(
+                const result = await sp.web.ensureUser(
                     `i:0#.f|membership|${userPrincipalName}`
-                );
-
-                console.log(result);
-
+                ); 
+                
                 const siteUser: SiteUser = {
-                    Id: result.data.Id,
-                    Title: result.data.Title,
-                    Email: result.data.Email,
-                    LoginName: result.data.LoginName,
-                    Username: ((result.data as any)?.UserPrincipalName || "").replace("@nih.gov", ""),
-                    UserPrincipalName: (result.data as any)?.UserPrincipalName,
+                    Id: result.Id,
+                    Title: result.Title,
+                    Email: result.Email,
+                    LoginName: result.LoginName,
+                    Username: (result.UserPrincipalName || "")?.split("@")?.[0],
+                    UserPrincipalName: result.UserPrincipalName,
                 } as SiteUser;
 
                 resolve(siteUser);

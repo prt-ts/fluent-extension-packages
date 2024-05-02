@@ -14,13 +14,13 @@ import {
   getTableData,
 } from '@prt-ts/fluent-react-table-v2';
 import { useNavigate } from 'react-router-dom';
-import * as React from "react";
+import * as React from 'react';
 import {
   FontIncrease24Regular,
   FontDecrease24Regular,
   TextFont24Regular,
   MoreHorizontal24Filled,
-} from "@fluentui/react-icons";
+} from '@fluentui/react-icons';
 import {
   Toolbar,
   ToolbarButton,
@@ -30,9 +30,9 @@ import {
   MenuPopover,
   MenuList,
   MenuItem,
-} from "@fluentui/react-components";
+} from '@fluentui/react-components';
 import { tableViews as views } from './data/tableView';
-import { ExportData, exportToFile } from '@prt-ts/export-helpers';
+import { ExportData, exportDocument } from '@prt-ts/export-helpers';
 
 export function TableExample() {
   const navigate = useNavigate();
@@ -56,22 +56,22 @@ export function TableExample() {
   const addRowPin = () => {
     const table = tableRef.current?.table;
 
-    if(!table) return;
+    if (!table) return;
 
     const { setRowPinning } = table.options.meta;
 
     if (!setRowPinning) return;
 
     setRowPinning({
-      bottom: ["99"],
-      top: ["1", "3", "5"]
+      bottom: ['99'],
+      top: ['1', '3', '5'],
     });
-  }
+  };
 
   const removeRowPin = () => {
     const table = tableRef.current?.table;
 
-    if(!table) return;
+    if (!table) return;
 
     const { setRowPinning } = table.options.meta;
 
@@ -79,11 +79,9 @@ export function TableExample() {
 
     setRowPinning({
       bottom: [],
-      top: []
+      top: [],
     });
-  }
-
-
+  };
 
   const logTableState = () => {
     const tableState = tableRef.current?.getTableState();
@@ -97,7 +95,9 @@ export function TableExample() {
   };
 
   const applyLastSavedTableState = () => {
-    const tableState = JSON.parse(localStorage.getItem('view1') || '') as TableState;
+    const tableState = JSON.parse(
+      localStorage.getItem('view1') || ''
+    ) as TableState;
     tableRef.current?.applyTableState(tableState);
     console.log(tableState);
   };
@@ -109,7 +109,7 @@ export function TableExample() {
     const tableState = JSON.parse(localStorageString) as TableState;
     tableRef.current?.applyTableState(tableState);
     console.log(tableState);
-  }; 
+  };
 
   const columns = [
     columnHelper.accessor('id', {
@@ -126,7 +126,10 @@ export function TableExample() {
               size="small"
               onClick={async () => {
                 const tableState = tableRef.current?.getTableState();
-                localStorage.setItem('table1_edit_temp', JSON.stringify(tableState));
+                localStorage.setItem(
+                  'table1_edit_temp',
+                  JSON.stringify(tableState)
+                );
                 navigate(`/dummy-edit/${getValue()}/edit`);
               }}
             />
@@ -171,7 +174,7 @@ export function TableExample() {
       filterFn: 'includesString',
       aggregationFn: 'mean',
       minSize: 10,
-      size:300,
+      size: 300,
       maxSize: 800,
       enableGrouping: false,
     }),
@@ -190,7 +193,7 @@ export function TableExample() {
       id: 'address',
       header: 'Address',
       columns: [
-         columnHelper.group({
+        columnHelper.group({
           id: 'Address Line 1',
           header: 'Address Line 1',
           columns: [
@@ -204,7 +207,7 @@ export function TableExample() {
               header: 'City',
               aggregatedCell: () => null,
             }),
-          ]
+          ],
         }),
 
         columnHelper.accessor('address.state', {
@@ -242,12 +245,16 @@ export function TableExample() {
           aggregatedCell: () => null,
           filterFn: 'arrIncludesSome',
         }),
-        columnHelper.accessor(({createdAt}) => createdAt ? new Date(createdAt)?.toLocaleDateString() : "", {
-          id: 'Created At',
-          header: 'Created At', 
-          aggregatedCell: () => null,
-          filterFn: 'inDateRange',
-        }) as ColumnDef<Person>,
+        columnHelper.accessor(
+          ({ createdAt }) =>
+            createdAt ? new Date(createdAt)?.toLocaleDateString() : '',
+          {
+            id: 'Created At',
+            header: 'Created At',
+            aggregatedCell: () => null,
+            filterFn: 'inDateRange',
+          }
+        ) as ColumnDef<Person>,
       ],
     }),
   ] as ColumnDef<Person>[];
@@ -400,7 +407,6 @@ export function TableExample() {
   //   }
   // ];
 
-
   // get data from server
   useEffect(
     () => {
@@ -446,8 +452,8 @@ export function TableExample() {
     const data = getTableData(table);
     console.log(data);
 
-    exportToFile({
-      type: "excel",
+    exportDocument({
+      type: 'excel',
       sheets: [
         {
           sheetName: 'Sheet 1',
@@ -455,25 +461,26 @@ export function TableExample() {
         },
       ],
     });
-  }
-
+  };
 
   return (
     <div>
-      <div style={{
-        display: 'flex',
-        gap: '10px',
-      }}>
-      <Button onClick={getExportDataFromTable}>Get Export Data</Button>
-      <Button onClick={logSelectedRows}>Log Selected Rows</Button>
-      <Button onClick={logTableState}>Get Table State</Button>
-      <Button onClick={saveCurrentTableState}>Save Current View</Button>
-      <Button onClick={addRowPin}>Add Row Pin</Button>
-      <Button onClick={removeRowPin}>Remove Row Pin</Button>
-      <Button onClick={applyLastSavedTableState}>
-        Apply Last Saved Table State
-      </Button>
-        </div>
+      <div
+        style={{
+          display: 'flex',
+          gap: '10px',
+        }}
+      >
+        <Button onClick={getExportDataFromTable}>Get Export Data</Button>
+        <Button onClick={logSelectedRows}>Log Selected Rows</Button>
+        <Button onClick={logTableState}>Get Table State</Button>
+        <Button onClick={saveCurrentTableState}>Save Current View</Button>
+        <Button onClick={addRowPin}>Add Row Pin</Button>
+        <Button onClick={removeRowPin}>Remove Row Pin</Button>
+        <Button onClick={applyLastSavedTableState}>
+          Apply Last Saved Table State
+        </Button>
+      </div>
       <Field label="Selection Mode">
         <RadioGroup
           value={selectionMode}
@@ -490,15 +497,13 @@ export function TableExample() {
       <Table
         ref={tableRef}
         data={data}
-        dataPrimaryKye='id'
+        dataPrimaryKye="id"
         columns={columns}
         pageSize={100}
         pageSizeOptions={[10, 20, 100, 1000, 10000]}
         isLoading={isLoading}
         gridTitle={<strong>Grid Header</strong>}
-        headerMenu={(table) => (
-          <TopToolbar table={table} />
-        )}
+        headerMenu={(table) => <TopToolbar table={table} />}
         rowSelectionMode={selectionMode}
         columnVisibility={{
           progress: false,
@@ -530,11 +535,11 @@ export function TableExample() {
           );
         }}
         disableTableHeader={true}
-        tableHeight='750px'
+        tableHeight="750px"
         rowSelectionState={{
           1: true,
           2: true,
-          3: true
+          3: true,
         }}
         // tableSettings={{
         //   enableManualSelection: true,
@@ -547,16 +552,15 @@ export function TableExample() {
 export const TopToolbar: React.FC<{
   table: TableType<Person>;
 }> = ({ table }) => {
-
-  const selectedItems = table.getSelectedRowModel().flatRows.map((row) => row.original);
-
-  
+  const selectedItems = table
+    .getSelectedRowModel()
+    .flatRows.map((row) => row.original);
 
   console.log(selectedItems);
   return (
     <>
       Selected Items: {selectedItems?.length}
-      <Toolbar aria-label="Default" >
+      <Toolbar aria-label="Default">
         <ToolbarButton
           aria-label="Increase Font Size"
           appearance="primary"
@@ -566,7 +570,10 @@ export const TopToolbar: React.FC<{
           aria-label="Decrease Font Size"
           icon={<FontDecrease24Regular />}
         />
-        <ToolbarButton aria-label="Reset Font Size" icon={<TextFont24Regular />} />
+        <ToolbarButton
+          aria-label="Reset Font Size"
+          icon={<TextFont24Regular />}
+        />
         {selectedItems?.length === 1 && (
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             <Button
@@ -593,10 +600,14 @@ export const TopToolbar: React.FC<{
           </div>
         )}
         {selectedItems?.length === 1 && (
-          <><ToolbarDivider />
+          <>
+            <ToolbarDivider />
             <Menu>
               <MenuTrigger>
-                <ToolbarButton aria-label="More" icon={<MoreHorizontal24Filled />} />
+                <ToolbarButton
+                  aria-label="More"
+                  icon={<MoreHorizontal24Filled />}
+                />
               </MenuTrigger>
 
               <MenuPopover>
@@ -607,7 +618,10 @@ export const TopToolbar: React.FC<{
                   <MenuItem>Open Folder</MenuItem>
                 </MenuList>
               </MenuPopover>
-            </Menu></>)}
-      </Toolbar></>
+            </Menu>
+          </>
+        )}
+      </Toolbar>
+    </>
   );
-}
+};

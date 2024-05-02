@@ -1,7 +1,4 @@
-
-import {
-  Button,
-} from '@fluentui/react-components';
+import { Button } from '@fluentui/react-components';
 import {
   useForm,
   Form,
@@ -23,6 +20,7 @@ import {
   RadioGroup,
   Radio,
   PeoplePicker,
+  useFormStyles,
 } from '@prt-ts/fluent-react-hook-form';
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { defaultValues, useDefaultValues } from './examples/useDefaultValue';
@@ -33,22 +31,22 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate, unstable_usePrompt as usePrompt } from 'react-router-dom';
 import { debouncedSearchUserInfo, seedUserInfo } from './data/UserInfo';
 import { UserInfo } from '@prt-ts/types';
-import { GroupedTagPicker } from './examples/PeoplePicker/PeoplePicker'; 
 
-const nameSchema = yup
-  .string()
-  .required('First Name is required')
-  //.min(10, 'Min 10')
-  //.max(15, 'Max 15')
+const nameSchema = yup.string().required('First Name is required');
+//.min(10, 'Min 10')
+//.max(15, 'Max 15')
 
 const schema = yup.object({
-  peoplePicker: yup.array().of(
-    yup.object({
-      id: yup.string().required('Id is required'),
-      name: yup.string().required('Name is required'),
-      email: yup.string().required('Email is required'),
-    })
-  ).min(1, 'People Picker is required'),
+  peoplePicker: yup
+    .array()
+    .of(
+      yup.object({
+        id: yup.string().required('Id is required'),
+        name: yup.string().required('Name is required'),
+        email: yup.string().required('Email is required'),
+      })
+    )
+    .min(1, 'People Picker is required'),
   rating: yup.number().required('Rating is required'),
   firstName: nameSchema,
   firstName1: nameSchema,
@@ -84,8 +82,8 @@ const onResolveUsers = async (users: UserInfo[]) => {
   return {
     resolvedUserInfo: users,
     error: users?.length < 2 ? `Error resolving user: ${lastUser.name}` : null,
-  }; 
-}
+  };
+};
 
 export type IFormInput = yup.InferType<typeof schema>;
 
@@ -96,7 +94,7 @@ export const ReactHookForm = () => {
 
   useEffect(() => {
     seedUserInfo(100);
-  }, []); 
+  }, []);
 
   const values = useDefaultValues();
 
@@ -142,14 +140,14 @@ export const ReactHookForm = () => {
         label: 'January',
         value: 1,
         meta: {
-          shortName: 'Jan'
+          shortName: 'Jan',
         },
         checkboxProps: {
-          disabled: false
+          disabled: false,
         },
         radioProps: {
-          disabled: true
-        }
+          disabled: true,
+        },
       },
       { label: 'February', value: 2, meta: { shortName: 'Feb' } },
       { label: 'March', value: 3, meta: { shortName: 'Mar' } },
@@ -182,155 +180,230 @@ export const ReactHookForm = () => {
 
   // console.log("formValue", testForm.watch());
 
-  const value = testForm.watch('firstName2');
+  // const value = testForm.watch('firstName2');
+
+  const formStyles = useFormStyles();
 
   return (
     <>
       <Button onClick={getFormValue}>Get Form Value</Button>
       <Button onClick={getFromError}>Get Form Error</Button>
       <Button onClick={addMore}>Add Dynamic Values</Button>
-      <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>Toggle View</Button>
+      <Button onClick={() => setIsView((viewOnly) => !viewOnly)}>
+        Toggle View
+      </Button>
       <Form form={testForm} onSubmit={onSubmit}>
+        <div className={formStyles.container}>
+          <div className={formStyles.formTitle}>Form Title</div>
+          <div className={formStyles.formSectionTitle}>Form Section Title</div>
+          <div className={formStyles.row}>
+            <div className={formStyles.column}>
+              <PeoplePicker
+                name={'peoplePicker'}
+                label={<span className={formStyles.label}>People Picker</span>}
+                onSearchUsers={debouncedSearchUserInfo}
+                onResolveUsers={onResolveUsers}
+                multiselect
+                readOnly={isView}
+                placeholder="Search users"
+              />
+            </div>
+            <div className={formStyles.column}>
+              <PeoplePicker
+                name={'peoplePicker1'}
+                label={<span className={formStyles.label}>People Picker</span>}
+                onSearchUsers={debouncedSearchUserInfo}
+                onResolveUsers={onResolveUsers}
+                readOnly={isView}
+                placeholder="Search users"
+                pickerType="list"
+              />
+            </div>
+          </div>
 
-        <PeoplePicker name={'peoplePicker'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} multiselect readOnly={isView} placeholder='Search users' />
-        <PeoplePicker name={'peoplePicker1'} label={'People Picker'} onSearchUsers={debouncedSearchUserInfo} onResolveUsers={onResolveUsers} readOnly={isView} placeholder='Search users' pickerType='list'/>
+          <div className={formStyles.row}>
+            <div className={formStyles.column}>
+              <RichInput
+                showRibbon={true}
+                ribbonPosition="top"
+                label={<span className={formStyles.label}>Small Label</span>}
+                name={'firstName2'}
+                placeholder="Enter First Name"
+                size="medium"
+              />
+            </div>
+            <div className={formStyles.column}>
+              <RichInput
+                showRibbon={true}
+                ribbonPosition="bottom"
+                label={<span className={formStyles.label}>Medium Label</span>}
+                name={'firstName3'}
+                placeholder="Enter First Name"
+                size="medium"
+              />
+            </div>
+          </div>
 
-        <GroupedTagPicker />
-        {/* <Input
-          name={'firstName1'}
-          label={'First Name'}
-          placeholder='Enter First Name'
-          required={true}
-          appearance={isView ? "underline" : undefined}
-          disabled={isView}
-          readOnly={isView}
-          autoCompleteOptions={['one', 'two', 'three']}
-          autoComplete='false' /> */}
+          <div className={formStyles.formSectionTitle}>Sub Section Title</div>
 
-        <br />
-        <RichInput showRibbon={true} ribbonPosition='top' label={<>Small Label</>} name={"firstName2"} placeholder='Enter First Name' size='medium' style={{ minHeight: "30vh"}}/>
+          <div className={formStyles.row}>
+            <div className={formStyles.column}>
+              <Rating
+                name={'rating'}
+                label={<span className={formStyles.label}>Rating</span>}
+                step={0.5}
+                max={5}
+                color={'marigold'}
+              />
+            </div>
+            <div className={formStyles.column}>
+              <RatingDisplay
+                name={'rating'}
+                label={<span className={formStyles.label}>Rating Display</span>}
+                compact
+                color={'marigold'}
+              />
+            </div>
+          </div>
 
-        <br />
+          <Radio name="radio_single_input1" value={true} radioLabel={'Yes'} />
+          <Radio name="radio_single_input2" value={false} radioLabel={'No'} />
 
-        <RichInput showRibbon={true} ribbonPosition='bottom' label={<>Medium Label</>} name={"firstName3"} size="large" placeholder='Enter First Name'/>
+          <div className={formStyles.row}>
+            <div className={formStyles.column}>
+              <CheckboxGroup
+                name={'checkboxGroup'}
+                label={'Checkbox Group (Number)'}
+                layout="horizontal"
+                options={monthOptions}
+              />
+            </div>
+          </div>
 
-        {/* <RichInput showRibbon={true} label={<>Medium Label</>} name={"firstName3"} size="medium" placeholder='Enter First Name'/>
+          <div className={formStyles.row}>
+            <div className={formStyles.column}>
+              <CheckboxGroup
+                name={'checkboxGroupTrueFalse'}
+                label={
+                  <span className={formStyles.label}>
+                    Checkbox Group (True/False)
+                  </span>
+                }
+                layout="vertical"
+                options={truFalseOptions}
+              />
+            </div>
+            <div className={formStyles.column}>
+              <CheckboxGroup
+                name={'checkboxGroupText'}
+                label={
+                  <span className={formStyles.label}>
+                    Checkbox Group (Text)
+                  </span>
+                }
+                layout="vertical"
+                options={textInputOptions}
+              />
+            </div>
+          </div>
 
-        <br />
+          <RadioGroup
+            name={'radioGroup'}
+            label={'Radio Group (Number)'}
+            layout="horizontal"
+            options={monthOptions}
+          />
 
-        <RichInput showRibbon={true} label={<>Large Label</>} name={"firstName4"} size="large" placeholder='Enter First Name'/> */}
+          <div className={formStyles.row}>
+            <div className={formStyles.column}>
+              <RadioGroup
+                name={'radioGroupTrueFalse'}
+                label={
+                  <span className={formStyles.label}>
+                    Radio Group (True/False)
+                  </span>
+                }
+                layout="horizontal"
+                options={truFalseOptions}
+              />
+            </div>
+            <div className={formStyles.column}>
+              <RadioGroup
+                name={'radioGroupText'}
+                label={
+                  <span className={formStyles.label}>Radio Group (Text)</span>
+                }
+                layout="horizontal"
+                options={textInputOptions}
+              />
+            </div>
+            <div className={formStyles.column}>
+              <Dropdown
+                name={'dropdownNumber'}
+                label={'Checkbox Group (Number)'}
+                options={[
+                  { label: 'Months', options: monthOptions },
+                  { label: 'True/False', options: truFalseOptions },
+                  { label: 'Text', options: textInputOptions },
+                ]}
+                multiselect
+              />
+            </div>
+          </div>
 
-        <div dangerouslySetInnerHTML={{ __html: value }}></div>
+          <Input
+            name={'firstName'}
+            label={'First Name'}
+            required={true}
+            appearance={isView ? 'underline' : undefined}
+            disabled={isView}
+            readOnly={isView}
+            autoCompleteOptions={['one', 'two', 'three']}
+            autoComplete="false"
+          />
 
-        <div>
-          <strong>Text Value:</strong>
+          <Input
+            name={'phoneNumber'}
+            label={'Phone Number'}
+            required={true}
+            fieldMask="phone"
+          />
 
-        </div>
+          <Input
+            name={'currencyValue'}
+            label={'Currency'}
+            required={true}
+            fieldMask="currency"
+          />
 
-        <Rating name={'rating'} label={'Rating'} step={0.5} max={5} color={"marigold"} />
-        <RatingDisplay name={'rating'} label={'Rating Display'} compact color={"marigold"} />
+          <CurrencyInput
+            name={'currencyValue'}
+            label={'Currency'}
+            required={true}
+          />
 
-        <Radio name='radio_single_input1' value={true} radioLabel={"Yes"} />
-        <Radio name='radio_single_input2' value={false} radioLabel={"No"} />
+          <Input
+            name={'creditCard'}
+            label={'Credit Card'}
+            required={true}
+            fieldMask="creditCard"
+          />
 
-        <CheckboxGroup
-          name={'checkboxGroup'}
-          label={'Checkbox Group (Number)'}
-          layout='horizontal'
-          options={monthOptions} />
+          <Input
+            name={'lastName'}
+            label={<>LastName with Info</>}
+            required={true}
+            info={
+              <>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Consequuntur, qui ut voluptatem repudiandae voluptates accusamus
+                eaque quia deleniti laudantium facilis tempore temporibus
+                asperiores nemo, quis consequatur praesentium ea, eius pariatur.
+              </>
+            }
+          />
 
-        <CheckboxGroup
-          name={'checkboxGroupTrueFalse'}
-          label={'Checkbox Group (True/False)'}
-          layout='horizontal'
-          options={truFalseOptions} />
-
-        <CheckboxGroup
-          name={'checkboxGroupText'}
-          label={'Checkbox Group (Text)'}
-          layout='horizontal'
-          options={textInputOptions} />
-
-        <RadioGroup
-          name={'radioGroup'}
-          label={'Radio Group (Number)'}
-          layout='horizontal'
-          options={monthOptions} />
-
-        <RadioGroup
-          name={'radioGroupTrueFalse'}
-          label={'Radio Group (True/False)'}
-          layout='horizontal'
-          options={truFalseOptions} />
-
-        <RadioGroup
-          name={'radioGroupText'}
-          label={'Radio Group (Text)'}
-          layout='horizontal'
-          options={textInputOptions} />
-
-        <Dropdown
-          name={'dropdownNumber'}
-          label={'Checkbox Group (Number)'}
-          options={[
-            { label: "Months", options: monthOptions },
-            { label: "True/False", options: truFalseOptions },
-            { label: "Text", options: textInputOptions }
-          ]}
-          multiselect />
-
-        <Input
-          name={'firstName'}
-          label={'First Name'}
-          required={true}
-          appearance={isView ? "underline" : undefined}
-          disabled={isView}
-          readOnly={isView}
-          autoCompleteOptions={['one', 'two', 'three']}
-          autoComplete='false' />
-
-        <Input
-          name={'phoneNumber'}
-          label={'Phone Number'}
-          required={true}
-          fieldMask='phone'
-        />
-
-        <Input
-          name={'currencyValue'}
-          label={'Currency'}
-          required={true}
-          fieldMask='currency'
-        />
-
-        <CurrencyInput
-          name={'currencyValue'}
-          label={'Currency'}
-          required={true}
-        />
-
-        <Input
-          name={'creditCard'}
-          label={'Credit Card'}
-          required={true}
-          fieldMask='creditCard'
-        />
-
-        <Input
-          name={'lastName'}
-          label={<>LastName with Info</>}
-          required={true}
-          info={
-            <>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Consequuntur, qui ut voluptatem repudiandae voluptates accusamus
-              eaque quia deleniti laudantium facilis tempore temporibus
-              asperiores nemo, quis consequatur praesentium ea, eius pariatur.
-            </>
-          }
-        />
-
-        {/* <Table size="extra-small">
+          {/* <Table size="extra-small">
           <TableHeader>
             <TableRow>
               <TableHeaderCell>
@@ -409,216 +482,223 @@ export const ReactHookForm = () => {
             ))}
           </TableBody>
         </Table> */}
-        <table style={{ width: "100%" }}>
-          <thead>
-            <tr>
-              <th>Selected</th>
-              <th>Label</th>
-              <th>Value</th>
-              <th>Is Active</th>
-              <th>Like Percentage</th>
-            </tr>
-          </thead>
-          <tbody>
-            {(arrayItem || [])?.map((item, index: number) => (
-              <Fragment key={index + item.value}>
-                <tr >
-                  <td>
-                    <Checkbox
-                      name={`arrayItem.${index}.selected`}
-                      shape="circular"
-                    />
-                  </td>
-                  <td>
-                    <Input
-                      name={`arrayItem.${index}.label`}
-                      placeholder="Enter Label..."
-                    />
-                  </td>
-                  <td>
-                    <Input
-                      name={`arrayItem.${index}.value`}
-                      placeholder="Enter Value..."
-                    />
-                  </td>
-                  <td>
-                    <Switch
-                      name={`arrayItem.${index}.isActive`}
-                      checkedLabel={'Yes'}
-                      uncheckedLabel={'No'}
-                      orientation="horizontal"
-                    />
-                  </td>
-                  <td>
-                    <Slider
-                      name={`arrayItem.${index}.likePercentage`}
-                      min={0}
-                      max={100}
-                      hint={`${item.likePercentage || 0}%`}
-                    />
-                  </td>
-                  <td>
-                    <Button
-                      onClick={() => {
-                        const newArrayItem = [
-                          ...(testForm?.getValues()?.arrayItem || []),
-                        ];
-                        newArrayItem.splice(index, 1);
-                        testForm?.setValue(`arrayItem`, newArrayItem);
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              </Fragment>
-            ))}
-          </tbody>
-        </table>
-        <DatePicker
-          allowTextInput
-          name={'datePickerValue'}
-          label={'Date Picker'}
-        />
-        <Switch
-          name={'isIceCreamLiked'}
-          label={'Do you like Ice Cream?'}
-          checkedLabel={'Yes'}
-          uncheckedLabel={'No'}
-          orientation="horizontal"
-        />
-        <Switch
-          name={'isOIceCreamLiked'}
-          label={'Do you like another Ice Cream?'}
-          checkedLabel={'Yes'}
-          uncheckedLabel={'No'}
-          orientation="horizontal"
-        />
-        <Switch
-          name={'isVIceCreamLiked'}
-          label={'Do you like vanilla Ice Cream?'}
-          checkedLabel={'Yes'}
-          uncheckedLabel={'No'}
-          orientation="horizontal"
-        />
-        <Checkbox
-          shape="circular"
-          name={'yesNoQuestionCheckbox'}
-          label={'Yes/No Checkbox, Please Confirm Following'}
-          checkedLabel={'Yes'}
-          uncheckedLabel={'No'}
-        />
+          <table style={{ width: '100%' }}>
+            <thead>
+              <tr>
+                <th>Selected</th>
+                <th>Label</th>
+                <th>Value</th>
+                <th>Is Active</th>
+                <th>Like Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(arrayItem || [])?.map((item, index: number) => (
+                <Fragment key={index + item.value}>
+                  <tr>
+                    <td>
+                      <Checkbox
+                        name={`arrayItem.${index}.selected`}
+                        shape="circular"
+                      />
+                    </td>
+                    <td>
+                      <Input
+                        name={`arrayItem.${index}.label`}
+                        placeholder="Enter Label..."
+                      />
+                    </td>
+                    <td>
+                      <Input
+                        name={`arrayItem.${index}.value`}
+                        placeholder="Enter Value..."
+                      />
+                    </td>
+                    <td>
+                      <Switch
+                        name={`arrayItem.${index}.isActive`}
+                        checkedLabel={'Yes'}
+                        uncheckedLabel={'No'}
+                        orientation="horizontal"
+                      />
+                    </td>
+                    <td>
+                      <Slider
+                        name={`arrayItem.${index}.likePercentage`}
+                        min={0}
+                        max={100}
+                        hint={`${item.likePercentage || 0}%`}
+                      />
+                    </td>
+                    <td>
+                      <Button
+                        onClick={() => {
+                          const newArrayItem = [
+                            ...(testForm?.getValues()?.arrayItem || []),
+                          ];
+                          newArrayItem.splice(index, 1);
+                          testForm?.setValue(`arrayItem`, newArrayItem);
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                </Fragment>
+              ))}
+            </tbody>
+          </table>
+          <DatePicker
+            allowTextInput
+            name={'datePickerValue'}
+            label={'Date Picker'}
+          />
+          <Switch
+            name={'isIceCreamLiked'}
+            label={'Do you like Ice Cream?'}
+            checkedLabel={'Yes'}
+            uncheckedLabel={'No'}
+            orientation="horizontal"
+          />
+          <Switch
+            name={'isOIceCreamLiked'}
+            label={'Do you like another Ice Cream?'}
+            checkedLabel={'Yes'}
+            uncheckedLabel={'No'}
+            orientation="horizontal"
+          />
+          <Switch
+            name={'isVIceCreamLiked'}
+            label={'Do you like vanilla Ice Cream?'}
+            checkedLabel={'Yes'}
+            uncheckedLabel={'No'}
+            orientation="horizontal"
+          />
+          <Checkbox
+            shape="circular"
+            name={'yesNoQuestionCheckbox'}
+            label={'Yes/No Checkbox, Please Confirm Following'}
+            checkedLabel={'Yes'}
+            uncheckedLabel={'No'}
+          />
 
-        <Slider name={'slider'} label={'Slider'} min={0} max={100} />
-        <RichInput
-          name="richHTMLText"
-          size="large"
-          label={<strong>Rich Input Text</strong>}
-        />
-        <RichInput
-          name="richHTMLText"
-          size="large"
-          label={<strong>Rich Input Viewer</strong>}
-          readOnly
-        />
+          <Slider name={'slider'} label={'Slider'} min={0} max={100} />
+          <RichInput
+            name="richHTMLText"
+            size="large"
+            label={<strong>Rich Input Text</strong>}
+          />
+          <RichInput
+            name="richHTMLText"
+            size="large"
+            label={<strong>Rich Input Viewer</strong>}
+            readOnly
+          />
 
-        <Textarea
-          name="textarea"
-          size="small"
-          label={<strong>Textarea</strong>}
-          info={<>Info Details</>}
-        />
-        <Textarea
-          name="textarea"
-          size="medium"
-          label={<strong>Textarea</strong>}
-        />
-        <Textarea
-          name="textarea"
-          size="large"
-          label={<strong>Textarea</strong>}
-        />
+          <Textarea
+            name="textarea"
+            size="small"
+            label={<strong>Textarea</strong>}
+            info={<>Info Details</>}
+          />
+          <Textarea
+            name="textarea"
+            size="medium"
+            label={<strong>Textarea</strong>}
+          />
+          <Textarea
+            name="textarea"
+            size="large"
+            label={<strong>Textarea</strong>}
+          />
 
-        <SpinButton
-          name="spinButton"
-          size="small"
-          label={<strong>Spin Button</strong>}
-        />
-        <SpinButton
-          name="spinButton"
-          size="medium"
-          label={<strong>Spin Button</strong>}
-        />
+          <SpinButton
+            name="spinButton"
+            size="small"
+            label={<strong>Spin Button</strong>}
+          />
+          <SpinButton
+            name="spinButton"
+            size="medium"
+            label={<strong>Spin Button</strong>}
+          />
 
-        <Dropdown
-          name={'dropdownValue'}
-          label={'Ice Cream Type'}
-          options={[
-            { label: 'Vanilla', value: 'vanilla' },
-            { label: 'Chocolate', value: 'chocolate' },
-            { label: 'Strawberry', value: 'strawberry' },
-          ]}
-          readOnly
-        />
+          <Dropdown
+            name={'dropdownValue'}
+            label={'Ice Cream Type'}
+            options={[
+              { label: 'Vanilla', value: 'vanilla' },
+              { label: 'Chocolate', value: 'chocolate' },
+              { label: 'Strawberry', value: 'strawberry' },
+            ]}
+            readOnly
+          />
 
-        <Dropdown
-          multiselect
-          name={'dropdownValueMultiple'}
-          label={'Ice Cream Type'}
-          options={[
-            {
-              label: 'Vanilla',
-              value: 'vanilla',
-              optionProps: { disabled: true },
-            },
-            { label: 'Chocolate', value: 'chocolate' },
-            { label: 'Strawberry', value: 'strawberry' },
-          ]}
-        />
+          <Dropdown
+            multiselect
+            name={'dropdownValueMultiple'}
+            label={'Ice Cream Type'}
+            options={[
+              {
+                label: 'Vanilla',
+                value: 'vanilla',
+                optionProps: { disabled: true },
+              },
+              { label: 'Chocolate', value: 'chocolate' },
+              { label: 'Strawberry', value: 'strawberry' },
+            ]}
+          />
 
-        <FileInput
-          name={'attachments'}
-          label={<strong>Attachments</strong>}
-          multiple={false}
-          maxFiles={3}
-          // maxSize={5}
-          savedFiles={[
-            {
-              name: 'file1',
-              size: 100,
-              type: 'image/png',
-              path: 'https://via.placeholder.com/150',
-            },
-            {
-              name: 'file2',
-              size: 100,
-              type: 'image/png',
-              path: 'https://via.placeholder.com/150',
-            },
-          ]}
-          onRemoveSavedFile={(file) => {
-            console.log(file);
-          }}
-        />
+          <FileInput
+            name={'attachments'}
+            label={<strong>Attachments</strong>}
+            multiple={false}
+            maxFiles={3}
+            // maxSize={5}
+            savedFiles={[
+              {
+                name: 'file1',
+                size: 100,
+                type: 'image/png',
+                path: 'https://via.placeholder.com/150',
+              },
+              {
+                name: 'file2',
+                size: 100,
+                type: 'image/png',
+                path: 'https://via.placeholder.com/150',
+              },
+            ]}
+            onRemoveSavedFile={(file) => {
+              console.log(file);
+            }}
+          />
 
-        <FileInput
-          name={'attachments2'}
-          label={<strong>Attachments 2</strong>} 
-          accept={{
-            "image/": ['image/png', 'image/jpg', 'image/jpeg'],
-            video: ['video/mp4'],
-          }}
-        />
+          <FileInput
+            name={'attachments2'}
+            label={<strong>Attachments 2</strong>}
+            accept={{
+              'image/': ['image/png', 'image/jpg', 'image/jpeg'],
+              video: ['video/mp4'],
+            }}
+          />
 
-        <DatePicker name={'datePickerValue'} label={'Date Picker'} />
-        <TimePicker name={'timePickerValue'} dateAnchorName={'datePickerValue'} label={'Time Picker'} />
+          <DatePicker name={'datePickerValue'} label={'Date Picker'} />
+          <TimePicker
+            name={'timePickerValue'}
+            dateAnchorName={'datePickerValue'}
+            label={'Time Picker'}
+          />
 
-        <Button type="submit" appearance="primary">
-          Submit
-        </Button>
-        <Button onClick={onCancel} appearance="secondary">
-          Cancel
-        </Button>
+          <div className={formStyles.actionContainer}>
+            <Button type="submit" appearance="primary">
+              Submit
+            </Button>
+            <Button onClick={onCancel} appearance="secondary">
+              Cancel
+            </Button>
+          </div>
+        </div>
       </Form>
       {/* <DevTool control={testForm.control} />   */}
     </>

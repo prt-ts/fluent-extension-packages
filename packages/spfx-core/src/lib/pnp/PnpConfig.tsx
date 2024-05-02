@@ -49,7 +49,7 @@ export const getSP = async (
         window.__SPFxContext = context;
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise<SPFI>((resolve, reject) => {
         if (window.__SP) resolve(window.__SP);
         else reject("PnpSP is Not Initialized");
     });
@@ -67,7 +67,7 @@ export const getGraphFi = async (
             .using(PnPLogging(LogLevel.Error));
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise<GraphFI>((resolve, reject) => {
         if (window.__GraphFI) resolve(window.__GraphFI);
         else reject("GraphFi is Not Initialized");
     });

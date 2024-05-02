@@ -62,46 +62,44 @@ const AlertContent: React.FunctionComponent<
   isInProgress = false,
   intent = 'success',
 }) => {
-    const classes = useToastStyles();
+  const classes = useToastStyles();
 
-    const toastClass = React.useMemo(() => {
-      switch (intent) {
-        case 'success':
-          return classes.success;
-        case 'error':
-          return classes.error;
-        case 'info':
-          return classes.info;
-        case 'warning':
-          return classes.warning;
-        default:
-          return classes.default;
-      }
-    }, [intent, classes]);
+  const toastClass = React.useMemo(() => {
+    switch (intent) {
+      case 'success':
+        return classes.success;
+      case 'error':
+        return classes.error;
+      case 'info':
+        return classes.info;
+      case 'warning':
+        return classes.warning;
+      default:
+        return classes.default;
+    }
+  }, [intent, classes]);
 
-    return (
-      <>
-        <Toast appearance={appearance} className={toastClass}>
-          <ToastTitle
-            action={
-              <ToastTrigger>
-                <Link>
-                  <DismissCircleRegular />
-                </Link>
-              </ToastTrigger>
-            }
-            media={isInProgress ? <Spinner /> : undefined}
-          >
-            {title}
-          </ToastTitle>
-          <ToastBody subtitle={bodySubtitle}>
-            {body}
-          </ToastBody>
-          <ToastFooter>{footer}</ToastFooter>
-        </Toast>
-      </>
-    );
-  };
+  return (
+    <>
+      <Toast appearance={appearance} className={toastClass}>
+        <ToastTitle
+          action={
+            <ToastTrigger>
+              <Link>
+                <DismissCircleRegular />
+              </Link>
+            </ToastTrigger>
+          }
+          media={isInProgress ? <Spinner /> : undefined}
+        >
+          {title}
+        </ToastTitle>
+        <ToastBody subtitle={bodySubtitle}>{body}</ToastBody>
+        <ToastFooter>{footer}</ToastFooter>
+      </Toast>
+    </>
+  );
+};
 
 export const useAlert = () => {
   const { dispatchToast, updateToast } = useAlertContext();
@@ -111,76 +109,73 @@ export const useAlert = () => {
     alert: AlertContentType,
     options?: DispatchToastOptions | UpdateToastOptions
   ) => {
-    const intent = "success";
+    const intent = 'success';
     if (options?.toastId) {
       update(alert, {
         ...options,
         intent: intent,
-      })
+      });
       return;
     }
     dispatchToast?.(<AlertContent {...alert} intent={intent} />, {
       ...options,
       intent: intent,
-    })
+    });
   };
 
   const error = (
     alert: AlertContentType,
     options?: DispatchToastOptions | UpdateToastOptions
   ) => {
-    const intent = "error";
+    const intent = 'error';
     if (options?.toastId) {
       update(alert, {
         ...options,
         intent: intent,
-      })
+      });
       return;
     }
 
     dispatchToast?.(<AlertContent {...alert} intent={intent} />, {
       ...options,
       intent: intent,
-    })
+    });
   };
 
   const info = (
     alert: AlertContentType,
     options?: DispatchToastOptions | UpdateToastOptions
   ) => {
-
-    const intent = "info";
+    const intent = 'info';
     if (options?.toastId) {
       update(alert, {
         ...options,
         intent: intent,
-      })
+      });
       return;
     }
     dispatchToast?.(<AlertContent {...alert} intent={intent} />, {
       ...options,
       intent: intent,
-    })
+    });
   };
 
   const warning = (
     alert: AlertContentType,
     options?: DispatchToastOptions | UpdateToastOptions
   ) => {
-
-    const intent = "warning";
+    const intent = 'warning';
     if (options?.toastId) {
       update(alert, {
         ...options,
         intent: intent,
-      })
+      });
       return;
     }
     dispatchToast?.(<AlertContent {...alert} intent="warning" />, {
       ...options,
       intent: 'warning',
     });
-
   };
 
   const progress = (
@@ -207,22 +202,44 @@ export const useAlert = () => {
   const update = (alert: AlertContentType, options?: UpdateToastOptions) => {
     const intent = options?.intent || alert.intent || 'success';
     updateToast?.({
-      content: <AlertContent {...alert} intent={intent} />, 
+      content: <AlertContent {...alert} intent={intent} />,
       timeout: 5000,
       pauseOnHover: true,
       pauseOnWindowBlur: true,
       ...options,
       intent: intent,
     } as unknown as UpdateToastOptions);
-  }
-
+  };
 
   return {
+    /**
+     * @deprecated use alertSuccess instead
+     * */
     success,
+
+    /**
+     *  @deprecated use alertError instead
+     *  */
     error,
+
+    /**
+     *  @deprecated use alertInfo instead
+     *  */
     info,
+
+    /**
+     * @deprecated use alertWarning instead
+     * */
     warning,
+
+    /**
+     * @deprecated use alertUpdate instead
+     * */
     update,
+
+    /**
+     * @deprecated use alertProgress instead
+     * */
     progress,
     alertSuccess: success,
     alertError: error,

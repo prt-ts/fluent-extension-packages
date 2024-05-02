@@ -1,4 +1,9 @@
-import { useAlert, useButtonStyles, useConfirm, useLoading } from '@prt-ts/fluent-common-features';
+import {
+  useAlert,
+  useButtonStyles,
+  useConfirm,
+  useLoading,
+} from '@prt-ts/fluent-common-features';
 import React from 'react';
 import {
   Dialog,
@@ -10,18 +15,51 @@ import {
   DialogContent,
   Button,
   Divider,
-} from '@fluentui/react-components'; 
+} from '@fluentui/react-components';
 import { makeData } from '../../data/UserInfo';
-import { ExportData, ExportFileInfo, exportDocument } from '@prt-ts/export-helpers';
+import {
+  ExportData,
+  ExportFileInfo,
+  exportDocument,
+  importExcelDocument,
+  importCsvDocument,
+} from '@prt-ts/export-helpers';
 
 const FeatureComponent = () => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // check fie type and call appropriate import method
+      const fileExtension = file.name.split('.').pop();
+      if (fileExtension === 'csv') {
+        const data = await importCsvDocument(file, {
+          headerRow: 1,
+        });
+        console.log(data);
+      } else if (
+        fileExtension === 'xlsx' ||
+        fileExtension === 'xls' ||
+        fileExtension === 'xlsm'
+      ) {
+        const data = await importExcelDocument(file, {
+          headerRow: 1,
+        });
+        console.log(data);
+      } else {
+        console.log('Unsupported file type');
+      }
+    }
+  };
   return (
     <div>
+      <div>
+        <input type="file" onChange={handleFileChange} />
+      </div>
       <Features />
       <DialogExampleWithLoading />
     </div>
   );
-}
+};
 
 const Features = () => {
   const { success, error, info, warning, progress } = useAlert();
@@ -32,9 +70,16 @@ const Features = () => {
 
   return (
     <>
-    <h1>Features</h1>
-    <Divider />
-      <div style={{ display: 'flex', gap: "10px", flexWrap: "wrap", marginTop: "20px" }}>
+      <h1>Features</h1>
+      <Divider />
+      <div
+        style={{
+          display: 'flex',
+          gap: '10px',
+          flexWrap: 'wrap',
+          marginTop: '20px',
+        }}
+      >
         <Button
           onClick={() =>
             success({
@@ -99,18 +144,21 @@ const Features = () => {
             const toastId = progress({
               title: 'Progress',
               body: 'This is a progress message',
-            })
+            });
 
             setTimeout(() => {
-              success({
-                title: 'Progress',
-                body: 'This is a progress message',
-              }, {
-                toastId: toastId
-              })
-            }, 3000)
+              success(
+                {
+                  title: 'Progress',
+                  body: 'This is a progress message',
+                },
+                {
+                  toastId: toastId,
+                }
+              );
+            }, 3000);
           }}
-          appearance='primary'
+          appearance="primary"
         >
           Lazy Progress (With Success)
         </Button>
@@ -120,24 +168,26 @@ const Features = () => {
             const toastId = progress({
               title: 'Progress',
               body: 'This is a progress message',
-              intent: "error"
-            })
+              intent: 'error',
+            });
 
             setTimeout(() => {
-              error({
-                title: 'Error',
-                body: 'Something went wrong',
-                intent: "error"
-              }, {
-                toastId: toastId
-              })
-            }, 3000)
+              error(
+                {
+                  title: 'Error',
+                  body: 'Something went wrong',
+                  intent: 'error',
+                },
+                {
+                  toastId: toastId,
+                }
+              );
+            }, 3000);
           }}
-          appearance='secondary'
+          appearance="secondary"
         >
           Lazy Progress (With Error)
         </Button>
-
 
         {/* confirm */}
         <Button
@@ -151,10 +201,9 @@ const Features = () => {
               onCancel: () => {
                 console.log('canceled');
               },
-
             })
           }
-          appearance='primary'
+          appearance="primary"
         >
           Confirm
         </Button>
@@ -164,7 +213,11 @@ const Features = () => {
           onClick={() =>
             confirm({
               title: 'Are you sure you want to delete this item?',
-              message: <>Once you delete, you will not be able to revert this action.</>,
+              message: (
+                <>
+                  Once you delete, you will not be able to revert this action.
+                </>
+              ),
               onConfirm: () => {
                 console.log('confirmed');
               },
@@ -174,7 +227,7 @@ const Features = () => {
               confirmButtonProps: {
                 children: 'Delete',
                 icon: null,
-                className: buttonStyles.danger
+                className: buttonStyles.danger,
               },
               cancelButtonProps: {
                 children: 'Cancel',
@@ -186,12 +239,16 @@ const Features = () => {
           Confirm Delete
         </Button>
 
-         <Button
+        <Button
           className={buttonStyles.danger}
           onClick={() =>
             confirm({
               title: 'Are you sure you want to delete this item?',
-              message: <>Once you delete, you will not be able to revert this action.</>,
+              message: (
+                <>
+                  Once you delete, you will not be able to revert this action.
+                </>
+              ),
               onConfirm: () => {
                 console.log('Confirm Delete with long action');
               },
@@ -201,7 +258,7 @@ const Features = () => {
               confirmButtonProps: {
                 children: 'Confirm Delete',
                 icon: null,
-                className: buttonStyles.danger
+                className: buttonStyles.danger,
               },
               cancelButtonProps: {
                 children: 'Cancel',
@@ -213,7 +270,7 @@ const Features = () => {
           Long Action Btn
         </Button>
 
-          {/* loading example */}
+        {/* loading example */}
         <Button
           onClick={() => {
             showLoader();
@@ -221,124 +278,115 @@ const Features = () => {
               hideLoader();
             }, 3000);
           }}
-          appearance='primary'
+          appearance="primary"
         >
           Loading
         </Button>
-
       </div>
 
       <div>
+        <Button
+          onClick={async () => {
+            const userData = makeData(10);
 
-        <Button onClick={
-          async () => {
-
-            const userData = makeData(10) 
-            
-            const exportData : ExportData[] = userData.map((d) => ({
-              NullValue : null,
-              UndefinedValue : undefined,
+            const exportData: ExportData[] = userData.map((d) => ({
+              NullValue: null,
+              UndefinedValue: undefined,
               emptyString: {
-                value : '',
+                value: '',
                 cellStyle: {
-                  border : {
-                    left : {
-                      style : "hair",
-                      color : {
-                        argb: "FF00FF00"
-                      }
+                  border: {
+                    left: {
+                      style: 'hair',
+                      color: {
+                        argb: 'FF00FF00',
+                      },
                     },
-                    diagonal : {
-                      style : "double",
-                      color : {
-                        argb: "rgba(255, 99, 71, 0.5)"
-                      }
-                    }
+                    diagonal: {
+                      style: 'double',
+                      color: {
+                        argb: 'rgba(255, 99, 71, 0.5)',
+                      },
+                    },
                   },
-                }
+                },
               },
               /* eslint-disable-next-line */
-              ["Display Name"] : {
+              ['Display Name']: {
                 value: {
-                  text : d.name,
-                  isHyperlink : true,
-                  hyperlink: "https://www.google.com"
-                }
+                  text: d.name,
+                  isHyperlink: true,
+                  hyperlink: 'https://www.google.com',
+                },
               },
               /* eslint-disable-next-line */
-              ["User Name"] : {
-                value : d.loginName,
-                dataValidation : {
-                  type : "list",
+              ['User Name']: {
+                value: d.loginName,
+                dataValidation: {
+                  type: 'list',
                   allowBlank: true,
-                  formulae: [`"Pradeep, Durga, Fana"`]
+                  formulae: [`"Pradeep, Durga, Fana"`],
                 },
                 cellStyle: {
                   protection: {
-                    locked: false
-                  }
-                }
+                    locked: false,
+                  },
+                },
               },
               /* eslint-disable-next-line */
-              ["Email Address"]: {
+              ['Email Address']: {
                 value: d.email,
                 cellStyle: {
-                  font: { 
-                    italic: true
+                  font: {
+                    italic: true,
                   },
-                  border : {
-                    left : {
-                      style : "hair",
-                      color : {
-                        argb: "rgba(255, 99, 71, 0.5)"
-                      }
+                  border: {
+                    left: {
+                      style: 'hair',
+                      color: {
+                        argb: 'rgba(255, 99, 71, 0.5)',
+                      },
                     },
-                    diagonal : {
-                      style : "hair",
-                      color : {
-                        argb: "rgba(255, 99, 71, 0.5)"
-                      }
-                    }
+                    diagonal: {
+                      style: 'hair',
+                      color: {
+                        argb: 'rgba(255, 99, 71, 0.5)',
+                      },
+                    },
                   },
                   // fill : {
                   //   type : "pattern",
                   //   pattern : "darkDown"
                   // }
-                  
-                }
-              }
+                },
+              },
+            }));
 
-            }))
+            const fileInfo: ExportFileInfo = {
+              fileName: 'Pradeep Raj - User List',
+              type: 'excel',
 
-            const fileInfo : ExportFileInfo = {
-              fileName : "Pradeep Raj - User List",
-              type: "excel",
+              sheets: [
+                {
+                  sheetName: 'User Info - Formatted',
+                  data: exportData,
+                },
+              ],
+            };
 
-              sheets : [{
-                sheetName : "User Info - Formatted",
-                data: exportData
-              }]
-
-            }
-
-            await exportDocument(fileInfo)
-          }
-         }>
+            await exportDocument(fileInfo);
+          }}
+        >
           Export template
         </Button>
-
       </div>
-
     </>
-
   );
 };
 
 export default FeatureComponent;
 
-
 export const DialogExampleWithLoading = () => {
-
   return (
     <Dialog>
       <DialogTrigger disableButtonEnhancement>
