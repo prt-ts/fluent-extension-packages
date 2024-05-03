@@ -18,7 +18,6 @@ export const usePeopleInputStyles = makeStyles({
 
   optionList: {
     maxHeight: '300px',
-    maxWidth: '400px',
     ...shorthands.overflow('auto'),
   },
 });

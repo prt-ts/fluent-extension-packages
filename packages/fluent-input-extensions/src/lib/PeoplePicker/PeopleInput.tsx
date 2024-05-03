@@ -48,6 +48,8 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
       children,
     } = usePeopleInput(props, ref);
 
+    const [open, setOpen] = React.useState(false);
+
     const styles = usePeopleInputStyles();
     return (
       <>
@@ -55,6 +57,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
           {...tagPickerProps}
           onOptionSelect={handleOptionSelect}
           selectedOptions={selectedOptions}
+          open={open}
           freeform
         >
           <TagPickerControl
@@ -122,6 +125,14 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
                   ? ''
                   : tagPickerInputProps.placeholder
               }
+              onFocus={(e) => {
+                tagPickerInputProps.onFocus?.(e);
+                setOpen(true);
+              }}
+              onBlur={(e) => {
+                tagPickerInputProps.onBlur?.(e);
+                setOpen(false);
+              }}
             />
           </TagPickerControl>
           <Show when={!reachMaxSelection && !tagPickerInputProps.readOnly}>
