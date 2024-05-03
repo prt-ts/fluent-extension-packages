@@ -6,7 +6,11 @@ export const useFormStyles = makeStyles({
     flexDirection: 'column',
     width: '100%',
     boxSizing: 'border-box',
-    ...shorthands.padding(tokens.spacingVerticalXL, tokens.spacingHorizontalXL),
+    ...shorthands.padding(
+      tokens.spacingVerticalXS,
+      tokens.spacingHorizontalXL,
+      tokens.spacingVerticalXL
+    ),
   },
 
   row: {
@@ -25,7 +29,7 @@ export const useFormStyles = makeStyles({
   },
 
   formTitle: {
-    fontSize: tokens.fontSizeBase600,
+    fontSize: tokens.fontSizeBase500,
     fontWeight: tokens.fontWeightBold,
     width: '100%',
     // borderBottom: `${tokens.strokeWidthThin} solid ${tokens.colorNeutralStroke1}`,
@@ -33,7 +37,7 @@ export const useFormStyles = makeStyles({
     ...shorthands.margin(tokens.spacingVerticalM, 0, 0),
     ...shorthands.padding(tokens.spacingVerticalS, 0),
     ...shorthands.borderBottom(
-      tokens.strokeWidthThicker,
+      tokens.strokeWidthThick,
       'solid',
       tokens.colorNeutralStroke1
     ),
