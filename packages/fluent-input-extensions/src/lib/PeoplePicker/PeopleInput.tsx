@@ -58,6 +58,10 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
           onOptionSelect={handleOptionSelect}
           selectedOptions={selectedOptions}
           open={open}
+          // onOpenChange={(e, data) => {
+          //   const isOpen = query?.length > 0 || data?.open;
+          //   setOpen(isOpen);
+          // }}
           freeform
         >
           <TagPickerControl

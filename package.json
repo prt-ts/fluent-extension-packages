@@ -19,8 +19,8 @@
     "@fluentui/react-components": "9.48.0",
     "@fluentui/react-datepicker-compat": "0.4.32",
     "@fluentui/react-icons": "2.0.235",
-    "@fluentui/react-swatch-picker-preview": "0.3.0",
-    "@fluentui/react-tag-picker-preview": "0.3.0",
+    "@fluentui/react-swatch-picker-preview": "^0.4.1",
+    "@fluentui/react-tag-picker-preview": "0.4.0",
     "@fluentui/react-timepicker-compat": "0.2.8",
     "@hookform/devtools": "^4.3.1",
     "@hookform/resolvers": "^3.3.1",
@@ -123,5 +123,7 @@
   "homepage": "https://github.com/prt-ts/fluent-extension-packages.git#readme",
   "nx": {
     "includedScripts": []
-  }
+  },
+  "dependencies": {}
 }
+

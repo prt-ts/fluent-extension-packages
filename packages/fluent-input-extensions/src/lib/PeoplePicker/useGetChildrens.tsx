@@ -30,7 +30,7 @@ export function useGetChildren({
         <Show when={query?.length > 0}>
           <TagPickerOptionGroup label="Search Results">
             {/* show loading */}
-            <Show when={isLoading}>
+            <Show when={isLoading && availableSearchUsers?.length === 0}>
               <TagPickerOption
                 key={'loading'}
                 value={query}
@@ -63,11 +63,11 @@ export function useGetChildren({
             </Show>
 
             {/* show search results */}
-            <Show when={availableSearchUsers.length > 0 && !isLoading}>
+            <Show when={availableSearchUsers?.length > 0}>
               <For each={availableSearchUsers}>
-                {(option) => (
+                {(option, index) => (
                   <TagPickerOption
-                    key={option.loginName}
+                    key={`${option.loginName}-${index}`}
                     value={option.loginName}
                   >
                     <Persona
@@ -105,9 +105,9 @@ export function useGetChildren({
             >
               <TagPickerOptionGroup label="Suggestions">
                 <For each={availableSuggestions}>
-                  {(option) => (
+                  {(option, index) => (
                     <TagPickerOption
-                      key={option.loginName}
+                      key={`${option.loginName}-${index}`}
                       value={option.loginName}
                     >
                       <Persona

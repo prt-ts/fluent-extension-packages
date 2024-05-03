@@ -1,11 +1,11 @@
-import * as React from "react";
-import { PeopleInputProps, PeopleInputRef } from "./PeopleInputProps";
-import { usePeopleInputDefault } from "./usePeopleInputDefaults";
-import { TagGroupProps } from "@fluentui/react-components";
-import { TagPickerProps } from "@fluentui/react-tag-picker-preview";
-import { useGetChildren } from "./useGetChildrens";
-import { usePickerImperativeHandle } from "./usePickerImperativeHandle";
-import { UserInfo } from "@prt-ts/types";
+import * as React from 'react';
+import { PeopleInputProps, PeopleInputRef } from './PeopleInputProps';
+import { usePeopleInputDefault } from './usePeopleInputDefaults';
+import { TagGroupProps } from '@fluentui/react-components';
+import { TagPickerProps } from '@fluentui/react-tag-picker-preview';
+import { useGetChildren } from './useGetChildrens';
+import { usePickerImperativeHandle } from './usePickerImperativeHandle';
+import { UserInfo } from '@prt-ts/types';
 
 /* eslint-disable */
 export function usePeopleInput(
@@ -24,7 +24,7 @@ export function usePeopleInput(
     pickerType,
     layout,
     tagPickerProps,
-    tagPickerInputProps, 
+    tagPickerInputProps,
     showSecondaryText,
   } = usePeopleInputDefault(props);
 
@@ -32,18 +32,19 @@ export function usePeopleInput(
 
   const [searchedUsers, setSearchedUsers] = React.useState<UserInfo[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [query, setQuery] = React.useState<string>("");
+  const [query, setQuery] = React.useState<string>('');
 
-  const handleOptionSelect: TagPickerProps["onOptionSelect"] = async (
+  const handleOptionSelect: TagPickerProps['onOptionSelect'] = async (
     e,
     data
   ) => {
     if (props.disabled || props.readOnly) {
       return;
     }
-    const matchUsers = [...searchedUsers, ...(suggestions || [])].filter(
-      (user) => user.loginName === data.optionValue
-    );
+    const matchUsers = [
+      ...(searchedUsers || []),
+      ...(suggestions || []),
+    ].filter((user) => user.loginName === data.value);
 
     const newFilteredUsers = [...value, ...matchUsers]?.filter((user) =>
       data.selectedOptions?.includes(user.loginName)
@@ -56,7 +57,7 @@ export function usePeopleInput(
     );
 
     // reset query
-    setQuery("");
+    setQuery('');
 
     let resolvedUsers: UserInfo[] = uniqueUsers;
 
@@ -64,17 +65,16 @@ export function usePeopleInput(
     if (onResolveUsers && uniqueUsers?.length > 0) {
       try {
         const result = await onResolveUsers(uniqueUsers);
-        resolvedUsers = result.resolvedUserInfo; 
+        resolvedUsers = result.resolvedUserInfo;
 
         if (result?.error && result.error.length > 0) {
           props.onInternalError?.(result.error);
-        }else{
+        } else {
           props.onInternalError?.(undefined);
         }
-
       } catch (error: any) {
-        props.onInternalError?.(error.message ?? "Error in resolving users");        
-      }      
+        props.onInternalError?.(error.message ?? 'Error in resolving users');
+      }
     }
     if (onUserSelectionChange) {
       onUserSelectionChange(resolvedUsers);
@@ -87,7 +87,7 @@ export function usePeopleInput(
     }
   };
 
-  const removeSelectedUser: TagGroupProps["onDismiss"] = (_e, data) => {
+  const removeSelectedUser: TagGroupProps['onDismiss'] = (_e, data) => {
     const newUses = (value || []).filter(
       (user) => user.loginName !== data.value
     );
@@ -100,9 +100,9 @@ export function usePeopleInput(
   );
 
   const handleQueryChange = React.useCallback(
-    async (query: string = "") => {
+    async (query: string = '') => {
       if (!onSearchUsers) {
-        console.error("onSearchUsers is not defined");
+        console.error('onSearchUsers is not defined');
         return;
       }
 
@@ -169,7 +169,7 @@ export function usePeopleInput(
     value,
     selectedOptions,
     tagPickerInputProps,
-    tagPickerProps, 
+    tagPickerProps,
     children,
     reachMaxSelection,
     pickerType,
