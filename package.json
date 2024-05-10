@@ -16,7 +16,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@faker-js/faker": "^8.1.0",
     "@fluentui/react-calendar-compat": "0.1.2",
-    "@fluentui/react-components": "9.48.0",
+    "@fluentui/react-components": "9.50.0",
     "@fluentui/react-datepicker-compat": "0.4.32",
     "@fluentui/react-icons": "2.0.235",
     "@fluentui/react-swatch-picker-preview": "^0.4.1",
