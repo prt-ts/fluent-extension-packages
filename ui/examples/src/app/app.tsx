@@ -2,119 +2,109 @@
 
 import Web from './Web';
 
-import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
-import { TableExample } from "./TableExample";
-import { ErrorPage } from "./ErrorComponent";
-import { AccessDenied, ErrorBoundary, PageNotFound } from "@prt-ts/fluent-common-features";
-import {  Divider, Link } from '@fluentui/react-components';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { TableExample } from './TableExample';
+import { AppFeatureProvider } from '@prt-ts/fluent-common-features';
 import { ReactHookForm } from './RHFTest';
 import { SignUpForm } from './examples/SignUpForm/SignUpForm';
 import Features from './examples/FeatureComp/Features';
 import DummyEditPage from './DummyEditPage';
 import Controls from './examples/Control/Controls';
 import { TableExample2 } from './TableExample2';
-import { EditableGrid } from './EditableGrid/EditableGrid'; 
-import { useEffect } from 'react';
+import { EditableGrid } from './EditableGrid/EditableGrid';
 import { InputExample } from './RHFormExamples/Input';
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route
-        path="/"
-        element={
-          <div>
-            <Web />
-          </div>
-        }
-      />
-      <Route path="/page-2" element={<TableExample />} />
-      <Route path="/table-2" element={<TableExample2 />} />
-      <Route path="/editable" element={<EditableGrid />} />
-      <Route
-        path="/dummy-edit/:id/:mode"
-        element={<DummyEditPage />}
-      />
-      <Route
-        path="/page-3"
-        element={
-          <>
-            <ErrorBoundary>
-              <ErrorPage />
-            </ErrorBoundary>
-            <AccessDenied />
-            <PageNotFound />
-            <Web />
-          </>
-        }
-      />
-      <Route path="/page-4" element={<ReactHookForm />} />
-      <Route path="/page-5" element={<Features />} />
-      <Route path="/sign-up" element={<SignUpForm />} />
-      <Route path="/controls" element={<Controls />} />
-      <Route path="/rhf/input" element={<InputExample />} />
-    </>
-  )
-);
+import { useEffect, useState } from 'react';
+import { ThemeService } from '@prt-ts/fluent-theme';
+import { FluentProvider } from '@fluentui/react-components';
+import { Layout } from './layout/Layout';
 
+const { getTheme } = ThemeService();
+export function useAppTheme() {
+  const [theme, setTheme] = useState(null);
 
-export function App() {
+  // check if user have selected color scheme
   useEffect(() => {
-    // seedUserInfo(100);
-  }, []); 
-  return (
-    <div>
-      <div
-        style={{
-          marginBottom: '1rem',
-        }}
-      >
-        <ul
-          style={{
-            display: 'flex',
-            justifyContent: 'start',
-            gap: '1rem',
-            listStyle: 'none',
-            padding: '0',
-            margin: '0',
-            fontSize: '1.2rem',
-            fontWeight: 'bold',
-          }}
-        >
-          <li>
-            <Link href="/">Fluent Formik</Link>
-          </li>
-          <li>
-            <Link href="/page-2">Table</Link>
-          </li>
-          <li>
-            <Link href="/table-2">Table 2</Link>
-          </li>
-          <li>
-            <Link href="/editable">Editable</Link>
-          </li>
-          <li>
-            <Link href="/page-3">Error Boundary</Link>
-          </li>
-          <li>
-            <Link href="/page-4">React Hook Form</Link>
-          </li>
-          <li>
-            <Link href="/page-5">Common Features</Link>
-          </li>
-          <li>
-            <Link href="/Sign-Up">SignUp Form</Link> 
-          </li>
-          <li>
-            <Link href="/controls">Controls</Link>
-          </li>
-        </ul>
-        <Divider />
-      </div>
-      <RouterProvider router={router} />
+    // check if user agent hs dark mode enabled
+    const userPrefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+    console.log('userPrefersDark', userPrefersDark);
+    // if (userPrefersDark) {
+    //     setTheme(webDarkTheme);
+    //     return;
+    // }
+    // setTheme(webLightTheme);
 
-      {/* END: routes */}
-    </div>
+    getTheme('#00AFED').then((theme) => {
+      setTheme(theme);
+    });
+  }, []);
+  return { theme };
+}
+
+export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      {
+        path: '/',
+        element: <Web />,
+      },
+      {
+        path: '/table',
+        element: <TableExample />,
+      },
+      {
+        path: '/table2',
+        element: <TableExample2 />,
+      },
+      {
+        path: '/editableGrid',
+        element: <EditableGrid />,
+      },
+      {
+        path: '/react-hook-form',
+        element: <ReactHookForm />,
+      },
+      {
+        path: '/signup',
+        element: <SignUpForm />,
+      },
+      {
+        path: '/features',
+        element: <Features />,
+      },
+      {
+        path: '/controls',
+        element: <Controls />,
+      },
+      {
+        path: '/input',
+        element: <InputExample />,
+      },
+      {
+        path: '/dummy-edit',
+        element: <DummyEditPage />,
+      },
+    ],
+  },
+]);
+
+function App() {
+  const { theme } = useAppTheme();
+
+  if (!theme) {
+    return null;
+  }
+
+  return (
+    <FluentProvider theme={theme}>
+      <AppFeatureProvider>
+        <RouterProvider router={router} />
+      </AppFeatureProvider>
+    </FluentProvider>
   );
 }
 
