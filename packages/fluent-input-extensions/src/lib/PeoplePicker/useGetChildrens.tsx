@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Persona, Spinner } from '@fluentui/react-components';
 import {
+  Persona,
+  Spinner,
   TagPickerOption,
   TagPickerOptionGroup,
-} from '@fluentui/react-tag-picker-preview';
+} from '@fluentui/react-components';
 import { For, Show } from '@prt-ts/react-control-flow';
 import { PeopleInputProps } from './PeopleInputProps';
 import { UserInfo } from '@prt-ts/types';

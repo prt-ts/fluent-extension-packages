@@ -20,9 +20,7 @@ export const AppRoot: React.FC = () => {
   const [theme, setTheme] = React.useState(null);
 
   React.useEffect(() => {
-    getTheme('#022347', mode === 'dark', 0.8)
-      .then(setTheme)
-      .catch(console.error);
+    getTheme('#022347').then(setTheme).catch(console.error);
   }, [mode]);
 
   if (!theme) return <div>Loading...</div>;

@@ -1,12 +1,5 @@
 import * as React from 'react';
 import {
-  TagPicker,
-  TagPickerList,
-  TagPickerInput,
-  TagPickerControl,
-  TagPickerGroup,
-} from '@fluentui/react-tag-picker-preview';
-import {
   Avatar,
   Button,
   Tooltip,
@@ -20,6 +13,11 @@ import {
   PopoverTrigger,
   Persona,
   Toolbar,
+  TagPicker,
+  TagPickerList,
+  TagPickerInput,
+  TagPickerControl,
+  TagPickerGroup,
 } from '@fluentui/react-components';
 import { Show } from '@prt-ts/react-control-flow';
 import { PeopleInputProps, PeopleInputRef } from './PeopleInputProps';
@@ -48,8 +46,6 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
       children,
     } = usePeopleInput(props, ref);
 
-    const [open, setOpen] = React.useState(false);
-
     const styles = usePeopleInputStyles();
     return (
       <>
@@ -57,12 +53,6 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
           {...tagPickerProps}
           onOptionSelect={handleOptionSelect}
           selectedOptions={selectedOptions}
-          open={open}
-          // onOpenChange={(e, data) => {
-          //   const isOpen = query?.length > 0 || data?.open;
-          //   setOpen(isOpen);
-          // }}
-          freeform
         >
           <TagPickerControl
             expandIcon={null}
@@ -129,14 +119,6 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
                   ? ''
                   : tagPickerInputProps.placeholder
               }
-              onFocus={(e) => {
-                tagPickerInputProps.onFocus?.(e);
-                setOpen(true);
-              }}
-              onBlur={(e) => {
-                tagPickerInputProps.onBlur?.(e);
-                setOpen(false);
-              }}
             />
           </TagPickerControl>
           <Show when={!reachMaxSelection && !tagPickerInputProps.readOnly}>

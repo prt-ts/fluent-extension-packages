@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { PeopleInputProps, PeopleInputRef } from './PeopleInputProps';
 import { usePeopleInputDefault } from './usePeopleInputDefaults';
-import { TagGroupProps } from '@fluentui/react-components';
-import { TagPickerProps } from '@fluentui/react-tag-picker-preview';
+import { TagGroupProps, TagPickerProps } from '@fluentui/react-components';
 import { useGetChildren } from './useGetChildrens';
 import { usePickerImperativeHandle } from './usePickerImperativeHandle';
 import { UserInfo } from '@prt-ts/types';

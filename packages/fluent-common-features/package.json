@@ -3,7 +3,7 @@
   "version": "9.50.0-build-1.0",
   "peerDependencies": {
     "@fluentui/react-components": ">=9.50.0",
-    "@fluentui/react-icons": ">=2.0.235",
+    "@fluentui/react-icons": ">=2.0.239",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
   },

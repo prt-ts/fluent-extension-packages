@@ -1,10 +1,10 @@
-import * as React from "react";
-import { PeopleInputProps } from "./PeopleInputProps";
+import * as React from 'react';
+import { PeopleInputProps } from './PeopleInputProps';
 import {
   TagPickerInputProps,
   TagPickerProps,
-} from "@fluentui/react-tag-picker-preview";
-import { UserInfo } from "@prt-ts/types"; 
+} from '@fluentui/react-components';
+import { UserInfo } from '@prt-ts/types';
 
 /* eslint-disable  */
 export function usePeopleInputDefault(props: PeopleInputProps) {
@@ -19,14 +19,14 @@ export function usePeopleInputDefault(props: PeopleInputProps) {
     onSearchUsers,
     onOptionSelect,
     onResolveUsers,
-    pickerType = "normal",
-    layout = "horizontal",
+    pickerType = 'normal',
+    layout = 'horizontal',
     showSecondaryText = true,
     ...rest
   } = props;
 
   const tagPickerProps: TagPickerProps = rest as TagPickerProps;
-  const tagPickerInputProps: TagPickerInputProps = rest as TagPickerInputProps;  
+  const tagPickerInputProps: TagPickerInputProps = rest as TagPickerInputProps;
 
   return {
     value,
@@ -40,7 +40,7 @@ export function usePeopleInputDefault(props: PeopleInputProps) {
     pickerType,
     layout,
     tagPickerProps,
-    tagPickerInputProps, 
+    tagPickerInputProps,
     showSecondaryText,
   };
 }
