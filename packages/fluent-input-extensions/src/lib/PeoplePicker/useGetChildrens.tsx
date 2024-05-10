@@ -31,7 +31,7 @@ export function useGetChildren({
         <Show when={query?.length > 0}>
           <TagPickerOptionGroup label="Search Results">
             {/* show loading */}
-            <Show when={isLoading && availableSearchUsers?.length === 0}>
+            <Show when={isLoading}>
               <TagPickerOption
                 key={'loading'}
                 value={query}
@@ -64,7 +64,7 @@ export function useGetChildren({
             </Show>
 
             {/* show search results */}
-            <Show when={availableSearchUsers?.length > 0}>
+            <Show when={availableSearchUsers?.length > 0 && !isLoading}>
               <For each={availableSearchUsers}>
                 {(option, index) => (
                   <TagPickerOption
