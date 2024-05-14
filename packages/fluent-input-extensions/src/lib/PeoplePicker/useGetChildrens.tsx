@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Persona, Spinner } from '@fluentui/react-components';
 import {
+  Persona,
+  Spinner,
   TagPickerOption,
   TagPickerOptionGroup,
-} from '@fluentui/react-tag-picker-preview';
+} from '@fluentui/react-components';
 import { For, Show } from '@prt-ts/react-control-flow';
 import { PeopleInputProps } from './PeopleInputProps';
 import { UserInfo } from '@prt-ts/types';
@@ -63,11 +64,11 @@ export function useGetChildren({
             </Show>
 
             {/* show search results */}
-            <Show when={availableSearchUsers.length > 0 && !isLoading}>
+            <Show when={availableSearchUsers?.length > 0 && !isLoading}>
               <For each={availableSearchUsers}>
-                {(option) => (
+                {(option, index) => (
                   <TagPickerOption
-                    key={option.loginName}
+                    key={`${option.loginName}-${index}`}
                     value={option.loginName}
                   >
                     <Persona
@@ -105,9 +106,9 @@ export function useGetChildren({
             >
               <TagPickerOptionGroup label="Suggestions">
                 <For each={availableSuggestions}>
-                  {(option) => (
+                  {(option, index) => (
                     <TagPickerOption
-                      key={option.loginName}
+                      key={`${option.loginName}-${index}`}
                       value={option.loginName}
                     >
                       <Persona

@@ -1,13 +1,13 @@
 import {
   TagPickerInputProps,
   TagPickerProps,
-} from "@fluentui/react-tag-picker-preview";
-import { UserInfo } from "@prt-ts/types";
+} from '@fluentui/react-components';
+import { UserInfo } from '@prt-ts/types';
 
 type ResolvedUserInfo = {
   resolvedUserInfo: UserInfo[];
-  error: string; 
-}
+  error: string;
+};
 
 type LocalPeopleInputProps = {
   /**
@@ -62,7 +62,7 @@ type LocalPeopleInputProps = {
    * Selected users layout
    * @default "horizontal"
    */
-  layout?: "horizontal" | "vertical";
+  layout?: 'horizontal' | 'vertical';
 
   /**
    * Maximum number of users that can be selected
@@ -86,7 +86,7 @@ type LocalPeopleInputProps = {
    * The type of picker
    * @default "normal"
    */
-  pickerType?: "normal" | "compact" | "list";
+  pickerType?: 'normal' | 'compact' | 'list';
 
   /**
    * It will show the secondary text of the user
@@ -96,8 +96,8 @@ type LocalPeopleInputProps = {
 };
 
 export type PeopleInputProps = LocalPeopleInputProps &
-  Omit<TagPickerProps, "children" | "value"> &
-  Omit<TagPickerInputProps, "value">;
+  Omit<TagPickerProps, 'children' | 'value'> &
+  Omit<TagPickerInputProps, 'value'>;
 
 export type PeopleInputRef = {
   /**

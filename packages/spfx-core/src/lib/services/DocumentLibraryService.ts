@@ -1,5 +1,5 @@
 /* eslint-disable  */
-import { IFileAddResult, IFileInfo } from "@pnp/sp/files";
+import { IFileInfo } from "@pnp/sp/files";
 import { getSP } from "../pnp";
 
 export type ChoiceFieldOption = {
@@ -31,8 +31,8 @@ export const DocumentLibraryService = () => {
     const uploadDocuments = async (
         documentRelativePath: string,
         documents: File[]
-    ): Promise<PromiseSettledResult<IFileAddResult>[]> => {
-        return new Promise<PromiseSettledResult<IFileAddResult>[]>(async (resolve, reject) => {
+    ): Promise<PromiseSettledResult<unknown>[]> => {
+        return new Promise<PromiseSettledResult<unknown>[]>(async (resolve, reject) => {
             try {
                 const sp = await getSP();
 

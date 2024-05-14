@@ -216,6 +216,31 @@ export const ReactHookForm = () => {
                 onResolveUsers={onResolveUsers}
                 readOnly={isView}
                 placeholder="Search users"
+              />
+            </div>
+          </div>
+
+          <div className={formStyles.row}>
+            <div className={formStyles.column}>
+              <PeoplePicker
+                name={'peoplePicker1X'}
+                label={<span className={formStyles.label}>People Picker</span>}
+                onSearchUsers={debouncedSearchUserInfo}
+                onResolveUsers={onResolveUsers}
+                multiselect
+                readOnly={isView}
+                placeholder="Search users"
+                pickerType="list"
+              />
+            </div>
+            <div className={formStyles.column}>
+              <PeoplePicker
+                name={'peoplePicker2X'}
+                label={<span className={formStyles.label}>People Picker</span>}
+                onSearchUsers={debouncedSearchUserInfo}
+                onResolveUsers={onResolveUsers}
+                readOnly={isView}
+                placeholder="Search users"
                 pickerType="list"
               />
             </div>

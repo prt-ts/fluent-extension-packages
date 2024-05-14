@@ -1,10 +1,9 @@
 {
   "name": "@prt-ts/fluent-input-extensions",
-  "version": "9.48.0-build.1.3",
+  "version": "9.50.0-build.1.0",
   "description": "Fluent UI Input Extensions",
-  "dependencies": {
-    "@fluentui/react-tag-picker-preview": "latest",
-    "@fluentui/react-swatch-picker-preview": "latest",
+  "dependencies": { 
+    "@fluentui/react-swatch-picker-preview": "0.4.1",
     "@prt-ts/react-control-flow": "latest",
     "@prt-ts/types": "latest",
     "roosterjs-content-model-api": ">=9.0.0",
@@ -14,8 +13,8 @@
     "react-dropzone": ">=14.0.0"
   },
   "peerDependencies": {
-    "@fluentui/react-components": ">=9.48.0",
-    "@fluentui/react-icons": ">=2.0.235",
+    "@fluentui/react-components": ">=9.50.0",
+    "@fluentui/react-icons": ">=2.0.239",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
   },

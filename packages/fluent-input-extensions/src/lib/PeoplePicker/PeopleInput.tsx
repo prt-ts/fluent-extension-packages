@@ -1,12 +1,5 @@
 import * as React from 'react';
 import {
-  TagPicker,
-  TagPickerList,
-  TagPickerInput,
-  TagPickerControl,
-  TagPickerGroup,
-} from '@fluentui/react-tag-picker-preview';
-import {
   Avatar,
   Button,
   Tooltip,
@@ -20,6 +13,11 @@ import {
   PopoverTrigger,
   Persona,
   Toolbar,
+  TagPicker,
+  TagPickerList,
+  TagPickerInput,
+  TagPickerControl,
+  TagPickerGroup,
 } from '@fluentui/react-components';
 import { Show } from '@prt-ts/react-control-flow';
 import { PeopleInputProps, PeopleInputRef } from './PeopleInputProps';
@@ -55,7 +53,6 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
           {...tagPickerProps}
           onOptionSelect={handleOptionSelect}
           selectedOptions={selectedOptions}
-          freeform
         >
           <TagPickerControl
             expandIcon={null}
