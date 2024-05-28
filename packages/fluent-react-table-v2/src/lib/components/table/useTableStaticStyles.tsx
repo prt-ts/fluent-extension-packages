@@ -1,57 +1,60 @@
-import { makeStaticStyles, makeStyles, shorthands, tokens } from "@fluentui/react-components";
+import {
+  makeStaticStyles,
+  makeStyles,
+  shorthands,
+  tokens,
+} from '@fluentui/react-components';
 
 export const useStaticStyles = makeStaticStyles({
-  "*": {
-    boxSizing: "border-box",
-  }, 
+  '*': {
+    boxSizing: 'border-box',
+  },
 });
 
 export const useTableStaticStyles = makeStyles({
-
   tableContainer: {
     // height: "650px",
-    width: "100%",
-    ...shorthands.overflow("hidden", "auto"),
+    width: '100%',
+    ...shorthands.overflow('hidden', 'auto'),
     /* width */
 
-    ":hover": {
-      ...shorthands.overflow("auto", "auto"),
+    ':hover': {
+      ...shorthands.overflow('auto', 'auto'),
     },
 
-    "::-webkit-scrollbar": {
-      width: "8px",
-      height: "4px",
-      ...shorthands.borderRadius("50%"),
+    '::-webkit-scrollbar': {
+      width: '8px',
+      height: '8px',
+      ...shorthands.borderRadius('50%'),
     },
 
     /* Track */
-    "::-webkit-scrollbar-track": {
-      "background-color": "#f1f1f1",
+    '::-webkit-scrollbar-track': {
+      'background-color': '#f1f1f1',
     },
 
     /* Handle */
-    "::-webkit-scrollbar-thumb": {
-      "background-color": "#888",
+    '::-webkit-scrollbar-thumb': {
+      'background-color': '#888',
     },
 
     /* Handle on hover */
-    "::-webkit-scrollbar-thumb:hover": {
-      "background-color": "#555",
+    '::-webkit-scrollbar-thumb:hover': {
+      'background-color': '#555',
     },
   },
 
   table: {
-    width: "100%",
-    borderCollapse: "collapse",
+    width: '100%',
+    borderCollapse: 'collapse',
   },
-  
+
   tFoot: {
     backgroundColor: tokens.colorNeutralBackground1,
     color: tokens.colorNeutralForeground1,
-    position: "sticky",
+    position: 'sticky',
     bottom: 0,
     left: 0,
-    width: "100%",
-  }, 
- 
+    width: '100%',
+  },
 });
