@@ -23,10 +23,10 @@
     "@fluentui/react-timepicker-compat": "0.2.12",
     "@hookform/devtools": "^4.3.1",
     "@hookform/resolvers": "^3.3.1",
-    "@microsoft/applicationinsights-web": "^3.1.0",
-    "@microsoft/sp-core-library": "^1.18.2",
-    "@microsoft/sp-list-subscription": "^1.18.2",
-    "@microsoft/sp-webpart-base": "^1.18.2",
+    "@microsoft/applicationinsights-web": "3.2.1",
+    "@microsoft/sp-core-library": "1.19.0",
+    "@microsoft/sp-list-subscription": "1.19.0",
+    "@microsoft/sp-webpart-base": "1.19.0",
     "@nx/cypress": "18.2.4",
     "@nx/eslint": "18.2.4",
     "@nx/eslint-plugin": "18.2.4",
@@ -124,4 +124,3 @@
     "includedScripts": []
   }
 }
-
