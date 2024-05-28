@@ -13,7 +13,7 @@ import { IEditor } from 'roosterjs-content-model-types';
 import {
   SwatchPicker,
   renderSwatchPickerGrid,
-} from '@fluentui/react-swatch-picker-preview';
+} from '@fluentui/react-components';
 
 export interface InsertImageButtonProps {
   editor: IEditor;

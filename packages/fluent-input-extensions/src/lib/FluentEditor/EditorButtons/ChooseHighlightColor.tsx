@@ -4,7 +4,7 @@ import React from 'react';
 import { setBackgroundColor } from 'roosterjs-content-model-api';
 import { useIconStyles } from './useIconStyles';
 import { IEditor } from 'roosterjs-content-model-types';
-import { SwatchPicker, renderSwatchPickerGrid } from '@fluentui/react-swatch-picker-preview';
+import { SwatchPicker, renderSwatchPickerGrid } from '@fluentui/react-components';
 
 export interface InsertImageButtonProps {
     editor: IEditor;
