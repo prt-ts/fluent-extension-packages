@@ -119,6 +119,7 @@ export const PeopleInput = React.forwardRef<PeopleInputRef, PeopleInputProps>(
                   ? ''
                   : tagPickerInputProps.placeholder
               }
+              required={false} // to avoid browser validation on input -- this will be handled by the validation of the form
             />
           </TagPickerControl>
           <Show when={!reachMaxSelection && !tagPickerInputProps.readOnly}>
