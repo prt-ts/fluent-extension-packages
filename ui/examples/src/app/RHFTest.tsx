@@ -679,7 +679,7 @@ export const ReactHookForm = () => {
             label={<strong>Attachments</strong>}
             multiple={false}
             maxFiles={3}
-            // maxSize={5}
+            placeholder="Drag and drop files here or click to browse"
             savedFiles={[
               {
                 name: 'file1',
