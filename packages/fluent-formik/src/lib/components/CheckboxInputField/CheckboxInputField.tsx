@@ -50,7 +50,12 @@ export const CheckboxInputField = React.forwardRef<
         label={
           {
             children: (_: unknown, props: LabelProps) => (
-              <InfoLabel {...props} {...infoLabelProps} htmlFor={labelId}>
+              <InfoLabel
+                weight="semibold"
+                {...props}
+                {...infoLabelProps}
+                htmlFor={labelId}
+              >
                 <strong>{label}</strong>
               </InfoLabel>
             ),

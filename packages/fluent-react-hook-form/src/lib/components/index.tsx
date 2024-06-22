@@ -1,7 +1,7 @@
 export * from './Form';
 export * from './Input';
 
-export * from "./GridCell";
+export * from './GridCell';
 
 export { useForm } from 'react-hook-form';
 

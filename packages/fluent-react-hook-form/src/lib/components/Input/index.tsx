@@ -1,13 +1,12 @@
-
 // export components
-export { InputField as Input } from "./InputField";
+export { InputField as Input } from './InputField';
 export { CurrencyInputField as CurrencyInput } from './CurrencyInputField';
 export { DatePickerField as DatePicker } from './DatePickerField';
 export { TimePickerField as TimePicker } from './TimePickerField';
 export { CalendarField as Calendar } from './CalendarField';
 export { SwitchField as Switch } from './SwitchField';
-export { 
-  CheckboxField as Checkbox, 
+export {
+  CheckboxField as Checkbox,
   CheckboxGroupField as CheckboxGroup,
 } from './CheckboxField';
 export { SliderField as Slider } from './SliderField';
@@ -18,19 +17,18 @@ export {
   RichViewerField as RichViewer,
 } from './RichInputField';
 export { DropdownField as Dropdown } from './DropdownField';
-export { 
+export {
   RadioGroupField as RadioGroup,
-  RadioField as Radio, 
+  RadioField as Radio,
 } from './RadioGroupField';
 
 export { FileInputField as FileInput } from './FileInputField';
-export { 
+export {
   RatingField as Rating,
   RatingDisplayField as RatingDisplay,
 } from './RatingField';
-export {
-  PeoplePickerField as PeoplePicker
-} from './PeoplePickerField';
+export { PeoplePickerField as PeoplePicker } from './PeoplePickerField';
+export { TagPickerField as TagPicker } from './TagPickerField';
 
 // export helper functions
 export { formatCurrency } from './CurrencyInputField';
@@ -45,8 +43,8 @@ export {
 
 // export options types
 export type { FileInfo } from '@prt-ts/types';
-export type { 
-  RadioChoiceOption, 
+export type {
+  RadioChoiceOption,
   RadioGroupFieldProps as RadioGroupProps,
   RadioFieldProps as RadioProps,
 } from './RadioGroupField';
@@ -58,25 +56,25 @@ export type { InputFieldProps as CurrencyInputProps } from './CurrencyInputField
 export type { DatePickerFieldProps as DatePickerProps } from './DatePickerField';
 export type { TimePickerFieldProps as TimePickerProps } from './TimePickerField';
 export type {
-  CalendarFieldProps as CalendarProps, 
+  CalendarFieldProps as CalendarProps,
   DateRangeType,
   DayOfWeek,
 } from './CalendarField';
 export type { SwitchFieldProps as SwitchProps } from './SwitchField';
-export type { 
+export type {
   CheckboxFieldProps as CheckboxProps,
   CheckboxGroupFieldProps as CheckboxGroupProps,
-  CheckboxChoiceOption, 
+  CheckboxChoiceOption,
 } from './CheckboxField';
 export type { SliderFieldProps as SliderProps } from './SliderField';
 export type { TextareaFieldProps as TextareaProps } from './TextareaField';
 export type { SpinButtonFieldProps as SpinButtonProps } from './SpinButtonField';
 export type { RichInputFieldProps as RichInputProps } from './RichInputField';
-export type { 
+export type {
   RatingFieldProps as RatingProps,
   RatingDisplayFieldProps as RatingDisplayProps,
 } from './RatingField';
 
-export type {
-  PeoplePickerProps
-} from "./PeoplePickerField"
+export type { PeoplePickerProps } from './PeoplePickerField';
+
+export type { TagPickerFieldProps as FileInputProps } from './TagPickerField';

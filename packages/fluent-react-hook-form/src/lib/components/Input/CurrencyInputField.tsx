@@ -21,8 +21,8 @@ export const formatCurrency = (
   format = 'en-US',
   currency = 'USD',
   minimumFractionDigits = 2
-) : string => {
-  try { 
+): string => {
+  try {
     const numberOnlyFromValue = `${value || ''}`
       ?.replace(/,/g, '')
       ?.replace(/^[^-0-9]*/g, '');
@@ -88,7 +88,11 @@ export const CurrencyInputField = forwardRef<HTMLInputElement, InputFieldProps>(
               label={
                 {
                   children: (_: unknown, props: LabelProps) => (
-                    <InfoLabel {...props} {...infoLabelProps} />
+                    <InfoLabel
+                      weight="semibold"
+                      {...props}
+                      {...infoLabelProps}
+                    />
                   ),
                 } as unknown as InfoLabelProps
               }

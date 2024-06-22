@@ -4,7 +4,8 @@ import {
   Radio,
   RadioProps,
   useId,
-  InfoLabel, InfoLabelProps
+  InfoLabel,
+  InfoLabelProps,
 } from '@fluentui/react-components';
 import { RadioFieldProps } from './Types';
 import { ErrorMessage, useField } from 'formik';
@@ -30,6 +31,7 @@ export const RadioField = React.forwardRef<HTMLInputElement, RadioFieldProps>(
             {
               children: (_: unknown, props: LabelProps) => (
                 <InfoLabel
+                  weight="semibold"
                   htmlFor={labelId}
                   {...infoLabelProps}
                   {...props}

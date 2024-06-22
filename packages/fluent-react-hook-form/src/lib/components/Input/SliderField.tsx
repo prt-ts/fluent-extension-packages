@@ -58,7 +58,11 @@ export const SliderField = forwardRef<HTMLInputElement, SliderFieldProps>(
               label={
                 {
                   children: (_: unknown, props: LabelProps) => (
-                    <InfoLabel {...props} {...infoLabelProps} />
+                    <InfoLabel
+                      weight="semibold"
+                      {...props}
+                      {...infoLabelProps}
+                    />
                   ),
                 } as unknown as InfoLabelProps
               }

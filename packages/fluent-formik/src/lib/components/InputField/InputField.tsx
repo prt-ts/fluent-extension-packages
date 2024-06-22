@@ -31,7 +31,12 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
         label={
           {
             children: (_: unknown, props: LabelProps) => (
-              <InfoLabel {...props} {...infoLabelProps} htmlFor={inputId}>
+              <InfoLabel
+                weight="semibold"
+                {...props}
+                {...infoLabelProps}
+                htmlFor={inputId}
+              >
                 <strong>{label as JSX.Element}</strong>
               </InfoLabel>
             ),
