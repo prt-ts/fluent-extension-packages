@@ -45,7 +45,7 @@ function useFormatInputProps(props: TagPickerFieldProps) {
     ...rest
   } = props;
 
-  const { ...inputProps }: TagInputProps = rest as TagInputProps;
+  const { ...inputProps }: TagInputProps = rest as unknown as TagInputProps;
   const { fieldProps = {}, infoLabelProps = {} } = props;
 
   return {
