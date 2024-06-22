@@ -457,7 +457,7 @@ export function TableExample() {
       sheets: [
         {
           sheetName: 'Sheet 1',
-          data: data as any,
+          data: data as ExportData[],
         },
       ],
     });
