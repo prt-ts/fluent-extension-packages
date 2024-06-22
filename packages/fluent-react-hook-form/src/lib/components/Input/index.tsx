@@ -17,6 +17,7 @@ export {
   RichViewerField as RichViewer,
 } from './RichInputField';
 export { DropdownField as Dropdown } from './DropdownField';
+export { ComboboxField as Combobox } from './ComboboxField';
 export {
   RadioGroupField as RadioGroup,
   RadioField as Radio,
@@ -49,6 +50,10 @@ export type {
   RadioFieldProps as RadioProps,
 } from './RadioGroupField';
 export type { DropdownChoiceOption } from './DropdownField';
+export type {
+  ComboboxChoiceOption,
+  ComboboxFieldProps as ComboboxProps,
+} from './ComboboxField';
 
 // export props types
 export type { InputFieldProps as InputProps } from './InputField';

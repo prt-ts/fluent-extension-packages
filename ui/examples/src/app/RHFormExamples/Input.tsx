@@ -1,6 +1,7 @@
 import { Button } from '@fluentui/react-components';
 import { TagInput } from '@prt-ts/fluent-input-extensions';
 import {
+  Combobox,
   Form,
   Input,
   TagPicker,
@@ -148,6 +149,20 @@ export const InputExample: React.FC = () => {
             value={selectedTags}
             onTagSelect={(tags) => setSelectedTags(tags)}
             suggestions={options}
+          />
+
+          <Combobox
+            name="combobox"
+            label="Combobox"
+            placeholder={'Combobox'}
+            hint={<>Hint</>}
+            info={<>Info</>}
+            options={[
+              { value: '1', label: 'One' },
+              { value: '2', label: 'Two' },
+              { value: '3', label: 'Three' },
+            ]}
+            multiselect
           />
 
           <Button type="submit" appearance="primary">

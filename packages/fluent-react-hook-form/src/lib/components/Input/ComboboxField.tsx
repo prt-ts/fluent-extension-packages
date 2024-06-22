@@ -33,7 +33,7 @@ export type ComboboxFieldProps = FieldProps &
 
 export const ComboboxField = forwardRef<HTMLInputElement, ComboboxFieldProps>(
   ({ name, options, rules, required, ...rest }, comboboxRef) => {
-    const ComboboxId = useId('Combobox');
+    const comboboxId = useId('Combobox');
     const {
       form: { control },
     } = useFormContext();
@@ -87,7 +87,7 @@ export const ComboboxField = forwardRef<HTMLInputElement, ComboboxFieldProps>(
                       weight="semibold"
                       {...props}
                       {...infoLabelProps}
-                      htmlFor={ComboboxId}
+                      htmlFor={comboboxId}
                     />
                   ),
                 } as unknown as InfoLabelProps
@@ -98,7 +98,7 @@ export const ComboboxField = forwardRef<HTMLInputElement, ComboboxFieldProps>(
             >
               <Combobox
                 {...comboboxProps}
-                id={ComboboxId}
+                id={comboboxId}
                 ref={comboboxRef || ref}
                 name={name}
                 value={displayValue}
@@ -109,7 +109,7 @@ export const ComboboxField = forwardRef<HTMLInputElement, ComboboxFieldProps>(
                 {(options || []).map(
                   (option: ComboboxChoiceOption, index: number) => (
                     <Option
-                      key={`${ComboboxId}-${option.value || '__'}-${index}`}
+                      key={`${comboboxId}-${option.value || '__'}-${index}`}
                       {...(option?.optionProps || {})}
                       value={option?.value}
                     >

@@ -11,7 +11,6 @@ import {
 import { useCallback } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Checkbox120Filled } from '@fluentui/react-icons';
 
 const schema = yup.object({
   firstName: yup
@@ -97,7 +96,7 @@ export const SignUpForm = () => {
           name={'firstName'}
           label={'First Name'}
           required={true}
-          info={'test'} 
+          info={'test'}
           hint={'some hint for the field'}
         />
 
@@ -145,7 +144,7 @@ export const SignUpForm = () => {
             { label: 'Option 1', value: 'option1' },
             { label: 'Option 2', value: 'option2' },
           ]}
-          layout='horizontal'
+          layout="horizontal"
         />
 
         <DatePicker
