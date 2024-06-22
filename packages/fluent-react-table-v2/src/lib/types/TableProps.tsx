@@ -1,162 +1,179 @@
-import * as React from "react";
-import { ColumnDef, ColumnFiltersState, ColumnOrderState, ColumnPinningState, ExpandedState, GroupingState, RowData, RowPinningState, RowSelectionState, SortingState, Table, VisibilityState } from "@tanstack/react-table";
-import { TableView } from "./TableView";
+import * as React from 'react';
+import {
+  ColumnDef,
+  ColumnFiltersState,
+  ColumnOrderState,
+  ColumnPinningState,
+  ExpandedState,
+  GroupingState,
+  Row,
+  RowData,
+  RowPinningState,
+  RowSelectionState,
+  SortingState,
+  Table,
+  VisibilityState,
+} from '@tanstack/react-table';
+import { TableView } from './TableView';
 
 export type TableProps<TItem extends RowData> = {
-    /**
-     * Table Columns definitions.
-     */
-    defaultColumn?: Partial<ColumnDef<TItem>>
-    columns: ColumnDef<TItem>[];
+  /**
+   * Table Columns definitions.
+   */
+  defaultColumn?: Partial<ColumnDef<TItem>>;
+  columns: ColumnDef<TItem>[];
 
-    /**
-     * Table data.
-     */
-    dataPrimaryKye?: keyof TItem;
-    data: TItem[];
+  /**
+   * Table data.
+   */
+  dataPrimaryKye?: keyof TItem;
+  data: TItem[];
 
-    /**
-     * Table loading state.
-     */
-    isLoading?: boolean;
+  /**
+   * Table loading state.
+   */
+  isLoading?: boolean;
 
-    /**
-     * While grouping isExpanded will use to make default expand state.
-     * @default false
-     */     
-    isAutoExpandOnGroup?: boolean;
+  /**
+   * While grouping isExpanded will use to make default expand state.
+   * @default false
+   */
+  isAutoExpandOnGroup?: boolean;
 
-    /**
-     * Grid title
-     */
-    gridTitle?: JSX.Element | React.ReactNode;
+  /**
+   * Grid title
+   */
+  gridTitle?: JSX.Element | React.ReactNode;
 
-    /**
-     * Table header menu
-     */
-    headerMenu?: (table: Table<TItem>) => JSX.Element | React.ReactNode;
+  /**
+   * Table header menu
+   */
+  headerMenu?: (table: Table<TItem>) => JSX.Element | React.ReactNode;
 
-    /**
-     * Table default page size.
-     */
-    pageSize?: number;
+  /**
+   * Table default page size.
+   */
+  pageSize?: number;
 
-    /**
-     * Table page size options
-     */
-    pageSizeOptions?: number[];
+  /**
+   * Table page size options
+   */
+  pageSizeOptions?: number[];
 
-    /**
-     * Row selection mode.
-     */
-    rowSelectionMode?: "single" | "multiple";
+  /**
+   * Row selection mode.
+   */
+  rowSelectionMode?: 'single' | 'multiple';
 
-    /**
-     * Default global filter value.
-     */
-    defaultGlobalFilter?: string;
+  /**
+   * Default global filter value.
+   */
+  defaultGlobalFilter?: string;
 
-    /**
-     * Column filter state
-     */
-    columnFilterState?: ColumnFiltersState;
+  /**
+   * Column filter state
+   */
+  columnFilterState?: ColumnFiltersState;
 
-    /** 
-     * Column Visibility
-     */
-    columnVisibility?: VisibilityState;
+  /**
+   * Column Visibility
+   */
+  columnVisibility?: VisibilityState;
 
-    /**
-     * Sorting state
-     */
-    sortingState?: SortingState;
+  /**
+   * Sorting state
+   */
+  sortingState?: SortingState;
 
-    /**
-     * Grouping state
-     */
-    groupingState?: GroupingState;
+  /**
+   * Grouping state
+   */
+  groupingState?: GroupingState;
 
-    /**
-     * Grouping Expanded state
-     */
-    expandedState?: ExpandedState;
-    
-    /**
-     * Row selection state
-     */
-    rowSelectionState?: RowSelectionState; 
-    
-    /**
-     * Column pinning state
-     */
-    columnPinningState?: ColumnPinningState;
+  /**
+   * Grouping Expanded state
+   */
+  expandedState?: ExpandedState;
 
-    /**
-     * Column order state
-     */
-    columnOrderState?: ColumnOrderState;
+  /**
+   * Row selection state
+   */
+  rowSelectionState?: RowSelectionState;
 
-    /**
-     * Row pinning state
-     */
-    rowPinningState?: RowPinningState;
+  /**
+   * Column pinning state
+   */
+  columnPinningState?: ColumnPinningState;
 
-    /**
-    * Component visible if the no item match the filter condition
-    * @default defaultNoItemComponent
-    */
-    noFilterMatchPage?: React.ReactNode;
+  /**
+   * Column order state
+   */
+  columnOrderState?: ColumnOrderState;
 
-    /**
-     * Component visible in the grid body if there is no items in the list
-     * @default defaultNoItemComponent
-     */
-    noItemPage?: React.ReactNode;
+  /**
+   * Row pinning state
+   */
+  rowPinningState?: RowPinningState;
 
-    /**
-     * Table Views
-     */
-    views?: TableView[];
+  /**
+   * Component visible if the no item match the filter condition
+   * @default defaultNoItemComponent
+   */
+  noFilterMatchPage?: React.ReactNode;
 
-    /**
-     * Max height of the table
-     */
-    tableHeight?: string;
+  /**
+   * Component visible in the grid body if there is no items in the list
+   * @default defaultNoItemComponent
+   */
+  noItemPage?: React.ReactNode;
 
-    autoResetPageIndex?: boolean; 
-    onUpdateData?: (rowIndex: number, columnId: string, value: unknown) => void
+  /**
+   * Table Views
+   */
+  views?: TableView[];
 
-    /**
-     * Callback when a table view is saved
-     */
-    onTableViewSave?: (tableView: TableView) => void;
+  /**
+   * Max height of the table
+   */
+  tableHeight?: string;
 
-    /**
-     * Callback when a table view is deleted
-     */
-    onTableViewDelete?: (tableView: TableView) => void;
+  autoResetPageIndex?: boolean;
+  onUpdateData?: (rowIndex: number, columnId: string, value: unknown) => void;
 
-    /**
-     * remove table header
-     */
-    disableTableHeader?: boolean;
+  /**
+   * Callback when a table view is saved
+   */
+  onTableViewSave?: (tableView: TableView) => void;
 
-    /**
-     * remove pagination bar
-     */
-    disablePagination?: boolean;
+  /**
+   * Callback when a table view is deleted
+   */
+  onTableViewDelete?: (tableView: TableView) => void;
 
-    /**
-     * Additional settings for the table
-     */
-    tableSettings?: TableSettings;
+  /**
+   * remove table header
+   */
+  disableTableHeader?: boolean;
+
+  /**
+   * remove pagination bar
+   */
+  disablePagination?: boolean;
+
+  /**
+   * Additional settings for the table
+   */
+  tableSettings?: TableSettings;
+
+  /**
+   * Callback to check if a row is selectable or not
+   */
+  isRowSelectable?: (row: Row<TItem>) => boolean;
 };
 
-
 export type TableSettings = {
-
-    /**
-     * Enable manual selection of table view
-     */
-    enableManualSelection?: boolean;
-}
+  /**
+   * Enable manual selection of table view
+   */
+  enableManualSelection?: boolean;
+};

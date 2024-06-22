@@ -504,6 +504,7 @@ export function TableExample() {
         isLoading={isLoading}
         gridTitle={<strong>Grid Header</strong>}
         headerMenu={(table) => <TopToolbar table={table} />}
+        isRowSelectable={({ original: item }) => item.age > 10}
         rowSelectionMode={selectionMode}
         columnVisibility={{
           progress: false,
