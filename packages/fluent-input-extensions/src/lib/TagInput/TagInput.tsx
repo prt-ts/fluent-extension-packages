@@ -96,7 +96,7 @@ export const TagInput = React.forwardRef<TagInputRef, TagInputProps>(
       options: suggestions || [],
       noOptionsElement: (
         <TagPickerOption value={'__UNKNOWN__'}>
-          <Show when={freeform} fallback={<>No match found</>}>
+          <Show when={freeform && query} fallback={<>No match found</>}>
             Add{' '}
             <Tag
               shape="circular"
@@ -104,7 +104,7 @@ export const TagInput = React.forwardRef<TagInputRef, TagInputProps>(
               appearance="brand"
               type="button"
             >
-              {query}
+              {capitalizeFirstLetterRegex(query)}
             </Tag>
           </Show>
         </TagPickerOption>
