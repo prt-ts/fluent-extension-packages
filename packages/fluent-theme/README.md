@@ -4,7 +4,7 @@ The ThemeService is a utility service designed to manage and apply themes across
 
 ## Usage
 
-## To use the ThemeService, you first need to import it into your component or service where you intend to manage themes.
+To use the ThemeService, you first need to import it into your component or service where you intend to manage themes.
 
 ```tsx
 import { ThemeService } from '@prt-ts/fluent-theme';
