@@ -95,8 +95,8 @@ export const TagInput = React.forwardRef<TagInputRef, TagInputProps>(
       query,
       options: suggestions || [],
       noOptionsElement: (
-        <TagPickerOption value={'__UNKNOWN__'}>
-          <Show when={freeform && query} fallback={<>No match found</>}>
+        <TagPickerOption value={'__UNKNOWN__'} text={query}>
+          <Show when={freeform && query?.length} fallback={<>No match found</>}>
             Add{' '}
             <Tag
               shape="circular"
@@ -110,7 +110,7 @@ export const TagInput = React.forwardRef<TagInputRef, TagInputProps>(
         </TagPickerOption>
       ),
       renderOption: (option: string) => (
-        <TagPickerOption key={option} value={option}>
+        <TagPickerOption key={option} value={option} text={option}>
           {option}
         </TagPickerOption>
       ),

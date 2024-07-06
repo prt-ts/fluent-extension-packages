@@ -35,6 +35,7 @@ export function useGetChildren({
               <TagPickerOption
                 key={'loading'}
                 value={query}
+                text={query}
                 title="Searching, Please Wait..."
                 style={{
                   display: 'flex',
@@ -70,6 +71,7 @@ export function useGetChildren({
                   <TagPickerOption
                     key={`${option.loginName}-${index}`}
                     value={option.loginName}
+                    text={option.name}
                   >
                     <Persona
                       name={option.name}
@@ -110,6 +112,7 @@ export function useGetChildren({
                     <TagPickerOption
                       key={`${option.loginName}-${index}`}
                       value={option.loginName}
+                      text={option.name}
                     >
                       <Persona
                         name={option.name}
