@@ -17512,11 +17512,6 @@
       },
       {
         "source": "fluent-common-features",
-        "target": "npm:vitest",
-        "type": "static"
-      },
-      {
-        "source": "fluent-common-features",
         "target": "npm:vite",
         "type": "static"
       },

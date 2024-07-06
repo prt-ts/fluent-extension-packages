@@ -1,7 +1,11 @@
 /* eslint-disable */
-import { Toaster, ToasterProps, useId, useToastController } from "@fluentui/react-components";
-import * as React from "react";
-import { ArgumentsType } from "vitest";
+import {
+  Toaster,
+  ToasterProps,
+  useId,
+  useToastController,
+} from '@fluentui/react-components';
+import * as React from 'react';
 
 export type DispatchToastOptions = {
   toastId?: string | undefined;
@@ -35,8 +39,11 @@ export const useAlertContext = () => {
   return React.useContext(AlertContext);
 };
 
-export const AlertProvider: React.FC<React.PropsWithChildren<ToasterProps>> = ({ children, ...toasterProps }) => {
-  const toasterId = useId("toaster");
+export const AlertProvider: React.FC<React.PropsWithChildren<ToasterProps>> = ({
+  children,
+  ...toasterProps
+}) => {
+  const toasterId = useId('toaster');
   const toastController = useToastController(toasterId);
 
   return (

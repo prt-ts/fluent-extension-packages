@@ -1,6 +1,6 @@
 {
   "name": "@prt-ts/fluent-common-features",
-  "version": "9.54.4-build-1.0",
+  "version": "9.54.4-build-2.0",
   "peerDependencies": {
     "@fluentui/react-components": ">=9.54.4",
     "@fluentui/react-icons": ">=2.0.247",
