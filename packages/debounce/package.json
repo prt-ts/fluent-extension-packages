@@ -1,8 +1,9 @@
 {
   "name": "@prt-ts/debounce",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "license": "MIT",
   "author": "Pradeep Raj Thapaliya",
+  "description": "Debounce function for async functions with TypeScript support",
   "bugs": {
     "url": "https://github.com/prt-ts/fluent-extension-packages.git"
   },

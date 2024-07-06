@@ -12,7 +12,13 @@
         "format": ["esm", "cjs"],
         "main": "packages/debounce/src/index.ts",
         "tsConfig": "packages/debounce/tsconfig.lib.json",
-        "assets": [],
+        "assets": [
+          {
+            "glob": "packages/debounce/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ],
         "project": "packages/debounce/package.json",
         "compiler": "tsc",
         "babelUpwardRootMode": true
