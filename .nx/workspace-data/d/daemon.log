@@ -1,0 +1,172 @@
+[NX Daemon Server] - 2024-07-06T17:47:24.174Z - Started listening on: \\.\pipe\nx\C:\Users\prade\AppData\Local\Temp\b75f233f8b27a183f25e\d.sock
+[NX Daemon Server] - 2024-07-06T17:47:24.192Z - [WATCHER]: Subscribed to changes within: C:\Pradeep\Javascript\fluent-extension-packages (native)
+[NX Daemon Server] - 2024-07-06T17:47:24.194Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-07-06T17:47:24.195Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-07-06T17:47:24.195Z - Established a connection. Number of open connections: 3
+[NX Daemon Server] - 2024-07-06T17:47:24.196Z - Established a connection. Number of open connections: 4
+[NX Daemon Server] - 2024-07-06T17:47:24.198Z - Closed a connection. Number of open connections: 3
+[NX Daemon Server] - 2024-07-06T17:47:24.199Z - Closed a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-07-06T17:47:24.201Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-07-06T17:47:24.359Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-07-06T17:47:24.359Z - [REQUEST]: 
+[NX Daemon Server] - 2024-07-06T17:47:24.360Z - [REQUEST]: 
+[NX Daemon Server] - 2024-07-06T17:47:28.539Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-07-06T17:47:28.544Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-07-06T17:47:28.545Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-07-06T17:47:28.548Z - Time taken for 'total for creating and serializing project graph' 4337.619699999999ms
+[NX Daemon Server] - 2024-07-06T17:47:28.552Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-07-06T17:47:28.552Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 4338. Response time: 13.
+[NX Daemon Server] - 2024-07-06T17:47:28.553Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-07-06T17:47:28.553Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 8.
+[NX Daemon Server] - 2024-07-06T17:47:28.558Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-07-06T17:47:28.559Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-07-06T17:47:28.561Z - Time taken for 'total for creating and serializing project graph' 0.6869000000006054ms
+[NX Daemon Server] - 2024-07-06T17:47:28.561Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-07-06T17:47:28.562Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 3.
+[NX Daemon Server] - 2024-07-06T17:47:28.577Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-07-06T17:47:28.578Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-07-06T17:47:28.580Z - Time taken for 'total for creating and serializing project graph' 1.0091000000002168ms
+[NX Daemon Server] - 2024-07-06T17:47:28.582Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-07-06T17:47:28.582Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 4.
+[NX Daemon Server] - 2024-07-06T17:47:28.671Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX Daemon Server] - 2024-07-06T17:47:28.673Z - [REQUEST]: Responding to the client with an error. Invalid payload from the client Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+    at handleMessage (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:134:104)
+    at C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:58:15
+    at Socket.<anonymous> (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\utils\consume-messages-from-socket.js:13:17)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)
+[NX Daemon Server] - 2024-07-06T17:47:28.674Z - Done responding to the client handleHashTasks
+[NX Daemon Server] - 2024-07-06T17:47:28.674Z - Handled HASH_TASKS. Handling time: 86. Response time: 3.
+[NX Daemon Server] - 2024-07-06T17:47:28.674Z - Done responding to the client null
+[NX Daemon Server] - 2024-07-06T17:47:28.676Z - [REQUEST]: Responding to the client with an error. Invalid payload from the client Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+    at handleMessage (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:134:104)
+    at C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:58:15
+    at Socket.<anonymous> (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\utils\consume-messages-from-socket.js:13:17)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)
+[NX Daemon Server] - 2024-07-06T17:47:28.676Z - Done responding to the client null
+[NX Daemon Server] - 2024-07-06T17:47:28.679Z - [REQUEST]: Responding to the client with an error. Invalid payload from the client Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+    at handleMessage (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:134:104)
+    at C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:58:15
+    at Socket.<anonymous> (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\utils\consume-messages-from-socket.js:13:17)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)
+[NX Daemon Server] - 2024-07-06T17:47:28.680Z - Done responding to the client null
+[NX Daemon Server] - 2024-07-06T17:47:30.224Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-07-06T17:47:30.225Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-07-06T17:47:30.228Z - Time taken for 'total for creating and serializing project graph' 0.8341999999993277ms
+[NX Daemon Server] - 2024-07-06T17:47:30.228Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-07-06T17:47:30.228Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 3.
+[NX Daemon Server] - 2024-07-06T17:47:30.242Z - [REQUEST]: Responding to the client with an error. Invalid payload from the client Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+    at handleMessage (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:134:104)
+    at C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:58:15
+    at Socket.<anonymous> (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\utils\consume-messages-from-socket.js:13:17)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)
+[NX Daemon Server] - 2024-07-06T17:47:30.242Z - Done responding to the client null
+[NX Daemon Server] - 2024-07-06T17:47:30.656Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:32.957Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:33.016Z - [REQUEST]: Responding to the client. recordOutputsHash
+[NX Daemon Server] - 2024-07-06T17:47:33.016Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:33.016Z - Done responding to the client recordOutputsHash
+[NX Daemon Server] - 2024-07-06T17:47:33.016Z - Handled RECORD_OUTPUTS_HASH. Handling time: 5. Response time: 0.
+[NX Daemon Server] - 2024-07-06T17:47:33.336Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-07-06T17:47:33.337Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-07-06T17:47:33.339Z - Time taken for 'total for creating and serializing project graph' 1.221400000000358ms
+[NX Daemon Server] - 2024-07-06T17:47:33.340Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-07-06T17:47:33.340Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 3.
+[NX Daemon Server] - 2024-07-06T17:47:33.352Z - [REQUEST]: Responding to the client with an error. Invalid payload from the client Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+    at handleMessage (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:134:104)
+    at C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:58:15
+    at Socket.<anonymous> (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\utils\consume-messages-from-socket.js:13:17)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)
+[NX Daemon Server] - 2024-07-06T17:47:33.353Z - Done responding to the client null
+[NX Daemon Server] - 2024-07-06T17:47:34.570Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:34.628Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:34.720Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-07-06T17:47:34.721Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-07-06T17:47:34.724Z - Time taken for 'total for creating and serializing project graph' 1.2723000000005413ms
+[NX Daemon Server] - 2024-07-06T17:47:34.725Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-07-06T17:47:34.725Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 4.
+[NX Daemon Server] - 2024-07-06T17:47:34.740Z - [REQUEST]: Responding to the client with an error. Invalid payload from the client Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+    at handleMessage (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:134:104)
+    at C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:58:15
+    at Socket.<anonymous> (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\utils\consume-messages-from-socket.js:13:17)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)
+[NX Daemon Server] - 2024-07-06T17:47:34.741Z - Done responding to the client null
+[NX Daemon Server] - 2024-07-06T17:47:38.339Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-07-06T17:47:38.340Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-07-06T17:47:38.342Z - Time taken for 'total for creating and serializing project graph' 0.769800000000032ms
+[NX Daemon Server] - 2024-07-06T17:47:38.343Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-07-06T17:47:38.343Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 3.
+[NX Daemon Server] - 2024-07-06T17:47:38.360Z - [REQUEST]: Responding to the client with an error. Invalid payload from the client Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+    at handleMessage (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:134:104)
+    at C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:58:15
+    at Socket.<anonymous> (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\utils\consume-messages-from-socket.js:13:17)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)
+[NX Daemon Server] - 2024-07-06T17:47:38.361Z - Done responding to the client null
+[NX Daemon Server] - 2024-07-06T17:47:38.410Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:38.667Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:38.728Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:38.797Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:38.861Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:38.934Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:38.994Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:39.015Z - [REQUEST]: Responding to the client. recordOutputsHash
+[NX Daemon Server] - 2024-07-06T17:47:39.015Z - Done responding to the client recordOutputsHash
+[NX Daemon Server] - 2024-07-06T17:47:39.015Z - Handled RECORD_OUTPUTS_HASH. Handling time: 5. Response time: 0.
+[NX Daemon Server] - 2024-07-06T17:47:39.758Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-07-06T17:47:39.759Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-07-06T17:47:39.765Z - Time taken for 'total for creating and serializing project graph' 1.1394000000000233ms
+[NX Daemon Server] - 2024-07-06T17:47:39.769Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-07-06T17:47:39.770Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 11.
+[NX Daemon Server] - 2024-07-06T17:47:39.784Z - [REQUEST]: Responding to the client with an error. Invalid payload from the client Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
+    at handleMessage (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:134:104)
+    at C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\daemon\server\server.js:58:15
+    at Socket.<anonymous> (C:\Pradeep\Javascript\fluent-extension-packages\node_modules\nx\src\utils\consume-messages-from-socket.js:13:17)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)
+[NX Daemon Server] - 2024-07-06T17:47:39.785Z - Done responding to the client null
+[NX Daemon Server] - 2024-07-06T17:47:39.840Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:39.919Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:39.973Z - [REQUEST]: Responding to the client. recordOutputsHash
+[NX Daemon Server] - 2024-07-06T17:47:39.973Z - Done responding to the client recordOutputsHash
+[NX Daemon Server] - 2024-07-06T17:47:39.973Z - Handled RECORD_OUTPUTS_HASH. Handling time: 4. Response time: 0.
+[NX Daemon Server] - 2024-07-06T17:47:40.945Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:47.240Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-06T17:47:47.303Z - [WATCHER]: Processing file changes in outputs

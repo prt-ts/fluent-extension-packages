@@ -85,6 +85,7 @@ type FileInputProps = FieldProps &
     accept?: Accept;
     multiple?: boolean;
     savedFiles?: FileInfo[];
+    placeholder?: string;
     onRemoveSavedFile?: (file: FileInfo) => void;
   };
 
