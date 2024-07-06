@@ -5,10 +5,10 @@
   "dependencies": {
     "@prt-ts/react-control-flow": "latest",
     "@prt-ts/types": "latest",
-    "roosterjs-content-model-api": "9.6.0",
-    "roosterjs-content-model-core": "9.6.0",
-    "roosterjs-content-model-plugins": "9.6.1",
-    "roosterjs-content-model-types": "9.6.0",
+    "roosterjs-content-model-api": "9.7.0",
+    "roosterjs-content-model-core": "9.7.0",
+    "roosterjs-content-model-plugins": "9.7.0",
+    "roosterjs-content-model-types": "9.7.0",
     "react-dropzone": ">=14.0.0"
   },
   "peerDependencies": {
