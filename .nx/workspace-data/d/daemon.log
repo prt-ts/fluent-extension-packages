@@ -1121,3 +1121,18 @@ Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
 [NX Daemon Server] - 2024-07-14T14:00:38.010Z - Server stopped because: "Stopping the daemon the set of ignored files changed (native)"
 [NX Daemon Server] - 2024-07-14T14:00:40.375Z - Started listening on: \\.\pipe\nx\C:\Users\prade\AppData\Local\Temp\b75f233f8b27a183f25e\d.sock
 [NX Daemon Server] - 2024-07-14T14:00:40.380Z - [WATCHER]: Subscribed to changes within: c:\Pradeep\Javascript\fluent-extension-packages (native)
+[NX Daemon Server] - 2024-07-14T14:03:30.570Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-14T14:03:30.578Z - [WATCHER]: packages/fluent-react-hook-form/src/lib/components/Input/TextareaField.tsx was modified
+[NX Daemon Server] - 2024-07-14T14:03:30.854Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-07-14T14:03:30.854Z - [REQUEST]: packages/fluent-react-hook-form/src/lib/components/Input/TextareaField.tsx
+[NX Daemon Server] - 2024-07-14T14:03:30.854Z - [REQUEST]: 
+[NX Daemon Server] - 2024-07-14T14:03:35.429Z - [WATCHER]: packages/fluent-react-hook-form/src/lib/components/Input/TextareaField.tsx was modified
+[NX Daemon Server] - 2024-07-14T14:03:35.432Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-14T14:03:35.647Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-07-14T14:03:35.648Z - [REQUEST]: packages/fluent-react-hook-form/src/lib/components/Input/TextareaField.tsx
+[NX Daemon Server] - 2024-07-14T14:03:35.648Z - [REQUEST]: 
+[NX Daemon Server] - 2024-07-14T14:04:04.747Z - [WATCHER]: packages/fluent-react-hook-form/src/lib/components/Input/TextareaField.tsx was modified
+[NX Daemon Server] - 2024-07-14T14:04:04.748Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-14T14:04:05.152Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-07-14T14:04:05.152Z - [REQUEST]: packages/fluent-react-hook-form/src/lib/components/Input/TextareaField.tsx
+[NX Daemon Server] - 2024-07-14T14:04:05.152Z - [REQUEST]: 
