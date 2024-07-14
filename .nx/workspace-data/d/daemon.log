@@ -1036,3 +1036,64 @@ Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
 [NX Daemon Server] - 2024-07-06T18:06:57.910Z - Done responding to the client handleGetTaskHistoryForHashes
 [NX Daemon Server] - 2024-07-06T18:06:57.910Z - Handled GET_TASK_HISTORY_FOR_HASHES. Handling time: 1. Response time: 0.
 [NX Daemon Server] - 2024-07-06T18:06:57.915Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-07-06T18:07:51.559Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-07-06T18:07:51.560Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-07-06T18:07:51.561Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-07-06T18:07:51.566Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-07-06T18:07:51.568Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-07-06T18:07:51.572Z - Time taken for 'total for creating and serializing project graph' 1.0217000022530556ms
+[NX Daemon Server] - 2024-07-06T18:07:51.572Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-07-06T18:07:51.573Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 2. Response time: 5.
+[NX Daemon Server] - 2024-07-06T18:07:51.602Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX Daemon Server] - 2024-07-06T18:07:51.603Z - Done responding to the client handleHashTasks
+[NX Daemon Server] - 2024-07-06T18:07:51.603Z - Handled HASH_TASKS. Handling time: 14. Response time: 1.
+[NX Daemon Server] - 2024-07-06T21:07:51.602Z - There are 1 open connections. Reset inactivity timer.
+[NX Daemon Server] - 2024-07-07T00:07:49.037Z - There are 1 open connections. Reset inactivity timer.
+[NX Daemon Server] - 2024-07-07T03:07:49.070Z - There are 1 open connections. Reset inactivity timer.
+[NX Daemon Server] - 2024-07-07T06:07:49.078Z - There are 1 open connections. Reset inactivity timer.
+[NX Daemon Server] - 2024-07-07T09:07:49.086Z - There are 1 open connections. Reset inactivity timer.
+[NX Daemon Server] - 2024-07-07T12:07:49.106Z - There are 1 open connections. Reset inactivity timer.
+[NX Daemon Server] - 2024-07-14T13:59:10.987Z - Started listening on: \\.\pipe\nx\C:\Users\prade\AppData\Local\Temp\b75f233f8b27a183f25e\d.sock
+[NX Daemon Server] - 2024-07-14T13:59:10.998Z - [WATCHER]: Subscribed to changes within: c:\Pradeep\Javascript\fluent-extension-packages (native)
+[NX Daemon Server] - 2024-07-14T13:59:11.000Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-07-14T13:59:11.002Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-07-14T13:59:11.007Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-07-14T13:59:11.010Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-07-14T13:59:11.295Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-07-14T13:59:11.295Z - [REQUEST]: 
+[NX Daemon Server] - 2024-07-14T13:59:11.295Z - [REQUEST]: 
+[NX Daemon Server] - 2024-07-14T13:59:11.940Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-07-14T13:59:11.946Z - Time taken for 'total for creating and serializing project graph' 929.151399999857ms
+[NX Daemon Server] - 2024-07-14T13:59:11.947Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-07-14T13:59:11.947Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 930. Response time: 7.
+[NX Daemon Server] - 2024-07-14T13:59:11.963Z - [REQUEST]: Responding to the client. handleContextFileData
+[NX Daemon Server] - 2024-07-14T13:59:11.963Z - Done responding to the client handleContextFileData
+[NX Daemon Server] - 2024-07-14T13:59:11.963Z - Handled GET_CONTEXT_FILE_DATA. Handling time: 3. Response time: 0.
+[NX Daemon Server] - 2024-07-14T13:59:11.971Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-07-14T13:59:32.085Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-14T13:59:32.088Z - [WATCHER]: .gitignore was modified
+[NX Daemon Server] - 2024-07-14T13:59:32.088Z - [WATCHER]: Stopping the watcher for c:\Pradeep\Javascript\fluent-extension-packages (sources)
+[NX Daemon Server] - 2024-07-14T13:59:32.089Z - [WATCHER]: Stopping the watcher for c:\Pradeep\Javascript\fluent-extension-packages (outputs)
+[NX Daemon Server] - 2024-07-14T13:59:32.089Z - Server stopped because: "Stopping the daemon the set of ignored files changed (native)"
+[NX Daemon Server] - 2024-07-14T13:59:34.628Z - Started listening on: \\.\pipe\nx\C:\Users\prade\AppData\Local\Temp\b75f233f8b27a183f25e\d.sock
+[NX Daemon Server] - 2024-07-14T13:59:34.634Z - [WATCHER]: Subscribed to changes within: c:\Pradeep\Javascript\fluent-extension-packages (native)
+[NX Daemon Server] - 2024-07-14T13:59:34.636Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-07-14T13:59:34.637Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-07-14T13:59:34.640Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-07-14T13:59:34.643Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-07-14T13:59:34.799Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-07-14T13:59:34.799Z - [REQUEST]: 
+[NX Daemon Server] - 2024-07-14T13:59:34.799Z - [REQUEST]: 
+[NX Daemon Server] - 2024-07-14T13:59:38.736Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-07-14T13:59:38.741Z - Time taken for 'total for creating and serializing project graph' 4093.7260000007227ms
+[NX Daemon Server] - 2024-07-14T13:59:38.742Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-07-14T13:59:38.742Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 4094. Response time: 6.
+[NX Daemon Server] - 2024-07-14T13:59:38.758Z - [REQUEST]: Responding to the client. handleContextFileData
+[NX Daemon Server] - 2024-07-14T13:59:38.758Z - Done responding to the client handleContextFileData
+[NX Daemon Server] - 2024-07-14T13:59:38.758Z - Handled GET_CONTEXT_FILE_DATA. Handling time: 2. Response time: 0.
+[NX Daemon Server] - 2024-07-14T13:59:38.760Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-07-14T13:59:57.445Z - [WATCHER]: .gitignore was modified
+[NX Daemon Server] - 2024-07-14T13:59:57.446Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-14T13:59:57.446Z - [WATCHER]: Stopping the watcher for c:\Pradeep\Javascript\fluent-extension-packages (sources)
+[NX Daemon Server] - 2024-07-14T13:59:57.446Z - [WATCHER]: Stopping the watcher for c:\Pradeep\Javascript\fluent-extension-packages (outputs)
+[NX Daemon Server] - 2024-07-14T13:59:57.446Z - Server stopped because: "Stopping the daemon the set of ignored files changed (native)"
