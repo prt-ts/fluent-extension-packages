@@ -7,6 +7,7 @@ import {
   LabelProps,
   InfoLabel,
   InfoLabelProps,
+  makeStyles,
 } from '@fluentui/react-components';
 import { forwardRef } from 'react';
 import { useFormContext } from '../Form';
@@ -15,6 +16,13 @@ import { Controller, ControllerProps } from 'react-hook-form';
 export type TextareaFieldProps = FieldProps &
   TextareaProps &
   InfoLabelProps & { name: string; rules?: ControllerProps['rules'] };
+
+const useTextareaStyles = makeStyles({
+  textarea: {
+    resize: 'vertical',
+    maxHeight: '500px',
+  },
+});
 
 export const TextareaField = forwardRef<
   HTMLTextAreaElement,
@@ -28,6 +36,8 @@ export const TextareaField = forwardRef<
   const { ...textareaProps }: TextareaProps = rest as unknown as TextareaProps;
   const { ...infoLabelProps }: InfoLabelProps =
     rest as unknown as InfoLabelProps;
+
+  const styles = useTextareaStyles();
 
   return (
     <Controller
@@ -72,6 +82,9 @@ export const TextareaField = forwardRef<
               onBlur={handleOnBlur}
               value={value || ''}
               required={false}
+              textarea={{
+                className: styles.textarea,
+              }}
             />
           </Field>
         );

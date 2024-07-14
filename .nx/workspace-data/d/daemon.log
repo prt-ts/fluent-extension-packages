@@ -1114,3 +1114,10 @@ Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
 [NX Daemon Server] - 2024-07-14T14:00:01.969Z - Done responding to the client handleContextFileData
 [NX Daemon Server] - 2024-07-14T14:00:01.969Z - Handled GET_CONTEXT_FILE_DATA. Handling time: 1. Response time: 1.
 [NX Daemon Server] - 2024-07-14T14:00:01.970Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-07-14T14:00:38.005Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-07-14T14:00:38.009Z - [WATCHER]: .gitignore was modified
+[NX Daemon Server] - 2024-07-14T14:00:38.010Z - [WATCHER]: Stopping the watcher for c:\Pradeep\Javascript\fluent-extension-packages (sources)
+[NX Daemon Server] - 2024-07-14T14:00:38.010Z - [WATCHER]: Stopping the watcher for c:\Pradeep\Javascript\fluent-extension-packages (outputs)
+[NX Daemon Server] - 2024-07-14T14:00:38.010Z - Server stopped because: "Stopping the daemon the set of ignored files changed (native)"
+[NX Daemon Server] - 2024-07-14T14:00:40.375Z - Started listening on: \\.\pipe\nx\C:\Users\prade\AppData\Local\Temp\b75f233f8b27a183f25e\d.sock
+[NX Daemon Server] - 2024-07-14T14:00:40.380Z - [WATCHER]: Subscribed to changes within: c:\Pradeep\Javascript\fluent-extension-packages (native)
