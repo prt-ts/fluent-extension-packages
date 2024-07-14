@@ -401,10 +401,35 @@ export const ReactHookForm = () => {
             fieldMask="currency"
           />
 
+          <Input
+            name={'capatilizeEachWord'}
+            label={'Capatilize Each Word'}
+            required={true}
+            fieldMask="capatilizeEachWord"
+            placeholder="Enter Text..."
+          />
+
+          <Input
+            name={'capatilizeSentense'}
+            label={'Capatilize Sentense'}
+            required={true}
+            fieldMask="capatilizeSentense"
+            placeholder="Enter Text..."
+          />
+
+          <Input
+            name={'currencyValue'}
+            label={'Currency'}
+            required={true}
+            fieldMask="currency"
+            placeholder="Enter Currency..."
+          />
+
           <CurrencyInput
             name={'currencyValue'}
             label={'Currency'}
             required={true}
+            placeholder="Enter Currency..."
           />
 
           <Input

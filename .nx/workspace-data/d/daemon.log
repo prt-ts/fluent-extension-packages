@@ -1136,3 +1136,6 @@ Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
 [NX Daemon Server] - 2024-07-14T14:04:05.152Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
 [NX Daemon Server] - 2024-07-14T14:04:05.152Z - [REQUEST]: packages/fluent-react-hook-form/src/lib/components/Input/TextareaField.tsx
 [NX Daemon Server] - 2024-07-14T14:04:05.152Z - [REQUEST]: 
+[NX Daemon Server] - 2024-07-14T17:04:05.469Z - [WATCHER]: Stopping the watcher for c:\Pradeep\Javascript\fluent-extension-packages (sources)
+[NX Daemon Server] - 2024-07-14T17:04:05.470Z - [WATCHER]: Stopping the watcher for c:\Pradeep\Javascript\fluent-extension-packages (outputs)
+[NX Daemon Server] - 2024-07-14T17:04:05.485Z - Server stopped because: "10800000ms of inactivity"

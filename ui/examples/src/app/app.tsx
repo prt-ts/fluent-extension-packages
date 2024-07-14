@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import { ThemeService } from '@prt-ts/fluent-theme';
 import { FluentProvider } from '@fluentui/react-components';
 import { Layout } from './layout/Layout';
+import { extract } from '@prt-ts/types';
 
 const { getTheme } = ThemeService();
 export function useAppTheme() {
@@ -92,12 +93,39 @@ export const router = createBrowserRouter([
   },
 ]);
 
+type A = {
+  nameA: string;
+  descriptionA: string;
+};
+
+type B = {
+  nameB: string;
+  descriptionB: string;
+};
+
+type C = A & B;
+
+const extractA = extract<A>({ nameA: true, descriptionA: true });
+const extractB = extract<B>({ nameB: true, descriptionB: true });
+
 function App() {
   const { theme } = useAppTheme();
 
   if (!theme) {
     return null;
   }
+
+  const c: C = {
+    nameA: 'A',
+    descriptionA: 'A',
+    nameB: 'B',
+    descriptionB: 'B',
+  };
+
+  const a = extractA(c);
+  const b = extractB(c);
+
+  console.log(a, b);
 
   return (
     <FluentProvider theme={theme}>

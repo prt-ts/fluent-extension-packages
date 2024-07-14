@@ -1,11 +1,7 @@
-export {
-    UserInfo
-} from './UserInfo';
+export type { UserInfo } from './UserInfo';
 
-export {
-    ChoiceOption
-} from './ChoiceOption';
+export type { ChoiceOption } from './ChoiceOption';
 
-export {
-    FileInfo
-} from './FileInfo';
+export type { FileInfo } from './FileInfo';
+
+export { extract } from './TypeExtractor';
