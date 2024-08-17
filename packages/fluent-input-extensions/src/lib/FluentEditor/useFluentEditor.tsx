@@ -150,7 +150,7 @@ export function useFluentEditor(
           initialModel: createModelFromHtml(props.value || ''),
           plugins: plugins,
           defaultSegmentFormat: {
-            fontSize: FontSizeOption[size] || '9pt',
+            fontSize: FontSizeOption[size] || '12pt',
             fontFamily: 'Segoe UI',
             textColor: tokens.colorNeutralForeground1,
             backgroundColor: tokens.colorNeutralBackground1,

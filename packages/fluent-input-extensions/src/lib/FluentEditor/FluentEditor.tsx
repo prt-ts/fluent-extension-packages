@@ -6,6 +6,7 @@ import { FluentEditorProps } from './FluentEditorTypes';
 import { useEditorStyle } from './useFluentEditorStyles';
 import { useFluentEditor } from './useFluentEditor';
 import { IEditor } from 'roosterjs-content-model-types';
+import { EditorContextProvider } from './context/EditorContext';
 
 export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
   (props, ref) => {
@@ -39,6 +40,7 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
 
     const styles = useEditorStyle();
     return (
+      <EditorContextProvider editor={editor?.current}>
       <div
         className={mergeClasses(
           styles.root,
@@ -83,6 +85,7 @@ export const FluentEditor = React.forwardRef<HTMLDivElement, FluentEditorProps>(
           </div>
         </Show>
       </div>
+      </EditorContextProvider>
     );
   }
 );

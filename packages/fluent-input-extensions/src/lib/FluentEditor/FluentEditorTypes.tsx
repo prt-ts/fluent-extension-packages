@@ -12,7 +12,7 @@ export type FluentEditorProps = {
   FieldControlProps;
 
 export const FontSizeOption = {
-  small: '8pt',
-  medium: '9pt',
-  large: '10pt',
+  small: '9pt',
+  medium: '12pt',
+  large: '15pt',
 };
