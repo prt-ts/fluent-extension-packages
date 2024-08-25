@@ -3431,3 +3431,208 @@ Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
 [NX Daemon Server] - 2024-08-24T23:49:54.095Z - Done responding to the client handleContextFileData
 [NX Daemon Server] - 2024-08-24T23:49:54.095Z - Handled GET_CONTEXT_FILE_DATA. Handling time: 1. Response time: 1.
 [NX Daemon Server] - 2024-08-24T23:49:54.097Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-08-24T23:50:41.208Z - Started listening on: \\.\pipe\nx\C:\Users\prade\AppData\Local\Temp\5ca5b1509d4d4f22449b\d.sock
+[NX Daemon Server] - 2024-08-24T23:50:41.210Z - [WATCHER]: Subscribed to changes within: C:\Users\prade\OneDrive\Desktop\React\fluent-extension-packages (native)
+[NX Daemon Server] - 2024-08-24T23:50:41.215Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-24T23:50:41.218Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-08-24T23:50:41.218Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-24T23:50:41.224Z - [REQUEST]: Responding to the client. handleGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.224Z - Done responding to the client handleGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.224Z - Handled GLOB. Handling time: 3. Response time: 1.
+[NX Daemon Server] - 2024-08-24T23:50:41.473Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.473Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.473Z - Handled HASH_GLOB. Handling time: 2. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.476Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.476Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.476Z - Handled HASH_GLOB. Handling time: 2. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.478Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.478Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.478Z - Handled HASH_GLOB. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.480Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.480Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.480Z - Handled HASH_GLOB. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.482Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.482Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.482Z - Handled HASH_GLOB. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.484Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.484Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.484Z - Handled HASH_GLOB. Handling time: 0. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.486Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.486Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.486Z - Handled HASH_GLOB. Handling time: 0. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.489Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.489Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.489Z - Handled HASH_GLOB. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.493Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.493Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.493Z - Handled HASH_GLOB. Handling time: 2. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.495Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.495Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.495Z - Handled HASH_GLOB. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.497Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.497Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.497Z - Handled HASH_GLOB. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.499Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.499Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.499Z - Handled HASH_GLOB. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.501Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.501Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.501Z - Handled HASH_GLOB. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.503Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.503Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.503Z - Handled HASH_GLOB. Handling time: 0. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.505Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.506Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.506Z - Handled HASH_GLOB. Handling time: 0. Response time: 1.
+[NX Daemon Server] - 2024-08-24T23:50:41.507Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.507Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2024-08-24T23:50:41.507Z - Handled HASH_GLOB. Handling time: 0. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.516Z - [REQUEST]: Responding to the client. handleNxWorkspaceFiles
+[NX Daemon Server] - 2024-08-24T23:50:41.516Z - Done responding to the client handleNxWorkspaceFiles
+[NX Daemon Server] - 2024-08-24T23:50:41.516Z - Handled GET_NX_WORKSPACE_FILES. Handling time: 2. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:50:41.572Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-08-24T23:51:13.953Z - [WATCHER]: package-lock.json was modified
+[NX Daemon Server] - 2024-08-24T23:51:13.953Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-08-24T23:51:14.229Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-08-24T23:51:14.229Z - [REQUEST]: package-lock.json
+[NX Daemon Server] - 2024-08-24T23:51:14.229Z - [REQUEST]: 
+[NX Daemon Server] - 2024-08-24T23:51:14.557Z - Time taken for 'Load Nx Plugin: C:\Users\prade\OneDrive\Desktop\React\fluent-extension-packages\node_modules\nx\src\plugins\project-json\build-nodes\package-json-next-to-project-json' 111.08999997377396ms
+[NX Daemon Server] - 2024-08-24T23:51:14.962Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-24T23:51:14.964Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-08-24T23:51:14.964Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-24T23:51:14.967Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-08-24T23:51:14.968Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-08-24T23:51:14.969Z - Time taken for 'total for creating and serializing project graph' 0.47819995880126953ms
+[NX Daemon Server] - 2024-08-24T23:51:14.970Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-08-24T23:51:14.970Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 2.
+[NX Daemon Server] - 2024-08-24T23:51:14.977Z - [REQUEST]: Responding to the client. handleContextFileData
+[NX Daemon Server] - 2024-08-24T23:51:14.977Z - Done responding to the client handleContextFileData
+[NX Daemon Server] - 2024-08-24T23:51:14.977Z - Handled GET_CONTEXT_FILE_DATA. Handling time: 0. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:51:14.979Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-08-24T23:51:27.452Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-24T23:51:27.452Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-08-24T23:51:27.453Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-24T23:51:27.456Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-08-24T23:51:27.456Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-08-24T23:51:27.458Z - Time taken for 'total for creating and serializing project graph' 0.41449999809265137ms
+[NX Daemon Server] - 2024-08-24T23:51:27.459Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-08-24T23:51:27.459Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 3.
+[NX Daemon Server] - 2024-08-24T23:51:27.484Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX Daemon Server] - 2024-08-24T23:51:27.484Z - Done responding to the client handleHashTasks
+[NX Daemon Server] - 2024-08-24T23:51:27.484Z - Handled HASH_TASKS. Handling time: 16. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:53:21.858Z - [WATCHER]: packages/fluent-input-extensions/src/lib/FluentEditor/EditorButtons/SetFontSize.tsx was modified
+[NX Daemon Server] - 2024-08-24T23:53:21.895Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-08-24T23:53:21.970Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-08-24T23:53:21.970Z - [REQUEST]: packages/fluent-input-extensions/src/lib/FluentEditor/EditorButtons/SetFontSize.tsx
+[NX Daemon Server] - 2024-08-24T23:53:21.970Z - [REQUEST]: 
+[NX Daemon Server] - 2024-08-24T23:53:23.320Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-24T23:53:23.320Z - Established a connection. Number of open connections: 3
+[NX Daemon Server] - 2024-08-24T23:53:23.320Z - Time taken for 'hash changed files from watcher' 0.5023000240325928ms
+[NX Daemon Server] - 2024-08-24T23:53:23.320Z - Closed a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-24T23:53:23.321Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-08-24T23:53:23.322Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-08-24T23:53:23.324Z - Time taken for 'total for creating and serializing project graph' 0.46480000019073486ms
+[NX Daemon Server] - 2024-08-24T23:53:23.324Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-08-24T23:53:23.324Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 2.
+[NX Daemon Server] - 2024-08-24T23:53:23.330Z - [REQUEST]: Responding to the client. handleContextFileData
+[NX Daemon Server] - 2024-08-24T23:53:23.330Z - Done responding to the client handleContextFileData
+[NX Daemon Server] - 2024-08-24T23:53:23.330Z - Handled GET_CONTEXT_FILE_DATA. Handling time: 0. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:53:23.331Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-24T23:53:24.022Z - [WATCHER]: packages/fluent-input-extensions/src/lib/FluentEditor/EditorButtons/SetFontSize.tsx was modified
+[NX Daemon Server] - 2024-08-24T23:53:24.022Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-08-24T23:53:24.135Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-08-24T23:53:24.135Z - [REQUEST]: packages/fluent-input-extensions/src/lib/FluentEditor/EditorButtons/SetFontSize.tsx
+[NX Daemon Server] - 2024-08-24T23:53:24.135Z - [REQUEST]: 
+[NX Daemon Server] - 2024-08-24T23:53:24.228Z - Time taken for 'hash changed files from watcher' 1.1933000087738037ms
+[NX Daemon Server] - 2024-08-24T23:53:25.031Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-24T23:53:25.032Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-24T23:53:25.032Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-24T23:53:25.033Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-08-24T23:53:25.033Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-08-24T23:53:25.035Z - Time taken for 'total for creating and serializing project graph' 0.3824999928474426ms
+[NX Daemon Server] - 2024-08-24T23:53:25.035Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-08-24T23:53:25.035Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 2.
+[NX Daemon Server] - 2024-08-24T23:53:25.042Z - [REQUEST]: Responding to the client. handleContextFileData
+[NX Daemon Server] - 2024-08-24T23:53:25.042Z - Done responding to the client handleContextFileData
+[NX Daemon Server] - 2024-08-24T23:53:25.042Z - Handled GET_CONTEXT_FILE_DATA. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:53:25.044Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-24T23:53:49.237Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-08-24T23:53:49.238Z - [WATCHER]: packages/fluent-input-extensions/src/lib/FluentEditor/EditorButtons/SetFontSize.tsx was modified
+[NX Daemon Server] - 2024-08-24T23:53:49.342Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-08-24T23:53:49.343Z - [REQUEST]: packages/fluent-input-extensions/src/lib/FluentEditor/EditorButtons/SetFontSize.tsx
+[NX Daemon Server] - 2024-08-24T23:53:49.343Z - [REQUEST]: 
+[NX Daemon Server] - 2024-08-24T23:53:49.500Z - Time taken for 'hash changed files from watcher' 0.9441999793052673ms
+[NX Daemon Server] - 2024-08-24T23:53:50.252Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-24T23:53:50.253Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-24T23:53:50.254Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-24T23:53:50.255Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-08-24T23:53:50.256Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-08-24T23:53:50.258Z - Time taken for 'total for creating and serializing project graph' 0.5121999979019165ms
+[NX Daemon Server] - 2024-08-24T23:53:50.259Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-08-24T23:53:50.259Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 3.
+[NX Daemon Server] - 2024-08-24T23:53:50.267Z - [REQUEST]: Responding to the client. handleContextFileData
+[NX Daemon Server] - 2024-08-24T23:53:50.267Z - Done responding to the client handleContextFileData
+[NX Daemon Server] - 2024-08-24T23:53:50.267Z - Handled GET_CONTEXT_FILE_DATA. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2024-08-24T23:53:50.268Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-25T00:11:37.024Z - [WATCHER]: packages/fluent-input-extensions/src/lib/FluentEditor/useFluentEditor.tsx was modified
+[NX Daemon Server] - 2024-08-25T00:11:37.024Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-08-25T00:11:37.134Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-08-25T00:11:37.134Z - [REQUEST]: packages/fluent-input-extensions/src/lib/FluentEditor/useFluentEditor.tsx
+[NX Daemon Server] - 2024-08-25T00:11:37.134Z - [REQUEST]: 
+[NX Daemon Server] - 2024-08-25T00:11:37.294Z - Time taken for 'hash changed files from watcher' 1.5645000338554382ms
+[NX Daemon Server] - 2024-08-25T00:11:38.040Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-25T00:11:38.040Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-25T00:11:38.041Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-25T00:11:38.042Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-08-25T00:11:38.043Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-08-25T00:11:38.044Z - Time taken for 'total for creating and serializing project graph' 0.40539997816085815ms
+[NX Daemon Server] - 2024-08-25T00:11:38.048Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-08-25T00:11:38.048Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 5.
+[NX Daemon Server] - 2024-08-25T00:11:38.051Z - [REQUEST]: Responding to the client. handleContextFileData
+[NX Daemon Server] - 2024-08-25T00:11:38.051Z - Done responding to the client handleContextFileData
+[NX Daemon Server] - 2024-08-25T00:11:38.051Z - Handled GET_CONTEXT_FILE_DATA. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2024-08-25T00:11:38.054Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-25T00:12:30.088Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-08-25T00:12:30.105Z - [WATCHER]: packages/fluent-input-extensions/src/lib/FluentEditor/useFluentEditor.tsx was modified
+[NX Daemon Server] - 2024-08-25T00:12:30.224Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-08-25T00:12:30.225Z - [REQUEST]: packages/fluent-input-extensions/src/lib/FluentEditor/useFluentEditor.tsx
+[NX Daemon Server] - 2024-08-25T00:12:30.225Z - [REQUEST]: 
+[NX Daemon Server] - 2024-08-25T00:12:30.344Z - Time taken for 'hash changed files from watcher' 0.8582000136375427ms
+[NX Daemon Server] - 2024-08-25T00:12:31.109Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-25T00:12:31.109Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-25T00:12:31.110Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-25T00:12:31.111Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-08-25T00:12:31.112Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-08-25T00:12:31.115Z - Time taken for 'total for creating and serializing project graph' 0.6121999621391296ms
+[NX Daemon Server] - 2024-08-25T00:12:31.115Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-08-25T00:12:31.115Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 3.
+[NX Daemon Server] - 2024-08-25T00:12:31.128Z - [REQUEST]: Responding to the client. handleContextFileData
+[NX Daemon Server] - 2024-08-25T00:12:31.128Z - Done responding to the client handleContextFileData
+[NX Daemon Server] - 2024-08-25T00:12:31.128Z - Handled GET_CONTEXT_FILE_DATA. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2024-08-25T00:12:31.129Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-25T00:13:33.749Z - [WATCHER]: packages/fluent-input-extensions/src/lib/FluentEditor/useFluentEditor.tsx was modified
+[NX Daemon Server] - 2024-08-25T00:13:33.750Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-08-25T00:13:33.857Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-08-25T00:13:33.857Z - [REQUEST]: packages/fluent-input-extensions/src/lib/FluentEditor/useFluentEditor.tsx
+[NX Daemon Server] - 2024-08-25T00:13:33.857Z - [REQUEST]: 
+[NX Daemon Server] - 2024-08-25T00:13:33.980Z - [WATCHER]: packages/fluent-input-extensions/src/lib/FluentEditor/useFluentEditor.tsx was modified
+[NX Daemon Server] - 2024-08-25T00:13:33.981Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-08-25T00:13:33.981Z - Time taken for 'hash changed files from watcher' 0.943399965763092ms
+[NX Daemon Server] - 2024-08-25T00:13:34.144Z - [WATCHER]: packages/fluent-input-extensions/src/lib/FluentEditor/useFluentEditor.tsx was modified
+[NX Daemon Server] - 2024-08-25T00:13:34.144Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-08-25T00:13:34.191Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-08-25T00:13:34.191Z - [REQUEST]: packages/fluent-input-extensions/src/lib/FluentEditor/useFluentEditor.tsx
+[NX Daemon Server] - 2024-08-25T00:13:34.191Z - [REQUEST]: 
+[NX Daemon Server] - 2024-08-25T00:13:34.287Z - Time taken for 'hash changed files from watcher' 1.0241000056266785ms
+[NX Daemon Server] - 2024-08-25T00:13:35.148Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-25T00:13:35.149Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-25T00:13:35.149Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-25T00:13:35.152Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-08-25T00:13:35.152Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-08-25T00:13:35.156Z - Time taken for 'total for creating and serializing project graph' 0.7463000416755676ms
+[NX Daemon Server] - 2024-08-25T00:13:35.157Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-08-25T00:13:35.157Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 5.
+[NX Daemon Server] - 2024-08-25T00:13:35.166Z - [REQUEST]: Responding to the client. handleContextFileData
+[NX Daemon Server] - 2024-08-25T00:13:35.167Z - Done responding to the client handleContextFileData
+[NX Daemon Server] - 2024-08-25T00:13:35.167Z - Handled GET_CONTEXT_FILE_DATA. Handling time: 1. Response time: 1.
+[NX Daemon Server] - 2024-08-25T00:13:35.168Z - Closed a connection. Number of open connections: 1
