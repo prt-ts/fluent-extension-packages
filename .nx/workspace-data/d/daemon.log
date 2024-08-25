@@ -3414,3 +3414,20 @@ Error: Unsupported payload sent to daemon server: {"type":"REQUEST_FILE_DATA"}
 [NX Daemon Server] - 2024-08-17T21:04:58.702Z - Done responding to the client project-graph
 [NX Daemon Server] - 2024-08-17T21:04:58.702Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 3.
 [NX Daemon Server] - 2024-08-17T21:04:58.709Z - Established a connection. Number of open connections: 5
+[NX Daemon Server] - 2024-08-24T23:49:51.325Z - Started listening on: \\.\pipe\nx\C:\Users\prade\AppData\Local\Temp\5ca5b1509d4d4f22449b\d.sock
+[NX Daemon Server] - 2024-08-24T23:49:51.332Z - [WATCHER]: Subscribed to changes within: c:\Users\prade\OneDrive\Desktop\React\fluent-extension-packages (native)
+[NX Daemon Server] - 2024-08-24T23:49:51.333Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-24T23:49:51.335Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-24T23:49:51.337Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-24T23:49:51.338Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-08-24T23:49:51.516Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-08-24T23:49:51.516Z - [REQUEST]: 
+[NX Daemon Server] - 2024-08-24T23:49:51.516Z - [REQUEST]: 
+[NX Daemon Server] - 2024-08-24T23:49:54.080Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-08-24T23:49:54.083Z - Time taken for 'total for creating and serializing project graph' 2741.9992ms
+[NX Daemon Server] - 2024-08-24T23:49:54.083Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-08-24T23:49:54.083Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 2742. Response time: 3.
+[NX Daemon Server] - 2024-08-24T23:49:54.094Z - [REQUEST]: Responding to the client. handleContextFileData
+[NX Daemon Server] - 2024-08-24T23:49:54.095Z - Done responding to the client handleContextFileData
+[NX Daemon Server] - 2024-08-24T23:49:54.095Z - Handled GET_CONTEXT_FILE_DATA. Handling time: 1. Response time: 1.
+[NX Daemon Server] - 2024-08-24T23:49:54.097Z - Closed a connection. Number of open connections: 0
