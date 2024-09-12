@@ -12,22 +12,27 @@ import {
 import { forwardRef } from 'react';
 import { useFormContext } from '../Form';
 import { Controller, ControllerProps } from 'react-hook-form';
-import {
-  creditCardMask,
-  currencyMask,
-  phoneMask,
-} from '../../utils/InputFormatter';
+import { mask } from '../../utils/InputFormatter';
 import { CommonFieldInfoLabelProps } from '../types/CommonFieldProps';
 import { Show } from '@prt-ts/react-control-flow';
 
+type AdditionalInputProps = {
+  name: string;
+  rules?: ControllerProps['rules'];
+  autoCompleteOptions?: string[];
+  fieldMask?:
+    | 'phone'
+    | 'currency'
+    | 'creditCard'
+    | 'capatilizeSentense'
+    | 'capatilizeEachWord'
+    | 'custom';
+  onCustomMask?: (value: string) => string;
+};
+
 export type InputFieldProps = CommonFieldInfoLabelProps &
-  InputProps & {
-    name: string;
-    rules?: ControllerProps['rules'];
-    autoCompleteOptions?: string[];
-    fieldMask?: 'phone' | 'currency' | 'creditCard' | 'custom' | undefined;
-    onCustomMask?: (value: string) => string;
-  };
+  InputProps &
+  AdditionalInputProps;
 
 function useFormatInputProps(props: InputFieldProps) {
   const {
@@ -104,24 +109,19 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             ev: React.ChangeEvent<HTMLInputElement>,
             data: InputOnChangeData
           ) => {
-            switch (fieldMask) {
-              case 'phone':
-                data.value = phoneMask(data.value);
-                break;
-              case 'currency':
-                data.value = currencyMask(data.value);
-                break;
-              case 'creditCard':
-                data.value = creditCardMask(data.value);
-                break;
-              case 'custom':
-                if (onCustomMask) {
-                  data.value = onCustomMask(data.value);
+            if (fieldMask === 'custom') {
+              if (onCustomMask) {
+                data.value = onCustomMask(data.value);
+              }
+            } else {
+              if (fieldMask !== undefined) {
+                const masker = mask[fieldMask];
+                if (masker) {
+                  data.value = masker(data.value);
                 }
-                break;
-              default:
-                break;
+              }
             }
+
             onChange(data.value);
             if (onInputChange) {
               onInputChange(ev, data);

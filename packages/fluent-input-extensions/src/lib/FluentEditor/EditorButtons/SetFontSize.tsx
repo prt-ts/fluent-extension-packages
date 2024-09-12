@@ -14,7 +14,7 @@ export interface HeadingLevelProps {
 
 const FontSizesOptions = ["8pt", "9pt", "10pt", "11pt", "12pt", "14pt", "16pt", "18pt", "20pt", "24pt", "36pt", "54pt", "72pt"];
 
-export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, fontSize = "14pt", handleChange }) => {
+export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, fontSize = "12pt", handleChange }) => {
     const styles = useIconStyles();
     const [selectedFontSize, setSelectedFontSize] = React.useState<string[]>([fontSize]);
 
@@ -36,7 +36,7 @@ export const SetFontSizeFormatter: React.FC<HeadingLevelProps> = ({ editor, font
                 selectedOptions={selectedFontSize}
                 onOptionSelect={(_, data) => {
                     setSelectedFontSize([`${data.optionValue}`]);
-                    setSpacing(editor, `${data.optionValue}`);
+                    // setSpacing(editor, `${data.optionValue}`);
                     setFontSize(editor, `${data.optionValue}`); 
 
                     editor?.focus?.();
