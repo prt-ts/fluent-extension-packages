@@ -159,6 +159,179 @@
   "fileMap": {
     "nonProjectFiles": [],
     "projectFileMap": {
+      "pdf-json-helper": [
+        {
+          "file": "packages/pdf-json-helper/.eslintrc.json",
+          "hash": "3165968024688134963"
+        },
+        {
+          "file": "packages/pdf-json-helper/.swcrc",
+          "hash": "2687333097325422833"
+        },
+        {
+          "file": "packages/pdf-json-helper/README.md",
+          "hash": "6741159850991765935"
+        },
+        {
+          "file": "packages/pdf-json-helper/jest.config.ts",
+          "hash": "15893951081653659925"
+        },
+        {
+          "file": "packages/pdf-json-helper/package.json",
+          "hash": "6023603572181295146",
+          "deps": [
+            "npm:@types/html-to-pdfmake",
+            "npm:html-to-pdfmake"
+          ]
+        },
+        {
+          "file": "packages/pdf-json-helper/project.json",
+          "hash": "15351386990182298032"
+        },
+        {
+          "file": "packages/pdf-json-helper/src/index.ts",
+          "hash": "13184946483047774043"
+        },
+        {
+          "file": "packages/pdf-json-helper/src/lib/elements/checkbox/index.ts",
+          "hash": "10908287582787162100",
+          "deps": [
+            "npm:html-to-pdfmake"
+          ]
+        },
+        {
+          "file": "packages/pdf-json-helper/src/lib/elements/html/index.ts",
+          "hash": "8538159468578305098",
+          "deps": [
+            "npm:html-to-pdfmake"
+          ]
+        },
+        {
+          "file": "packages/pdf-json-helper/src/lib/elements/index.ts",
+          "hash": "1503753844284749065"
+        },
+        {
+          "file": "packages/pdf-json-helper/src/lib/elements/input/index.ts",
+          "hash": "11899869450021225530",
+          "deps": [
+            "npm:html-to-pdfmake"
+          ]
+        },
+        {
+          "file": "packages/pdf-json-helper/src/lib/elements/radio-button/index.ts",
+          "hash": "9982967692014510606"
+        },
+        {
+          "file": "packages/pdf-json-helper/src/lib/icons/index.ts",
+          "hash": "16751612161965950537"
+        },
+        {
+          "file": "packages/pdf-json-helper/src/lib/index.ts",
+          "hash": "17872902125604647750"
+        },
+        {
+          "file": "packages/pdf-json-helper/src/lib/layout/index.ts",
+          "hash": "262571850256349465"
+        },
+        {
+          "file": "packages/pdf-json-helper/src/lib/styles/index.ts",
+          "hash": "15445444513983547900"
+        },
+        {
+          "file": "packages/pdf-json-helper/src/lib/types/radio.types.ts",
+          "hash": "8784681819672094114"
+        },
+        {
+          "file": "packages/pdf-json-helper/src/lib/types/style.types.ts",
+          "hash": "15165596368807908780"
+        },
+        {
+          "file": "packages/pdf-json-helper/tsconfig.json",
+          "hash": "3232639405204897044"
+        },
+        {
+          "file": "packages/pdf-json-helper/tsconfig.lib.json",
+          "hash": "10267831276764075946"
+        },
+        {
+          "file": "packages/pdf-json-helper/tsconfig.spec.json",
+          "hash": "11194536110028348959"
+        }
+      ],
+      "fluent-theme": [
+        {
+          "file": "packages/fluent-theme/.babelrc",
+          "hash": "15003411175763814189"
+        },
+        {
+          "file": "packages/fluent-theme/.eslintrc.json",
+          "hash": "18256128359469774356"
+        },
+        {
+          "file": "packages/fluent-theme/README.md",
+          "hash": "13032624082973106376"
+        },
+        {
+          "file": "packages/fluent-theme/package.json",
+          "hash": "9888459578490582213",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-dom"
+          ]
+        },
+        {
+          "file": "packages/fluent-theme/project.json",
+          "hash": "6326366886558621124"
+        },
+        {
+          "file": "packages/fluent-theme/src/index.ts",
+          "hash": "15968023470311959829"
+        },
+        {
+          "file": "packages/fluent-theme/src/lib/index.tsx",
+          "hash": "982991969258179334"
+        },
+        {
+          "file": "packages/fluent-theme/src/lib/theme/ThemeService.tsx",
+          "hash": "8485876450134328653",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-theme/src/lib/theme/Types.tsx",
+          "hash": "7911880857788407546"
+        },
+        {
+          "file": "packages/fluent-theme/src/lib/theme/helpers/csswg.ts",
+          "hash": "6458739872208045646"
+        },
+        {
+          "file": "packages/fluent-theme/src/lib/theme/helpers/geometry.ts",
+          "hash": "13118891790400821596"
+        },
+        {
+          "file": "packages/fluent-theme/src/lib/theme/helpers/hueMap.ts",
+          "hash": "10796735146398212403"
+        },
+        {
+          "file": "packages/fluent-theme/src/lib/theme/helpers/paletters.ts",
+          "hash": "13037400501012518007"
+        },
+        {
+          "file": "packages/fluent-theme/src/lib/theme/helpers/types.ts",
+          "hash": "8082053969508680650"
+        },
+        {
+          "file": "packages/fluent-theme/tsconfig.json",
+          "hash": "7089800576176758660"
+        },
+        {
+          "file": "packages/fluent-theme/tsconfig.lib.json",
+          "hash": "2943616727076862881"
+        }
+      ],
       "fluent-react-table-v2": [
         {
           "file": "packages/fluent-react-table-v2/.eslintrc.json",
@@ -651,145 +824,341 @@
           ]
         }
       ],
-      "pdf-json-helper": [
+      "fluent-common-features": [
         {
-          "file": "packages/pdf-json-helper/.eslintrc.json",
+          "file": "packages/fluent-common-features/.eslintrc.json",
+          "hash": "18256128359469774356"
+        },
+        {
+          "file": "packages/fluent-common-features/README.md",
+          "hash": "3533111642744118319"
+        },
+        {
+          "file": "packages/fluent-common-features/package.json",
+          "hash": "17399817795052410345",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons",
+            "npm:react",
+            "npm:react-dom"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/project.json",
+          "hash": "18422147702610339662"
+        },
+        {
+          "file": "packages/fluent-common-features/src/index.ts",
+          "hash": "15968023470311959829"
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/components/access-denied/AccessDenied.tsx",
+          "hash": "1804632668281796419",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/components/error-fallback/ErrorFallback.tsx",
+          "hash": "9554256371874442345",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/components/page-not-found/PageNotFound.tsx",
+          "hash": "4653692702353973329",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/alert/AlertContext.tsx",
+          "hash": "12527976589784843141",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/alert/index.ts",
+          "hash": "6406025436166890599"
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/alert/useAlert.tsx",
+          "hash": "12192919549585755683",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/confirm/ConfirmContext.tsx",
+          "hash": "7849484388860536286",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/confirm/ConfirmDialog.tsx",
+          "hash": "11207460421649926092",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/confirm/Provider.tsx",
+          "hash": "17115622891384161473",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/confirm/Types.tsx",
+          "hash": "17782941979524172165",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/confirm/index.tsx",
+          "hash": "13921598324293561315"
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/confirm/useConfirm.tsx",
+          "hash": "13027201460451137684",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/confirm/useConfirmContext.tsx",
+          "hash": "11996890693274740343",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/handle-error/ErrorBoundary.tsx",
+          "hash": "10981655064607858756",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/handle-error/index.tsx",
+          "hash": "280085121685322864"
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/loading/LoadingContext.tsx",
+          "hash": "6403312609025773791",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/loading/LoadingSpinner.tsx",
+          "hash": "2837480239328360332",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/loading/Provider.tsx",
+          "hash": "9537299453439285733",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/loading/Types.ts",
+          "hash": "11579745351804126071"
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/loading/index.ts",
+          "hash": "16792327172983904881"
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/loading/useLoading.tsx",
+          "hash": "2227015958798087626",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/features/loading/useLoadingContext.tsx",
+          "hash": "6266539792724078810",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/icons/index.tsx",
+          "hash": "17679402067048679208",
+          "deps": [
+            "npm:@fluentui/react-icons"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/index.tsx",
+          "hash": "16260180313941183522"
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/root/AppProvider.tsx",
+          "hash": "6939188639916609071",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/root/index.tsx",
+          "hash": "16438322522862892914"
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/styles/index.tsx",
+          "hash": "12307143541896222754"
+        },
+        {
+          "file": "packages/fluent-common-features/src/lib/styles/useButtonStyles.tsx",
+          "hash": "5710195749285331910",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-common-features/tsconfig.json",
+          "hash": "10815340438733871774"
+        },
+        {
+          "file": "packages/fluent-common-features/tsconfig.lib.json",
+          "hash": "5086722998609149352"
+        },
+        {
+          "file": "packages/fluent-common-features/tsconfig.spec.json",
+          "hash": "3415516887565153898"
+        },
+        {
+          "file": "packages/fluent-common-features/vite.config.ts",
+          "hash": "6956327249156411594",
+          "deps": [
+            "npm:vite",
+            "npm:@vitejs/plugin-react",
+            "npm:vite-tsconfig-paths"
+          ]
+        }
+      ],
+      "export-helpers": [
+        {
+          "file": "packages/export-helpers/.eslintrc.json",
           "hash": "3165968024688134963"
         },
         {
-          "file": "packages/pdf-json-helper/.swcrc",
-          "hash": "2687333097325422833"
+          "file": "packages/export-helpers/README.md",
+          "hash": "547235769958090675"
         },
         {
-          "file": "packages/pdf-json-helper/README.md",
-          "hash": "6741159850991765935"
+          "file": "packages/export-helpers/jest.config.ts",
+          "hash": "11526804402426326507"
         },
         {
-          "file": "packages/pdf-json-helper/jest.config.ts",
-          "hash": "15893951081653659925"
-        },
-        {
-          "file": "packages/pdf-json-helper/package.json",
-          "hash": "6023603572181295146",
+          "file": "packages/export-helpers/package.json",
+          "hash": "2360672873747455001",
           "deps": [
-            "npm:@types/html-to-pdfmake",
-            "npm:html-to-pdfmake"
+            "npm:file-saver",
+            "npm:pdfmake",
+            "npm:exceljs"
           ]
         },
         {
-          "file": "packages/pdf-json-helper/project.json",
-          "hash": "15351386990182298032"
+          "file": "packages/export-helpers/project.json",
+          "hash": "5221821755643660240"
         },
         {
-          "file": "packages/pdf-json-helper/src/index.ts",
-          "hash": "13184946483047774043"
+          "file": "packages/export-helpers/src/index.ts",
+          "hash": "15968023470311959829"
         },
         {
-          "file": "packages/pdf-json-helper/src/lib/elements/checkbox/index.ts",
-          "hash": "10908287582787162100",
+          "file": "packages/export-helpers/src/lib/Types.ts",
+          "hash": "12339864767886818383",
           "deps": [
-            "npm:html-to-pdfmake"
+            "npm:exceljs"
           ]
         },
         {
-          "file": "packages/pdf-json-helper/src/lib/elements/html/index.ts",
-          "hash": "8538159468578305098",
+          "file": "packages/export-helpers/src/lib/createBlob.ts",
+          "hash": "11166727884587102336"
+        },
+        {
+          "file": "packages/export-helpers/src/lib/createDocumentBuffer.ts",
+          "hash": "10636888728550224778",
           "deps": [
-            "npm:html-to-pdfmake"
+            "npm:exceljs",
+            [
+              "npm:exceljs",
+              "dynamic"
+            ]
           ]
         },
         {
-          "file": "packages/pdf-json-helper/src/lib/elements/index.ts",
-          "hash": "1503753844284749065"
+          "file": "packages/export-helpers/src/lib/exportDocument.ts",
+          "hash": "13783397717016836193"
         },
         {
-          "file": "packages/pdf-json-helper/src/lib/elements/input/index.ts",
-          "hash": "11899869450021225530",
+          "file": "packages/export-helpers/src/lib/exportToPDFDoc.ts",
+          "hash": "15376378387143906849",
           "deps": [
-            "npm:html-to-pdfmake"
+            "npm:pdfmake",
+            [
+              "npm:pdfmake",
+              "dynamic"
+            ]
           ]
         },
         {
-          "file": "packages/pdf-json-helper/src/lib/elements/radio-button/index.ts",
-          "hash": "9982967692014510606"
+          "file": "packages/export-helpers/src/lib/importFiles.ts",
+          "hash": "15728244147441750191",
+          "deps": [
+            [
+              "npm:exceljs",
+              "dynamic"
+            ]
+          ]
         },
         {
-          "file": "packages/pdf-json-helper/src/lib/icons/index.ts",
-          "hash": "16751612161965950537"
+          "file": "packages/export-helpers/src/lib/index.ts",
+          "hash": "7107300922159948543",
+          "deps": [
+            "npm:pdfmake",
+            "npm:exceljs"
+          ]
         },
         {
-          "file": "packages/pdf-json-helper/src/lib/index.ts",
-          "hash": "17872902125604647750"
+          "file": "packages/export-helpers/src/lib/saveInFile.ts",
+          "hash": "9872335427562003270",
+          "deps": [
+            "npm:file-saver"
+          ]
         },
         {
-          "file": "packages/pdf-json-helper/src/lib/layout/index.ts",
-          "hash": "262571850256349465"
+          "file": "packages/export-helpers/tsconfig.json",
+          "hash": "10294729341131714718"
         },
         {
-          "file": "packages/pdf-json-helper/src/lib/styles/index.ts",
-          "hash": "15445444513983547900"
+          "file": "packages/export-helpers/tsconfig.lib.json",
+          "hash": "17512648156706774563"
         },
         {
-          "file": "packages/pdf-json-helper/src/lib/types/radio.types.ts",
-          "hash": "8784681819672094114"
-        },
-        {
-          "file": "packages/pdf-json-helper/src/lib/types/style.types.ts",
-          "hash": "15165596368807908780"
-        },
-        {
-          "file": "packages/pdf-json-helper/tsconfig.json",
-          "hash": "3232639405204897044"
-        },
-        {
-          "file": "packages/pdf-json-helper/tsconfig.lib.json",
-          "hash": "10267831276764075946"
-        },
-        {
-          "file": "packages/pdf-json-helper/tsconfig.spec.json",
+          "file": "packages/export-helpers/tsconfig.spec.json",
           "hash": "11194536110028348959"
-        }
-      ],
-      "examples-e2e": [
-        {
-          "file": "ui/examples-e2e/.eslintrc.json",
-          "hash": "16360919687746571226"
-        },
-        {
-          "file": "ui/examples-e2e/cypress.config.ts",
-          "hash": "5888464509215434582",
-          "deps": [
-            "npm:cypress",
-            "npm:@nx/cypress"
-          ]
-        },
-        {
-          "file": "ui/examples-e2e/project.json",
-          "hash": "14398317109913106000"
-        },
-        {
-          "file": "ui/examples-e2e/src/e2e/app.cy.ts",
-          "hash": "9443928727785919829"
-        },
-        {
-          "file": "ui/examples-e2e/src/fixtures/example.json",
-          "hash": "17341819486505642070"
-        },
-        {
-          "file": "ui/examples-e2e/src/support/app.po.ts",
-          "hash": "5364106453863571025"
-        },
-        {
-          "file": "ui/examples-e2e/src/support/commands.ts",
-          "hash": "11031723810997510506"
-        },
-        {
-          "file": "ui/examples-e2e/src/support/e2e.ts",
-          "hash": "15928825062325902088"
-        },
-        {
-          "file": "ui/examples-e2e/tsconfig.json",
-          "hash": "6711070650399197251"
         }
       ],
       "types": [
@@ -848,6 +1217,1843 @@
         {
           "file": "packages/types/tsconfig.spec.json",
           "hash": "11194536110028348959"
+        }
+      ],
+      "examples": [
+        {
+          "file": "ui/examples/.eslintrc.json",
+          "hash": "18256128359469774356"
+        },
+        {
+          "file": "ui/examples/index.html",
+          "hash": "17627313004004813655"
+        },
+        {
+          "file": "ui/examples/project.json",
+          "hash": "11261329526452944212"
+        },
+        {
+          "file": "ui/examples/public/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": "ui/examples/src/app/DummyEditPage.tsx",
+          "hash": "11040281194018400419",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/EditableGrid/EditableGrid.tsx",
+          "hash": "744129988598723093",
+          "deps": [
+            "fluent-react-table-v2",
+            "fluent-react-hook-form",
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/EditableGrid/GridSchema.tsx",
+          "hash": "7006227063036414187",
+          "deps": [
+            "npm:yup"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/EditableGrid/useEditableGrid.tsx",
+          "hash": "13533996165895351662",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons",
+            "fluent-react-hook-form",
+            "fluent-react-table-v2",
+            "fluent-common-features",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/ErrorComponent.tsx",
+          "hash": "5193857397436885894",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "fluent-common-features",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/RHFTest.tsx",
+          "hash": "13459505778665707884",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "fluent-react-hook-form",
+            "npm:react",
+            "npm:yup",
+            "npm:@hookform/resolvers",
+            "npm:react-router-dom",
+            "types"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/RHFormExamples/Input.tsx",
+          "hash": "5961792171859057695",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "fluent-input-extensions",
+            "fluent-react-hook-form",
+            "npm:react",
+            "npm:yup"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/TableExample.tsx",
+          "hash": "537332626572118474",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons",
+            "fluent-react-table-v2",
+            "npm:react-router-dom",
+            "export-helpers"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/TableExample2.tsx",
+          "hash": "11380415831595686322",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons",
+            "fluent-react-table-v2",
+            "npm:react-router-dom",
+            "npm:@tanstack/react-table",
+            "fluent-common-features",
+            "export-helpers"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/Web.tsx",
+          "hash": "5840454933098907394",
+          "deps": [
+            "fluent-formik",
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons",
+            "npm:formik",
+            "npm:yup"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/app.module.scss",
+          "hash": "14507130133388590702"
+        },
+        {
+          "file": "ui/examples/src/app/app.spec.tsx",
+          "hash": "4087919147013002846",
+          "deps": [
+            "npm:@testing-library/react",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/app.tsx",
+          "hash": "4305828537969576489",
+          "deps": [
+            "npm:react-router-dom",
+            "fluent-common-features",
+            "npm:react",
+            "fluent-theme",
+            "npm:@fluentui/react-components",
+            "types"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/data.tsx",
+          "hash": "10796226633121518327",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:@faker-js/faker",
+            "npm:@fluentui/react-icons"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/data/UserInfo.tsx",
+          "hash": "13129527267719066122",
+          "deps": [
+            "types",
+            "npm:@faker-js/faker",
+            "debounce",
+            "utilities"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/data/data.tsx",
+          "hash": "834571148593761781",
+          "deps": [
+            "npm:@faker-js/faker"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/data/tableView.tsx",
+          "hash": "17727390886101259646",
+          "deps": [
+            "fluent-react-table-v2"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/examples/Control/Controls.tsx",
+          "hash": "16076927244514255599",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "react-control-flow",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/examples/FeatureComp/Features.tsx",
+          "hash": "13621321876389375794",
+          "deps": [
+            "fluent-common-features",
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "export-helpers"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/examples/SignUpForm/SignUpForm.tsx",
+          "hash": "7024880688998090256",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "fluent-react-hook-form",
+            "npm:react",
+            "npm:yup",
+            "npm:@hookform/resolvers"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/examples/useDefaultValue.tsx",
+          "hash": "6937056413464319072",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/layout/Footer/Footer.tsx",
+          "hash": "8176576216008813432",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/layout/Footer/index.ts",
+          "hash": "3326647927141095872"
+        },
+        {
+          "file": "ui/examples/src/app/layout/Layout.tsx",
+          "hash": "14447038540497342695",
+          "deps": [
+            "npm:react",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/layout/Navbar/Navbar.tsx",
+          "hash": "16247565862475600414",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:@fluentui/react-icons",
+            "npm:react-router-dom",
+            "fluent-common-features"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/layout/Navbar/index.ts",
+          "hash": "11066822241535572612"
+        },
+        {
+          "file": "ui/examples/src/app/layout/SideNav/SideNav.tsx",
+          "hash": "15955640202582852371",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons",
+            "npm:react",
+            "npm:react-router-dom",
+            "fluent-common-features"
+          ]
+        },
+        {
+          "file": "ui/examples/src/app/layout/SideNav/index.ts",
+          "hash": "1857523201662088498"
+        },
+        {
+          "file": "ui/examples/src/app/layout/useLayoutStyles.tsx",
+          "hash": "6930773871796380002",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "ui/examples/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "ui/examples/src/main.tsx",
+          "hash": "11184117728240372428",
+          "deps": [
+            "npm:react",
+            "npm:react-dom"
+          ]
+        },
+        {
+          "file": "ui/examples/src/styles.scss",
+          "hash": "3650193876495392983"
+        },
+        {
+          "file": "ui/examples/tsconfig.app.json",
+          "hash": "11259775150751573958"
+        },
+        {
+          "file": "ui/examples/tsconfig.json",
+          "hash": "14868773622111174546"
+        },
+        {
+          "file": "ui/examples/tsconfig.spec.json",
+          "hash": "426148043594090445"
+        },
+        {
+          "file": "ui/examples/vite.config.ts",
+          "hash": "15847311203430145035",
+          "deps": [
+            "npm:vite",
+            "npm:@vitejs/plugin-react",
+            "npm:@nx/vite"
+          ]
+        }
+      ],
+      "react-control-flow": [
+        {
+          "file": "packages/react-control-flow/.babelrc",
+          "hash": "15003411175763814189"
+        },
+        {
+          "file": "packages/react-control-flow/.eslintrc.json",
+          "hash": "18256128359469774356"
+        },
+        {
+          "file": "packages/react-control-flow/README.md",
+          "hash": "15227272636925318126"
+        },
+        {
+          "file": "packages/react-control-flow/jest.config.ts",
+          "hash": "11287655920334386672"
+        },
+        {
+          "file": "packages/react-control-flow/package.json",
+          "hash": "16069928821157049224",
+          "deps": [
+            "npm:react",
+            "npm:react-dom"
+          ]
+        },
+        {
+          "file": "packages/react-control-flow/project.json",
+          "hash": "16020628643823986801"
+        },
+        {
+          "file": "packages/react-control-flow/src/index.ts",
+          "hash": "14541821773578590559"
+        },
+        {
+          "file": "packages/react-control-flow/src/lib/controls/Case.tsx",
+          "hash": "956950424490702981",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/react-control-flow/src/lib/controls/For.tsx",
+          "hash": "10616992100607932371",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/react-control-flow/src/lib/controls/Show.tsx",
+          "hash": "8757639362685264048",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/react-control-flow/src/lib/controls/Switch.tsx",
+          "hash": "11068605983791580232",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/react-control-flow/src/lib/controls/index.tsx",
+          "hash": "4311636102616647268"
+        },
+        {
+          "file": "packages/react-control-flow/src/lib/index.tsx",
+          "hash": "15063933520403109169"
+        },
+        {
+          "file": "packages/react-control-flow/src/lib/types/ConditionalClause.ts",
+          "hash": "10200296526895462076"
+        },
+        {
+          "file": "packages/react-control-flow/tsconfig.json",
+          "hash": "2717301636124270161"
+        },
+        {
+          "file": "packages/react-control-flow/tsconfig.lib.json",
+          "hash": "2943616727076862881"
+        },
+        {
+          "file": "packages/react-control-flow/tsconfig.spec.json",
+          "hash": "14275568886759166330"
+        }
+      ],
+      "fluent-formik": [
+        {
+          "file": "packages/fluent-formik/.eslintrc.json",
+          "hash": "3165968024688134963"
+        },
+        {
+          "file": "packages/fluent-formik/.swcrc",
+          "hash": "2687333097325422833"
+        },
+        {
+          "file": "packages/fluent-formik/README.md",
+          "hash": "10710062628440025041"
+        },
+        {
+          "file": "packages/fluent-formik/jest.config.ts",
+          "hash": "1357675755500218750"
+        },
+        {
+          "file": "packages/fluent-formik/package.json",
+          "hash": "4763414135372329586",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons",
+            "npm:@fluentui/react-datepicker-compat",
+            "npm:react",
+            "npm:react-dom",
+            "npm:formik",
+            "npm:react-dropzone",
+            "npm:react-quill"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/project.json",
+          "hash": "1759549831270994845"
+        },
+        {
+          "file": "packages/fluent-formik/src/index.ts",
+          "hash": "15968023470311959829"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/CheckboxField/CheckboxField.tsx",
+          "hash": "1658826920060682692",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/CheckboxField/Types.ts",
+          "hash": "16084493303730604927",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/CheckboxField/index.tsx",
+          "hash": "15156225507783643581"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/CheckboxInputField/CheckboxInputField.tsx",
+          "hash": "8160899596146815941",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/CheckboxInputField/Styles.tsx",
+          "hash": "12553158451079484603",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/CheckboxInputField/Types.tsx",
+          "hash": "15247429996302594218",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/CheckboxInputField/index.tsx",
+          "hash": "13545676632523263231"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/CheckboxInputField/useCheckboxInputField.tsx",
+          "hash": "4084557984522826948",
+          "deps": [
+            "npm:react",
+            "npm:formik",
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/DatePickerField/DatePickerField.tsx",
+          "hash": "5637079611533649150",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-datepicker-compat",
+            "npm:formik",
+            "npm:@fluentui/react-icons"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/DatePickerField/index.tsx",
+          "hash": "11631845393285594613"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/DatePickerField/useDatePickerField.tsx",
+          "hash": "17002999623651251886",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/DropdownField/DropdownField.tsx",
+          "hash": "17322403073146611989",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/DropdownField/Types.tsx",
+          "hash": "10342211257733599840",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/DropdownField/index.tsx",
+          "hash": "8354341599465727527"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/DropdownField/useDropdownField.tsx",
+          "hash": "833529529869140760",
+          "deps": [
+            "npm:formik",
+            "npm:react",
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/FileInputField/FileInputField.tsx",
+          "hash": "10224555303636397804",
+          "deps": [
+            "npm:formik",
+            "npm:react",
+            "npm:react-dropzone",
+            "npm:@fluentui/react-icons",
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/FileInputField/index.tsx",
+          "hash": "555294760362151755"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/FocusErrorElement/FocusError.tsx",
+          "hash": "10292687695749461968",
+          "deps": [
+            "npm:react",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/FocusErrorElement/flattenToLodashFormat.tsx",
+          "hash": "9608350487263963286"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/FocusErrorElement/formikConnect.tsx",
+          "hash": "12271792136027085230",
+          "deps": [
+            "npm:react",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/FocusErrorElement/index.tsx",
+          "hash": "12507901055155403312"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/InputField/InputField.tsx",
+          "hash": "5572118404949658819",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/InputField/Types.tsx",
+          "hash": "4281640143648003535",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/InputField/index.tsx",
+          "hash": "18064994748060160599"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/RadioField/RadioField.tsx",
+          "hash": "2139667670750135338",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/RadioField/Types.ts",
+          "hash": "17335942548172616784",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/RadioField/index.tsx",
+          "hash": "2025880461079137376"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/RadioInputField/RadioInputField.tsx",
+          "hash": "15529685832174450840",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/RadioInputField/Types.ts",
+          "hash": "18037942734309938230",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/RadioInputField/index.tsx",
+          "hash": "11795102852864316103"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/RichInputField/RichInputField.tsx",
+          "hash": "13096733143694318633",
+          "deps": [
+            "npm:formik",
+            "npm:react",
+            "npm:react-quill",
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/RichInputField/Types.tsx",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/RichInputField/index.tsx",
+          "hash": "16669423417459636562"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/RichInputField/useRichInputFieldStyles.tsx",
+          "hash": "9126102265852086988",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/SliderInputField/SliderInputField.tsx",
+          "hash": "12209515749864508360",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/SliderInputField/Types.tsx",
+          "hash": "3366074244441327785",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/SliderInputField/index.tsx",
+          "hash": "776235523593417674"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/SpinButtonField/SpinButtonField.tsx",
+          "hash": "15852753690624621868",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/SpinButtonField/Types.tsx",
+          "hash": "7005062345263750720",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/SpinButtonField/index.tsx",
+          "hash": "1570432334036844912"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/SwitchField/SwitchField.tsx",
+          "hash": "14004078956268121381",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/SwitchField/Types.ts",
+          "hash": "6049209618456438663",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/SwitchField/index.tsx",
+          "hash": "8014984999475624087"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/TextareaField/TextareaField.tsx",
+          "hash": "10349805312060585904",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:formik"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/TextareaField/Types.tsx",
+          "hash": "7725397061668188646",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/components/TextareaField/index.tsx",
+          "hash": "5703813591483891005"
+        },
+        {
+          "file": "packages/fluent-formik/src/lib/index.tsx",
+          "hash": "17074442834931347113"
+        },
+        {
+          "file": "packages/fluent-formik/tsconfig.json",
+          "hash": "12710048611780890367"
+        },
+        {
+          "file": "packages/fluent-formik/tsconfig.lib.json",
+          "hash": "17512648156706774563"
+        },
+        {
+          "file": "packages/fluent-formik/tsconfig.spec.json",
+          "hash": "11194536110028348959"
+        }
+      ],
+      "spfx-core": [
+        {
+          "file": "packages/spfx-core/.babelrc",
+          "hash": "15003411175763814189"
+        },
+        {
+          "file": "packages/spfx-core/.eslintrc.json",
+          "hash": "18256128359469774356"
+        },
+        {
+          "file": "packages/spfx-core/README.md",
+          "hash": "16257435191969800642"
+        },
+        {
+          "file": "packages/spfx-core/jest.config.ts",
+          "hash": "10124731705352665439"
+        },
+        {
+          "file": "packages/spfx-core/package.json",
+          "hash": "1991350803882362437",
+          "deps": [
+            "npm:@microsoft/sp-webpart-base",
+            "npm:@microsoft/sp-core-library",
+            "npm:@pnp/core",
+            "npm:@pnp/graph",
+            "npm:@pnp/logging",
+            "npm:@pnp/sp",
+            "npm:@microsoft/sp-list-subscription",
+            "npm:@microsoft/applicationinsights-web",
+            "types"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/project.json",
+          "hash": "837276045890932777"
+        },
+        {
+          "file": "packages/spfx-core/src/index.ts",
+          "hash": "15732582998544476114"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/app/AppConfig.ts",
+          "hash": "15933652306556584051",
+          "deps": [
+            "npm:@microsoft/sp-webpart-base",
+            "npm:@microsoft/applicationinsights-web",
+            "types"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/src/lib/app/AppSettings.ts",
+          "hash": "1670353297001449762"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/app/index.ts",
+          "hash": "5816838556317086537"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/auth/AuthContext.tsx",
+          "hash": "13863473633223080367",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/src/lib/auth/AuthTypes.tsx",
+          "hash": "2923104230425939811"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/auth/VerifyResourceAccess.tsx",
+          "hash": "16624871127745368100"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/auth/index.tsx",
+          "hash": "5641133882224040580"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/debug/DebugMode.ts",
+          "hash": "7080467569721618984"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/debug/index.ts",
+          "hash": "14572087321386249936"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/email/EmailBuilder.ts",
+          "hash": "6611742173343660328",
+          "deps": [
+            "npm:@pnp/sp"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/src/lib/email/EmailConfig.ts",
+          "hash": "14550215905635062036"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/email/EmailSetting.ts",
+          "hash": "5244033644244637308"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/email/index.ts",
+          "hash": "14193041078065216050"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/filters/SPOData.ts",
+          "hash": "11529194813236194048"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/filters/index.ts",
+          "hash": "15772562869594624815"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/hooks/index.ts",
+          "hash": "3723029115824115358"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/hooks/useDocumentDimensions.tsx",
+          "hash": "7814542938669622930",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/src/lib/hooks/useGetTableHeight.tsx",
+          "hash": "11821201264747988401"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/hooks/usePageView.tsx",
+          "hash": "15707127654542071882",
+          "deps": [
+            "npm:react",
+            "npm:@microsoft/applicationinsights-web",
+            "npm:@pnp/logging"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/src/lib/list-subscription/ListSubscriptionType.ts",
+          "hash": "5891360325655289486"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/list-subscription/index.ts",
+          "hash": "8904028448643903362"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/list-subscription/useListSubscription.tsx",
+          "hash": "2973080460742047260",
+          "deps": [
+            "npm:react",
+            "npm:@microsoft/sp-list-subscription",
+            "npm:@microsoft/sp-core-library"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/src/lib/pnp/Logger.ts",
+          "hash": "14514246016526636297",
+          "deps": [
+            "npm:@pnp/logging"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/src/lib/pnp/PnpConfig.tsx",
+          "hash": "10201097273220112160",
+          "deps": [
+            "npm:@microsoft/sp-webpart-base",
+            "npm:@pnp/logging",
+            "npm:@pnp/sp",
+            "npm:@pnp/graph"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/src/lib/pnp/index.ts",
+          "hash": "5646327834169747082"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/services/AppInsightsService.ts",
+          "hash": "11908017215357436579",
+          "deps": [
+            "npm:@microsoft/applicationinsights-web",
+            "npm:@pnp/logging"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/src/lib/services/ChoiceFieldService.ts",
+          "hash": "6325352931360714273"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/services/DocumentLibraryService.ts",
+          "hash": "7248369678890971394",
+          "deps": [
+            "npm:@pnp/sp"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/src/lib/services/ErrorService.ts",
+          "hash": "14909220028805145893",
+          "deps": [
+            "npm:@pnp/logging",
+            "npm:@pnp/queryable",
+            "npm:@pnp/core"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/src/lib/services/ListAttachmentService.ts",
+          "hash": "4060359326176497575",
+          "deps": [
+            "npm:@pnp/sp"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/src/lib/services/UserService.ts",
+          "hash": "10392539829742582021",
+          "deps": [
+            "npm:@pnp/sp",
+            "npm:@pnp/graph",
+            "types"
+          ]
+        },
+        {
+          "file": "packages/spfx-core/src/lib/services/index.ts",
+          "hash": "15317854412551151446"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/spfx-core.tsx",
+          "hash": "8986284402466515296"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/types/DebugKey.ts",
+          "hash": "4693223701680435443"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/types/index.ts",
+          "hash": "12232957519379709329"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/utils/IdHasher.ts",
+          "hash": "7468868730963658084"
+        },
+        {
+          "file": "packages/spfx-core/src/lib/utils/index.ts",
+          "hash": "8841930202701225443"
+        },
+        {
+          "file": "packages/spfx-core/tsconfig.json",
+          "hash": "8703569510908868110"
+        },
+        {
+          "file": "packages/spfx-core/tsconfig.lib.json",
+          "hash": "2427605905680839026"
+        },
+        {
+          "file": "packages/spfx-core/tsconfig.spec.json",
+          "hash": "14275568886759166330"
+        }
+      ],
+      "fluent-react-hook-form": [
+        {
+          "file": "packages/fluent-react-hook-form/.eslintrc.json",
+          "hash": "18256128359469774356"
+        },
+        {
+          "file": "packages/fluent-react-hook-form/README.md",
+          "hash": "819937930248937648"
+        },
+        {
+          "file": "packages/fluent-react-hook-form/package.json",
+          "hash": "4348194037493465538",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons",
+            "npm:react",
+            "npm:react-dom",
+            "npm:react-hook-form",
+            "npm:@hookform/resolvers",
+            "npm:@fluentui/react-datepicker-compat",
+            "npm:@fluentui/react-timepicker-compat",
+            "npm:@fluentui/react-calendar-compat",
+            "fluent-input-extensions",
+            "react-control-flow"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/project.json",
+          "hash": "13890874162250821056"
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/index.ts",
+          "hash": "14152693599889902869"
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Form/Form.tsx",
+          "hash": "9067969399779263390",
+          "deps": [
+            "npm:react",
+            "npm:react-hook-form"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Form/FormContext.tsx",
+          "hash": "712241199186434657",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Form/index.tsx",
+          "hash": "12355731133098796091"
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Form/useFormContext.tsx",
+          "hash": "3199174513829146557",
+          "deps": [
+            "npm:react",
+            "npm:react-hook-form"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/DatePickerCell.tsx",
+          "hash": "3386866937080309231",
+          "deps": [
+            "npm:react",
+            "react-control-flow",
+            "npm:@fluentui/react-icons",
+            "npm:@fluentui/react-components",
+            "npm:react-hook-form",
+            "npm:@fluentui/react-datepicker-compat"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/DropdownCell.tsx",
+          "hash": "3551657530418307245",
+          "deps": [
+            "npm:react",
+            "react-control-flow",
+            "npm:react-hook-form",
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/InputCell.tsx",
+          "hash": "9701013356548896095",
+          "deps": [
+            "npm:react",
+            "npm:react-hook-form",
+            "npm:@fluentui/react-components",
+            "react-control-flow"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/TextareaCell.tsx",
+          "hash": "4283460295457774901",
+          "deps": [
+            "npm:react",
+            "npm:react-hook-form",
+            "npm:@fluentui/react-components",
+            "react-control-flow"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/index.ts",
+          "hash": "18168348487819722593"
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/useGetErrorContent.tsx",
+          "hash": "11107656980133038289",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-icons"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/useStyles.tsx",
+          "hash": "7229591526158530284",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/CalendarField.tsx",
+          "hash": "8762392107211343160",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form",
+            "npm:@fluentui/react-calendar-compat"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/CheckboxField.tsx",
+          "hash": "1400006487174064922",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/ComboboxField.tsx",
+          "hash": "14380844574735086039",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/CurrencyInputField.tsx",
+          "hash": "3475613496476619572",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/DatePickerField.tsx",
+          "hash": "7598160443619338314",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form",
+            "npm:@fluentui/react-datepicker-compat"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/DropdownField.tsx",
+          "hash": "8911195429770096831",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form",
+            "react-control-flow",
+            "types"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/FileInputField.tsx",
+          "hash": "14249991653811016946",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form",
+            "npm:@fluentui/react-icons",
+            "types",
+            "fluent-input-extensions",
+            "react-control-flow"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/InputField.tsx",
+          "hash": "13217453841177743397",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form",
+            "react-control-flow"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/PeoplePickerField.tsx",
+          "hash": "11959044573355460140",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:react-hook-form",
+            "fluent-input-extensions"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/RadioGroupField.tsx",
+          "hash": "5888265038075326313",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form",
+            "types"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/RatingField.tsx",
+          "hash": "13251958714198377337",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/RichInputField.tsx",
+          "hash": "4766315009700302884",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form",
+            "fluent-input-extensions"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/SliderField.tsx",
+          "hash": "5628052552295966430",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/SpinButtonField.tsx",
+          "hash": "8896198129161377023",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/SwitchField.tsx",
+          "hash": "3055349747151438768",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/TagPickerField.tsx",
+          "hash": "3115720533047988983",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form",
+            "fluent-input-extensions"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/TextareaField.tsx",
+          "hash": "8269578051946113925",
+          "deps": [
+            "npm:@fluentui/react-components",
+            "npm:react",
+            "npm:react-hook-form"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/TimePickerField.tsx",
+          "hash": "13058042549142217433",
+          "deps": [
+            "npm:react",
+            "npm:@fluentui/react-components",
+            "npm:react-hook-form",
+            "npm:@fluentui/react-datepicker-compat",
+            "npm:@fluentui/react-timepicker-compat"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/Input/index.tsx",
+          "hash": "11218341373402635217",
+          "deps": [
+            "types"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/index.tsx",
+          "hash": "3490339374902770146",
+          "deps": [
+            "npm:react-hook-form",
+            "npm:@hookform/resolvers"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/types/CommonFieldProps.ts",
+          "hash": "1336385856527860878",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/components/types/index.ts",
+          "hash": "898456361677470019"
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/styles/index.ts",
+          "hash": "12747209256972065277"
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/styles/useFormStyles.tsx",
+          "hash": "8583140866679416850",
+          "deps": [
+            "npm:@fluentui/react-components"
+          ]
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/utils/InputFormatter.ts",
+          "hash": "8336364685590396077"
+        },
+        {
+          "file": "packages/fluent-react-hook-form/src/lib/utils/index.ts",
+          "hash": "6443177727161934095"
+        },
+        {
+          "file": "packages/fluent-react-hook-form/tsconfig.json",
+          "hash": "10666153663252322535"
+        },
+        {
+          "file": "packages/fluent-react-hook-form/tsconfig.lib.json",
+          "hash": "14512419902778046226"
+        },
+        {
+          "file": "packages/fluent-react-hook-form/tsconfig.spec.json",
+          "hash": "3415516887565153898"
+        },
+        {
+          "file": "packages/fluent-react-hook-form/vite.config.ts",
+          "hash": "14952904348540659915",
+          "deps": [
+            "npm:vite",
+            "npm:@vitejs/plugin-react",
+            "npm:vite-tsconfig-paths"
+          ]
+        }
+      ],
+      "debounce": [
+        {
+          "file": "packages/debounce/.eslintrc.json",
+          "hash": "3165968024688134963"
+        },
+        {
+          "file": "packages/debounce/.swcrc",
+          "hash": "2687333097325422833"
+        },
+        {
+          "file": "packages/debounce/README.md",
+          "hash": "17490574761045253781"
+        },
+        {
+          "file": "packages/debounce/jest.config.ts",
+          "hash": "8533961256760629789"
+        },
+        {
+          "file": "packages/debounce/package.json",
+          "hash": "16289756425720790544"
+        },
+        {
+          "file": "packages/debounce/project.json",
+          "hash": "14252868200096776676"
+        },
+        {
+          "file": "packages/debounce/src/index.ts",
+          "hash": "14083623582942414976"
+        },
+        {
+          "file": "packages/debounce/src/lib/debounce-async.ts",
+          "hash": "781151094495165964"
+        },
+        {
+          "file": "packages/debounce/src/lib/debounce.ts",
+          "hash": "16762619810973195702"
+        },
+        {
+          "file": "packages/debounce/tsconfig.json",
+          "hash": "10318284976433525978"
+        },
+        {
+          "file": "packages/debounce/tsconfig.lib.json",
+          "hash": "17512648156706774563"
+        },
+        {
+          "file": "packages/debounce/tsconfig.spec.json",
+          "hash": "11194536110028348959"
+        }
+      ],
+      "utilities": [
+        {
+          "file": "packages/utilities/.eslintrc.json",
+          "hash": "3165968024688134963"
+        },
+        {
+          "file": "packages/utilities/.swcrc",
+          "hash": "2687333097325422833"
+        },
+        {
+          "file": "packages/utilities/README.md",
+          "hash": "18135175757614640610"
+        },
+        {
+          "file": "packages/utilities/jest.config.ts",
+          "hash": "17846618198455421922"
+        },
+        {
+          "file": "packages/utilities/package.json",
+          "hash": "15854581832264958775"
+        },
+        {
+          "file": "packages/utilities/project.json",
+          "hash": "15877914054687831810"
+        },
+        {
+          "file": "packages/utilities/src/index.ts",
+          "hash": "14453621079435569383"
+        },
+        {
+          "file": "packages/utilities/src/lib/Array/IsArray.ts",
+          "hash": "6281368374030635128"
+        },
+        {
+          "file": "packages/utilities/src/lib/Array/UniqueByKey.ts",
+          "hash": "7744436865713437389"
+        },
+        {
+          "file": "packages/utilities/src/lib/Array/index.ts",
+          "hash": "15911110680981116299"
+        },
+        {
+          "file": "packages/utilities/src/lib/Date/DateDiff.ts",
+          "hash": "15897604990514898999"
+        },
+        {
+          "file": "packages/utilities/src/lib/Date/index.ts",
+          "hash": "6795362981125956587"
+        },
+        {
+          "file": "packages/utilities/src/lib/Filter/FilterUtils.ts",
+          "hash": "17090555625321042679"
+        },
+        {
+          "file": "packages/utilities/src/lib/Filter/index.ts",
+          "hash": "8884515288752880736"
+        },
+        {
+          "file": "packages/utilities/src/lib/Object/Object.ts",
+          "hash": "1378575910296775956"
+        },
+        {
+          "file": "packages/utilities/src/lib/Object/index.ts",
+          "hash": "4028666659133537962"
+        },
+        {
+          "file": "packages/utilities/src/lib/Range/Range.ts",
+          "hash": "1669952472993307442"
+        },
+        {
+          "file": "packages/utilities/src/lib/Range/index.ts",
+          "hash": "17576307713829106760"
+        },
+        {
+          "file": "packages/utilities/src/lib/Wait/index.ts",
+          "hash": "17120028556487446046"
+        },
+        {
+          "file": "packages/utilities/tsconfig.json",
+          "hash": "8682851638362703242"
+        },
+        {
+          "file": "packages/utilities/tsconfig.lib.json",
+          "hash": "17512648156706774563"
+        },
+        {
+          "file": "packages/utilities/tsconfig.spec.json",
+          "hash": "11194536110028348959"
+        }
+      ],
+      "examples-e2e": [
+        {
+          "file": "ui/examples-e2e/.eslintrc.json",
+          "hash": "16360919687746571226"
+        },
+        {
+          "file": "ui/examples-e2e/cypress.config.ts",
+          "hash": "5888464509215434582",
+          "deps": [
+            "npm:cypress",
+            "npm:@nx/cypress"
+          ]
+        },
+        {
+          "file": "ui/examples-e2e/project.json",
+          "hash": "14398317109913106000"
+        },
+        {
+          "file": "ui/examples-e2e/src/e2e/app.cy.ts",
+          "hash": "9443928727785919829"
+        },
+        {
+          "file": "ui/examples-e2e/src/fixtures/example.json",
+          "hash": "17341819486505642070"
+        },
+        {
+          "file": "ui/examples-e2e/src/support/app.po.ts",
+          "hash": "5364106453863571025"
+        },
+        {
+          "file": "ui/examples-e2e/src/support/commands.ts",
+          "hash": "11031723810997510506"
+        },
+        {
+          "file": "ui/examples-e2e/src/support/e2e.ts",
+          "hash": "15928825062325902088"
+        },
+        {
+          "file": "ui/examples-e2e/tsconfig.json",
+          "hash": "6711070650399197251"
+        }
+      ],
+      "prt-ts": [
+        {
+          "file": ".editorconfig",
+          "hash": "11532813898455409296"
+        },
+        {
+          "file": ".eslintignore",
+          "hash": "13404745306227114823"
+        },
+        {
+          "file": ".eslintrc.base.json",
+          "hash": "4566917484430375526"
+        },
+        {
+          "file": ".eslintrc.json",
+          "hash": "7390107790807655527"
+        },
+        {
+          "file": ".github/workflows/azure-static-web-apps-black-flower-01139ec0f.yml",
+          "hash": "5742663753243114651"
+        },
+        {
+          "file": ".gitignore",
+          "hash": "12581457037676579127"
+        },
+        {
+          "file": ".prettierignore",
+          "hash": "2687824826588932174"
+        },
+        {
+          "file": ".prettierrc",
+          "hash": "6820402234827505055"
+        },
+        {
+          "file": ".verdaccio/config.yml",
+          "hash": "5803739477961766241"
+        },
+        {
+          "file": ".vscode/extensions.json",
+          "hash": "5271629927757201771"
+        },
+        {
+          "file": ".vscode/settings.json",
+          "hash": "18342470730073317708"
+        },
+        {
+          "file": "CHANGELOG.md",
+          "hash": "13565161441513630541"
+        },
+        {
+          "file": "README.md",
+          "hash": "4018223578863815148"
+        },
+        {
+          "file": "babel.config.json",
+          "hash": "6619451454968768629"
+        },
+        {
+          "file": "jest.config.ts",
+          "hash": "3407785570333453138",
+          "deps": [
+            "npm:@nx/jest"
+          ]
+        },
+        {
+          "file": "jest.preset.js",
+          "hash": "7473220183190921152",
+          "deps": [
+            "npm:@nx/jest"
+          ]
+        },
+        {
+          "file": "migrations.json",
+          "hash": "916019370097879841"
+        },
+        {
+          "file": "nx.json",
+          "hash": "2531936895722785130"
+        },
+        {
+          "file": "package-lock.json",
+          "hash": "2205698158085221875"
+        },
+        {
+          "file": "package.json",
+          "hash": "16960961898151397171",
+          "deps": [
+            "npm:@babel/core",
+            "npm:@babel/preset-react",
+            "npm:@dnd-kit/core",
+            "npm:@dnd-kit/modifiers",
+            "npm:@dnd-kit/sortable",
+            "npm:@dnd-kit/utilities",
+            "npm:@faker-js/faker",
+            "npm:@fluentui/react-calendar-compat",
+            "npm:@fluentui/react-components",
+            "npm:@fluentui/react-datepicker-compat",
+            "npm:@fluentui/react-timepicker-compat",
+            "npm:@fluentui/react-icons",
+            "npm:@hookform/devtools",
+            "npm:@hookform/resolvers",
+            "npm:@microsoft/applicationinsights-web",
+            "npm:@microsoft/sp-core-library",
+            "npm:@microsoft/sp-list-subscription",
+            "npm:@microsoft/sp-webpart-base",
+            "npm:@nx/cypress",
+            "npm:@nx/eslint",
+            "npm:@nx/eslint-plugin",
+            "npm:@nx/jest",
+            "npm:@nx/js",
+            "npm:@nx/react",
+            "npm:@nx/rollup",
+            "npm:@nx/vite",
+            "npm:@nx/web",
+            "npm:@nx/workspace",
+            "npm:@pnp/core",
+            "npm:@pnp/graph",
+            "npm:@pnp/logging",
+            "npm:@pnp/sp",
+            "npm:@rollup/plugin-url",
+            "npm:@svgr/rollup",
+            "npm:@swc-node/register",
+            "npm:@swc/cli",
+            "npm:@swc/core",
+            "npm:@swc/helpers",
+            "npm:@swc/jest",
+            "npm:@tanstack/react-table",
+            "npm:@tanstack/react-virtual",
+            "npm:@testing-library/react",
+            "npm:@types/file-saver",
+            "npm:@types/html-to-pdfmake",
+            "npm:@types/jest",
+            "npm:@types/node",
+            "npm:@types/react",
+            "npm:@types/react-dom",
+            "npm:@types/react-router-dom",
+            "npm:@typescript-eslint/eslint-plugin",
+            "npm:@typescript-eslint/parser",
+            "npm:@vitejs/plugin-react",
+            "npm:@vitest/coverage-c8",
+            "npm:@vitest/coverage-v8",
+            "npm:@vitest/ui",
+            "npm:babel-jest",
+            "npm:cypress",
+            "npm:eslint",
+            "npm:eslint-config-prettier",
+            "npm:eslint-plugin-cypress",
+            "npm:eslint-plugin-import",
+            "npm:eslint-plugin-jsx-a11y",
+            "npm:eslint-plugin-react",
+            "npm:eslint-plugin-react-hooks",
+            "npm:exceljs",
+            "npm:file-saver",
+            "npm:formik",
+            "npm:g",
+            "npm:html-to-pdfmake",
+            "npm:jest",
+            "npm:jest-environment-jsdom",
+            "npm:jest-environment-node",
+            "npm:jsdom",
+            "npm:nx",
+            "npm:pdfmake",
+            "npm:prettier",
+            "npm:react",
+            "npm:react-dom",
+            "npm:react-dropzone",
+            "npm:react-hook-form",
+            "npm:react-quill",
+            "npm:react-router-dom",
+            "npm:react-virtual",
+            "npm:roosterjs-content-model-api",
+            "npm:roosterjs-content-model-core",
+            "npm:roosterjs-content-model-plugins",
+            "npm:roosterjs-content-model-types",
+            "npm:sass",
+            "npm:scheduler",
+            "npm:swc-loader",
+            "npm:ts-jest",
+            "npm:ts-node",
+            "npm:tslib",
+            "npm:typescript",
+            "npm:verdaccio",
+            "npm:vite",
+            "npm:vite-plugin-dts",
+            "npm:vite-plugin-eslint",
+            "npm:vite-tsconfig-paths",
+            "npm:vitest",
+            "npm:yup"
+          ]
+        },
+        {
+          "file": "packages/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "project.json",
+          "hash": "4227071346929267860"
+        },
+        {
+          "file": "scripts/build.bat",
+          "hash": "3934604061550472246"
+        },
+        {
+          "file": "scripts/publish_debounce.bat",
+          "hash": "972265781545617630"
+        },
+        {
+          "file": "scripts/publish_export-helper.bat",
+          "hash": "17459868845722393163"
+        },
+        {
+          "file": "scripts/publish_fluent-common-feature.bat",
+          "hash": "4842233692449704928"
+        },
+        {
+          "file": "scripts/publish_fluent-formik.bat",
+          "hash": "2702550758350044209"
+        },
+        {
+          "file": "scripts/publish_fluent-input-extensions.bat",
+          "hash": "12555366699184046834"
+        },
+        {
+          "file": "scripts/publish_fluent-react-hook-form.bat",
+          "hash": "9485775555961057244"
+        },
+        {
+          "file": "scripts/publish_fluent-react-table-v2.bat",
+          "hash": "7704309847758920091"
+        },
+        {
+          "file": "scripts/publish_fluent-theme.bat",
+          "hash": "10561458826320870258"
+        },
+        {
+          "file": "scripts/publish_pdf-json-helper copy.bat",
+          "hash": "16252944509971276502"
+        },
+        {
+          "file": "scripts/publish_react-control-flow.bat",
+          "hash": "8485257988877109668"
+        },
+        {
+          "file": "scripts/publish_spfx-core.bat",
+          "hash": "3689703406366430670"
+        },
+        {
+          "file": "scripts/publish_types.bat",
+          "hash": "14195861427594112074"
+        },
+        {
+          "file": "tools/scripts/publish.mjs",
+          "hash": "9175527235262789828",
+          "deps": [
+            "npm:chalk",
+            "npm:@nx/devkit"
+          ]
+        },
+        {
+          "file": "tools/tsconfig.tools.json",
+          "hash": "11810713488198132402"
+        },
+        {
+          "file": "tsconfig.base.json",
+          "hash": "692679502437630712"
         }
       ],
       "fluent-input-extensions": [
@@ -1247,2212 +3453,6 @@
         {
           "file": "packages/fluent-input-extensions/tsconfig.spec.json",
           "hash": "14275568886759166330"
-        }
-      ],
-      "spfx-core": [
-        {
-          "file": "packages/spfx-core/.babelrc",
-          "hash": "15003411175763814189"
-        },
-        {
-          "file": "packages/spfx-core/.eslintrc.json",
-          "hash": "18256128359469774356"
-        },
-        {
-          "file": "packages/spfx-core/README.md",
-          "hash": "16257435191969800642"
-        },
-        {
-          "file": "packages/spfx-core/jest.config.ts",
-          "hash": "10124731705352665439"
-        },
-        {
-          "file": "packages/spfx-core/package.json",
-          "hash": "1991350803882362437",
-          "deps": [
-            "npm:@microsoft/sp-webpart-base",
-            "npm:@microsoft/sp-core-library",
-            "npm:@pnp/core",
-            "npm:@pnp/graph",
-            "npm:@pnp/logging",
-            "npm:@pnp/sp",
-            "npm:@microsoft/sp-list-subscription",
-            "npm:@microsoft/applicationinsights-web",
-            "types"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/project.json",
-          "hash": "837276045890932777"
-        },
-        {
-          "file": "packages/spfx-core/src/index.ts",
-          "hash": "15732582998544476114"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/app/AppConfig.ts",
-          "hash": "15933652306556584051",
-          "deps": [
-            "npm:@microsoft/sp-webpart-base",
-            "npm:@microsoft/applicationinsights-web",
-            "types"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/src/lib/app/AppSettings.ts",
-          "hash": "1670353297001449762"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/app/index.ts",
-          "hash": "5816838556317086537"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/auth/AuthContext.tsx",
-          "hash": "13863473633223080367",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/src/lib/auth/AuthTypes.tsx",
-          "hash": "2923104230425939811"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/auth/VerifyResourceAccess.tsx",
-          "hash": "16624871127745368100"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/auth/index.tsx",
-          "hash": "5641133882224040580"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/debug/DebugMode.ts",
-          "hash": "7080467569721618984"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/debug/index.ts",
-          "hash": "14572087321386249936"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/email/EmailBuilder.ts",
-          "hash": "6611742173343660328",
-          "deps": [
-            "npm:@pnp/sp"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/src/lib/email/EmailConfig.ts",
-          "hash": "14550215905635062036"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/email/EmailSetting.ts",
-          "hash": "5244033644244637308"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/email/index.ts",
-          "hash": "14193041078065216050"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/filters/SPOData.ts",
-          "hash": "11529194813236194048"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/filters/index.ts",
-          "hash": "15772562869594624815"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/hooks/index.ts",
-          "hash": "3723029115824115358"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/hooks/useDocumentDimensions.tsx",
-          "hash": "7814542938669622930",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/src/lib/hooks/useGetTableHeight.tsx",
-          "hash": "11821201264747988401"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/hooks/usePageView.tsx",
-          "hash": "15707127654542071882",
-          "deps": [
-            "npm:react",
-            "npm:@microsoft/applicationinsights-web",
-            "npm:@pnp/logging"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/src/lib/list-subscription/ListSubscriptionType.ts",
-          "hash": "5891360325655289486"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/list-subscription/index.ts",
-          "hash": "8904028448643903362"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/list-subscription/useListSubscription.tsx",
-          "hash": "2973080460742047260",
-          "deps": [
-            "npm:react",
-            "npm:@microsoft/sp-list-subscription",
-            "npm:@microsoft/sp-core-library"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/src/lib/pnp/Logger.ts",
-          "hash": "14514246016526636297",
-          "deps": [
-            "npm:@pnp/logging"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/src/lib/pnp/PnpConfig.tsx",
-          "hash": "10201097273220112160",
-          "deps": [
-            "npm:@microsoft/sp-webpart-base",
-            "npm:@pnp/logging",
-            "npm:@pnp/sp",
-            "npm:@pnp/graph"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/src/lib/pnp/index.ts",
-          "hash": "5646327834169747082"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/services/AppInsightsService.ts",
-          "hash": "11908017215357436579",
-          "deps": [
-            "npm:@microsoft/applicationinsights-web",
-            "npm:@pnp/logging"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/src/lib/services/ChoiceFieldService.ts",
-          "hash": "6325352931360714273"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/services/DocumentLibraryService.ts",
-          "hash": "7248369678890971394",
-          "deps": [
-            "npm:@pnp/sp"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/src/lib/services/ErrorService.ts",
-          "hash": "14909220028805145893",
-          "deps": [
-            "npm:@pnp/logging",
-            "npm:@pnp/queryable",
-            "npm:@pnp/core"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/src/lib/services/ListAttachmentService.ts",
-          "hash": "4060359326176497575",
-          "deps": [
-            "npm:@pnp/sp"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/src/lib/services/UserService.ts",
-          "hash": "10392539829742582021",
-          "deps": [
-            "npm:@pnp/sp",
-            "npm:@pnp/graph",
-            "types"
-          ]
-        },
-        {
-          "file": "packages/spfx-core/src/lib/services/index.ts",
-          "hash": "15317854412551151446"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/spfx-core.tsx",
-          "hash": "8986284402466515296"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/types/DebugKey.ts",
-          "hash": "4693223701680435443"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/types/index.ts",
-          "hash": "12232957519379709329"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/utils/IdHasher.ts",
-          "hash": "7468868730963658084"
-        },
-        {
-          "file": "packages/spfx-core/src/lib/utils/index.ts",
-          "hash": "8841930202701225443"
-        },
-        {
-          "file": "packages/spfx-core/tsconfig.json",
-          "hash": "8703569510908868110"
-        },
-        {
-          "file": "packages/spfx-core/tsconfig.lib.json",
-          "hash": "2427605905680839026"
-        },
-        {
-          "file": "packages/spfx-core/tsconfig.spec.json",
-          "hash": "14275568886759166330"
-        }
-      ],
-      "utilities": [
-        {
-          "file": "packages/utilities/.eslintrc.json",
-          "hash": "3165968024688134963"
-        },
-        {
-          "file": "packages/utilities/.swcrc",
-          "hash": "2687333097325422833"
-        },
-        {
-          "file": "packages/utilities/README.md",
-          "hash": "18135175757614640610"
-        },
-        {
-          "file": "packages/utilities/jest.config.ts",
-          "hash": "17846618198455421922"
-        },
-        {
-          "file": "packages/utilities/package.json",
-          "hash": "15854581832264958775"
-        },
-        {
-          "file": "packages/utilities/project.json",
-          "hash": "15877914054687831810"
-        },
-        {
-          "file": "packages/utilities/src/index.ts",
-          "hash": "14453621079435569383"
-        },
-        {
-          "file": "packages/utilities/src/lib/Array/IsArray.ts",
-          "hash": "6281368374030635128"
-        },
-        {
-          "file": "packages/utilities/src/lib/Array/UniqueByKey.ts",
-          "hash": "7744436865713437389"
-        },
-        {
-          "file": "packages/utilities/src/lib/Array/index.ts",
-          "hash": "15911110680981116299"
-        },
-        {
-          "file": "packages/utilities/src/lib/Date/DateDiff.ts",
-          "hash": "15897604990514898999"
-        },
-        {
-          "file": "packages/utilities/src/lib/Date/index.ts",
-          "hash": "6795362981125956587"
-        },
-        {
-          "file": "packages/utilities/src/lib/Filter/FilterUtils.ts",
-          "hash": "17090555625321042679"
-        },
-        {
-          "file": "packages/utilities/src/lib/Filter/index.ts",
-          "hash": "8884515288752880736"
-        },
-        {
-          "file": "packages/utilities/src/lib/Object/Object.ts",
-          "hash": "1378575910296775956"
-        },
-        {
-          "file": "packages/utilities/src/lib/Object/index.ts",
-          "hash": "4028666659133537962"
-        },
-        {
-          "file": "packages/utilities/src/lib/Range/Range.ts",
-          "hash": "1669952472993307442"
-        },
-        {
-          "file": "packages/utilities/src/lib/Range/index.ts",
-          "hash": "17576307713829106760"
-        },
-        {
-          "file": "packages/utilities/src/lib/Wait/index.ts",
-          "hash": "17120028556487446046"
-        },
-        {
-          "file": "packages/utilities/tsconfig.json",
-          "hash": "8682851638362703242"
-        },
-        {
-          "file": "packages/utilities/tsconfig.lib.json",
-          "hash": "17512648156706774563"
-        },
-        {
-          "file": "packages/utilities/tsconfig.spec.json",
-          "hash": "11194536110028348959"
-        }
-      ],
-      "debounce": [
-        {
-          "file": "packages/debounce/.eslintrc.json",
-          "hash": "3165968024688134963"
-        },
-        {
-          "file": "packages/debounce/.swcrc",
-          "hash": "2687333097325422833"
-        },
-        {
-          "file": "packages/debounce/README.md",
-          "hash": "17490574761045253781"
-        },
-        {
-          "file": "packages/debounce/jest.config.ts",
-          "hash": "8533961256760629789"
-        },
-        {
-          "file": "packages/debounce/package.json",
-          "hash": "16289756425720790544"
-        },
-        {
-          "file": "packages/debounce/project.json",
-          "hash": "14252868200096776676"
-        },
-        {
-          "file": "packages/debounce/src/index.ts",
-          "hash": "14083623582942414976"
-        },
-        {
-          "file": "packages/debounce/src/lib/debounce-async.ts",
-          "hash": "781151094495165964"
-        },
-        {
-          "file": "packages/debounce/src/lib/debounce.ts",
-          "hash": "16762619810973195702"
-        },
-        {
-          "file": "packages/debounce/tsconfig.json",
-          "hash": "10318284976433525978"
-        },
-        {
-          "file": "packages/debounce/tsconfig.lib.json",
-          "hash": "17512648156706774563"
-        },
-        {
-          "file": "packages/debounce/tsconfig.spec.json",
-          "hash": "11194536110028348959"
-        }
-      ],
-      "fluent-formik": [
-        {
-          "file": "packages/fluent-formik/.eslintrc.json",
-          "hash": "3165968024688134963"
-        },
-        {
-          "file": "packages/fluent-formik/.swcrc",
-          "hash": "2687333097325422833"
-        },
-        {
-          "file": "packages/fluent-formik/README.md",
-          "hash": "10710062628440025041"
-        },
-        {
-          "file": "packages/fluent-formik/jest.config.ts",
-          "hash": "1357675755500218750"
-        },
-        {
-          "file": "packages/fluent-formik/package.json",
-          "hash": "4763414135372329586",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons",
-            "npm:@fluentui/react-datepicker-compat",
-            "npm:react",
-            "npm:react-dom",
-            "npm:formik",
-            "npm:react-dropzone",
-            "npm:react-quill"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/project.json",
-          "hash": "1759549831270994845"
-        },
-        {
-          "file": "packages/fluent-formik/src/index.ts",
-          "hash": "15968023470311959829"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/CheckboxField/CheckboxField.tsx",
-          "hash": "1658826920060682692",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:formik"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/CheckboxField/Types.ts",
-          "hash": "16084493303730604927",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/CheckboxField/index.tsx",
-          "hash": "15156225507783643581"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/CheckboxInputField/CheckboxInputField.tsx",
-          "hash": "8160899596146815941",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:formik"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/CheckboxInputField/Styles.tsx",
-          "hash": "12553158451079484603",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/CheckboxInputField/Types.tsx",
-          "hash": "15247429996302594218",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/CheckboxInputField/index.tsx",
-          "hash": "13545676632523263231"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/CheckboxInputField/useCheckboxInputField.tsx",
-          "hash": "4084557984522826948",
-          "deps": [
-            "npm:react",
-            "npm:formik",
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/DatePickerField/DatePickerField.tsx",
-          "hash": "5637079611533649150",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-datepicker-compat",
-            "npm:formik",
-            "npm:@fluentui/react-icons"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/DatePickerField/index.tsx",
-          "hash": "11631845393285594613"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/DatePickerField/useDatePickerField.tsx",
-          "hash": "17002999623651251886",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/DropdownField/DropdownField.tsx",
-          "hash": "17322403073146611989",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:formik"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/DropdownField/Types.tsx",
-          "hash": "10342211257733599840",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/DropdownField/index.tsx",
-          "hash": "8354341599465727527"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/DropdownField/useDropdownField.tsx",
-          "hash": "833529529869140760",
-          "deps": [
-            "npm:formik",
-            "npm:react",
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/FileInputField/FileInputField.tsx",
-          "hash": "10224555303636397804",
-          "deps": [
-            "npm:formik",
-            "npm:react",
-            "npm:react-dropzone",
-            "npm:@fluentui/react-icons",
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/FileInputField/index.tsx",
-          "hash": "555294760362151755"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/FocusErrorElement/FocusError.tsx",
-          "hash": "10292687695749461968",
-          "deps": [
-            "npm:react",
-            "npm:formik"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/FocusErrorElement/flattenToLodashFormat.tsx",
-          "hash": "9608350487263963286"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/FocusErrorElement/formikConnect.tsx",
-          "hash": "12271792136027085230",
-          "deps": [
-            "npm:react",
-            "npm:formik"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/FocusErrorElement/index.tsx",
-          "hash": "12507901055155403312"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/InputField/InputField.tsx",
-          "hash": "5572118404949658819",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:formik"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/InputField/Types.tsx",
-          "hash": "4281640143648003535",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/InputField/index.tsx",
-          "hash": "18064994748060160599"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/RadioField/RadioField.tsx",
-          "hash": "2139667670750135338",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:formik"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/RadioField/Types.ts",
-          "hash": "17335942548172616784",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/RadioField/index.tsx",
-          "hash": "2025880461079137376"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/RadioInputField/RadioInputField.tsx",
-          "hash": "15529685832174450840",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:formik"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/RadioInputField/Types.ts",
-          "hash": "18037942734309938230",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/RadioInputField/index.tsx",
-          "hash": "11795102852864316103"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/RichInputField/RichInputField.tsx",
-          "hash": "13096733143694318633",
-          "deps": [
-            "npm:formik",
-            "npm:react",
-            "npm:react-quill",
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/RichInputField/Types.tsx",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/RichInputField/index.tsx",
-          "hash": "16669423417459636562"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/RichInputField/useRichInputFieldStyles.tsx",
-          "hash": "9126102265852086988",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/SliderInputField/SliderInputField.tsx",
-          "hash": "12209515749864508360",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:formik"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/SliderInputField/Types.tsx",
-          "hash": "3366074244441327785",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/SliderInputField/index.tsx",
-          "hash": "776235523593417674"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/SpinButtonField/SpinButtonField.tsx",
-          "hash": "15852753690624621868",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:formik"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/SpinButtonField/Types.tsx",
-          "hash": "7005062345263750720",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/SpinButtonField/index.tsx",
-          "hash": "1570432334036844912"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/SwitchField/SwitchField.tsx",
-          "hash": "14004078956268121381",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:formik"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/SwitchField/Types.ts",
-          "hash": "6049209618456438663",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/SwitchField/index.tsx",
-          "hash": "8014984999475624087"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/TextareaField/TextareaField.tsx",
-          "hash": "10349805312060585904",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:formik"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/TextareaField/Types.tsx",
-          "hash": "7725397061668188646",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/components/TextareaField/index.tsx",
-          "hash": "5703813591483891005"
-        },
-        {
-          "file": "packages/fluent-formik/src/lib/index.tsx",
-          "hash": "17074442834931347113"
-        },
-        {
-          "file": "packages/fluent-formik/tsconfig.json",
-          "hash": "12710048611780890367"
-        },
-        {
-          "file": "packages/fluent-formik/tsconfig.lib.json",
-          "hash": "17512648156706774563"
-        },
-        {
-          "file": "packages/fluent-formik/tsconfig.spec.json",
-          "hash": "11194536110028348959"
-        }
-      ],
-      "prt-ts": [
-        {
-          "file": ".editorconfig",
-          "hash": "11532813898455409296"
-        },
-        {
-          "file": ".eslintignore",
-          "hash": "13404745306227114823"
-        },
-        {
-          "file": ".eslintrc.base.json",
-          "hash": "4566917484430375526"
-        },
-        {
-          "file": ".eslintrc.json",
-          "hash": "7390107790807655527"
-        },
-        {
-          "file": ".github/workflows/azure-static-web-apps-black-flower-01139ec0f.yml",
-          "hash": "5742663753243114651"
-        },
-        {
-          "file": ".gitignore",
-          "hash": "12581457037676579127"
-        },
-        {
-          "file": ".prettierignore",
-          "hash": "2687824826588932174"
-        },
-        {
-          "file": ".prettierrc",
-          "hash": "6820402234827505055"
-        },
-        {
-          "file": ".verdaccio/config.yml",
-          "hash": "5803739477961766241"
-        },
-        {
-          "file": ".vscode/extensions.json",
-          "hash": "5271629927757201771"
-        },
-        {
-          "file": ".vscode/settings.json",
-          "hash": "18342470730073317708"
-        },
-        {
-          "file": "CHANGELOG.md",
-          "hash": "13565161441513630541"
-        },
-        {
-          "file": "README.md",
-          "hash": "4018223578863815148"
-        },
-        {
-          "file": "babel.config.json",
-          "hash": "6619451454968768629"
-        },
-        {
-          "file": "jest.config.ts",
-          "hash": "3407785570333453138",
-          "deps": [
-            "npm:@nx/jest"
-          ]
-        },
-        {
-          "file": "jest.preset.js",
-          "hash": "7473220183190921152",
-          "deps": [
-            "npm:@nx/jest"
-          ]
-        },
-        {
-          "file": "migrations.json",
-          "hash": "916019370097879841"
-        },
-        {
-          "file": "nx.json",
-          "hash": "2531936895722785130"
-        },
-        {
-          "file": "package-lock.json",
-          "hash": "2205698158085221875"
-        },
-        {
-          "file": "package.json",
-          "hash": "16960961898151397171",
-          "deps": [
-            "npm:@babel/core",
-            "npm:@babel/preset-react",
-            "npm:@dnd-kit/core",
-            "npm:@dnd-kit/modifiers",
-            "npm:@dnd-kit/sortable",
-            "npm:@dnd-kit/utilities",
-            "npm:@faker-js/faker",
-            "npm:@fluentui/react-calendar-compat",
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-datepicker-compat",
-            "npm:@fluentui/react-timepicker-compat",
-            "npm:@fluentui/react-icons",
-            "npm:@hookform/devtools",
-            "npm:@hookform/resolvers",
-            "npm:@microsoft/applicationinsights-web",
-            "npm:@microsoft/sp-core-library",
-            "npm:@microsoft/sp-list-subscription",
-            "npm:@microsoft/sp-webpart-base",
-            "npm:@nx/cypress",
-            "npm:@nx/eslint",
-            "npm:@nx/eslint-plugin",
-            "npm:@nx/jest",
-            "npm:@nx/js",
-            "npm:@nx/react",
-            "npm:@nx/rollup",
-            "npm:@nx/vite",
-            "npm:@nx/web",
-            "npm:@nx/workspace",
-            "npm:@pnp/core",
-            "npm:@pnp/graph",
-            "npm:@pnp/logging",
-            "npm:@pnp/sp",
-            "npm:@rollup/plugin-url",
-            "npm:@svgr/rollup",
-            "npm:@swc-node/register",
-            "npm:@swc/cli",
-            "npm:@swc/core",
-            "npm:@swc/helpers",
-            "npm:@swc/jest",
-            "npm:@tanstack/react-table",
-            "npm:@tanstack/react-virtual",
-            "npm:@testing-library/react",
-            "npm:@types/file-saver",
-            "npm:@types/html-to-pdfmake",
-            "npm:@types/jest",
-            "npm:@types/node",
-            "npm:@types/react",
-            "npm:@types/react-dom",
-            "npm:@types/react-router-dom",
-            "npm:@typescript-eslint/eslint-plugin",
-            "npm:@typescript-eslint/parser",
-            "npm:@vitejs/plugin-react",
-            "npm:@vitest/coverage-c8",
-            "npm:@vitest/coverage-v8",
-            "npm:@vitest/ui",
-            "npm:babel-jest",
-            "npm:cypress",
-            "npm:eslint",
-            "npm:eslint-config-prettier",
-            "npm:eslint-plugin-cypress",
-            "npm:eslint-plugin-import",
-            "npm:eslint-plugin-jsx-a11y",
-            "npm:eslint-plugin-react",
-            "npm:eslint-plugin-react-hooks",
-            "npm:exceljs",
-            "npm:file-saver",
-            "npm:formik",
-            "npm:g",
-            "npm:html-to-pdfmake",
-            "npm:jest",
-            "npm:jest-environment-jsdom",
-            "npm:jest-environment-node",
-            "npm:jsdom",
-            "npm:nx",
-            "npm:pdfmake",
-            "npm:prettier",
-            "npm:react",
-            "npm:react-dom",
-            "npm:react-dropzone",
-            "npm:react-hook-form",
-            "npm:react-quill",
-            "npm:react-router-dom",
-            "npm:react-virtual",
-            "npm:roosterjs-content-model-api",
-            "npm:roosterjs-content-model-core",
-            "npm:roosterjs-content-model-plugins",
-            "npm:roosterjs-content-model-types",
-            "npm:sass",
-            "npm:scheduler",
-            "npm:swc-loader",
-            "npm:ts-jest",
-            "npm:ts-node",
-            "npm:tslib",
-            "npm:typescript",
-            "npm:verdaccio",
-            "npm:vite",
-            "npm:vite-plugin-dts",
-            "npm:vite-plugin-eslint",
-            "npm:vite-tsconfig-paths",
-            "npm:vitest",
-            "npm:yup"
-          ]
-        },
-        {
-          "file": "packages/.gitkeep",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "project.json",
-          "hash": "4227071346929267860"
-        },
-        {
-          "file": "scripts/build.bat",
-          "hash": "3934604061550472246"
-        },
-        {
-          "file": "scripts/publish_debounce.bat",
-          "hash": "972265781545617630"
-        },
-        {
-          "file": "scripts/publish_export-helper.bat",
-          "hash": "17459868845722393163"
-        },
-        {
-          "file": "scripts/publish_fluent-common-feature.bat",
-          "hash": "4842233692449704928"
-        },
-        {
-          "file": "scripts/publish_fluent-formik.bat",
-          "hash": "2702550758350044209"
-        },
-        {
-          "file": "scripts/publish_fluent-input-extensions.bat",
-          "hash": "12555366699184046834"
-        },
-        {
-          "file": "scripts/publish_fluent-react-hook-form.bat",
-          "hash": "9485775555961057244"
-        },
-        {
-          "file": "scripts/publish_fluent-react-table-v2.bat",
-          "hash": "7704309847758920091"
-        },
-        {
-          "file": "scripts/publish_fluent-theme.bat",
-          "hash": "10561458826320870258"
-        },
-        {
-          "file": "scripts/publish_pdf-json-helper copy.bat",
-          "hash": "16252944509971276502"
-        },
-        {
-          "file": "scripts/publish_react-control-flow.bat",
-          "hash": "8485257988877109668"
-        },
-        {
-          "file": "scripts/publish_spfx-core.bat",
-          "hash": "3689703406366430670"
-        },
-        {
-          "file": "scripts/publish_types.bat",
-          "hash": "14195861427594112074"
-        },
-        {
-          "file": "tools/scripts/publish.mjs",
-          "hash": "9175527235262789828",
-          "deps": [
-            "npm:chalk",
-            "npm:@nx/devkit"
-          ]
-        },
-        {
-          "file": "tools/tsconfig.tools.json",
-          "hash": "11810713488198132402"
-        },
-        {
-          "file": "tsconfig.base.json",
-          "hash": "692679502437630712"
-        }
-      ],
-      "examples": [
-        {
-          "file": "ui/examples/.eslintrc.json",
-          "hash": "18256128359469774356"
-        },
-        {
-          "file": "ui/examples/index.html",
-          "hash": "17627313004004813655"
-        },
-        {
-          "file": "ui/examples/project.json",
-          "hash": "11261329526452944212"
-        },
-        {
-          "file": "ui/examples/public/favicon.ico",
-          "hash": "9303420814833116677"
-        },
-        {
-          "file": "ui/examples/src/app/DummyEditPage.tsx",
-          "hash": "11040281194018400419",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-router-dom"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/EditableGrid/EditableGrid.tsx",
-          "hash": "744129988598723093",
-          "deps": [
-            "fluent-react-table-v2",
-            "fluent-react-hook-form",
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/EditableGrid/GridSchema.tsx",
-          "hash": "7006227063036414187",
-          "deps": [
-            "npm:yup"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/EditableGrid/useEditableGrid.tsx",
-          "hash": "13533996165895351662",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons",
-            "fluent-react-hook-form",
-            "fluent-react-table-v2",
-            "fluent-common-features",
-            "npm:react"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/ErrorComponent.tsx",
-          "hash": "5193857397436885894",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "fluent-common-features",
-            "npm:react"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/RHFTest.tsx",
-          "hash": "13459505778665707884",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "fluent-react-hook-form",
-            "npm:react",
-            "npm:yup",
-            "npm:@hookform/resolvers",
-            "npm:react-router-dom",
-            "types"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/RHFormExamples/Input.tsx",
-          "hash": "5961792171859057695",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "fluent-input-extensions",
-            "fluent-react-hook-form",
-            "npm:react",
-            "npm:yup"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/TableExample.tsx",
-          "hash": "537332626572118474",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons",
-            "fluent-react-table-v2",
-            "npm:react-router-dom",
-            "export-helpers"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/TableExample2.tsx",
-          "hash": "11380415831595686322",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons",
-            "fluent-react-table-v2",
-            "npm:react-router-dom",
-            "npm:@tanstack/react-table",
-            "fluent-common-features",
-            "export-helpers"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/Web.tsx",
-          "hash": "5840454933098907394",
-          "deps": [
-            "fluent-formik",
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons",
-            "npm:formik",
-            "npm:yup"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/app.module.scss",
-          "hash": "14507130133388590702"
-        },
-        {
-          "file": "ui/examples/src/app/app.spec.tsx",
-          "hash": "4087919147013002846",
-          "deps": [
-            "npm:@testing-library/react",
-            "npm:react-router-dom"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/app.tsx",
-          "hash": "4305828537969576489",
-          "deps": [
-            "npm:react-router-dom",
-            "fluent-common-features",
-            "npm:react",
-            "fluent-theme",
-            "npm:@fluentui/react-components",
-            "types"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/data.tsx",
-          "hash": "10796226633121518327",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:@faker-js/faker",
-            "npm:@fluentui/react-icons"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/data/UserInfo.tsx",
-          "hash": "13129527267719066122",
-          "deps": [
-            "types",
-            "npm:@faker-js/faker",
-            "debounce",
-            "utilities"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/data/data.tsx",
-          "hash": "834571148593761781",
-          "deps": [
-            "npm:@faker-js/faker"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/data/tableView.tsx",
-          "hash": "17727390886101259646",
-          "deps": [
-            "fluent-react-table-v2"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/examples/Control/Controls.tsx",
-          "hash": "16076927244514255599",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "react-control-flow",
-            "npm:react"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/examples/FeatureComp/Features.tsx",
-          "hash": "13621321876389375794",
-          "deps": [
-            "fluent-common-features",
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "export-helpers"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/examples/SignUpForm/SignUpForm.tsx",
-          "hash": "7024880688998090256",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "fluent-react-hook-form",
-            "npm:react",
-            "npm:yup",
-            "npm:@hookform/resolvers"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/examples/useDefaultValue.tsx",
-          "hash": "6937056413464319072",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/layout/Footer/Footer.tsx",
-          "hash": "8176576216008813432",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/layout/Footer/index.ts",
-          "hash": "3326647927141095872"
-        },
-        {
-          "file": "ui/examples/src/app/layout/Layout.tsx",
-          "hash": "14447038540497342695",
-          "deps": [
-            "npm:react",
-            "npm:react-router-dom"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/layout/Navbar/Navbar.tsx",
-          "hash": "16247565862475600414",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:@fluentui/react-icons",
-            "npm:react-router-dom",
-            "fluent-common-features"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/layout/Navbar/index.ts",
-          "hash": "11066822241535572612"
-        },
-        {
-          "file": "ui/examples/src/app/layout/SideNav/SideNav.tsx",
-          "hash": "15955640202582852371",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons",
-            "npm:react",
-            "npm:react-router-dom",
-            "fluent-common-features"
-          ]
-        },
-        {
-          "file": "ui/examples/src/app/layout/SideNav/index.ts",
-          "hash": "1857523201662088498"
-        },
-        {
-          "file": "ui/examples/src/app/layout/useLayoutStyles.tsx",
-          "hash": "6930773871796380002",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "ui/examples/src/assets/.gitkeep",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "ui/examples/src/main.tsx",
-          "hash": "11184117728240372428",
-          "deps": [
-            "npm:react",
-            "npm:react-dom"
-          ]
-        },
-        {
-          "file": "ui/examples/src/styles.scss",
-          "hash": "3650193876495392983"
-        },
-        {
-          "file": "ui/examples/tsconfig.app.json",
-          "hash": "11259775150751573958"
-        },
-        {
-          "file": "ui/examples/tsconfig.json",
-          "hash": "14868773622111174546"
-        },
-        {
-          "file": "ui/examples/tsconfig.spec.json",
-          "hash": "426148043594090445"
-        },
-        {
-          "file": "ui/examples/vite.config.ts",
-          "hash": "15847311203430145035",
-          "deps": [
-            "npm:vite",
-            "npm:@vitejs/plugin-react",
-            "npm:@nx/vite"
-          ]
-        }
-      ],
-      "fluent-react-hook-form": [
-        {
-          "file": "packages/fluent-react-hook-form/.eslintrc.json",
-          "hash": "18256128359469774356"
-        },
-        {
-          "file": "packages/fluent-react-hook-form/README.md",
-          "hash": "819937930248937648"
-        },
-        {
-          "file": "packages/fluent-react-hook-form/package.json",
-          "hash": "4348194037493465538",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons",
-            "npm:react",
-            "npm:react-dom",
-            "npm:react-hook-form",
-            "npm:@hookform/resolvers",
-            "npm:@fluentui/react-datepicker-compat",
-            "npm:@fluentui/react-timepicker-compat",
-            "npm:@fluentui/react-calendar-compat",
-            "fluent-input-extensions",
-            "react-control-flow"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/project.json",
-          "hash": "13890874162250821056"
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/index.ts",
-          "hash": "14152693599889902869"
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Form/Form.tsx",
-          "hash": "9067969399779263390",
-          "deps": [
-            "npm:react",
-            "npm:react-hook-form"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Form/FormContext.tsx",
-          "hash": "712241199186434657",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Form/index.tsx",
-          "hash": "12355731133098796091"
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Form/useFormContext.tsx",
-          "hash": "3199174513829146557",
-          "deps": [
-            "npm:react",
-            "npm:react-hook-form"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/DatePickerCell.tsx",
-          "hash": "3386866937080309231",
-          "deps": [
-            "npm:react",
-            "react-control-flow",
-            "npm:@fluentui/react-icons",
-            "npm:@fluentui/react-components",
-            "npm:react-hook-form",
-            "npm:@fluentui/react-datepicker-compat"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/DropdownCell.tsx",
-          "hash": "3551657530418307245",
-          "deps": [
-            "npm:react",
-            "react-control-flow",
-            "npm:react-hook-form",
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/InputCell.tsx",
-          "hash": "9701013356548896095",
-          "deps": [
-            "npm:react",
-            "npm:react-hook-form",
-            "npm:@fluentui/react-components",
-            "react-control-flow"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/TextareaCell.tsx",
-          "hash": "4283460295457774901",
-          "deps": [
-            "npm:react",
-            "npm:react-hook-form",
-            "npm:@fluentui/react-components",
-            "react-control-flow"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/index.ts",
-          "hash": "18168348487819722593"
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/useGetErrorContent.tsx",
-          "hash": "11107656980133038289",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/GridCell/useStyles.tsx",
-          "hash": "7229591526158530284",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/CalendarField.tsx",
-          "hash": "8762392107211343160",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form",
-            "npm:@fluentui/react-calendar-compat"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/CheckboxField.tsx",
-          "hash": "1400006487174064922",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/ComboboxField.tsx",
-          "hash": "14380844574735086039",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/CurrencyInputField.tsx",
-          "hash": "3475613496476619572",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/DatePickerField.tsx",
-          "hash": "7598160443619338314",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form",
-            "npm:@fluentui/react-datepicker-compat"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/DropdownField.tsx",
-          "hash": "8911195429770096831",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form",
-            "react-control-flow",
-            "types"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/FileInputField.tsx",
-          "hash": "14249991653811016946",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form",
-            "npm:@fluentui/react-icons",
-            "types",
-            "fluent-input-extensions",
-            "react-control-flow"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/InputField.tsx",
-          "hash": "13217453841177743397",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form",
-            "react-control-flow"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/PeoplePickerField.tsx",
-          "hash": "11959044573355460140",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:react-hook-form",
-            "fluent-input-extensions"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/RadioGroupField.tsx",
-          "hash": "5888265038075326313",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form",
-            "types"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/RatingField.tsx",
-          "hash": "13251958714198377337",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/RichInputField.tsx",
-          "hash": "4766315009700302884",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form",
-            "fluent-input-extensions"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/SliderField.tsx",
-          "hash": "5628052552295966430",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/SpinButtonField.tsx",
-          "hash": "8896198129161377023",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/SwitchField.tsx",
-          "hash": "3055349747151438768",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/TagPickerField.tsx",
-          "hash": "3115720533047988983",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form",
-            "fluent-input-extensions"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/TextareaField.tsx",
-          "hash": "8269578051946113925",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-hook-form"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/TimePickerField.tsx",
-          "hash": "13058042549142217433",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:react-hook-form",
-            "npm:@fluentui/react-datepicker-compat",
-            "npm:@fluentui/react-timepicker-compat"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/Input/index.tsx",
-          "hash": "11218341373402635217",
-          "deps": [
-            "types"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/index.tsx",
-          "hash": "3490339374902770146",
-          "deps": [
-            "npm:react-hook-form",
-            "npm:@hookform/resolvers"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/types/CommonFieldProps.ts",
-          "hash": "1336385856527860878",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/components/types/index.ts",
-          "hash": "898456361677470019"
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/styles/index.ts",
-          "hash": "12747209256972065277"
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/styles/useFormStyles.tsx",
-          "hash": "8583140866679416850",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/utils/InputFormatter.ts",
-          "hash": "8336364685590396077"
-        },
-        {
-          "file": "packages/fluent-react-hook-form/src/lib/utils/index.ts",
-          "hash": "6443177727161934095"
-        },
-        {
-          "file": "packages/fluent-react-hook-form/tsconfig.json",
-          "hash": "10666153663252322535"
-        },
-        {
-          "file": "packages/fluent-react-hook-form/tsconfig.lib.json",
-          "hash": "14512419902778046226"
-        },
-        {
-          "file": "packages/fluent-react-hook-form/tsconfig.spec.json",
-          "hash": "3415516887565153898"
-        },
-        {
-          "file": "packages/fluent-react-hook-form/vite.config.ts",
-          "hash": "14952904348540659915",
-          "deps": [
-            "npm:vite",
-            "npm:@vitejs/plugin-react",
-            "npm:vite-tsconfig-paths"
-          ]
-        }
-      ],
-      "react-control-flow": [
-        {
-          "file": "packages/react-control-flow/.babelrc",
-          "hash": "15003411175763814189"
-        },
-        {
-          "file": "packages/react-control-flow/.eslintrc.json",
-          "hash": "18256128359469774356"
-        },
-        {
-          "file": "packages/react-control-flow/README.md",
-          "hash": "15227272636925318126"
-        },
-        {
-          "file": "packages/react-control-flow/jest.config.ts",
-          "hash": "11287655920334386672"
-        },
-        {
-          "file": "packages/react-control-flow/package.json",
-          "hash": "16069928821157049224",
-          "deps": [
-            "npm:react",
-            "npm:react-dom"
-          ]
-        },
-        {
-          "file": "packages/react-control-flow/project.json",
-          "hash": "16020628643823986801"
-        },
-        {
-          "file": "packages/react-control-flow/src/index.ts",
-          "hash": "14541821773578590559"
-        },
-        {
-          "file": "packages/react-control-flow/src/lib/controls/Case.tsx",
-          "hash": "956950424490702981",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/react-control-flow/src/lib/controls/For.tsx",
-          "hash": "10616992100607932371",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/react-control-flow/src/lib/controls/Show.tsx",
-          "hash": "8757639362685264048",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/react-control-flow/src/lib/controls/Switch.tsx",
-          "hash": "11068605983791580232",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/react-control-flow/src/lib/controls/index.tsx",
-          "hash": "4311636102616647268"
-        },
-        {
-          "file": "packages/react-control-flow/src/lib/index.tsx",
-          "hash": "15063933520403109169"
-        },
-        {
-          "file": "packages/react-control-flow/src/lib/types/ConditionalClause.ts",
-          "hash": "10200296526895462076"
-        },
-        {
-          "file": "packages/react-control-flow/tsconfig.json",
-          "hash": "2717301636124270161"
-        },
-        {
-          "file": "packages/react-control-flow/tsconfig.lib.json",
-          "hash": "2943616727076862881"
-        },
-        {
-          "file": "packages/react-control-flow/tsconfig.spec.json",
-          "hash": "14275568886759166330"
-        }
-      ],
-      "fluent-theme": [
-        {
-          "file": "packages/fluent-theme/.babelrc",
-          "hash": "15003411175763814189"
-        },
-        {
-          "file": "packages/fluent-theme/.eslintrc.json",
-          "hash": "18256128359469774356"
-        },
-        {
-          "file": "packages/fluent-theme/README.md",
-          "hash": "13032624082973106376"
-        },
-        {
-          "file": "packages/fluent-theme/package.json",
-          "hash": "9888459578490582213",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react",
-            "npm:react-dom"
-          ]
-        },
-        {
-          "file": "packages/fluent-theme/project.json",
-          "hash": "6326366886558621124"
-        },
-        {
-          "file": "packages/fluent-theme/src/index.ts",
-          "hash": "15968023470311959829"
-        },
-        {
-          "file": "packages/fluent-theme/src/lib/index.tsx",
-          "hash": "982991969258179334"
-        },
-        {
-          "file": "packages/fluent-theme/src/lib/theme/ThemeService.tsx",
-          "hash": "8485876450134328653",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-theme/src/lib/theme/Types.tsx",
-          "hash": "7911880857788407546"
-        },
-        {
-          "file": "packages/fluent-theme/src/lib/theme/helpers/csswg.ts",
-          "hash": "6458739872208045646"
-        },
-        {
-          "file": "packages/fluent-theme/src/lib/theme/helpers/geometry.ts",
-          "hash": "13118891790400821596"
-        },
-        {
-          "file": "packages/fluent-theme/src/lib/theme/helpers/hueMap.ts",
-          "hash": "10796735146398212403"
-        },
-        {
-          "file": "packages/fluent-theme/src/lib/theme/helpers/paletters.ts",
-          "hash": "13037400501012518007"
-        },
-        {
-          "file": "packages/fluent-theme/src/lib/theme/helpers/types.ts",
-          "hash": "8082053969508680650"
-        },
-        {
-          "file": "packages/fluent-theme/tsconfig.json",
-          "hash": "7089800576176758660"
-        },
-        {
-          "file": "packages/fluent-theme/tsconfig.lib.json",
-          "hash": "2943616727076862881"
-        }
-      ],
-      "export-helpers": [
-        {
-          "file": "packages/export-helpers/.eslintrc.json",
-          "hash": "3165968024688134963"
-        },
-        {
-          "file": "packages/export-helpers/README.md",
-          "hash": "547235769958090675"
-        },
-        {
-          "file": "packages/export-helpers/jest.config.ts",
-          "hash": "11526804402426326507"
-        },
-        {
-          "file": "packages/export-helpers/package.json",
-          "hash": "2360672873747455001",
-          "deps": [
-            "npm:file-saver",
-            "npm:pdfmake",
-            "npm:exceljs"
-          ]
-        },
-        {
-          "file": "packages/export-helpers/project.json",
-          "hash": "5221821755643660240"
-        },
-        {
-          "file": "packages/export-helpers/src/index.ts",
-          "hash": "15968023470311959829"
-        },
-        {
-          "file": "packages/export-helpers/src/lib/Types.ts",
-          "hash": "12339864767886818383",
-          "deps": [
-            "npm:exceljs"
-          ]
-        },
-        {
-          "file": "packages/export-helpers/src/lib/createBlob.ts",
-          "hash": "11166727884587102336"
-        },
-        {
-          "file": "packages/export-helpers/src/lib/createDocumentBuffer.ts",
-          "hash": "10636888728550224778",
-          "deps": [
-            "npm:exceljs",
-            [
-              "npm:exceljs",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "packages/export-helpers/src/lib/exportDocument.ts",
-          "hash": "13783397717016836193"
-        },
-        {
-          "file": "packages/export-helpers/src/lib/exportToPDFDoc.ts",
-          "hash": "15376378387143906849",
-          "deps": [
-            "npm:pdfmake",
-            [
-              "npm:pdfmake",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "packages/export-helpers/src/lib/importFiles.ts",
-          "hash": "15728244147441750191",
-          "deps": [
-            [
-              "npm:exceljs",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "packages/export-helpers/src/lib/index.ts",
-          "hash": "7107300922159948543",
-          "deps": [
-            "npm:pdfmake",
-            "npm:exceljs"
-          ]
-        },
-        {
-          "file": "packages/export-helpers/src/lib/saveInFile.ts",
-          "hash": "9872335427562003270",
-          "deps": [
-            "npm:file-saver"
-          ]
-        },
-        {
-          "file": "packages/export-helpers/tsconfig.json",
-          "hash": "10294729341131714718"
-        },
-        {
-          "file": "packages/export-helpers/tsconfig.lib.json",
-          "hash": "17512648156706774563"
-        },
-        {
-          "file": "packages/export-helpers/tsconfig.spec.json",
-          "hash": "11194536110028348959"
-        }
-      ],
-      "fluent-common-features": [
-        {
-          "file": "packages/fluent-common-features/.eslintrc.json",
-          "hash": "18256128359469774356"
-        },
-        {
-          "file": "packages/fluent-common-features/README.md",
-          "hash": "3533111642744118319"
-        },
-        {
-          "file": "packages/fluent-common-features/package.json",
-          "hash": "17399817795052410345",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons",
-            "npm:react",
-            "npm:react-dom"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/project.json",
-          "hash": "18422147702610339662"
-        },
-        {
-          "file": "packages/fluent-common-features/src/index.ts",
-          "hash": "15968023470311959829"
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/components/access-denied/AccessDenied.tsx",
-          "hash": "1804632668281796419",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons",
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/components/error-fallback/ErrorFallback.tsx",
-          "hash": "9554256371874442345",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons",
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/components/page-not-found/PageNotFound.tsx",
-          "hash": "4653692702353973329",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons",
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/alert/AlertContext.tsx",
-          "hash": "12527976589784843141",
-          "deps": [
-            "npm:@fluentui/react-components",
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/alert/index.ts",
-          "hash": "6406025436166890599"
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/alert/useAlert.tsx",
-          "hash": "12192919549585755683",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components",
-            "npm:@fluentui/react-icons"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/confirm/ConfirmContext.tsx",
-          "hash": "7849484388860536286",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/confirm/ConfirmDialog.tsx",
-          "hash": "11207460421649926092",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/confirm/Provider.tsx",
-          "hash": "17115622891384161473",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/confirm/Types.tsx",
-          "hash": "17782941979524172165",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/confirm/index.tsx",
-          "hash": "13921598324293561315"
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/confirm/useConfirm.tsx",
-          "hash": "13027201460451137684",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/confirm/useConfirmContext.tsx",
-          "hash": "11996890693274740343",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/handle-error/ErrorBoundary.tsx",
-          "hash": "10981655064607858756",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/handle-error/index.tsx",
-          "hash": "280085121685322864"
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/loading/LoadingContext.tsx",
-          "hash": "6403312609025773791",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/loading/LoadingSpinner.tsx",
-          "hash": "2837480239328360332",
-          "deps": [
-            "npm:react",
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/loading/Provider.tsx",
-          "hash": "9537299453439285733",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/loading/Types.ts",
-          "hash": "11579745351804126071"
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/loading/index.ts",
-          "hash": "16792327172983904881"
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/loading/useLoading.tsx",
-          "hash": "2227015958798087626",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/features/loading/useLoadingContext.tsx",
-          "hash": "6266539792724078810",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/icons/index.tsx",
-          "hash": "17679402067048679208",
-          "deps": [
-            "npm:@fluentui/react-icons"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/index.tsx",
-          "hash": "16260180313941183522"
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/root/AppProvider.tsx",
-          "hash": "6939188639916609071",
-          "deps": [
-            "npm:react"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/root/index.tsx",
-          "hash": "16438322522862892914"
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/styles/index.tsx",
-          "hash": "12307143541896222754"
-        },
-        {
-          "file": "packages/fluent-common-features/src/lib/styles/useButtonStyles.tsx",
-          "hash": "5710195749285331910",
-          "deps": [
-            "npm:@fluentui/react-components"
-          ]
-        },
-        {
-          "file": "packages/fluent-common-features/tsconfig.json",
-          "hash": "10815340438733871774"
-        },
-        {
-          "file": "packages/fluent-common-features/tsconfig.lib.json",
-          "hash": "5086722998609149352"
-        },
-        {
-          "file": "packages/fluent-common-features/tsconfig.spec.json",
-          "hash": "3415516887565153898"
-        },
-        {
-          "file": "packages/fluent-common-features/vite.config.ts",
-          "hash": "6956327249156411594",
-          "deps": [
-            "npm:vite",
-            "npm:@vitejs/plugin-react",
-            "npm:vite-tsconfig-paths"
-          ]
         }
       ]
     }
