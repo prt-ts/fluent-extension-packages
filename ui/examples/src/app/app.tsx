@@ -4,7 +4,7 @@ import Web from './Web';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { TableExample } from './TableExample';
-import { AppFeatureProvider } from '@prt-ts/fluent-common-features';
+import { AppFeatureProvider, ChatInput } from '@prt-ts/fluent-common-features';
 import { ReactHookForm } from './RHFTest';
 import { SignUpForm } from './examples/SignUpForm/SignUpForm';
 import Features from './examples/FeatureComp/Features';
@@ -43,6 +43,24 @@ export function useAppTheme() {
   }, []);
   return { theme };
 }
+
+const ChatControl = () => {
+  const [value, setValue] = useState('');
+  return (
+    <div
+      style={{
+        width: '100%',
+      }}
+    >
+      <ChatInput
+        value={value}
+        onChange={(_, data) => {
+          setValue(data?.value || '');
+        }}
+      />
+    </div>
+  );
+};
 
 export const router = createBrowserRouter([
   {
@@ -88,6 +106,10 @@ export const router = createBrowserRouter([
       {
         path: '/dummy-edit',
         element: <DummyEditPage />,
+      },
+      {
+        path: '/chat',
+        element: <ChatControl />,
       },
     ],
   },
