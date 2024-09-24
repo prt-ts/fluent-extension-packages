@@ -1,12 +1,16 @@
 import {
   Button,
+  Card,
+  CardHeader,
   Divider,
   Input,
   InputProps,
   tokens,
+  Text,
 } from '@fluentui/react-components';
 import {
   Attach24Regular,
+  Dismiss24Filled,
   Mic24Filled,
   Mic24Regular,
   SendRegular,
@@ -18,6 +22,13 @@ import { ChatSetting } from './ChatSetting';
 import { useSpeechRecognition, useSpeechSynthesis } from 'react-speech-kit';
 import { Show } from '@prt-ts/react-control-flow';
 
+const resolveAsset = (asset: string) => {
+  const ASSET_URL =
+    'https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/src/assets/';
+
+  return `${ASSET_URL}${asset}`;
+};
+
 type ChatInputValue = {
   message: InputProps['value'];
 };
@@ -26,6 +37,7 @@ type ChatInputProps = {
   value: InputProps['value'];
   onChange: InputProps['onChange'];
   onSubmit?: (value: ChatInputValue) => void;
+  contextSuggestions?: string[];
 };
 
 const baseStyle = {
@@ -35,6 +47,7 @@ const baseStyle = {
   outline: 'none',
   transition: 'border .24s ease-in-out',
   boxSizing: 'border-box',
+  backgroundColor: tokens.colorNeutralBackground1Hover,
 };
 
 const focusedStyle = {
@@ -51,6 +64,17 @@ const rejectStyle = {
   borderColor: tokens.colorBrandBackground2Hover,
   borderWidth: 1,
 };
+
+const knownFileTypes = [
+  'docs',
+  'docx',
+  'xls',
+  'xlsx',
+  'ppt',
+  'pptx',
+  'pdf',
+  'txt',
+];
 
 export const ChatInput: React.FC<ChatInputProps> = (props) => {
   const { value, onChange, onSubmit } = props;
@@ -77,12 +101,40 @@ export const ChatInput: React.FC<ChatInputProps> = (props) => {
     multiple: true,
   });
 
+  const handleRemoveFile = (file: File) => {
+    setFiles((prev) => prev.filter((f) => f.name !== file.name));
+  };
+
   // dropzone files
-  const filesList = files.map((file) => (
-    <li key={file.name}>
-      {file.name} - {file.size} bytes
-    </li>
-  ));
+  const filesList = files.map((file) => {
+    const fileExtension = file.name.split('.').pop() || '';
+    const assetName = knownFileTypes?.includes(fileExtension)
+      ? `${fileExtension}.png`
+      : 'docs.png';
+    return (
+      <Card
+        key={file.name}
+        appearance="outline"
+        floatingAction={
+          <Button
+            appearance="subtle"
+            icon={<Dismiss24Filled />}
+            onClick={() => handleRemoveFile(file)}
+          />
+        }
+        style={{
+          flex: '0 0 auto',
+        }}
+      >
+        <CardHeader
+          image={<img src={resolveAsset(assetName)} alt="" />}
+          header={<Text weight="semibold">{file.name}</Text>}
+          description={<Text italic>{file.size} bytes</Text>}
+          style={{ paddingRight: '3rem' }}
+        />
+      </Card>
+    );
+  });
 
   // dropzone files
   React.useEffect(() => {
@@ -136,6 +188,26 @@ export const ChatInput: React.FC<ChatInputProps> = (props) => {
         </Show>
       </div>
       <div {...getRootProps({ style })}>
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            overflow: 'auto',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              gap: '10px',
+              overflow: 'auto',
+              padding: '10px',
+              // min-height: min-content; /* needs vendor prefixes */
+              minHeight: 'min-content',
+            }}
+          >
+            {filesList}
+          </div>
+        </div>
         <input {...getInputProps()} />
         <Input
           ref={inputRef}
@@ -150,7 +222,6 @@ export const ChatInput: React.FC<ChatInputProps> = (props) => {
           appearance="filled-darker"
           contentAfter={
             <>
-              <span> </span>
               <Divider vertical />
               <Button
                 appearance="subtle"
@@ -188,7 +259,6 @@ export const ChatInput: React.FC<ChatInputProps> = (props) => {
           }}
         />
       </div>
-      <ul>{filesList}</ul>
     </>
   );
 };
