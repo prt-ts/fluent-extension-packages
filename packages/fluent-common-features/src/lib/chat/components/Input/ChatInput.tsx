@@ -7,6 +7,7 @@ import {
   InputProps,
   tokens,
   Text,
+  PresenceBadge,
 } from '@fluentui/react-components';
 import {
   Attach24Regular,
@@ -118,7 +119,7 @@ export const ChatInput: React.FC<ChatInputProps> = (props) => {
         floatingAction={
           <Button
             appearance="subtle"
-            icon={<Dismiss24Filled />}
+            icon={<PresenceBadge status="offline" />}
             onClick={() => handleRemoveFile(file)}
           />
         }
@@ -184,7 +185,7 @@ export const ChatInput: React.FC<ChatInputProps> = (props) => {
         listen: {listening ? 'on' : 'off'}
         supported: {supported ? 'yes' : 'no'}
         <Show when={isSpeakSupported}>
-          <button onClick={() => speak({ text: value })}>Speak</button>
+          <button onClick={() => speak({ text: message })}>Speak</button>
         </Show>
       </div>
       <div {...getRootProps({ style })}>
@@ -200,8 +201,6 @@ export const ChatInput: React.FC<ChatInputProps> = (props) => {
               display: 'flex',
               gap: '10px',
               overflow: 'auto',
-              padding: '10px',
-              // min-height: min-content; /* needs vendor prefixes */
               minHeight: 'min-content',
             }}
           >
