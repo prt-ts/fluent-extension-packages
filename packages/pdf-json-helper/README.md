@@ -1,31 +1,29 @@
 ﻿# PDF JSON Helpers
+
 > This library provides the form like element layout for the pdfmake (pdf make libray) without writing very complex json document defination.
 
-Pdfmake is library for creating pdf file using javascript. This is a repository project to create html form style layout for PdfMake, that is 
+Pdfmake is library for creating pdf file using javascript. This is a repository project to create html form style layout for PdfMake, that is
 generate object defination for each specified element in the from Json object Format.
 
 You can find example code in folder example using react. We provide number of javascript helper functions, default styles, and layout grid to generating pdf file.
 We have publish this plugin in npmjs.com, you can download for your project at command prompt
 
+# Install Packages
 
-Install Packages
-=======
 > `npm i pdfmake`
 
 > `npm i @prt-ts/pdf-json-helpers`
 
+# Dependencies
 
-Dependencies
-============
+- [pdfmake package](https://www.npmjs.com/package/pdfmake)
 
-* [pdfmake package](https://www.npmjs.com/package/pdfmake)
-
-* [html-to-pdfmake package](https://www.npmjs.com/package/html-to-pdf)
-
+- [html-to-pdfmake package](https://www.npmjs.com/package/html-to-pdf)
 
 Examples
 
 ### Import Helpers
+
     import {
     //import default style
       formStyles,
@@ -33,7 +31,7 @@ Examples
       //import layout helpers
       Section,
       Row,
-      
+
       //import element helpers
       TextInput,
       TextInputNoLabel,
@@ -48,8 +46,8 @@ Examples
 
       } from "@prt-ts/pdf-json-helpers";
 
-
 ### Declare Custom Styles
+
     const pdfStyle = {
       // use the default form element style
       ...formStyles,
@@ -62,6 +60,7 @@ Examples
     };
 
 ## Define Document Defination using Helper Methods
+
     var exampleDocumentDefination: any = {
       content: [
         {
@@ -145,7 +144,7 @@ Examples
                 selected: false,
                 width: "auto",
               },
-            ]), 
+            ]),
           ]),
           Row([
             RadioInput(
@@ -177,14 +176,15 @@ Examples
     };
 
 ### Handle Download Method
-    import pdfMake from "pdfmake/build/pdfmake";
+
+    <!-- import pdfMake from "pdfmake/build/pdfmake";
     import pdfFonts from "pdfmake/build/vfs_fonts";
 
     const handlePdfMake = () => {
         pdfMake.vfs = pdfFonts.pdfMake.vfs;
         let docDef: any = { ...exampleDocumentDefination };
         docDef.pageOrientation = true ? "landscape" : "portrait";
-        
+
         docDef.info = {
         title: "makePdf Example",
         author: "Pradeep Raj Thapaliya",
@@ -192,9 +192,10 @@ Examples
         keywords: "makepdf, export pdf",
         };
         pdfMake.createPdf(docDef).open();
-    };
+    }; -->
 
-### Button Action 
+### Button Action
+
     return (
         <div className="App">
         <Button onClick={handlePdfMake}>Download</Button>
@@ -206,29 +207,31 @@ This example is written is `react` but can be use in any web framework or in jav
 ## API
 
 ### Styles
+
 This package already contains the styles for all the element, followings are the default styles.
 
-| Style Layout Classes | Defination  |
-| ------- | --- |
-| header | Header Style for the document. |
-| subheader | Subheader Style for the document. |
-| sectionHeaderStyle | Default styles applies when using 'Section' helper method. |
-| labelStyle | Default styles applies to the label of the form element. |
-| textInputStyle | Default styles applies when using 'TextInput', 'DateInput', 'CurrencyInput', 'TextInputNoLabel' helper methods. |
-| textareaStyle | Default styles applies when using 'TextareaInput' helper method. |
-| richTextEditorStyle | Default styles applies when using 'RichTextareaInput' helper method. |
+| Style Layout Classes | Defination                                                                                                      |
+| -------------------- | --------------------------------------------------------------------------------------------------------------- |
+| header               | Header Style for the document.                                                                                  |
+| subheader            | Subheader Style for the document.                                                                               |
+| sectionHeaderStyle   | Default styles applies when using 'Section' helper method.                                                      |
+| labelStyle           | Default styles applies to the label of the form element.                                                        |
+| textInputStyle       | Default styles applies when using 'TextInput', 'DateInput', 'CurrencyInput', 'TextInputNoLabel' helper methods. |
+| textareaStyle        | Default styles applies when using 'TextareaInput' helper method.                                                |
+| richTextEditorStyle  | Default styles applies when using 'RichTextareaInput' helper method.                                            |
 
 ### Helper Methods
+
 This package have the following helper methods to create the form element and layout element
 
-| Helper Method | Defination  | Uses     |
-| ------------- | ----------- | -------  |
-| HTML | Converts Html document to pdf nodes. | `HTML(htmlString : string)` |
-| Section | Layout - Creates layout area and defines the section. | `Section(arrayOfRowsOrSection : any[], gap: number)` |
-| Row | Layout - Creates layout for row and accept multiple columns. | `Row(arrayOfColumnElement : any[])` |
-| TextInput | Helper Element - Creates node for HTML like Input Element. | `TextInput(label: string, value : string)` |
-
+| Helper Method | Defination                                                   | Uses                                                 |
+| ------------- | ------------------------------------------------------------ | ---------------------------------------------------- |
+| HTML          | Converts Html document to pdf nodes.                         | `HTML(htmlString : string)`                          |
+| Section       | Layout - Creates layout area and defines the section.        | `Section(arrayOfRowsOrSection : any[], gap: number)` |
+| Row           | Layout - Creates layout for row and accept multiple columns. | `Row(arrayOfColumnElement : any[])`                  |
+| TextInput     | Helper Element - Creates node for HTML like Input Element.   | `TextInput(label: string, value : string)`           |
 
 # Developer of package
- - npx tsc
- - npm publish
+
+- npx tsc
+- npm publish

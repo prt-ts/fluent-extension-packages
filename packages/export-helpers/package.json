@@ -2,8 +2,7 @@
   "name": "@prt-ts/export-helpers",
   "version": "6.0.0",
   "dependencies": {
-    "file-saver": ">=2.0.0", 
-    "pdfmake": ">=0.2.10",
+    "file-saver": ">=2.0.0",
     "exceljs": "4.4.0"
   },
   "license": "MIT",
