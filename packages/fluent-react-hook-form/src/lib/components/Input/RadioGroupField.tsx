@@ -98,6 +98,9 @@ export const RadioGroupField = forwardRef<HTMLDivElement, RadioGroupFieldProps>(
                 onChange={handleOnChange}
                 aria-labelledby={labelId}
                 required={false}
+                style={{
+                  flexWrap: 'wrap',
+                }}
               >
                 {(options || []).map(
                   (

@@ -163,6 +163,51 @@ export const ReactHookForm = () => {
     ];
   }, []);
 
+  const longLabelOptions = useMemo(() => {
+    return [
+      {
+        label: 'This is a long label that will be truncated',
+        value: 'longLabel',
+      },
+      {
+        label: 'This is a long label that will be truncated',
+        value: 'longLabel2',
+      },
+      {
+        label: 'This is a long label that will be truncated. With extra text',
+        value: 'longLabel3',
+      },
+      {
+        label: 'This is a long label that will be truncated. With extra text',
+        value: 'longLabel4',
+      },
+      {
+        label: 'This is a long label that will be truncated. With extra text',
+        value: 'longLabel5',
+      },
+      {
+        label: 'This is a long label that will be truncated. With extra text',
+        value: 'longLabel6',
+      },
+      {
+        label: 'This is a long label that will be truncated. With extra text',
+        value: 'longLabel7',
+      },
+      {
+        label: 'This is a long label that will be truncated. With extra text',
+        value: 'longLabel8',
+      },
+      {
+        label: 'This is a long label that will be truncated. With extra text',
+        value: 'longLabel9',
+      },
+      {
+        label: 'This is a long label that will be truncated. With extra text',
+        value: 'longLabel10',
+      },
+    ];
+  }, []);
+
   const truFalseOptions = useMemo(() => {
     return [
       { label: 'True', value: true },
@@ -299,8 +344,8 @@ export const ReactHookForm = () => {
               <CheckboxGroup
                 name={'checkboxGroup'}
                 label={'Checkbox Group (Number)'}
-                layout="horizontal"
-                options={monthOptions}
+                layout="both"
+                options={longLabelOptions}
               />
             </div>
           </div>
@@ -336,6 +381,13 @@ export const ReactHookForm = () => {
             name={'radioGroup'}
             label={'Radio Group (Number)'}
             layout="horizontal"
+            options={monthOptions}
+          />
+
+          <RadioGroup
+            name={'radioGroup'}
+            label={'Radio Group (Number)'}
+            layout="vertical"
             options={monthOptions}
           />
 

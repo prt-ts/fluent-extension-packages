@@ -103,15 +103,18 @@ export type CheckboxChoiceOption = {
 export type CheckboxGroupFieldProps = FieldProps &
   InfoLabelProps & {
     name: string;
-    layout?: 'horizontal' | 'vertical';
+    layout?: 'horizontal' | 'vertical' | 'both';
+    numberOfColumns?: number;
     rules?: ControllerProps['rules'];
     options: CheckboxChoiceOption[];
+    onChange?: (value: CheckboxChoiceOption[]) => void;
   };
 
 export const useCheckboxGroupStyles = makeStyles({
   root: {
     display: 'flex',
-    ...shorthands.gap(tokens.spacingHorizontalS, 0),
+    rowGap: 0,
+    columnGap: tokens.spacingHorizontalS,
   },
   horizontal: {
     flexDirection: 'row',
@@ -120,6 +123,26 @@ export const useCheckboxGroupStyles = makeStyles({
   vertical: {
     flexDirection: 'column',
   },
+  both: {
+    // show show fix column row grid
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    '& > *': {
+      width: 'calc(100% / var(--max-columns, 4))',
+      flex: '1 1 auto',
+
+      // for medium screens
+      '@media (max-width: 1024px)': {
+        width: 'calc(100% / (var(--max-columns, 3) - 1))',
+      },
+
+      // for small screens
+      '@media (max-width: 768px)': {
+        width: '100%',
+      },
+    },
+  },
 });
 
 export const CheckboxGroupField = forwardRef<
@@ -127,7 +150,16 @@ export const CheckboxGroupField = forwardRef<
   CheckboxGroupFieldProps
 >(
   (
-    { name, rules, options, required, layout = 'vertical', ...rest },
+    {
+      name,
+      rules,
+      options,
+      required,
+      layout = 'both',
+      numberOfColumns = 3,
+      onChange: _onChange,
+      ...rest
+    },
     CheckboxRef
   ) => {
     const {
@@ -143,6 +175,10 @@ export const CheckboxGroupField = forwardRef<
       memorizeCurrent: true,
     });
     const styles = useCheckboxGroupStyles();
+
+    const styleContext = {
+      '--max-columns': numberOfColumns + 1,
+    } as React.CSSProperties;
 
     return (
       <Controller
@@ -160,13 +196,13 @@ export const CheckboxGroupField = forwardRef<
             data: CheckboxOnChangeData,
             option: CheckboxChoiceOption
           ) => {
-            if (data.checked) {
-              // if checked, add to selected values
-              onChange([...(value || []), option]);
-            } else {
-              onChange(
-                [...(value || [])].filter((op) => op.value !== option.value)
-              );
+            const newValue = data.checked
+              ? [...(value || []), option]
+              : [...(value || [])].filter((op) => op.value !== option.value);
+            onChange(newValue);
+
+            if (_onChange) {
+              _onChange(newValue);
             }
           };
 
@@ -196,6 +232,7 @@ export const CheckboxGroupField = forwardRef<
                 {...attributes}
                 ref={ref}
                 className={mergeClasses(styles.root, styles[layout])}
+                style={styleContext}
               >
                 {(options || []).map((option) => {
                   const { checkboxProps, ...optionRest } = option;
