@@ -127,7 +127,6 @@ export const useCheckboxGroupStyles = makeStyles({
     // show show fix column row grid
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignItems: 'center',
     '& > *': {
       width: 'calc(100% / var(--max-columns, 4))',
       flex: '1 1 auto',
@@ -142,6 +141,10 @@ export const useCheckboxGroupStyles = makeStyles({
         width: '100%',
       },
     },
+  },
+
+  checkboxLabel: {
+    alignSelf: 'start',
   },
 });
 
@@ -247,7 +250,10 @@ export const CheckboxGroupField = forwardRef<
                       onBlur={handleOnBlur}
                       checked={(selectedValues || []).includes(option.value)}
                       /* eslint-disable-next-line*/
-                      label={<>{option.label}</>}
+                      label={{
+                        className: styles.checkboxLabel,
+                        children: option.label,
+                      }}
                       required={false}
                     />
                   );
