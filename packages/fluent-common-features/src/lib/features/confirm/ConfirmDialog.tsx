@@ -10,20 +10,16 @@ import {
   DialogActions,
   Button,
   makeStyles,
-  ButtonProps, 
+  ButtonProps,
   shorthands,
-} from '@fluentui/react-components'; 
+  tokens,
+} from '@fluentui/react-components';
 import { useConfirmContext } from './useConfirmContext';
 import { contextDefaultValue } from './Types';
 
 const useStyle = makeStyles({
   dialogSurface: {
     maxWidth: '400px',
-    transitionProperty: 'unset',
-    transitionDuration: 'unset',
-    transitionTimingFunction: 'unset',
-    transitionDelay: 'unset',
-    transform: 'unset',
   },
   dialogActions: {
     display: 'flex',
@@ -34,11 +30,11 @@ const useStyle = makeStyles({
   actionContainer: {
     display: 'flex',
     justifyContent: 'flex-end',
-    ...shorthands.gap('10px')
+    gap: tokens.spacingHorizontalM,
   },
 });
 
-export const ConfirmDialog: React.FC = () => { 
+export const ConfirmDialog: React.FC = () => {
   const { isOpen, setIsOpen, getContextDetails } = useConfirmContext();
 
   const {
@@ -57,7 +53,7 @@ export const ConfirmDialog: React.FC = () => {
   const styles = useStyle();
 
   return (
-    <Dialog open={isOpen} modalType="alert">
+    <Dialog open={isOpen} modalType="alert" surfaceMotion={null}>
       <DialogSurface className={styles.dialogSurface}>
         <DialogBody>
           <DialogTitle>⚠️ {title}</DialogTitle>

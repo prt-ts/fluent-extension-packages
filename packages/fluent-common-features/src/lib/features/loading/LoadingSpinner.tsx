@@ -20,11 +20,6 @@ const useLoadingStyles = makeStyles({
     height: '100vh',
     width: '100vw',
     maxWidth: '100vw',
-    transitionProperty: 'unset',
-    transitionDuration: 'unset',
-    transitionTimingFunction: 'unset',
-    transitionDelay: 'unset',
-    transform: 'unset',
   },
   progress: {
     height: '4px',
@@ -71,7 +66,12 @@ export const LoadingSpinner = () => {
   }, [loadingText]);
 
   return (
-    <Dialog open={isLoading} onOpenChange={() => {}} modalType="alert">
+    <Dialog
+      open={isLoading}
+      onOpenChange={() => {}}
+      modalType="alert"
+      surfaceMotion={null}
+    >
       <DialogSurface className={styles.modalSurface}>
         <DialogBody>
           <DialogContent>{spinner}</DialogContent>
