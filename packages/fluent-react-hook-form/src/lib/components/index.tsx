@@ -8,6 +8,7 @@ export type {
   ControllerFieldState,
   ControllerProps,
   FormProps,
+  UseFormReturn,
 } from 'react-hook-form';
 
 export { yupResolver } from '@hookform/resolvers/yup';

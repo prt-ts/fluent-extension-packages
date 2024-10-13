@@ -102,7 +102,7 @@ export const TagInput = React.forwardRef<TagInputRef, TagInputProps>(
               shape="circular"
               size="extra-small"
               appearance="brand"
-              type="button"
+              type="button" 
             >
               {capitalizeFirstLetterRegex(query)}
             </Tag>
@@ -142,6 +142,7 @@ export const TagInput = React.forwardRef<TagInputRef, TagInputProps>(
                   size="extra-small"
                   appearance="brand"
                   type="button"
+
                 >
                   {tag}
                 </Tag>

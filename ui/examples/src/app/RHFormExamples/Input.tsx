@@ -44,7 +44,7 @@ export const InputExample: React.FC = () => {
       field1: '',
       field2: 'with initial value',
       field3: '',
-      tagPicker: [],
+      tagPicker: ["One"],
     },
     resolver: yupResolver(InputSchema),
   });
@@ -111,6 +111,7 @@ export const InputExample: React.FC = () => {
             // freeform={false}
             // multiselect={false}
             suggestions={options}
+            disabled
           />
           <TagPicker
             name="tagPicker1"

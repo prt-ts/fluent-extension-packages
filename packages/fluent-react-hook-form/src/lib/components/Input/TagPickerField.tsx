@@ -25,6 +25,7 @@ export type TagPickerFieldProps = CommonFieldInfoLabelProps &
     multiselect?: boolean;
     freeform?: boolean;
     onOptionSelect?: TagPickerProps['onOptionSelect'];
+    onTagSelect?: TagInputProps['onTagSelect'];
     suggestions?: string[];
     onGetSuggestions?: (query: string) => Promise<string[]>;
   };
@@ -113,7 +114,12 @@ export const TagPickerField = forwardRef<TagInputRef, TagPickerFieldProps>(
               <TagInput
                 {...inputProps}
                 value={value || []}
-                onTagSelect={onChange}
+                onTagSelect={(tags) => {
+                  onChange(tags);
+                  if(props.onTagSelect) {
+                    props.onTagSelect(tags);
+                  }
+                }}
                 onBlur={onBlur}
                 suggestions={props.suggestions}
                 freeform={props.freeform}
