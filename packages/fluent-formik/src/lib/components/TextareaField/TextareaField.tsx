@@ -9,7 +9,7 @@ import {
   Textarea,
   TextareaProps,
   InfoLabel,
-  InfoLabelProps
+  InfoLabelProps,
 } from '@fluentui/react-components';
 import { useField, ErrorMessage } from 'formik';
 import { TextareaFieldProps } from './Types';
@@ -27,7 +27,8 @@ export const TextareaField = React.forwardRef<
   const { ...infoLabelProps }: InfoLabelProps = rest;
   const { ...textareaProps }: TextareaProps = rest;
 
-  const [, { value, error, touched }, { setValue, setTouched }] = useField(name);
+  const [, { value, error, touched }, { setValue, setTouched }] =
+    useField(name);
   const hasError = React.useMemo(() => touched && error, [touched, error]);
 
   const handleOnChange: TextareaProps['onChange'] = (ev, data) => {
@@ -47,6 +48,7 @@ export const TextareaField = React.forwardRef<
         {
           children: (_: unknown, props: LabelProps) => (
             <InfoLabel
+              weight="semibold"
               {...props}
               {...infoLabelProps}
               htmlFor={inputId}

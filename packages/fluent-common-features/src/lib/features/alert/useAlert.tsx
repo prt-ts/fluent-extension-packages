@@ -2,11 +2,7 @@
 import * as React from 'react';
 import {
   Link,
-  MessageBar,
-  MessageBarActions,
-  MessageBarBody,
   MessageBarProps,
-  MessageBarTitle,
   Spinner,
   Toast,
   ToastBody,
@@ -14,13 +10,12 @@ import {
   ToastTitle,
   ToastTrigger,
   makeStyles,
-  shorthands,
   tokens,
   useId,
 } from '@fluentui/react-components';
 import {
-  AlertContextType,
   DispatchToastOptions,
+  // DispatchToastOptions,
   UpdateToastOptions,
   useAlertContext,
 } from './AlertContext';

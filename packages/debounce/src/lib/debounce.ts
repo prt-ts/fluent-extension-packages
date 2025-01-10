@@ -1,15 +1,20 @@
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const debounce = <F extends (...args: any) => any>(
+export const debounce = <F extends (...args: any[]) => any>(
   func: F,
   waitFor: number
 ) => {
-  const timeout = 0;
+  let timeout: NodeJS.Timeout | null = null;
 
-  const debounced = (...args: any) => {
-    clearTimeout(timeout);
-    setTimeout(() => func(...args), waitFor);
+  const debouncedFn = (...args: Parameters<F>): ReturnType<F> | undefined => {
+    let result: ReturnType<F> | undefined;
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(() => {
+      result = func(...args);
+    }, waitFor);
+    return result;
   };
 
-  return debounced as (...args: Parameters<F>) => ReturnType<F>;
+  return debouncedFn;
 };

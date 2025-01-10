@@ -7,7 +7,8 @@ import {
   Dropdown,
   Option,
   OptionProps,
-  InfoLabel, InfoLabelProps
+  InfoLabel,
+  InfoLabelProps,
 } from '@fluentui/react-components';
 import { ErrorMessage } from 'formik';
 import { useDropdownField } from './useDropdownField';
@@ -36,7 +37,12 @@ export const DropdownField = React.forwardRef<
       label={
         {
           children: (_: unknown, props: LabelProps) => (
-            <InfoLabel {...props} {...infoLabelProps} htmlFor={dropdownId}>
+            <InfoLabel
+              weight="semibold"
+              {...props}
+              {...infoLabelProps}
+              htmlFor={dropdownId}
+            >
               <strong>{label as JSX.Element}</strong>
             </InfoLabel>
           ),

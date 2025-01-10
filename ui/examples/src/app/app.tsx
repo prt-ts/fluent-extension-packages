@@ -4,7 +4,7 @@ import Web from './Web';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { TableExample } from './TableExample';
-import { AppFeatureProvider } from '@prt-ts/fluent-common-features';
+import { AppFeatureProvider, ChatInput } from '@prt-ts/fluent-common-features';
 import { ReactHookForm } from './RHFTest';
 import { SignUpForm } from './examples/SignUpForm/SignUpForm';
 import Features from './examples/FeatureComp/Features';
@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import { ThemeService } from '@prt-ts/fluent-theme';
 import { FluentProvider } from '@fluentui/react-components';
 import { Layout } from './layout/Layout';
+import { extract } from '@prt-ts/types';
 
 const { getTheme } = ThemeService();
 export function useAppTheme() {
@@ -42,6 +43,24 @@ export function useAppTheme() {
   }, []);
   return { theme };
 }
+
+const ChatControl = () => {
+  const [value, setValue] = useState('');
+  return (
+    <div
+      style={{
+        width: '100%',
+      }}
+    >
+      <ChatInput
+        value={value}
+        onChange={(_, data) => {
+          setValue(data?.value || '');
+        }}
+      />
+    </div>
+  );
+};
 
 export const router = createBrowserRouter([
   {
@@ -88,9 +107,28 @@ export const router = createBrowserRouter([
         path: '/dummy-edit',
         element: <DummyEditPage />,
       },
+      {
+        path: '/chat',
+        element: <ChatControl />,
+      },
     ],
   },
 ]);
+
+type A = {
+  nameA: string;
+  descriptionA: string;
+};
+
+type B = {
+  nameB: string;
+  descriptionB: string;
+};
+
+type C = A & B;
+
+const extractA = extract<A>({ nameA: true, descriptionA: true });
+const extractB = extract<B>({ nameB: true, descriptionB: true });
 
 function App() {
   const { theme } = useAppTheme();
@@ -98,6 +136,18 @@ function App() {
   if (!theme) {
     return null;
   }
+
+  const c: C = {
+    nameA: 'A',
+    descriptionA: 'A',
+    nameB: 'B',
+    descriptionB: 'B',
+  };
+
+  const a = extractA(c);
+  const b = extractB(c);
+
+  console.log(a, b);
 
   return (
     <FluentProvider theme={theme}>

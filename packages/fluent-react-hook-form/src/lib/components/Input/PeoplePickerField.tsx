@@ -1,20 +1,24 @@
 /* eslint-disable  */
-import * as React from "react";
+import * as React from 'react';
 import {
   Field,
   FieldProps,
   LabelProps,
   tokens,
   useId,
-} from "@fluentui/react-components";
-import { InfoLabel, InfoLabelProps } from "@fluentui/react-components";
-import { Controller } from "react-hook-form";
-import { PeopleInput, PeopleInputProps, PeopleInputRef } from "@prt-ts/fluent-input-extensions";
-import { useFormContext } from "../Form";
+} from '@fluentui/react-components';
+import { InfoLabel, InfoLabelProps } from '@fluentui/react-components';
+import { Controller } from 'react-hook-form';
+import {
+  PeopleInput,
+  PeopleInputProps,
+  PeopleInputRef,
+} from '@prt-ts/fluent-input-extensions';
+import { useFormContext } from '../Form';
 
-export type PeoplePickerProps = Omit<PeopleInputProps, "value"> &
+export type PeoplePickerProps = Omit<PeopleInputProps, 'value'> &
   InfoLabelProps &
-  Omit<FieldProps, "size"> & {
+  Omit<FieldProps, 'size'> & {
     name: string;
     rules?: any;
   };
@@ -27,7 +31,7 @@ export const PeoplePickerField = React.forwardRef<
   const { ...infoLabelProps }: InfoLabelProps = props;
   const { ...peoplePickerProps }: PeopleInputProps = props;
 
-  const inputId = useId("people-picker");
+  const inputId = useId('people-picker');
   const {
     form: { control, setError, clearErrors },
   } = useFormContext();
@@ -36,8 +40,12 @@ export const PeoplePickerField = React.forwardRef<
     if (!errorMessage) {
       clearErrors(name);
       return;
-    };
-    setError(name, { type: "manual", message: errorMessage }, { shouldFocus: true });
+    }
+    setError(
+      name,
+      { type: 'manual', message: errorMessage },
+      { shouldFocus: true }
+    );
   };
 
   return (
@@ -54,6 +62,7 @@ export const PeoplePickerField = React.forwardRef<
               {
                 children: (_: unknown, props: LabelProps) => (
                   <InfoLabel
+                    weight="semibold"
                     {...infoLabelProps}
                     {...props}
                     htmlFor={inputId}
@@ -68,13 +77,13 @@ export const PeoplePickerField = React.forwardRef<
                 ),
               } as LabelProps
             }
-            validationState={fieldState.invalid ? "error" : undefined}
+            validationState={fieldState.invalid ? 'error' : undefined}
             validationMessage={fieldState.error?.message}
             required={required}
             style={{ padding: 0, margin: 0 }}
           >
             <PeopleInput
-              {...peoplePickerProps} 
+              {...peoplePickerProps}
               id={inputId}
               value={value}
               onUserSelectionChange={(users) => {

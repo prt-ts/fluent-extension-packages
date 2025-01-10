@@ -41,7 +41,7 @@ export function debounceAsync<T, TFuncParams extends any[]>(
           wait
         );
       });
-    } catch (e) { 
+    } catch (e) {
       return;
     }
   };

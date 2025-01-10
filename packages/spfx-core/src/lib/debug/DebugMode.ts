@@ -10,11 +10,17 @@ declare global {
 function enableDebugMode() {
     localStorage.setItem(SPFxCoreDebugKey, "true");
     console.log("Debug mode enabled", localStorage.getItem(SPFxCoreDebugKey));
+
+    // Reload the page to apply the debug mode
+    window.location.reload();
 }
 
 function disableDebugMode() {
     localStorage.removeItem(SPFxCoreDebugKey);
     console.log("Debug mode disabled");
+
+    // Reload the page to apply the debug mode
+    window.location.reload();
 }
 
 export function isDebugMode(): boolean {

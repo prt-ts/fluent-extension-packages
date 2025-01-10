@@ -7,24 +7,27 @@ import {
   Spinner,
   DialogContent,
   makeStyles,
-  tokens, 
-  ProgressBar, 
-} from '@fluentui/react-components'; 
+  tokens,
+  ProgressBar,
+} from '@fluentui/react-components';
 import { useLoadingContext } from './useLoadingContext';
 
 const useLoadingStyles = makeStyles({
   modalSurface: {
-    backgroundColor: tokens.colorNeutralBackground6,
+    // backgroundColor: 'transparent',
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
     boxShadow: 'none',
     height: '100vh',
     width: '100vw',
     maxWidth: '100vw',
-    opacity: 0.7,
-    transitionProperty: "unset",
-    transitionDuration: "unset",
-    transitionTimingFunction: "unset",
-    transitionDelay: "unset",
-    transform: "unset",
+  },
+  progress: {
+    height: '4px',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    zIndex: 9999,
   },
   spinner: {
     marginTop: '40vh',
@@ -33,10 +36,7 @@ const useLoadingStyles = makeStyles({
 });
 
 export const LoadingSpinner = () => {
-  const {
-    isLoading,
-    getLoadingState,
-  } = useLoadingContext();
+  const { isLoading, getLoadingState } = useLoadingContext();
 
   const { loadingText } = getLoadingState();
   const styles = useLoadingStyles();
@@ -44,8 +44,9 @@ export const LoadingSpinner = () => {
   const spinner = React.useMemo(() => {
     return (
       <>
-        <ProgressBar thickness="large" />
+        <ProgressBar thickness="large" className={styles.progress} />
         <Spinner
+          role="alert"
           className={styles.spinner}
           size="extra-large"
           label={
@@ -65,7 +66,12 @@ export const LoadingSpinner = () => {
   }, [loadingText]);
 
   return (
-    <Dialog open={isLoading} onOpenChange={() => {}} modalType='alert'>
+    <Dialog
+      open={isLoading}
+      onOpenChange={() => {}}
+      modalType="alert"
+      surfaceMotion={null}
+    >
       <DialogSurface className={styles.modalSurface}>
         <DialogBody>
           <DialogContent>{spinner}</DialogContent>

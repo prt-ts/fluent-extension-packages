@@ -7,7 +7,7 @@ import {
   SliderProps,
   Slider,
   InfoLabel,
-  InfoLabelProps
+  InfoLabelProps,
 } from '@fluentui/react-components';
 import { useField, ErrorMessage } from 'formik';
 import { SliderInputFieldProps } from './Types';
@@ -46,6 +46,7 @@ export const SliderField = React.forwardRef<
         {
           children: (_: unknown, props: LabelProps) => (
             <InfoLabel
+              weight="semibold"
               {...props}
               {...infoLabelProps}
               htmlFor={inputId}

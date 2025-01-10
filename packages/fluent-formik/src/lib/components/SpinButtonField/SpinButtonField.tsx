@@ -7,7 +7,7 @@ import {
   SpinButtonProps,
   SpinButton,
   InfoLabel,
-  InfoLabelProps
+  InfoLabelProps,
 } from '@fluentui/react-components';
 import { SpinButtonFieldProps } from './Types';
 import { useField, ErrorMessage } from 'formik';
@@ -33,7 +33,12 @@ export const SpinButtonField = React.forwardRef<
       label={
         {
           children: (_: unknown, props: LabelProps) => (
-            <InfoLabel {...props} {...infoLabelProps} htmlFor={inputId}>
+            <InfoLabel
+              weight="semibold"
+              {...props}
+              {...infoLabelProps}
+              htmlFor={inputId}
+            >
               <strong>{label}</strong>
             </InfoLabel>
           ),

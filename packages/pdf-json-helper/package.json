@@ -1,8 +1,9 @@
 {
   "name": "@prt-ts/pdf-json-helpers",
-  "version": "4.2.0",
+  "version": "5.0.0",
   "dependencies": {
-    "html-to-pdfmake": ">=2.0.0"
+    "html-to-pdfmake": ">=2.0.0",
+    "pdfmake": ">=0.2.10"
   },
   "devDependencies": {
     "@types/html-to-pdfmake": ">=2.0.0"

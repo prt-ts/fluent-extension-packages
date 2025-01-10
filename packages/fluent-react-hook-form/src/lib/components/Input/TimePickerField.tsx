@@ -23,7 +23,7 @@ export type TimePickerFieldProps = FieldProps &
   InfoLabelProps & {
     name: string;
     dateAnchorName: string;
-    rules?: ControllerProps['rules'];  
+    rules?: ControllerProps['rules'];
   } & TimePickerProps;
 
 const useStyles = makeStyles({
@@ -53,14 +53,14 @@ export const TimePickerField = forwardRef<
   } = useFormContext();
 
   const { ...fieldProps }: FieldProps = rest;
-  const { ...timePickerProps } : TimePickerProps = rest; 
+  const { ...timePickerProps }: TimePickerProps = rest;
   const { ...infoLabelProps }: InfoLabelProps = rest;
 
   const [timePickerValue, setTimePickerValue] = React.useState<string>(
     getValues(name) ? formatDateToTimeString(getValues(name)) : ''
   );
   const onTimeChange: TimePickerProps['onTimeChange'] = (_ev, data) => {
-    setValue(name ,data.selectedTime);
+    setValue(name, data.selectedTime);
     setTimePickerValue(data.selectedTimeText ?? '');
   };
   const onTimePickerInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,7 +85,7 @@ export const TimePickerField = forwardRef<
             label={
               {
                 children: (_: unknown, props: LabelProps) => (
-                  <InfoLabel {...props} {...infoLabelProps} />
+                  <InfoLabel weight="semibold" {...props} {...infoLabelProps} />
                 ),
               } as unknown as InfoLabelProps
             }
@@ -94,11 +94,13 @@ export const TimePickerField = forwardRef<
             required={required}
           >
             {(fieldProps) => (
-              <div style={{ display: 'flex' }}> 
-                <TimePicker 
+              <div style={{ display: 'flex' }}>
+                <TimePicker
                   freeform
-                  {...timePickerProps} 
-                  dateAnchor={timePickerProps.dateAnchor || dateAnchor || new Date()}
+                  {...timePickerProps}
+                  dateAnchor={
+                    timePickerProps.dateAnchor || dateAnchor || new Date()
+                  }
                   selectedTime={value || null}
                   onTimeChange={onTimeChange}
                   value={timePickerValue}
@@ -188,14 +190,14 @@ export const DateTimePickerField = forwardRef<
       control={control}
       rules={rules}
       render={({ field, fieldState }) => {
-        const { value, ref } = field; 
+        const { value, ref } = field;
         return (
           <Field
             {...fieldProps}
             label={
               {
                 children: (_: unknown, props: LabelProps) => (
-                  <InfoLabel {...props} {...infoLabelProps} />
+                  <InfoLabel weight="semibold" {...props} {...infoLabelProps} />
                 ),
               } as unknown as InfoLabelProps
             }

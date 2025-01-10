@@ -1,4 +1,3 @@
-
 /* eslint-disable */
 import {
   Card,
@@ -11,10 +10,7 @@ import {
   shorthands,
   tokens,
 } from '@fluentui/react-components';
-import {
-  GlobeSearchRegular,
-  PresenceBlocked24Regular,
-} from '@fluentui/react-icons';
+import { GlobeSearchRegular } from '@fluentui/react-icons';
 import * as React from 'react';
 
 export const PageNotFound: React.FC<{
@@ -23,7 +19,7 @@ export const PageNotFound: React.FC<{
   const styles = useStyles();
 
   return (
-    <Card className={styles.card} appearance='subtle'>
+    <Card className={styles.card} appearance="subtle">
       <CardHeader
         image={<GlobeSearchRegular className={styles.headerImage} />}
         header={
@@ -76,4 +72,3 @@ const useStyles = makeStyles({
     color: tokens.colorPaletteRedForeground1,
   },
 });
-

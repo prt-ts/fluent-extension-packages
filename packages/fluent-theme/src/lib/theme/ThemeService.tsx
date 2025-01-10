@@ -1,23 +1,36 @@
 /* eslint-disable */
-import { BrandVariants, Theme, createDarkTheme, createLightTheme } from "@fluentui/react-components";
-import { CustomAttributes, BrantTokenOptions } from "./Types";
-import { hexColorsFromPalette, hex_to_LCH } from "./helpers/paletters";
-import { Palette } from "./helpers/types";
+import {
+  BrandVariants,
+  Theme,
+  createDarkTheme,
+  createLightTheme,
+} from '@fluentui/react-components';
+import { CustomAttributes, BrantTokenOptions, ThemeConfig } from './Types';
+import { hexColorsFromPalette, hex_to_LCH } from './helpers/paletters';
+import { Palette } from './helpers/types';
 
 const PIXELS_TO_REM = 0.0625;
 
 export const ThemeService = () => {
   (async () => {})();
 
-  async function getTheme(primaryColor: string, isInverted: boolean = false, scale : number = 1): Promise<Theme> {
+  async function getTheme(
+    primaryColor: string,
+    isInverted: boolean = false,
+    scale: number = 1,
+    config: ThemeConfig = { hueTorsion: 0, vibrancy: 0 }
+  ): Promise<Theme> {
     return new Promise<Theme>(async (resolve, reject) => {
-      try { 
+      try {
+        const { hueTorsion = 0, vibrancy = 0 } = config;
         const brandVariants = createCustomTheme({
           keyColor: primaryColor,
-          hueTorsion: 0,
-          vibrancy: 0,
+          hueTorsion: hueTorsion,
+          vibrancy: vibrancy,
         });
-        const baseTheme: Theme = isInverted ? createDarkTheme(brandVariants) : createLightTheme(brandVariants);
+        const baseTheme: Theme = isInverted
+          ? createDarkTheme(brandVariants)
+          : createLightTheme(brandVariants);
         resolve(getThemeConvertedToREMScale(baseTheme, scale));
       } catch (error) {
         reject(error);
@@ -25,15 +38,17 @@ export const ThemeService = () => {
     });
   }
 
-  const convertPixesToREM = (pixels: number, scale: number) => (PIXELS_TO_REM * pixels * scale) + "rem";
-  const getThemeConvertedToREMScale = (theme: Theme, scale : number) : Theme => {
-    const convertedTheme : Theme = { ...theme };
+  const convertPixesToREM = (pixels: number, scale: number) =>
+    PIXELS_TO_REM * pixels * scale + 'rem';
+  const getThemeConvertedToREMScale = (theme: Theme, scale: number): Theme => {
+    const convertedTheme: Theme = { ...theme };
 
     Object.keys(theme).forEach((key) => {
       const value = `${convertedTheme[key]}`;
-      if (value?.includes("px") && !isNaN(Number(value.replace("px", "")))) {
+      if (value?.includes('px') && !isNaN(Number(value.replace('px', '')))) {
         convertedTheme[key] = convertPixesToREM(
-          Number(convertedTheme[key].replace("px", "")), scale
+          Number(convertedTheme[key].replace('px', '')),
+          scale
         );
       }
     });
@@ -72,5 +87,8 @@ export const ThemeService = () => {
 
   return {
     getTheme,
+    createBrandVariants: createCustomTheme,
+    createDarkTheme,
+    createLightTheme,
   };
 };

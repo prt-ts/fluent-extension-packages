@@ -9,6 +9,10 @@ export const fileInfo = {
       type: 'data:text/csv;charset=utf-8',
       extension: 'csv',
     },
+    txt: {
+      type: "text/plain;charset=utf-8",
+      extension: "txt",
+    }
   } as const;
 
 export type CellStyle = Partial<Style>; 

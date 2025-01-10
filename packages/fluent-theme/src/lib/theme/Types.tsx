@@ -3,7 +3,12 @@ export type CustomAttributes = {
   hueTorsion: number;
   vibrancy: number;
 };
- 
+
+export type ThemeConfig = {
+  hueTorsion: number;
+  vibrancy: number;
+};
+
 export type BrantTokenOptions = {
   darkCp?: number;
   lightCp?: number;

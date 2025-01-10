@@ -1,19 +1,19 @@
 {
   "name": "@prt-ts/fluent-input-extensions",
-  "version": "9.53.0-build.1.0",
+  "version": "9.55.0-build.1.1",
   "description": "Fluent UI Input Extensions",
   "dependencies": {
     "@prt-ts/react-control-flow": "latest",
     "@prt-ts/types": "latest",
-    "roosterjs-content-model-api": ">=9.0.0",
-    "roosterjs-content-model-core": ">=9.0.0",
-    "roosterjs-content-model-types": ">=9.0.0",
-    "roosterjs-content-model-plugins": ">=9.0.0",
+    "roosterjs-content-model-api": "9.7.0",
+    "roosterjs-content-model-core": "9.7.0",
+    "roosterjs-content-model-plugins": "9.7.0",
+    "roosterjs-content-model-types": "9.7.0",
     "react-dropzone": ">=14.0.0"
   },
   "peerDependencies": {
-    "@fluentui/react-components": ">=9.53.0",
-    "@fluentui/react-icons": ">=2.0.239",
+    "@fluentui/react-components": ">=9.55.0",
+    "@fluentui/react-icons": ">=2.0.260",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
   },

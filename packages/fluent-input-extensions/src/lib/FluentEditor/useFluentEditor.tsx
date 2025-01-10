@@ -25,6 +25,8 @@ import {
   PastePlugin,
   HyperlinkPlugin,
   MarkdownPlugin,
+  ImageEditPlugin,
+  EditPlugin,
 } from 'roosterjs-content-model-plugins';
 
 function defaultEditorCreator(
@@ -99,12 +101,16 @@ export function useFluentEditor(
     () => {
       if (editorDiv.current) {
         const plugins: EditorPlugin[] = [
+          new EditPlugin({
+            handleTabKey: false,
+          }),
           new TableEditPlugin(),
           new ShortcutPlugin(),
           new WatermarkPlugin(`${props.placeholder || ''}`, {
             fontSize: tokens.fontSizeBase300,
             textColor: tokens.colorNeutralForeground3,
           }),
+          new ImageEditPlugin(),
           new AutoFormatPlugin({
             autoBullet: true,
             autoLink: true,
@@ -144,7 +150,7 @@ export function useFluentEditor(
           initialModel: createModelFromHtml(props.value || ''),
           plugins: plugins,
           defaultSegmentFormat: {
-            fontSize: FontSizeOption[size] || '9pt',
+            fontSize: FontSizeOption[size] || '12pt',
             fontFamily: 'Segoe UI',
             textColor: tokens.colorNeutralForeground1,
             backgroundColor: tokens.colorNeutralBackground1,

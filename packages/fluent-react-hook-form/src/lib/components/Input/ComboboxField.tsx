@@ -1,102 +1,127 @@
-import { Field, FieldProps, Dropdown, DropdownProps, Option, LabelProps, OptionProps, useId, InfoLabel, InfoLabelProps } from "@fluentui/react-components";
-import { forwardRef } from "react";
-import { useFormContext } from "../Form";
-import { Controller, ControllerProps } from "react-hook-form";
+import {
+  Field,
+  FieldProps,
+  Combobox,
+  ComboboxProps,
+  Option,
+  LabelProps,
+  OptionProps,
+  useId,
+  InfoLabel,
+  InfoLabelProps,
+} from '@fluentui/react-components';
+import { forwardRef } from 'react';
+import { useFormContext } from '../Form';
+import { Controller, ControllerProps } from 'react-hook-form';
 
-export type DropdownChoiceOption = {
-    label: string;
-    value: string;
+export type ComboboxChoiceOption = {
+  label: string;
+  value: string;
 
-    optionProps?: Partial<OptionProps> | undefined;
-}
+  optionProps?: Partial<OptionProps> | undefined;
+};
 
-type OptionOnly = Omit<DropdownChoiceOption, 'optionProps'>;
+type OptionOnly = Omit<ComboboxChoiceOption, 'optionProps'>;
 
-export type DropdownFieldProps = FieldProps &
-  DropdownProps &
+export type ComboboxFieldProps = FieldProps &
+  ComboboxProps &
   InfoLabelProps & {
     name: string;
-    options: DropdownChoiceOption[];
+    options: ComboboxChoiceOption[];
     rules?: ControllerProps['rules'];
   };
 
-export const DropdownField = forwardRef<HTMLButtonElement, DropdownFieldProps>(({ name, options, rules, required, ...rest }, dropdownRef) => {
-
-    const dropdownId = useId('dropdown');
-    const { form: { control } } = useFormContext();
+export const ComboboxField = forwardRef<HTMLInputElement, ComboboxFieldProps>(
+  ({ name, options, rules, required, ...rest }, comboboxRef) => {
+    const comboboxId = useId('Combobox');
+    const {
+      form: { control },
+    } = useFormContext();
 
     const { ...fieldProps }: FieldProps = rest as unknown as FieldProps;
-    const { ...dropdownProps }: DropdownProps = rest as unknown as DropdownProps;
-    const { ...infoLabelProps }: InfoLabelProps = rest as unknown as InfoLabelProps;
+    const { ...comboboxProps }: ComboboxProps =
+      rest as unknown as ComboboxProps;
+    const { ...infoLabelProps }: InfoLabelProps =
+      rest as unknown as InfoLabelProps;
 
     return (
-        <Controller
-            name={name}
-            control={control}
-            rules={rules}
-            render={({ field, fieldState }) => {
+      <Controller
+        name={name}
+        control={control}
+        rules={rules}
+        render={({ field, fieldState }) => {
+          const { onChange, onBlur, value, ref } = field;
 
-                const { onChange, onBlur, value, ref } = field;
+          const displayValue =
+            (value as OptionOnly[])?.map((v) => v.label)?.join(', ') || '';
+          const selectedOptions =
+            (value as OptionOnly[])?.map((v) => v.value) || [];
 
-                const displayValue = (value as OptionOnly[])?.map(v => v.label)?.join(', ') || '';
-                const selectedOptions = (value as OptionOnly[])?.map(v => v.value) || [];
+          const handleOnChange: ComboboxProps['onOptionSelect'] = (
+            ev,
+            data
+          ) => {
+            const mappedOptions = [...options]?.map(
+              (option) =>
+                ({ label: option.label, value: option.value } as OptionOnly)
+            );
+            const selectedOptions = mappedOptions?.filter((option) =>
+              data?.selectedOptions?.includes(option.value)
+            );
+            onChange(selectedOptions);
+            comboboxProps?.onOptionSelect?.(ev, data);
+          };
 
-                const handleOnChange: DropdownProps['onOptionSelect'] = (ev, data) => {
-                    const mappedOptions = [...options]?.map(option => ({ label: option.label, value: option.value } as OptionOnly));
-                    const selectedOptions = mappedOptions?.filter(option => data?.selectedOptions?.includes(option.value));
-                    onChange(selectedOptions);
-                    dropdownProps?.onOptionSelect?.(ev, data);
-                }
+          const handleOnBlur: ComboboxProps['onBlur'] = (ev) => {
+            onBlur();
+            comboboxProps?.onBlur?.(ev);
+          };
 
-                const handleOnBlur: DropdownProps['onBlur'] = (ev) => {
-                    onBlur();
-                    dropdownProps?.onBlur?.(ev);
-                };
-
-                return (
-                  <Field
-                    {...fieldProps}
-                    label={
-                      {
-                        children: (_: unknown, props: LabelProps) => (
-                          <InfoLabel
-                            {...props}
-                            {...infoLabelProps}
-                            htmlFor={dropdownId}
-                          />
-                        ),
-                      } as unknown as InfoLabelProps
-                    }
-                    validationState={fieldState.invalid ? 'error' : undefined}
-                    validationMessage={fieldState.error?.message}
-                    required={required}
-                  >
-                    <Dropdown
-                      {...dropdownProps}
-                      id={dropdownId}
-                      ref={dropdownRef || ref}
-                      name={name}
-                      value={displayValue}
-                      selectedOptions={selectedOptions}
-                      onOptionSelect={handleOnChange}
-                      onBlur={handleOnBlur}
+          return (
+            <Field
+              {...fieldProps}
+              label={
+                {
+                  children: (_: unknown, props: LabelProps) => (
+                    <InfoLabel
+                      weight="semibold"
+                      {...props}
+                      {...infoLabelProps}
+                      htmlFor={comboboxId}
+                    />
+                  ),
+                } as unknown as InfoLabelProps
+              }
+              validationState={fieldState.invalid ? 'error' : undefined}
+              validationMessage={fieldState.error?.message}
+              required={required}
+            >
+              <Combobox
+                {...comboboxProps}
+                id={comboboxId}
+                ref={comboboxRef || ref}
+                name={name}
+                value={displayValue}
+                selectedOptions={selectedOptions}
+                onOptionSelect={handleOnChange}
+                onBlur={handleOnBlur}
+              >
+                {(options || []).map(
+                  (option: ComboboxChoiceOption, index: number) => (
+                    <Option
+                      key={`${comboboxId}-${option.value || '__'}-${index}`}
+                      {...(option?.optionProps || {})}
+                      value={option?.value}
                     >
-                      {(options || []).map(
-                        (option: DropdownChoiceOption, index: number) => (
-                          <Option
-                            key={`${dropdownId}-${
-                              option.value || '__'
-                            }-${index}`}
-                            {...(option?.optionProps || {})}
-                            value={option?.value}
-                          >
-                            {option?.label}
-                          </Option>
-                        )
-                      )}
-                    </Dropdown>
-                  </Field>
-                );
-            }}
-        />)
-})
+                      {option?.label}
+                    </Option>
+                  )
+                )}
+              </Combobox>
+            </Field>
+          );
+        }}
+      />
+    );
+  }
+);
